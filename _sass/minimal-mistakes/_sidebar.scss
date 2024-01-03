@@ -216,7 +216,7 @@
 
     &:before {
       @supports (pointer-events: none) {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
@@ -302,10 +302,12 @@
   ul {
     padding: 10px;
     list-style-type: none;
+    display: inline;
   }
 
   li {
     white-space: nowrap;
+    display: inline;
   }
 
   a {
@@ -317,6 +319,7 @@
     color: inherit;
     font-size: $type-size-5;
     text-decoration: none;
+    display: inline;
 
     &:hover {
       text-decoration: underline;
@@ -350,4 +353,3 @@
     margin-right: initial;
   }
 }
-
