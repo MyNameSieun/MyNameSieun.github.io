@@ -1,7 +1,7 @@
 ---
 title: "타이틀 테스트"
-categories: coding
-tag: [test, blog]
+categories: [html]
+tag: [html]
 toc: true
 toc_sticky: true
 author_profile: true

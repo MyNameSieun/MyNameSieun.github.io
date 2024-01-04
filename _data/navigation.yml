@@ -28,7 +28,7 @@ main:
 # - title: "Sitemap"
 #   url: /sitemap/
 counts:
-  - title: "Categories"
+  - title: "total"
     use: true
   - title: "태그"
     use: false
