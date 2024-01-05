@@ -1,7 +1,8 @@
 ---
-title: "async와 await"
+title: "[JS] async와 await"
 categories: [JavaScript]
 tag: [JavaScript]
+toc_label: Contents
 toc: true
 toc_sticky: true
 author_profile: true
@@ -15,9 +16,7 @@ sidebar:
 
 # ▶ async 와 await
 
-![](https://velog.velcdn.com/images/sieunpark/post/03e5d6e6-c0e9-4389-baad-bb20105eeffc/image.png)
-
-프로미스를 사용하면 프로미스 체이닝을 사용한다.
+![](https://velog.velcdn.com/images/sieunpark/post/03e5d6e6-c0e9-4389-baad-bb20105eeffc/image.png)프로미스를 사용하면 프로미스 체이닝을 사용한다.
 
 따라서 작업이 많아지면 체인의 길이가 길어지고 코드가 복잡해져 버그를 찾거나 수정하기 어려울 수 있다.
 
