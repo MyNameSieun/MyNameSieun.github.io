@@ -156,6 +156,8 @@ fetch("https://jsonplaceholder.typicode.com/posts/1", {
   .then((data) => console.log(data));
 ```
 
+![](/assets/images/2024/2024-01-05-21-04-32.png)
+
 <br>
 
 ## 2.5 DELETE 요청
@@ -242,6 +244,6 @@ post("jsonplaceholder.typicode.com", "posts", {
 
 # 4. 참조
 
-1. https://www.daleseo.com/js-window-fetch/
-2. https://velog.io/@eunjin/JavaScript-fetch-%ED%95%A8%EC%88%98-%EC%93%B0%EB%8A%94-%EB%B2%95-fetch-%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EB%8A%94-%EB%B2%95#24-delete-%EC%A1%B4%EC%9E%AC%ED%95%98%EB%8A%94-%EC%9E%90%EC%9B%90-%EC%82%AD%EC%A0%9C-%EC%9A%94%EC%B2%AD
-3. https://frogand.tistory.com/207
+1. [자바스크립트의 fetch() 함수로 원격 API 호출하기](https://www.daleseo.com/js-window-fetch/)
+2. [[JavaScript] fetch 함수 쓰는 법, fetch 함수로 HTTP 요청하는 법](https://velog.io/@eunjin/JavaScript-fetch-%ED%95%A8%EC%88%98-%EC%93%B0%EB%8A%94-%EB%B2%95-fetch-%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EB%8A%94-%EB%B2%95#24-delete-%EC%A1%B4%EC%9E%AC%ED%95%98%EB%8A%94-%EC%9E%90%EC%9B%90-%EC%82%AD%EC%A0%9C-%EC%9A%94%EC%B2%AD)
+3. [[Javascript] fetch() 함수로 원격 API 호출하기](https://frogand.tistory.com/207)
