@@ -111,8 +111,213 @@ return fetch(url)
 
 > 카드에 데이터 띄우기
 
+HTML
+
 ```js
-// Fetch API 사용하여 데이터 띄우기
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ciné Search</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./font.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!--navbar-->
+      <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand">Ciné Search</a>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+      <!--trailer-container-->
+      <div class="trailer-container">
+        <video playsinline controls poster="/images/라라랜드 포스터_가로.jpg">
+          <source src="./video/라라랜드 트레일러.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <!--card-->
+      <div id="wrap">
+        <div class="card-container" id="movieContainer">
+          <!-- <div class="card-front">
+            <img
+              src="./images/라라랜드 포스터_세로.jpg"
+              class="card-img-top"
+              alt="영화 포스터"
+            />
+            <div class="card-body">
+              <div class="card-info">
+                <h5 class="card-title">제목__</h5>
+                <p class="star">평점__</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-back">
+            <div class="card-body">
+              <div class="card-info">
+                <h5 class="card-title">라라랜드</h5>
+                <p class="star">⭐4.5</p>
+              </div>
+              <hr class="hr-top" />
+              <p class="card-text">영화 줄거리</p>
+              <hr class="hr-bottom" />
+
+              <a class="btn btn-primary ">영화 id</a>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="footer"></div>
+      </div>
+    </div>
+    <script src="./main.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+```
+
+css
+
+```js
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Noto+Sans+KR:wght@100&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #121212;
+  height: 100vh;
+  font-family: "Dancing Script", cursive;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.navbar {
+  position: fixed;
+  background-color: #121212;
+  z-index: 1000;
+}
+.container-fluid {
+  width: 100%;
+}
+.navbar-brand {
+  color: white;
+}
+.navbar-brand:hover {
+  color: #ef504e;
+}
+.navbar .btn {
+  color: white;
+  border: 1px solid white;
+}
+.navbar .btn:hover {
+  background-color: #ef504e;
+  border: 1px solid white;
+}
+.trailer-container {
+  padding-top: 75px;
+  display: flex;
+  justify-content: center;
+}
+.trailer-container video {
+  width: 100%;
+  height: 100%;
+}
+.flip {
+}
+.card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.card-front,
+.card-back {
+  margin-top: 45px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 18px;
+  z-index: 1;
+  height: 92%;
+  position: relative;
+}
+.card-front img {
+  border-radius: 18px;
+  object-fit: cover;
+}
+.card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 21px 31px 0px 30px;
+}
+
+.card-info .star {
+  text-align: right;
+}
+
+.card-back {
+  background-color: #16191e;
+}
+.hr-top {
+  margin-top: -1px;
+  border-top: 1.5px solid #ffffff;
+}
+.card-back .btn {
+  position: absolute;
+  top: 87%;
+  left: 24%;
+  right: 24%;
+  padding: 2% 17%;
+  background-color: #ef504e;
+  border: #ffffff;
+}
+.card-back .btn:hover {
+  background-color: #771f1d;
+}
+.card-back .card-text {
+  overflow: hidden; /* -webkit-line-clamp 에 입력된 값 외의 텍스트를 모두 숨김 */
+  display: -webkit-box; /* 텍스트를 박스 형태로 구성 */
+  -webkit-line-clamp: 13; /* 입력된 값 만큼 문장 수 출력 */
+  -webkit-box-orient: vertical; /* 가로 정렬 */
+  margin: 0 30px;
+}
+.hr-bottom {
+  position: absolute;
+  bottom: 78px;
+  width: 100%;
+}
+.footer {
+  height: 10vh;
+  color: white;
+}
+
+```
+
+js
+
+```js
 const movieContainer = document.querySelector("#movieContainer");
 
 const url =
@@ -171,11 +376,30 @@ fetch(url)
 
 <br>
 
-> 검색 기능 추가
+> 문제발생!
+
+1. front-card와 back-card와 겹치기 위해 postion사용했는데
+
+카드 생성시 저렇게 생성됨
+
+![](/assets/images/2024/2024-01-07-23-42-32.png)
+
+->but position: absolute;을 사용하면 모든 카드가 겹치는 문제 발생
+
+<br>
+
+1. 카드 전체가 선택되어 로테이션됨
+
+<br><br>
+
+> 검색 기능 추가 (영화 필터링 구현)
 
 폼에 이벤트 리스너를 추가하여 폼 제출을 처리합니다.
+
 이벤트 리스너 내에서 사용자가 입력한 검색어 값을 가져옵니다.
+
 영화 카드를 반복하며 영화 제목이 입력한 키워드를 포함하는지 확인합니다.
+
 검색 결과에 따라 카드를 표시하거나 숨깁니다.
 
 ```js
