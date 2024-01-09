@@ -53,7 +53,7 @@ TMDB 회원 가입과 API KEY 발급에 대한 설명은 [[sagein 님 블로그]
 
 ## 2.2 TMDB API로부터 데이터 받아오기
 
-인기 영화 데이터를 가져올 것이므로 MOVIE LISTS를 Popular를 선택해주세요.
+인기 영화 데이터를 가져올 것이므로 MOVIE LISTS > Popular를 선택해주세요.
 
 그 후 링크를 복사해주세요.
 
