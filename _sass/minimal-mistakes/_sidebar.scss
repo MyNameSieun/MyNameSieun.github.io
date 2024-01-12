@@ -2,6 +2,30 @@
    SIDEBAR
    ========================================================================== */
 
+ul p {
+  margin: 0px;
+}
+.nav__list li ul a {
+  text-decoration-color: white;
+}
+
+.nav__list li ul a:hover {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+li p {
+  display: inline;
+}
+.nav__list .nav__items a {
+  font-size: 18px;
+  font-weight: 800;
+}
+.taxonomy__count {
+  font-size: 12px;
+  color: #acacac;
+}
+
 /*
    Default
    ========================================================================== */
@@ -10,7 +34,7 @@
   @include clearfix();
   // @include breakpoint(max-width $large) {
   //   /* fix z-index order of follow links */
-  //   position: relative;
+  position: relative;
   //   z-index: 10;
   //   -webkit-transform: translate3d(0, 0, 0);
   //   transform: translate3d(0, 0, 0);
@@ -28,11 +52,11 @@
     }
 
     &.sticky {
-      overflow-y: auto;
+      // overflow-y: auto;
+      // max-height: calc(100vh - #{$nav-height} - 2em);
       /* calculate height of nav list
          viewport height - nav height - masthead x-padding
       */
-      max-height: calc(100vh - #{$nav-height} - 2em);
     }
   }
 

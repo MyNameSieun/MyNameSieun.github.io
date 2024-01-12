@@ -10,10 +10,12 @@ sidebar:
   nav: "counts"
 ---
 
+<br>
+
 ![![Brave lion](image.png)
 ](<../../../assets/images/2024/Brave lion.gif>)
 
-> 웹페이지 Brave lion : https://mynamesieun.github.io/Brave-lion/
+> [[웹페이지 Brave lion]](https://mynamesieun.github.io/Brave-lion/)
 
 # ▶ 프로젝트 기획 동기🦁
 

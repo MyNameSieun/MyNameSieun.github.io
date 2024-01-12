@@ -1,7 +1,7 @@
 ---
 title: "[Firebase] Firestore Database 시작하기"
 categories: [Firebase]
-tag: [Firebase, DateBase]
+tag: [Firebase, DB]
 toc_label: Contents
 toc: true
 toc_sticky: true
