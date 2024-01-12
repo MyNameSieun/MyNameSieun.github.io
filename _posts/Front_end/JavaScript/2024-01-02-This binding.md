@@ -1,5 +1,5 @@
 ---
-title: "[JS] This Bindings"
+title: "[JS] This binding"
 categories: [JavaScript]
 tag: [JavaScript]
 toc_label: Contents
