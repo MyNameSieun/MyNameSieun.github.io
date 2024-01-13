@@ -1,7 +1,7 @@
 ---
-title: "[A to Z] JavaScript"
+title: "[A to Z] JavaScript ❤️‍🔥"
 categories: [A to Z 📌]
-tag: [A to Z 📌, JavaScript]
+tag: [A to Z, JavaScript]
 toc_label: Contents
 toc: true
 toc_sticky: true
