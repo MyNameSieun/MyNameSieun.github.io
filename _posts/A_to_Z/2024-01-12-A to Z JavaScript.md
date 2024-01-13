@@ -15,6 +15,8 @@ sidebar:
 💡 [A to Z]는 작성한 포스팅을 순서대로 복습할 수 있도록 정리한 시리즈입니다.
 {: .notice--danger}
 
+![JavaScript](../../assets/images/2024/jsStudy.png)
+
 ## 🐣문법
 
 1.  [ES6 문법 정리](https://mynamesieun.github.io/javascript/ES6-%EB%AC%B8%EB%B2%95-%EC%A0%95%EB%A6%AC/)
@@ -64,7 +66,7 @@ sidebar:
 1. [DOM](https://mynamesieun.github.io/javascript/DOM/)
 2. [DOM API](https://mynamesieun.github.io/javascript/DOM-API/)
 3. [DOM에서 폼 다루기](https://mynamesieun.github.io/javascript/DOM%EC%97%90%EC%84%9C-%ED%8F%BC-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
-4. [함수 반복 실행 및 중단(setInterval / clearInterval](<https://mynamesieun.github.io/javascript/%ED%95%A8%EC%88%98-%EB%B0%98%EB%B3%B5-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%A4%91%EB%8B%A8-(setInterval,-clearInterval)/>))
+4. [함수 반복 실행 및 중단(setInterval / clearInterval)](<https://mynamesieun.github.io/javascript/%ED%95%A8%EC%88%98-%EB%B0%98%EB%B3%B5-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%A4%91%EB%8B%A8-(setInterval,-clearInterval)/>)
 5. [event 처리하기](https://mynamesieun.github.io/javascript/event-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0/)
 6. [DOM 활용해 노드 추가/삭제하기](https://mynamesieun.github.io/javascript/DOM-%ED%99%9C%EC%9A%A9%ED%95%B4-%EB%85%B8%EB%93%9C-%EC%B6%94%EA%B0%80,%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
 7. [Data 객체 활용하기](https://mynamesieun.github.io/javascript/Data-%EA%B0%9D%EC%B2%B4-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0/)
@@ -82,3 +84,5 @@ sidebar:
 1. [모던 JavaScript 튜토리얼](https://ko.javascript.info/)
 2. [MDN web docs](https://developer.mozilla.org/ko/docs/Web/JavaScript)
 3. [helloworldjavascript.net](https://helloworldjavascript.net/)
+
+<br>
