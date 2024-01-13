@@ -1,7 +1,7 @@
 ---
-title: "[OS] API와 REST API (RESTful 작성해야함)"
-categories: [OS]
-tag: [OS, CS]
+title: "[Network] API와 REST API (RESTful 작성해야함)"
+categories: [Network]
+tag: [Network, CS]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -12,15 +12,17 @@ sidebar:
 
 <br>
 
-# ▶ API
+# 1. API
 
 > API(Application Programming lnterface)는 두 SW가 요청과 응답을 통해 데이터를 주고받는 매커니즘을 말한다.
 
 - 예를들어 날씨 서비스의 경우, 날씨 API를 사용하여 해당 서비스에 날씨 데이터를 요청하면 서비스는 요청에 대한 응답으로 날씨 데이터를 제공한다. 이를 통해 다른 프로그램에서도 날씨 데이터를 활용할 수 있다.
+- API는 클라이언트의 요청에 따라 동적으로 데이터나 정보를 제공한다.
+- 주로 JSON이나 XML형식으로 응답을 반환
 
 <br>
 
-## ▷ API 사용 방법
+## 1.1 API 사용 방법
 
 > API를 사용하기 위해선 어떻게 하면 될까?
 > -> API를 호스팅하는 서버의 주소를 알아내고, HTTP를 통해 해당 서버에 요청을 보내면 된다.
@@ -37,7 +39,7 @@ sidebar:
 
 - HTTP는 인터넷에서 데이터를 주고받기 위한 통신 프로토콜이다.
 - HTTP 프로토콜을 사용하여 API를 호스팅하는 서버에 요청을 보낸다.
-- 클라이언트는 HTTP 요청 메세지를 생성하고, 해당 서버에 해당 서버의 주소(URL)와 함께 요청을 전송한다.
+- 클라이언트는 HTTP 요청 메세지를 생성하고, 해당 서버에 해당 서버의 주소(URL)와 함께 요청을 전송한다.<br><br>
   ![](https://velog.velcdn.com/images/sieunpark/post/f8d67d91-bbff-46c1-8099-d0f584bd5d8c/image.png)
 
 > 3. HTTP 요청 메시지에는 요청의 목적과 세부 정보가 포함된다.
@@ -53,13 +55,9 @@ sidebar:
 
 - 클라이언트는 HTTP 응답 메시지를 받아서 요청한 작업에 따른 데이터를 활용한다.
 
-<br>
+<br><br>
 
----
-
-<br>
-
-# ▶ HTTP 요청 메서드
+# 2 HTTP 요청 메서드
 
 > - 클라이언트는 HTTP 요청 메세지를 생성하고, 해당 서버에 해당 서버의 주소(URL)와 함께 요청을 전송한다고 하였다.
 
@@ -72,13 +70,9 @@ sidebar:
 |     PUT     | 서버의 자원을 요청에 들어 있는 자원으로 치환하고자 할 때 사용, 요청의 본문에 치환할 데이터를 넣어 보냄 |
 |   DELETE    |                 서버의 자원을 삭제하고자 할 때 사용, 요청의 본문에 데이터를 넣지 않음                  |
 
-<br>
+<br><br>
 
----
-
-<br>
-
-# ▶ REST API
+# 3. REST API
 
 > REST를 기반으로 만들어진 API를 REST API라고 한다.
 
@@ -123,7 +117,7 @@ GET /topRatedMovies: 최상위 평점을 받은 영화를 가져오는 요청
 
 <br>
 
-## ▷ REST
+## 3.1 REST
 
 > REST는 자원을 이름으로 구분하여 해당 자원의 상태를 주고받는 모든 것을 의미한다.
 
@@ -135,7 +129,7 @@ GET /topRatedMovies: 최상위 평점을 받은 영화를 가져오는 요청
 
 <br>
 
-## ▷ REST 구성 요소
+## 3.2 REST 구성 요소
 
 - 자원(Resource): HTTP URI
 
@@ -160,7 +154,7 @@ GET /topRatedMovies: 최상위 평점을 받은 영화를 가져오는 요청
 
 <br>
 
-## ▷ REST의 특징
+## 3.3 REST의 특징
 
 1. Server-Client(서버-클라이언트 구조)
    REST 서버는 API 제공, 클라이언트는 사용자 인증이나 컨텍스트(세션, 로그인 정보)등을 직접 관리하는 구조로 각각의 역할이 확실히 구분되기 때문에 클라이언트와 서버에서 개발해야 할 내용이 명확해지고 서로간 의존성이 줄어들게 됩니다.
@@ -178,13 +172,9 @@ GET /topRatedMovies: 최상위 평점을 받은 영화를 가져오는 요청
 
 (https://meetup.nhncloud.com/posts/92 에 있는 글을 가져왔다.)
 
-<br>
+<br><br>
 
----
-
-<br>
-
-# ▶ URL
+# 4. URL
 
 > 서버에 자원을 요청하기 위해 입력하는 영문 주소
 
@@ -192,14 +182,12 @@ GET /topRatedMovies: 최상위 평점을 받은 영화를 가져오는 요청
 - URL의 구조는 아래와 같다.
   ![](https://velog.velcdn.com/images/sieunpark/post/48905101-1538-4f96-8495-64cb68227824/image.png)
 
-<br>
+<br><br>
 
----
-
-<br>
-
-# 📎참조
+# 5. 참조
 
 - https://velog.io/@hyo123/HTTP-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9CAPI
 - https://joshua1988.github.io/web-development/http-part1/
 - https://khj93.tistory.com/m/entry/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-REST-API%EB%9E%80-REST-RESTful%EC%9D%B4%EB%9E%80
+
+<br>
