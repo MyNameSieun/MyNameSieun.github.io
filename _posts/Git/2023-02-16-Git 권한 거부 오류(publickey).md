@@ -1,5 +1,5 @@
 ---
-title: "[Git] Git권한 거부 오류(publickey)"
+title: "[Git] Git 권한 거부 오류(publickey)"
 categories: [Git]
 tag: [Git]
 toc_label: Contents
@@ -9,6 +9,8 @@ author_profile: true
 sidebar:
   nav: "counts"
 ---
+
+<br>
 
 > 다음과 같은 오류 발생
 

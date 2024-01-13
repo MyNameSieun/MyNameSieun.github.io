@@ -27,7 +27,7 @@ sidebar:
 6.  [Data Type의 메모리 할당](https://mynamesieun.github.io/javascript/Data-Type%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%95%A0%EB%8B%B9/)
 7.  [불변 객체와 복사](https://mynamesieun.github.io/javascript/%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%B3%B5%EC%82%AC/)
 8.  [원시형의 형 변환](https://mynamesieun.github.io/javascript/%EC%9B%90%EC%8B%9C%ED%98%95%EC%9D%98-%ED%98%95-%EB%B3%80%ED%99%98/)
-9.  연산자
+9.  [연산자](https://mynamesieun.github.io/javascript/%EC%97%B0%EC%82%B0%EC%9E%90/)
 10. [스코프와 스코프체인](https://mynamesieun.github.io/javascript/%EC%8A%A4%EC%BD%94%ED%94%84%EC%99%80-%EC%8A%A4%EC%BD%94%ED%94%84%EC%B2%B4%EC%9D%B8/)
 11. [제어문(조건문, 반복문)](<https://mynamesieun.github.io/javascript/%EC%A0%9C%EC%96%B4%EB%AC%B8(%EC%A1%B0%EA%B1%B4%EB%AC%B8,-%EB%B0%98%EB%B3%B5%EB%AC%B8)/>)
 12. [var, let, const 차이](https://mynamesieun.github.io/javascript/var,-let,-const-%EC%B0%A8%EC%9D%B4/)
