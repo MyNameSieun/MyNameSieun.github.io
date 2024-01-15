@@ -19,45 +19,56 @@ sidebar:
 
 ## 🐣문법
 
+### 1주차
+
 1.  [ES6 문법 정리](https://mynamesieun.github.io/javascript/ES6-%EB%AC%B8%EB%B2%95-%EC%A0%95%EB%A6%AC/)
 2.  [use strict](https://mynamesieun.github.io/javascript/use-strict/)
 3.  [템플릿 리터럴](https://mynamesieun.github.io/javascript/%ED%85%9C%ED%94%8C%EB%A6%BF-%EB%A6%AC%ED%84%B0%EB%9F%B4/)
-4.  [표현식과 문](https://mynamesieun.github.io/javascript/%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC-%EB%AC%B8/)
+4.  [var, let, const 차이](https://mynamesieun.github.io/javascript/var,-let,-const-%EC%B0%A8%EC%9D%B4/)
 5.  [Data Type](https://mynamesieun.github.io/javascript/Data-Type/)
-6.  [Data Type의 메모리 할당](https://mynamesieun.github.io/javascript/Data-Type%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%95%A0%EB%8B%B9/)
-7.  [불변 객체와 복사](https://mynamesieun.github.io/javascript/%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%B3%B5%EC%82%AC/)
-8.  [원시형의 형 변환](https://mynamesieun.github.io/javascript/%EC%9B%90%EC%8B%9C%ED%98%95%EC%9D%98-%ED%98%95-%EB%B3%80%ED%99%98/)
-9.  [연산자](https://mynamesieun.github.io/javascript/%EC%97%B0%EC%82%B0%EC%9E%90/)
-10. [스코프와 스코프체인](https://mynamesieun.github.io/javascript/%EC%8A%A4%EC%BD%94%ED%94%84%EC%99%80-%EC%8A%A4%EC%BD%94%ED%94%84%EC%B2%B4%EC%9D%B8/)
+6.  [원시형의 형 변환](https://mynamesieun.github.io/javascript/%EC%9B%90%EC%8B%9C%ED%98%95%EC%9D%98-%ED%98%95-%EB%B3%80%ED%99%98/)
+7.  [타입 변환(암묵적, 명시적)](<https://mynamesieun.github.io/javascript/%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98(%EC%95%94%EB%AC%B5%EC%A0%81,-%EB%AA%85%EC%8B%9C%EC%A0%81)/>)
+8.  [연산자](https://mynamesieun.github.io/javascript/%EC%97%B0%EC%82%B0%EC%9E%90/)
+9.  [스코프와 스코프체인](https://mynamesieun.github.io/javascript/%EC%8A%A4%EC%BD%94%ED%94%84%EC%99%80-%EC%8A%A4%EC%BD%94%ED%94%84%EC%B2%B4%EC%9D%B8/)
+10. [표현식과 문](https://mynamesieun.github.io/javascript/%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC-%EB%AC%B8/)
 11. [제어문(조건문, 반복문)](<https://mynamesieun.github.io/javascript/%EC%A0%9C%EC%96%B4%EB%AC%B8(%EC%A1%B0%EA%B1%B4%EB%AC%B8,-%EB%B0%98%EB%B3%B5%EB%AC%B8)/>)
-12. [var, let, const 차이](https://mynamesieun.github.io/javascript/var,-let,-const-%EC%B0%A8%EC%9D%B4/)
-13. [구조 분해 할당](https://mynamesieun.github.io/javascript/%EA%B5%AC%EC%A1%B0%EB%B6%84%ED%95%B4%ED%95%A0%EB%8B%B9/)
-14. [나머지 매개변수와 전개 구문](https://mynamesieun.github.io/javascript/%EB%82%98%EB%A8%B8%EC%A7%80-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%99%80-%EC%A0%84%EA%B0%9C-%EA%B5%AC%EB%AC%B8/)
-15. [실행 컨텍스트](https://mynamesieun.github.io/javascript/%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/)
-16. [Hoisting](https://mynamesieun.github.io/javascript/Hoisting/)
-17. [객체](https://mynamesieun.github.io/javascript/%EA%B0%9D%EC%B2%B4/)
-18. [유사 배열 객체](https://mynamesieun.github.io/javascript/%EC%9C%A0%EC%82%AC-%EB%B0%B0%EC%97%B4-%EA%B0%9D%EC%B2%B4/)
-19. [단축 속성명](https://mynamesieun.github.io/javascript/%EB%8B%A8%EC%B6%95-%EC%86%8D%EC%84%B1%EB%AA%85/)
-20. [배열](https://mynamesieun.github.io/javascript/%EB%B0%B0%EC%97%B4/)
-21. [배열 심화(forEach, map, filter, fine)](<https://mynamesieun.github.io/javascript/%EB%B0%B0%EC%97%B4-%EC%8B%AC%ED%99%94(forEach,-map,-filter,-fine)/>)
-22. [타입 변환(암묵적, 명시적)](<https://mynamesieun.github.io/javascript/%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98(%EC%95%94%EB%AC%B5%EC%A0%81,-%EB%AA%85%EC%8B%9C%EC%A0%81)/>)
-23. [메모이제이션](https://mynamesieun.github.io/javascript/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98/)
-24. [Closure](https://mynamesieun.github.io/javascript/Closure/)
-25. [프로토타입](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85/)
-26. [함수](https://mynamesieun.github.io/javascript/%ED%95%A8%EC%88%98/)
-27. [일급 객체로서의 함수](https://mynamesieun.github.io/javascript/%EC%9D%BC%EA%B8%89-%EA%B0%9D%EC%B2%B4%EB%A1%9C%EC%84%9C%EC%9D%98-%ED%95%A8%EC%88%98/)
-28. [This binding](https://mynamesieun.github.io/javascript/This-binding/)
-29. [Class](https://mynamesieun.github.io/javascript/Class/)
-30. [프로미스](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4/)
-31. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
-32. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
-33. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
-34. [Map과 Set](https://mynamesieun.github.io/javascript/Map%EA%B3%BC-Set/)
-35. [문자열 자르기(substr, slice)](<https://mynamesieun.github.io/javascript/%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%9E%90%EB%A5%B4%EA%B8%B0(substr,-slice)/>)
-36. [문자열 잘라 배열로 변환하기(split)](<https://mynamesieun.github.io/javascript/%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%9E%98%EB%9D%BC-%EB%B0%B0%EC%97%B4%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0(split)/>)
-37. [fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/>)
-38. [소수점 다루기](https://mynamesieun.github.io/javascript/%EC%86%8C%EC%88%98%EC%A0%90-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
-39. [파일 디렉터리 셋업 및 모듈](https://mynamesieun.github.io/javascript/%ED%8C%8C%EC%9D%BC-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC-%EC%85%8B%EC%97%85-%EB%B0%8F-%EB%AA%A8%EB%93%88/)
+12. [배열](https://mynamesieun.github.io/javascript/%EB%B0%B0%EC%97%B4/)
+13. [sort()로 배열 정렬하기]
+14. [함수](https://mynamesieun.github.io/javascript/%ED%95%A8%EC%88%98/)
+
+### 2주차
+
+12. [객체](https://mynamesieun.github.io/javascript/%EA%B0%9D%EC%B2%B4/)
+13. [유사 배열 객체](https://mynamesieun.github.io/javascript/%EC%9C%A0%EC%82%AC-%EB%B0%B0%EC%97%B4-%EA%B0%9D%EC%B2%B4/)
+14. [일급 객체로서의 함수](https://mynamesieun.github.io/javascript/%EC%9D%BC%EA%B8%89-%EA%B0%9D%EC%B2%B4%EB%A1%9C%EC%84%9C%EC%9D%98-%ED%95%A8%EC%88%98/)
+15. [단축 속성명](https://mynamesieun.github.io/javascript/%EB%8B%A8%EC%B6%95-%EC%86%8D%EC%84%B1%EB%AA%85/)
+16. [Map과 Set](https://mynamesieun.github.io/javascript/Map%EA%B3%BC-Set/)
+17. [구조 분해 할당](https://mynamesieun.github.io/javascript/%EA%B5%AC%EC%A1%B0%EB%B6%84%ED%95%B4%ED%95%A0%EB%8B%B9/)
+18. [나머지 매개변수와 전개 구문](https://mynamesieun.github.io/javascript/%EB%82%98%EB%A8%B8%EC%A7%80-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%99%80-%EC%A0%84%EA%B0%9C-%EA%B5%AC%EB%AC%B8/)
+19. [불변 객체와 복사](https://mynamesieun.github.io/javascript/%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%B3%B5%EC%82%AC/)
+20. [Data Type의 메모리 할당](https://mynamesieun.github.io/javascript/Data-Type%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%95%A0%EB%8B%B9/)
+21. [실행 컨텍스트](https://mynamesieun.github.io/javascript/%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/)
+22. [Hoisting](https://mynamesieun.github.io/javascript/Hoisting/)
+23. [This binding](https://mynamesieun.github.io/javascript/This-binding/)
+
+### 3주차
+
+1. [Closure](https://mynamesieun.github.io/javascript/Closure/)
+2. [프로토타입](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85/)
+3. [Class](https://mynamesieun.github.io/javascript/Class/)
+4. [프로미스](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4/)
+5. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
+6. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
+7. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
+
+### 4주차
+
+1. [메모이제이션](https://mynamesieun.github.io/javascript/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98/)
+2. [문자열 자르기(substr, slice)](<https://mynamesieun.github.io/javascript/%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%9E%90%EB%A5%B4%EA%B8%B0(substr,-slice)/>)
+3. [문자열 잘라 배열로 변환하기(split)](<https://mynamesieun.github.io/javascript/%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%9E%98%EB%9D%BC-%EB%B0%B0%EC%97%B4%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0(split)/>)
+4. [fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/>)
+5. [소수점 다루기](https://mynamesieun.github.io/javascript/%EC%86%8C%EC%88%98%EC%A0%90-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
+6. [파일 디렉터리 셋업 및 모듈](https://mynamesieun.github.io/javascript/%ED%8C%8C%EC%9D%BC-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC-%EC%85%8B%EC%97%85-%EB%B0%8F-%EB%AA%A8%EB%93%88/)
 
 <br>
 

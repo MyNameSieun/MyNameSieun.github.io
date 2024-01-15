@@ -1,7 +1,7 @@
 ---
-title: "[ToyProject] Brave lion: 멋쟁이사자처럼 지원 웹페이지 만들기"
-categories: [ToyProject]
-tag: [ToyProject, HTML, CSS]
+title: "[Toy project] Brave lion: 멋쟁이사자처럼 지원 웹페이지 만들기"
+categories: [Toy project]
+tag: [Toy project, HTML, CSS]
 toc_label: Contents
 toc: true
 toc_sticky: true

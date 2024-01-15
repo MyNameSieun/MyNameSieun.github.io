@@ -1,7 +1,15 @@
 /* ==========================================================================
    BASE ELEMENTS
    ========================================================================== */
-
+//  드래그 색상 변경
+::-moz-selection {
+  color: #fff;
+  background-color: #0d4283;
+}
+::selection {
+  color: #fff;
+  background-color: #0d4283;
+}
 html {
   /* sticky footer fix */
   position: relative;
