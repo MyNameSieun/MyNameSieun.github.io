@@ -33,7 +33,7 @@ sidebar:
 10. [표현식과 문](https://mynamesieun.github.io/javascript/%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC-%EB%AC%B8/)
 11. [제어문(조건문, 반복문)](<https://mynamesieun.github.io/javascript/%EC%A0%9C%EC%96%B4%EB%AC%B8(%EC%A1%B0%EA%B1%B4%EB%AC%B8,-%EB%B0%98%EB%B3%B5%EB%AC%B8)/>)
 12. [배열](https://mynamesieun.github.io/javascript/%EB%B0%B0%EC%97%B4/)
-13. [sort()로 배열 정렬하기]
+13. [sort()로 배열 정렬하기](<https://mynamesieun.github.io/javascript/sort()%EB%A1%9C-%EB%B0%B0%EC%97%B4-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0/>)
 14. [함수](https://mynamesieun.github.io/javascript/%ED%95%A8%EC%88%98/)
 
 ### 2주차
@@ -57,18 +57,18 @@ sidebar:
 2. [프로토타입](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85/)
 3. [Class](https://mynamesieun.github.io/javascript/Class/)
 4. [프로미스](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4/)
-5. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
-6. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
-7. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
+5. [fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/>)
+6. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
+7. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
+8. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
 
 ### 4주차
 
 1. [메모이제이션](https://mynamesieun.github.io/javascript/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98/)
 2. [문자열 자르기(substr, slice)](<https://mynamesieun.github.io/javascript/%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%9E%90%EB%A5%B4%EA%B8%B0(substr,-slice)/>)
 3. [문자열 잘라 배열로 변환하기(split)](<https://mynamesieun.github.io/javascript/%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%9E%98%EB%9D%BC-%EB%B0%B0%EC%97%B4%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0(split)/>)
-4. [fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/>)
-5. [소수점 다루기](https://mynamesieun.github.io/javascript/%EC%86%8C%EC%88%98%EC%A0%90-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
-6. [파일 디렉터리 셋업 및 모듈](https://mynamesieun.github.io/javascript/%ED%8C%8C%EC%9D%BC-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC-%EC%85%8B%EC%97%85-%EB%B0%8F-%EB%AA%A8%EB%93%88/)
+4. [소수점 다루기](https://mynamesieun.github.io/javascript/%EC%86%8C%EC%88%98%EC%A0%90-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
+5. [파일 디렉터리 셋업 및 모듈](https://mynamesieun.github.io/javascript/%ED%8C%8C%EC%9D%BC-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC-%EC%85%8B%EC%97%85-%EB%B0%8F-%EB%AA%A8%EB%93%88/)
 
 <br>
 

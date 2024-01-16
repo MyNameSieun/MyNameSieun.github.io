@@ -10,17 +10,22 @@ sidebar:
   nav: "counts"
 ---
 
-《 [프로미스](https://velog.io/@sieunpark/JS-%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4) 》에 이어 작성하는 글입니다.
+<br>
 
----
+[[프로미스]](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4/) 에 이어 작성하는 글입니다.
+{: .notice--danger}
+
+<br>
 
 # ▶ async 와 await
 
-![](https://velog.velcdn.com/images/sieunpark/post/03e5d6e6-c0e9-4389-baad-bb20105eeffc/image.png)프로미스를 사용하면 프로미스 체이닝을 사용한다.
+![](https://velog.velcdn.com/images/sieunpark/post/03e5d6e6-c0e9-4389-baad-bb20105eeffc/image.png)
+
+프로미스를 사용하면 프로미스 체이닝을 사용한다.
 
 따라서 작업이 많아지면 체인의 길이가 길어지고 코드가 복잡해져 버그를 찾거나 수정하기 어려울 수 있다.
 
-> async 와 await는 [프로미스](https://velog.io/@sieunpark/JS-%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4)를 조금 더 간결하게 만들어준다.
+> async 와 await는 프로미스를 조금 더 간결하게 만들어준다.
 > 또한 동기적으로 코드를 작성하듯(평소와 같이 코드를 작성하듯) 쓸 수 있어 간편하다.
 
 ⚠️ 그렇다고해서 무조건 프로미스가 나쁜 건 아니다! 프로미스를 쓰는 것이 효율적인 상황도 있다.
