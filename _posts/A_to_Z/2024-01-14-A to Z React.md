@@ -15,9 +15,9 @@ sidebar:
 💡 [A to Z]는 작성한 포스팅을 순서대로 복습할 수 있도록 정리한 시리즈입니다.
 {: .notice--danger}
 
-<br>
-
 ## React
+
+### 1주차
 
 1. [개발 환경 세팅](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85/)
 2. [CRA](https://mynamesieun.github.io/react/CRA/)
@@ -26,5 +26,5 @@ sidebar:
 5. [JSX](https://mynamesieun.github.io/react/JSX/)
 6. [props](https://mynamesieun.github.io/react/props/)
 7. [State와 Hook](https://mynamesieun.github.io/react/State%EC%99%80-Hook/)
-8. 불변성과 순수함수
-9. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
+8. [불변성과 순수함수](https://mynamesieun.github.io/react/%EB%B6%88%EB%B3%80%EC%84%B1%EA%B3%BC-%EC%88%9C%EC%88%98%ED%95%A8%EC%88%98/)
+9. Component와 Rendering
