@@ -25,7 +25,6 @@ sidebar:
 4. [Component](https://mynamesieun.github.io/react/Component/)
 5. [JSX](https://mynamesieun.github.io/react/JSX/)
 6. [props](https://mynamesieun.github.io/react/props/)
-7. State와 Hook
+7. [State와 Hook](https://mynamesieun.github.io/react/State%EC%99%80-Hook/)
 8. 불변성과 순수함수
-9. Component와 Rendering
-10.
+9. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
