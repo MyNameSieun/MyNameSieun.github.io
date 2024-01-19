@@ -55,7 +55,6 @@ React 코드의 경우 내가 UI을 선언하고 render 함수를 호출하면 R
 즉, 화면에 어떻게 그려야할지는 React 내부에 잘 숨겨져 추상화되어 있는 것이다.
 
 ```jsx
-// React 코드 (선언적인)
 const header = <h1>Hello World</h1>; // jsx
 ReactDOM.render(header, document.getElementById("root"));
 ```

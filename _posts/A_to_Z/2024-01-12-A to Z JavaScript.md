@@ -32,7 +32,7 @@ sidebar:
 9.  [스코프와 스코프체인](https://mynamesieun.github.io/javascript/%EC%8A%A4%EC%BD%94%ED%94%84%EC%99%80-%EC%8A%A4%EC%BD%94%ED%94%84%EC%B2%B4%EC%9D%B8/)
 10. [표현식과 문](https://mynamesieun.github.io/javascript/%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC-%EB%AC%B8/)
 11. [제어문(조건문, 반복문)](<https://mynamesieun.github.io/javascript/%EC%A0%9C%EC%96%B4%EB%AC%B8(%EC%A1%B0%EA%B1%B4%EB%AC%B8,-%EB%B0%98%EB%B3%B5%EB%AC%B8)/>)
-12. [배열](https://mynamesieun.github.io/javascript/%EB%B0%B0%EC%97%B4/)
+12. 배열과 메서드
 13. [sort()로 배열 정렬하기](<https://mynamesieun.github.io/javascript/sort()%EB%A1%9C-%EB%B0%B0%EC%97%B4-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0/>)
 14. [함수](https://mynamesieun.github.io/javascript/%ED%95%A8%EC%88%98/)
 

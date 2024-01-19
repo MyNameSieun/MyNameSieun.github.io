@@ -27,4 +27,7 @@ sidebar:
 6. [props](https://mynamesieun.github.io/react/props/)
 7. [State와 Hook](https://mynamesieun.github.io/react/State%EC%99%80-Hook/)
 8. [불변성과 순수함수](https://mynamesieun.github.io/react/%EB%B6%88%EB%B3%80%EC%84%B1%EA%B3%BC-%EC%88%9C%EC%88%98%ED%95%A8%EC%88%98/)
-9. Component와 Rendering
+9. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
+10. Styling과 map
+11. 반복되는 컴포넌트 처리하기
+12. 컴포넌트 분리하기
