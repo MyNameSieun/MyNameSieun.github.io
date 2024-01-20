@@ -29,6 +29,6 @@ sidebar:
 8. [불변성과 순수함수](https://mynamesieun.github.io/react/%EB%B6%88%EB%B3%80%EC%84%B1%EA%B3%BC-%EC%88%9C%EC%88%98%ED%95%A8%EC%88%98/)
 9. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
 10. [Styling과 map](https://mynamesieun.github.io/react/Styling%EA%B3%BC-map/)
-11. Component 추가 및 삭제하기
+11. [Component 추가 및 삭제하기](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
 
 <br>
