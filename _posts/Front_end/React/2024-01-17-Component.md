@@ -28,7 +28,7 @@ sidebar:
 
 컴포넌트를 어떻게 만들 수 있는지 알아보자!
 
-## 2.2 함수형 컴포넌트
+## 1.2 함수형 컴포넌트
 
 ```js
 // props라는 입력을 받음
@@ -44,7 +44,7 @@ function App() {
 }
 ```
 
-즉, 리액트 세계에서 말하는 컴포넌트(블럭)는 즉 함수 이다. 따라서 컴포넌트를 만들고 싶다면 html을 return 하는 함수를 만들면 된다.
+즉, 리액트 세계에서 말하는 컴포넌트는 함수이다. 따라서 컴포넌트를 만들고 싶다면 html을 return 하는 함수를 만들면 된다.
 
 <br>
 
@@ -63,10 +63,11 @@ function App() {
   function testFunc() {}
 
   return (
-    // JSX(JS+XML(HTML) : 작스) 작성 가능한 영역
-    // JS를 쓰려면 중괄호 {}를 써주면 된다.
+    // JSX(JS + XML(HTML) : 작스) 작성 가능한 영역
+    // JS를 쓰려면 중괄호{} 를 써주면 된다.
     <div className="App">
       <header className="App-header">
+        {testFunc}
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -88,6 +89,12 @@ function App() {
 export default App;
 ```
 
+① retrun문 안에는 JSX 문법을 쓸 수 있다.
+
+② JSX 문법은 HTML과 비슷한 형태로 되어있다.
+
+③ JSX 문법 안에서 JS를 쓰려면 중괄호{}로 묶어주면 된다.
+
 <br><br>
 
 # 2. 컴포넌트 만들기
@@ -104,7 +111,9 @@ export default App;
 
 ## 2.2 실습
 
-아래 코드를 복붙 하자
+아래 코드를 복붙하자
+
+{% raw %}
 
 ```js
 import React from "react";
@@ -130,10 +139,14 @@ function App() {
 export default App;
 ```
 
+{% endraw %}
+
 <br>
 
 “HTML 영역” 안에서 알맞은 html 태그를 작성해 아래와 같은 화면을 만든 후, “클릭!” 버튼을 눌렀을 때 alert창이 나타나게 해보자.<br><br>
 ![Alt text](../../../assets/images/2024/2024-01-17-16-51-44.png)
+
+{% raw %}
 
 ```js
 import React from "react";
@@ -168,9 +181,13 @@ function App() {
 export default App;
 ```
 
+{% endraw %}
+
 <br>
 
 위 함수는 아래와 같이 변수화를 통해 효율적으로 작성할 수 있다.
+
+{% raw %}
 
 ```js
   // <---- 자바스크립트 영역 ---->
@@ -206,28 +223,38 @@ function App() {
 export default App;
 ```
 
+{% endraw %}
+
 <br>
 
 ## 3.2 실습
 
 현재 App.js에 작성된 코드를 모두 지운 후, `App.js`에 3개의 컴포넌트를 만들고 할아버지, 엄마, 자식 컴포넌트를 만들어보고 서로 연결시켜보자.
 
+{% raw %}
+
 ```js
 import React from "react";
 
-const GrandFather = () => {
-  return <Mother />;
-};
-const Mother = () => {
-  return <Child />;
-};
-const Child = function App() {
-  return <div>자식입니당</div>;
-};
-function App() {
-  return <GrandFather />; // "자식입니당" 출력
+function Child() {
+  return <div>자식입니다.</div>;
 }
+
+function Mother() {
+  return <Child />;
+}
+
+function GrandFather() {
+  return <Mother />;
+}
+
+function App() {
+  return <GrandFather />; // "자식입니다."
+}
+
 export default App;
 ```
+
+{% endraw %}
 
 <br>

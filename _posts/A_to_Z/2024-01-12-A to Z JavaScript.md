@@ -44,7 +44,7 @@ sidebar:
 15. [단축 속성명](https://mynamesieun.github.io/javascript/%EB%8B%A8%EC%B6%95-%EC%86%8D%EC%84%B1%EB%AA%85/)
 16. [Map과 Set](https://mynamesieun.github.io/javascript/Map%EA%B3%BC-Set/)
 17. [구조 분해 할당](https://mynamesieun.github.io/javascript/%EA%B5%AC%EC%A1%B0%EB%B6%84%ED%95%B4%ED%95%A0%EB%8B%B9/)
-18. 전개 연산자
+18. [전개 연산자](https://mynamesieun.github.io/javascript/%EC%A0%84%EA%B0%9C-%EC%97%B0%EC%82%B0%EC%9E%90/)
 19. [불변 객체와 복사](https://mynamesieun.github.io/javascript/%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%B3%B5%EC%82%AC/)
 20. [Data Type의 메모리 할당](https://mynamesieun.github.io/javascript/Data-Type%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%95%A0%EB%8B%B9/)
 21. [실행 컨텍스트](https://mynamesieun.github.io/javascript/%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/)

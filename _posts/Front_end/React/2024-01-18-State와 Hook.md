@@ -22,7 +22,7 @@ React에선 `let`이나 `const`가 아닌 `State`를 사용해서 상태를 표�
 
 왜 변수가 아닌 State를 사용할까? 바로<span style="color:indianred"> UI(엘리먼트)를 바꾸기 위해서</span>이다.
 
-전 포스팅에서 name이라는 정보를 `const name = “홍부인”;` 이라고 만들었는데, 만약 name이라는 값이 바뀌어야만 하는 정보였어야 했다면 `state`로 생성하는 것이다!
+전 포스팅에서 name이라는 정보를 `const name = "김춘자";` 이라고 만들었는데, 만약 name이라는 값이 바뀌어야만 하는 정보였어야 했다면 `state`로 생성하는 것이다!
 
 <br>
 
@@ -36,7 +36,7 @@ React에선 `let`이나 `const`가 아닌 `State`를 사용해서 상태를 표�
 
 ```js
 // useState hook
-useState("initial State") = const [state, setState] = ;
+useState("initial State") = const [state, setState];
 ```
 
 - state: 현재 상태의 값이 들어 있는 변수
@@ -142,20 +142,25 @@ export default App;
 이름을 변경할 수 있도록 해야하기 때문에 이름을 state로 선언한다.
 
 ```js
-import { useState } from "react";
+// src/App.js
+import React, { useState } from "react";
 
 function App() {
   const [name, setName] = useState("박시은");
 
   return (
     <div>
-      {name}
-      <br />
-      <button>버튼</button>
+      <div>{name}</div>
+      <button
+        onClick={function () {
+          setName("시은 천사");
+        }}
+      >
+        버튼
+      </button>
     </div>
   );
 }
-
 export default App;
 ```
 
@@ -217,7 +222,9 @@ export default App;
 
 ## 2.2 useState + onChange Event
 
-> input 태그 안에 값을 입력했을 때 컨텐츠가 변경되도록 해보자.
+> 아래 그림과 같이 input 태그 안에 값을 입력했을 때 컨텐츠가 변경되도록 해보자.
+
+![](/assets/images/2024/2024-01-20-23-41-46.png)
 
 input에서는 보통 사용자가 입력한 값을 state로 관리하는 패턴을 많이 사용한다.
 
