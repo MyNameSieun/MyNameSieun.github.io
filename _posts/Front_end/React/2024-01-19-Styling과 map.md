@@ -44,6 +44,8 @@ yarn create react-app 프로젝트이름
 
 > 구현 결과
 
+{% raw %}
+
 ```js
 // App.js
 import React from "react";
@@ -79,6 +81,8 @@ const App = () => {
 export default App;
 ```
 
+{% endraw %}
+
 <br>
 
 ## 1.2 CSS 코드 분리하기
@@ -86,6 +90,8 @@ export default App;
 > 지금까지 작성했던 js파일에서 CSS를 별도의 모듈(파일)로 분리해서 사용해보자
 
 JSX는 HTML과 비슷하지만 class가 아닌 className 을 사용한다.
+
+{% raw %}
 
 ```js
 // App.js
@@ -106,6 +112,8 @@ const App = () => {
 
 export default App;
 ```
+
+{% endraw %}
 
 <br>
 
@@ -135,6 +143,8 @@ export default App;
 
 > 목차1의 App.js에서 작성한 `<div className="component-style">`처럼 컴포넌트가 계속 중복되는 것을 확인할 수 있는데, map()메서드로 반복되는 컴포넌트를 처리하는 방법에 대해 알아보자!
 
+{% raw %}
+
 ```js
 // App.js
 import React from "react";
@@ -156,6 +166,8 @@ const App = () => {
 export default App;
 ```
 
+{% endraw %}
+
 ① JSX 부분에서 js 코드인 `map()`을 작성할 것 이기때문에 `{ }` 로 먼저 감싸고 시작한다.
 
 ② JSX에서 `map()` 은 배열의 모든 요소를 순회하기때문에 클라이언트에서는 배열 형태의 데이터를 활용해서 화면을 그려주는 경우가 많고, 이때 배열의 값들로 동적으로 컴포넌트를 만들 수 있다.
@@ -167,6 +179,8 @@ export default App;
 <br>
 
 > 위 코드를 화살표 함수로 표현해보자
+
+{% raw %}
 
 ```js
 const App = () => {
@@ -182,11 +196,15 @@ const App = () => {
 };
 ```
 
+{% endraw %}
+
 <br>
 
 ## 2.1 filter()
 
 > filter() 메서드를 사용해 오이가 아닌 것만 출력해보자.
+
+{% raw %}
 
 ```js
 // App.js
@@ -212,6 +230,8 @@ const App = () => {
 export default App;
 ```
 
+{% endraw %}
+
 ![](/assets/images/2024/2024-01-19-02-43-01.png)
 
 ① `filter()` 메서드는 새로운 배열을 반환한다.
@@ -226,6 +246,8 @@ export default App;
 
 user 라는 정보가 주어지고, 배열안에 object literal 형태의 데이터가 있을 때
 
+{% raw %}
+
 ```js
 const users = [
   { id: 1, age: 30, name: "송중기" },
@@ -235,9 +257,13 @@ const users = [
 ];
 ```
 
+{% endraw %}
+
 아래 이미지가 출력되도록 코드를 작성해보자
 
 ![](/assets/images/2024/2024-01-19-02-56-43.png)
+
+{% raw %}
 
 ```jsx
 // app.js
@@ -272,7 +298,11 @@ const App = () => {
 export default App;
 ```
 
+{% endraw %}
+
 위 코드를 함수를 이용해서 리팩토링해보자. 목차2에서 했던 것처럼 map()을 사용하면 된다.
+
+{% raw %}
 
 ```js
 // app.js
@@ -304,6 +334,8 @@ const App = () => {
 export default App;
 ```
 
+{% endraw %}
+
 App 컴포넌트에서 `user.map()` 을 통해 user의 정보를 순회하고 각각의 user 정보를 User 컴포넌트로 주입해준다.
 
 <br>
@@ -316,7 +348,9 @@ map() 사용시, 콘솔 창에 다음과 같은 경고가 뜨는 것을 확인�
 
 리스트가 모든 i들은 key라는 prop이 필요하다는 경고이다.
 
-⚠️ 즉, map()을 사용할때는 `key={item.id  }`와 같이 반복 요소에 대해 id를 붙여줘야한다.
+⚠️ 즉, map()을 사용할때는 `key={item.id}`와 같이 반복 요소에 대해 id를 붙여줘야한다.
+
+{% raw %}
 
 ```jsx
 const App = () => {
@@ -341,5 +375,7 @@ const App = () => {
   );
 };
 ```
+
+{% endraw %}
 
 <br>

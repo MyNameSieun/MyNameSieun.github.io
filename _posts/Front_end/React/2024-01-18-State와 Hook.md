@@ -32,7 +32,7 @@ React에선 `let`이나 `const`가 아닌 `State`를 사용해서 상태를 표�
 
 ② React 안에서 특정한 기능을 수행하는 것들을 hook이라고 부른다. (기능 → 훅)
 
-③ useState 훅을 사용하는 방식은 아래와 같다.
+⬇️ useState 훅을 사용하는 방식은 아래와 같다.
 
 ```js
 // useState hook
