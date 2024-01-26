@@ -25,10 +25,22 @@ sidebar:
 4. [Component](https://mynamesieun.github.io/react/Component/)
 5. [JSX](https://mynamesieun.github.io/react/JSX/)
 6. [props](https://mynamesieun.github.io/react/props/)
-7. [State와 Hook](https://mynamesieun.github.io/react/State%EC%99%80-Hook/)
+7. React Hooks - useState
 8. [불변성과 순수함수](https://mynamesieun.github.io/react/%EB%B6%88%EB%B3%80%EC%84%B1%EA%B3%BC-%EC%88%9C%EC%88%98%ED%95%A8%EC%88%98/)
 9. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
 10. [Styling과 map](https://mynamesieun.github.io/react/Styling%EA%B3%BC-map/)
 11. [Component 추가 및 삭제하기](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
 
 <br>
+
+### 2주차
+
+1. Styled Components
+2. React Hooks - useEffect
+3. React Hooks - useRef
+4. React Hooks - useContext
+5. React Hooks - 최적화(React.memo, useCallback, useMemo)
+6. LifeCycle
+7. DOM과 Virtual DOM
+8. Redux - Redux 설정
+9. Redux - 소개

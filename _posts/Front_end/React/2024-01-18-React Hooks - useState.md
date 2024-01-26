@@ -1,5 +1,5 @@
 ---
-title: "[React] State와 Hook"
+title: "[React] React Hooks - useState"
 categories: [React]
 tag: [React]
 toc_label: Contents
@@ -63,43 +63,7 @@ const [state, setState] = useState("initial State");
 ```js
 // useState hook
 const [count, setCount] = useState[0];
-const [todoList, setTodoList] = useState([]);
 ```
-
-<br>
-
-> State 만들기 예시
-
-```jsx
-// src/App.js
-
-import React, { useState } from "react";
-
-function Child(props) {
-  return <div>{props.grandFatherName}</div>;
-}
-
-function Mother(props) {
-  return <Child grandFatherName={props.grandFatherName} />;
-}
-
-function GrandFather() {
-  const [name, setName] = useState("김할아"); // state를 생성
-  return <Mother grandFatherName={name} />;
-}
-
-function App() {
-  return <GrandFather />;
-}
-
-export default App;
-```
-
-`name` 이라는 state를 만들었고, name state의 초기값은 “김할아”로 정했다.
-
-이처럼 초기값을 `initial state` 라고 부른다.
-
-state의 정의처럼, 언제든지 변할 수 있는 값이기 때문에 `초기값` 이라는 개념이 존재하는 것이다.
 
 <br><br>
 
@@ -380,5 +344,107 @@ setPassword("");
   로그인
 </button>
 ```
+
+<br><br>
+
+# 4. 함수형 업데이트
+
+> 함수형 업데이트 방식을 통해 setState를 사용할 수 있다.
+
+```js
+// 일반 사용법(기존 방식)
+setState(number + 1);
+
+// 함수형 업데이트
+setState(() => {});
+```
+
+① setState의 ( ) 안에 수정할 값이 아니라, 함수를 넣을 수 있다.<br>
+② 그 함수의 인자에서는 현재의 state을 가져올 수 있고, { } 안에서는 이 값을 변경하는 코드를 작성할 수 있다.
+
+<br>
+
+```js
+// 현재 number의 값을 가져와서 그 값에 +1을 더하여 반환
+setState((currentNumber) => {
+  return currentNumber + 1;
+});
+```
+
+<br>
+
+> 일반 사용법과 함수형 업데이트 방식의 차이점
+
+- 일반 업데이트 방식으로 onClick안에서 setNumber(number + 1) 를 3번 호출 → number가 1씩 증가
+
+  ```jsx
+  // src/App.js
+
+  import { useState } from "react";
+
+  const App = () => {
+    const [number, setNumber] = useState(0);
+    return (
+      <div>
+        {/* 버튼을 누르면 1씩 플러스된다. */}
+        <div>{number}</div>
+        <button
+          onClick={() => {
+            setNumber(number + 1); // 첫번째 줄
+            setNumber(number + 1); // 두번쨰 줄
+            setNumber(number + 1); // 세번째 줄
+          }}
+        >
+          버튼
+        </button>
+      </div>
+    );
+  };
+
+  export default App;
+  ```
+
+  ① 일반 업데이트 방식은 버튼을 클릭했을 때 첫번째 줄 ~ 세번째 줄의 있는 setNumber가 각각 실행되는 것이 아니라, <span style="color:indianred">배치(batch)로 처리⭐</span>한다.
+
+  ② 즉 onClick을 했을 때 setNumber 라는 명령을 몇 번을 내리던지 간에, 리액트는 그 명령을 하나로 모아 최종적으로 한번만 실행시킨다.
+
+  ③ 따라서 setNumber을 3번 명령하던, 100번 명령하던 1번만 실행된다.
+
+<br>
+
+- 함수 업데이트 방식으로 onClick안에서 setNumber(number + 1) 를 3번 호출 → number가 3씩 증가
+
+  ```jsx
+  // src/App.js
+
+  import { useState } from "react";
+
+  const App = () => {
+    const [number, setNumber] = useState(0);
+    return (
+      <div>
+        {/* 버튼을 누르면 3씩 플러스 된다. */}
+        <div>{number}</div>
+        <button
+          onClick={() => {
+            setNumber((previousState) => previousState + 1);
+            setNumber((previousState) => previousState + 1);
+            setNumber((previousState) => previousState + 1);
+          }}
+        >
+          버튼
+        </button>
+      </div>
+    );
+  };
+
+  export default App;
+  ```
+
+  ① 함수형 업데이트 방식은 3번을 동시에 명령을 내리면, 그 명령을 모아 순차적으로 각각 1번씩 실행시킨다.
+
+  ② 0에 1더하고, 그 다음 1에 1을 더하고, 2에 1을 더해서 3을 출력한다.
+
+  ③ 이는 불필요한 리-렌더링을 방지(렌더링 최적화)하여 리액트의 성능을 향상시키기 위해 단일 업데이트(batch update)로 한꺼번에 처리할 수 있게 하는 것이다.
 
 <br>
