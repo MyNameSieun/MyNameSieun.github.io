@@ -24,7 +24,7 @@ sidebar:
 
 ## 1.2 최적화
 
-리액트에서 리렌더링을 줄이는 작업을 `최적화(Optimization)`이라고 부른다.
+리액트에서 리렌더링을 줄이는 작업을 최적화(Optimization)라고 부른다.
 
 리액트에서 불필요한 렌더링이 발생하지 않도록 최적화하는 대표적인 방법은 아래와 같다.
 
@@ -49,7 +49,7 @@ sidebar:
 
 <br>
 
-## 2.1 memo 사용x
+## 2.2 memo 사용x
 
 아래와 같이 디렉토리를 구성해보자
 
@@ -184,7 +184,7 @@ plus 버튼 또는 minus 버튼을 누른 순간 실제로 변한 것은 부모�
 
 <br>
 
-## 2.2 memo 사용o
+## 2.3 memo 사용o
 
 `React.memo`를 이용하면 컴포넌트를 메모리에 저장(캐싱)해두고 필요할 때 갖다 쓸 수 있다.
 
@@ -207,3 +207,31 @@ export default React.memo(Box3);
 ![](/assets/images/2024/2024-01-27-21-09-40.png)
 
 <br><br>
+
+# 3. useCallback 개요
+
+## 3.1 useCallback 개념
+
+<br>
+
+## 3.2 useCallback 사용x
+
+<br>
+
+## 3.3 useCallback 사용o
+
+<br><br>
+
+# 4. useMemo 개요
+
+## 4.1 useMemo 개념
+
+<br>
+
+## 4.2 useMemo 사용x
+
+<br>
+
+## 4.3 useMemo 사용o
+
+<br>
