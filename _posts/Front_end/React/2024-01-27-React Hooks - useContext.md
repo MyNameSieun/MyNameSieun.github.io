@@ -39,7 +39,7 @@ sidebar:
 
 # 2. useContext 구현하기
 
-## 2.1 useContext 사용x
+## 2.1 useContext의 필요성
 
 ![](/assets/images/2024/2024-01-27-18-38-16.png)
 
@@ -113,7 +113,7 @@ export default Child;
 
 <br>
 
-## 2.2 useContext 사용o
+## 2.2 useContext 적용
 
 ![](/assets/images/2024/2024-01-27-18-46-22.png)
 

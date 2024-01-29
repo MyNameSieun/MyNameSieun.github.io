@@ -40,7 +40,7 @@ sidebar:
 3. React Hooks - useRef
 4. React Hooks - useContext
 5. React Hooks - 최적화(React.memo, useCallback, useMemo)
-6. LifeCycle
-7. DOM과 Virtual DOM
-8. Redux - Redux 설정
-9. Redux - 소개
+6. 클래스형 컴포넌트의 LifeCycle
+7. Virtual DOM
+8. Redux - 소개
+9. Redux - Redux 설정
