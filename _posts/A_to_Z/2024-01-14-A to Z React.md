@@ -25,7 +25,7 @@ sidebar:
 4. [Component](https://mynamesieun.github.io/react/Component/)
 5. [JSX](https://mynamesieun.github.io/react/JSX/)
 6. [props](https://mynamesieun.github.io/react/props/)
-7. React Hooks - useState
+7. [React Hooks - useState](http://localhost:4000/react/React-Hooks-useState/)
 8. [불변성과 순수함수](https://mynamesieun.github.io/react/%EB%B6%88%EB%B3%80%EC%84%B1%EA%B3%BC-%EC%88%9C%EC%88%98%ED%95%A8%EC%88%98/)
 9. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
 10. [Styling과 map](https://mynamesieun.github.io/react/Styling%EA%B3%BC-map/)
@@ -35,12 +35,15 @@ sidebar:
 
 ### 2주차
 
-1. Styled Components
-2. React Hooks - useEffect
-3. React Hooks - useRef
-4. React Hooks - useContext
-5. React Hooks - 최적화(React.memo, useCallback, useMemo)
-6. 클래스형 컴포넌트의 LifeCycle
-7. Virtual DOM
-8. Redux - 소개
-9. Redux - Redux 설정
+1. [Styled Components](https://mynamesieun.github.io/react/Styled-Components/)
+2. [React Hooks - useEffect](https://mynamesieun.github.io/react/React-Hooks-useEffect/)
+3. [React Hooks - useRef](https://mynamesieun.github.io/react/React-Hooks-useRef/)
+4. [React Hooks - useContext](https://mynamesieun.github.io/react/React-Hooks-useContext/)
+5. [React Hooks - 최적화(React.memo, useCallback, useMemo)](<https://mynamesieun.github.io/react/React-Hooks-%EC%B5%9C%EC%A0%81%ED%99%94(React.memo,-useCallback,-useMemo)/>)
+6. [클래스형 컴포넌트의 LifeCycle](https://mynamesieun.github.io/react/%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-LifeCycle/)
+7. [Virtual DOM](https://mynamesieun.github.io/react/Virtual-DOM/)
+8. Redux 소개 및 설정
+9. Redux - useSelector로 스토어의 state 조회하기
+10. Redux - useDispatch로 action 발생시키기
+11. Redux - Refactoring(action creators, action values)
+12. Redux - Payload 및 Ducks 패턴

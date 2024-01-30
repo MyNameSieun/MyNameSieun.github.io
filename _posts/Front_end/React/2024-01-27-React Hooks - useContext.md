@@ -1,5 +1,5 @@
 ---
-title: "[React] React Hooks - React.memo"
+title: "[React] React Hooks - useContext"
 categories: [React]
 tag: [React]
 toc_label: Contents
