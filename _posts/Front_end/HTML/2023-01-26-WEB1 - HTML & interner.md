@@ -10,6 +10,8 @@ sidebar:
   nav: "counts"
 ---
 
+<br>
+
 ![](/assets/images/2024/2024-01-05-18-38-23.png)
 [생활코딩](https://youtu.be/tZooW6PritE) 공부 내용을 바탕으로 정리한 글 입니다.
 
@@ -308,10 +310,8 @@ github(https://github.com)의 pages 기능을 사용하여 웹서버 운영하�
 | <`ifram`> | 웹페이지 안에 또 다른 HTML페이지를 삽입할 수 있는 태그, 뮤비 등 동영상도 넣을 수 있다. |
 
 > 1.  삽입하고 싶은 동영상 공유하기 버튼 누른 후 퍼가기 클릭
->     ![](https://velog.velcdn.com/images/sieunpark/post/c130d4d6-5ae1-4ab9-86c3-8cdb18d169ac/image.png)
->     <br>2. 소스 코드 복사
->     ![](https://velog.velcdn.com/images/sieunpark/post/de20be1d-6fb5-4a87-b719-d1d5915afda2/image.png)
->     <br>3. 소스 코드 붙여넣기
+>     ![](https://velog.velcdn.com/images/sieunpark/post/c130d4d6-5ae1-4ab9-86c3-8cdb18d169ac/image.png) > <br>2. 소스 코드 복사
+>     ![](https://velog.velcdn.com/images/sieunpark/post/de20be1d-6fb5-4a87-b719-d1d5915afda2/image.png) > <br>3. 소스 코드 붙여넣기
 
 ```
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZeBsrkPq5dM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -328,16 +328,11 @@ github(https://github.com)의 pages 기능을 사용하여 웹서버 운영하�
 따라서 Disqus나 LiveRe이라는 사이트를 이용하여 남들이 만든 댓글을 가져올 것이다.
 
 > 1.  GET STARTED 클릭
->     ![](https://velog.velcdn.com/images/sieunpark/post/284398e2-d24b-4955-a66c-850ce2f07430/image.png)
->     <br>2. I want to install Disqus on my site 클릭
->     ![](https://velog.velcdn.com/images/sieunpark/post/4d1181bb-fa59-425b-853e-bb9209a5edb3/image.png)
->     <br>3. Website Name 입력 후 Create Site 클릭
->     ![](https://velog.velcdn.com/images/sieunpark/post/0c2e31cb-7d94-4ee6-bb0e-d79c4a3fde3f/image.png)
->     <br>4.하단부 Universal Code 클릭
->     ![](https://velog.velcdn.com/images/sieunpark/post/89acc2ca-29fa-4482-b981-3146abbcb78a/image.png)
->     <br>5. 소스 코드 복사
->     ![](https://velog.velcdn.com/images/sieunpark/post/3d6fd4e3-f067-436f-b1b4-7487dd662ce4/image.png)
->     <br>6. 소스 코드 붙여넣기
+>     ![](https://velog.velcdn.com/images/sieunpark/post/284398e2-d24b-4955-a66c-850ce2f07430/image.png) > <br>2. I want to install Disqus on my site 클릭
+>     ![](https://velog.velcdn.com/images/sieunpark/post/4d1181bb-fa59-425b-853e-bb9209a5edb3/image.png) > <br>3. Website Name 입력 후 Create Site 클릭
+>     ![](https://velog.velcdn.com/images/sieunpark/post/0c2e31cb-7d94-4ee6-bb0e-d79c4a3fde3f/image.png) > <br>4.하단부 Universal Code 클릭
+>     ![](https://velog.velcdn.com/images/sieunpark/post/89acc2ca-29fa-4482-b981-3146abbcb78a/image.png) > <br>5. 소스 코드 복사
+>     ![](https://velog.velcdn.com/images/sieunpark/post/3d6fd4e3-f067-436f-b1b4-7487dd662ce4/image.png) > <br>6. 소스 코드 붙여넣기
 
 ```
 <div id="disqus_thread"></div>
@@ -377,8 +372,7 @@ github(https://github.com)의 pages 기능을 사용하여 웹서버 운영하�
 tawk 사이트를 이용하여 채팅 기능을 추가하기
 
 > 1.  소스 코드 복사
->     ![](https://velog.velcdn.com/images/sieunpark/post/b1b7b3b9-3164-4cbb-b2f4-2f311f8b826d/image.png)
->     <br>2. 소스 코드 붙여넣기
+>     ![](https://velog.velcdn.com/images/sieunpark/post/b1b7b3b9-3164-4cbb-b2f4-2f311f8b826d/image.png) > <br>2. 소스 코드 붙여넣기
 
 ```
   <!--Start of Tawk.to Script-->
@@ -409,12 +403,9 @@ Google 애널리틱스 구조는 다음과 같다.
 ![](https://velog.velcdn.com/images/sieunpark/post/0735af20-6e97-44fc-89c4-9650ac47446c/image.png)
 
 > 1. 웹 클릭하기
->    ![](https://velog.velcdn.com/images/sieunpark/post/ce215192-e410-4313-acef-e27bb592ed60/image.png)
->    <br>2. 웹사이트 링크와 스트림 이름 입력한 후 스트림 만들기 클릭
->    ![](https://velog.velcdn.com/images/sieunpark/post/65dc1c61-7697-4d8e-af04-4722101cd234/image.png)
->    <br>3. 코드 복사하기
->    ![](https://velog.velcdn.com/images/sieunpark/post/f9641b96-331b-4189-bbf3-f033c72a8278/image.png)
->    <br>4. 코드 붙여넣기
+>    ![](https://velog.velcdn.com/images/sieunpark/post/ce215192-e410-4313-acef-e27bb592ed60/image.png) > <br>2. 웹사이트 링크와 스트림 이름 입력한 후 스트림 만들기 클릭
+>    ![](https://velog.velcdn.com/images/sieunpark/post/65dc1c61-7697-4d8e-af04-4722101cd234/image.png) > <br>3. 코드 복사하기
+>    ![](https://velog.velcdn.com/images/sieunpark/post/f9641b96-331b-4189-bbf3-f033c72a8278/image.png) > <br>4. 코드 붙여넣기
 
 ```
 <!-- Google tag (gtag.js) -->
