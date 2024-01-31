@@ -16,9 +16,9 @@ sidebar:
 
 ## 1.1 useEffect 개념
 
-① seEffect는 리액트 컴포넌트가 렌더링될 때마다 특정 작업을 수행하도록 설정할 수 있는 Hook이다.
+① useEffect는 리액트 컴포넌트가 렌더링될 때마다 특정 작업을 수행하도록 설정할 수 있는 Hook이다.
 
-② 어떤 컴포넌트가 화면에 보여졌을 때(mount) 또는 사라졌을 때(unmount) 무언가를 실행하고 싶다면 useEffect를 사용한다.
+② 어떤 컴포넌트가 화면에 첫 렌더링이 됐을 때(mount), 다시 렌더링 될 때(Update), 화면에서 사라졌을 때(unmount) 특정 작업을 처리하고 싶다면 useEffect를 사용한다.
 
 ③ `import React, { useEffect } from "react";` 로 import 해서 사용한다.
 
@@ -26,9 +26,16 @@ sidebar:
 
 ## 1.2 useEffect 원리
 
-브라우저에서 App 컴포넌트가 화면에 렌더링될 때 useEffect 안에 있는 console.log가 실행된다.
+useEffect 훅은 기본적으로 콜백함수를 받는다.<br>
+콜백함수 내부에 원하는 작업을 작성해주면 된다.
 
-즉, useEffect는 useEffect가 속한 컴포넌트가 화면에 렌더링 될 때 실행된다.
+```js
+useEffect(() => {// 실행하고 싶은 함수});
+```
+
+<br>
+
+브라우저에서 App 컴포넌트가 화면에 렌더링될 때 useEffect 안에 있는 console.log가 실행된다.
 
 ```jsx
 // src/App.js
@@ -48,13 +55,13 @@ const App = () => {
 export default App;
 ```
 
-![](/assets/images/2024/2024-01-26-14-43-05.png)
+![](/assets/images/2024/2024-01-31-16-12-48.png)
 
 <br>
 
-## 1.2 useEffect와 리렌더링
+## 1.3 useEffect와 리렌더링
 
-useEffect는 useEffect가 속한 컴포넌트가 화면에 렌더링 될 때 실행된다는 특징 때문에 의도치 않은 결과를 낳을 수 있다.
+useEffect는 컴포넌트가 렌더링 될 때에 특정 작업을 수행한다는 특징 때문에 아래와 같은 문제가 발생한다.
 
 아래 코드를 콘솔에서 확인해보면 브라우저에 input에 어떤 값을 입력했을 때 useEffect가 계속 실행되는 것을 볼 수 있다.
 
@@ -98,6 +105,8 @@ export default App;
 
 따라서 input을 입력할 때마다 렌더링이 다시 되고 있어 계속 콘솔이 찍히고 있는 것이다.
 
+<br>
+
 맨 처음에 로딩이 됐을 때만 useEffect를 실행할 수 있는 방법을 아래에서 알아보자!
 
 <br><br>
@@ -108,7 +117,8 @@ export default App;
 
 의존성 배열을 통해 함수의 실행 조건을 제어할 수 있다.
 
-즉, 배열에 값을 넣으면 그 값이 바뀔 때만 useEffect를 실행할 수 있는 것이다.
+즉, 컴포넌트가 렌더링 될 때와 의존성 배열의 값이
+변경될 때 useEffect를 실행할 수 있는 것이다.
 
 ```jsx
 // useEffect의 두번째 인자가 의존성 배열이 들어가는 곳
@@ -121,9 +131,9 @@ useEffect(() => {
 
 > 의존성 배열에 빈 배열 [ ] 을 넣은 경우
 
-input에 어떤 값을 입력하더라도, 처음에 실행된 hello useEffect외에는 더 이상 실행이 되지 않는다.
+useEffect 에서 함수를 1번만 실행시키고자 할때는 의존성 배열을 빈 배열로 두면 된다.
 
-즉, useEffect 에서 함수를 1번만 실행시키고자 할때는 의존성 배열을 빈 배열로 두면 된다.
+⭐ 의존성배열이 비어있는 경우 최초 렌더링 할 때만 실행되기 때문이다.(DB 통신시 유용)
 
 ```jsx
 // src/App.js
@@ -154,17 +164,7 @@ export default App;
 
 ![](/assets/images/2024/2024-01-26-14-53-52.png)
 
-<br>
-
-콘솔에 2번 찍혀 있는 것 처럼 보인다면 index.js에서 strict mod를 주석처리해주면 된다.
-
-```js
-root.render(
-  // <React.StrictMode>
-  <App />
-  // </React.StrictMode>
-);
-```
+input에 어떤 값을 입력하더라도, 처음에 실행된 hello useEffect외에는 더 이상 실행이 되지 않는다.
 
 <br>
 
@@ -199,6 +199,8 @@ const App = () => {
 export default App;
 ```
 
+![](/assets/images/2024/2024-01-31-16-41-00.png)
+
 <br><br>
 
 # 3. clean up
@@ -207,11 +209,13 @@ export default App;
 
 컴포넌트가 사라졌을 때 무언가를 실행하는 과정을 클린 업(clean up) 이라고 한다.
 
+useEffect가 실행될 때 반환된 함수로, 주로 특정 작업이 더 이상 필요하지 않을 때 자원을 정리하거나 해제하는 용도로 사용한다.
+
 <br>
 
-## 3.2 clean up 방법
+## 3.2 clean up 사용 방법
 
-useEffect 안에서 return 을 해주고 이 부분에 실행되길 원하는 함수를 넣으면 된다.
+useEffect 안에서 return 을 해주고 이 부분에 실행되길 원하는 함수를 넣으면 된다. (그냥 console.log와 같다.)
 
 ```jsx
 // src/App.js
@@ -235,43 +239,80 @@ export default App;
 
 <br>
 
-## 3.3 clean up 활용하기
+## 3.3 clean up 사용하기
 
-속세를 벗어나는 버튼을 누르면 useNavigate에 의해서 /todos로 이동하면서 속세 컴포넌트를 떠난다.
-
-그 후, 화면에서 속세 컴포넌트가 사라지면서 useEffect의 return 부분이 실행되는 코드이다.
+타이머를 설정하고 해당 컴포넌트가 언마운트될 때 타이머를 제거하는 상황을 생각해보자
 
 ```jsx
-// src/SokSae.js
+// src/App.js
+import React, { useEffect, useState } from "react";
+import Timer from "./components/Timer";
 
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-const 속세 = () => {
-  const nav = useNavigate();
-
-  useEffect(() => {
-    return () => {
-      console.log(
-        "안녕히 계세요 여러분! 전 이 세상의 모든 굴레와 속박을 벗어 던지고 제 행복을 찾아 떠납니다! 여러분도 행복하세요~~!"
-      );
-    };
-  }, []);
+const App = () => {
+  const [showTimer, setShowTimer] = useState(false);
 
   return (
-    <button
-      onClick={() => {
-        nav("/todos");
-      }}
-    >
-      속세를 벗어나는 버튼
-    </button>
+    <div>
+      {showTimer && <Timer />}
+      <button onClick={() => setShowTimer(!showTimer)}>Toggle Timer</button>
+    </div>
   );
 };
 
-export default 속세;
+export default App;
 ```
 
-/ 에서 /todos 잘 이동했고, 그 과정에서 clean up이 실행된 것을 확인할 수 있다.
+```js
+// components/Timer.jsx
+import React, { useEffect } from "react";
+
+const Timer = (props) => {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      console.log("타이머 실행중..");
+    }, 1000);
+  }, []);
+  return <div>타이머 시작!</div>;
+};
+
+export default Timer;
+```
+
+![](/assets/images/2024/2024-01-31-16-57-48.png)
+![](/assets/images/2024/2024-01-31-16-57-55.png)
+
+![](/assets/images/2024/2024-01-31-16-58-08.png)
+
+토글 버튼이 해제됐는데도 타이머가 실행중인 것을 볼 수 있다.
+
+<br>
+
+타이머가 컴포넌트가 언마운트 될 때 타이머가 멈추도록 코드를 변경해보자.
+
+useEffect의 return값으로 정리 작업을 할 함수를 주면 된다.
+
+```jsx
+// components/Timer.jsx
+import React, { useEffect } from "react";
+
+const Timer = (props) => {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      console.log("타이머 실행중..");
+    }, 1000);
+
+    // 아래 코드 추가
+    return () => {
+      clearInterval(timer);
+      console.log("타이머가 종료되었습니다.");
+    };
+  }, []);
+  return <div>타이머 시작!</div>;
+};
+
+export default Timer;
+```
+
+![](/assets/images/2024/2024-01-31-17-02-11.png)
 
 <br>

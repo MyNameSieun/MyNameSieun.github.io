@@ -35,20 +35,9 @@ React에선 `let`이나 `const`가 아닌 `State`를 사용해서 상태를 표�
 ⬇️ useState 훅을 사용하는 방식은 아래와 같다.
 
 ```js
-// useState hook
-useState("initial State") = const [state, setState];
-```
-
-- state: 현재 상태의 값이 들어 있는 변수
-- setState: 상태를 업데이트하는 함수
-- initialState: 초기 상태 값을 지정
-
-<br>
-
-> 위 코드를 구조분해할당해주면 아래와 같다.📌
-
-```js
-// useState hook
+// state: 현재 상태의 값이 들어 있는 변수
+// setState: 상태를 업데이트하는 함수
+//  initialState: 초기 상태 값을 지정
 const [state, setState] = useState("initial State");
 ```
 
@@ -347,7 +336,9 @@ setPassword("");
 
 <br><br>
 
-# 4. 함수형 업데이트
+# 4. 함수형 업데이트 개요
+
+## 4.1 함수형 업데이트 사용법
 
 > 함수형 업데이트 방식을 통해 setState를 사용할 수 있다.
 
@@ -373,78 +364,158 @@ setState((currentNumber) => {
 
 <br>
 
+## 4.2 함수형 업데이트 필요성(with 배치)
+
 > 일반 사용법과 함수형 업데이트 방식의 차이점
 
-- 일반 업데이트 방식으로 onClick안에서 setNumber(number + 1) 를 3번 호출 → number가 1씩 증가
+일반 업데이트 방식으로 onClick안에서 setNumber(number + 1) 를 3번 호출 → number가 1씩 증가
 
-  ```jsx
-  // src/App.js
+```jsx
+// src/App.js
 
-  import { useState } from "react";
+import { useState } from "react";
 
-  const App = () => {
-    const [number, setNumber] = useState(0);
-    return (
-      <div>
-        {/* 버튼을 누르면 1씩 플러스된다. */}
-        <div>{number}</div>
-        <button
-          onClick={() => {
-            setNumber(number + 1); // 첫번째 줄
-            setNumber(number + 1); // 두번쨰 줄
-            setNumber(number + 1); // 세번째 줄
-          }}
-        >
-          버튼
-        </button>
-      </div>
-    );
-  };
+const App = () => {
+  const [number, setNumber] = useState(0);
+  return (
+    <div>
+      {/* 버튼을 누르면 1씩 플러스된다. */}
+      <div>{number}</div>
+      <button
+        onClick={() => {
+          setNumber(number + 1); // 첫번째 줄
+          setNumber(number + 1); // 두번쨰 줄
+          setNumber(number + 1); // 세번째 줄
+        }}
+      >
+        버튼
+      </button>
+    </div>
+  );
+};
 
-  export default App;
-  ```
+export default App;
+```
 
-  ① 일반 업데이트 방식은 버튼을 클릭했을 때 첫번째 줄 ~ 세번째 줄의 있는 setNumber가 각각 실행되는 것이 아니라, <span style="color:indianred">배치(batch)로 처리⭐</span>한다.
+① 일반 업데이트 방식은 버튼을 클릭했을 때 첫번째 줄 ~ 세번째 줄의 있는 setNumber가 각각 실행되는 것이 아니라, <span style="color:indianred">배치(batch)로 처리⭐</span>한다.
 
-  ② 즉 onClick을 했을 때 setNumber 라는 명령을 몇 번을 내리던지 간에, 리액트는 그 명령을 하나로 모아 최종적으로 한번만 실행시킨다.
+② 즉 onClick을 했을 때 setNumber 라는 명령을 몇 번을 내리던지 간에, 리액트는 그 명령을 하나로 모아 최종적으로 한번만 실행시킨다.
 
-  ③ 따라서 setNumber을 3번 명령하던, 100번 명령하던 1번만 실행된다.
+③ 따라서 setNumber을 3번 명령하던, 100번 명령하던 1번만 실행된다.
 
 <br>
 
-- 함수 업데이트 방식으로 onClick안에서 setNumber(number + 1) 를 3번 호출 → number가 3씩 증가
+> 함수 업데이트 방식으로 onClick안에서 setNumber(number + 1) 를 3번 호출 → number가 3씩 증가
 
-  ```jsx
-  // src/App.js
+```jsx
+// src/App.js
 
-  import { useState } from "react";
+import { useState } from "react";
 
-  const App = () => {
-    const [number, setNumber] = useState(0);
-    return (
-      <div>
-        {/* 버튼을 누르면 3씩 플러스 된다. */}
-        <div>{number}</div>
-        <button
-          onClick={() => {
-            setNumber((previousState) => previousState + 1);
-            setNumber((previousState) => previousState + 1);
-            setNumber((previousState) => previousState + 1);
-          }}
-        >
-          버튼
-        </button>
-      </div>
-    );
-  };
+const App = () => {
+  const [number, setNumber] = useState(0);
+  return (
+    <div>
+      {/* 버튼을 누르면 3씩 플러스 된다. */}
+      <div>{number}</div>
+      <button
+        onClick={() => {
+          setNumber((previousState) => previousState + 1);
+          setNumber((previousState) => previousState + 1);
+          setNumber((previousState) => previousState + 1);
+        }}
+      >
+        버튼
+      </button>
+    </div>
+  );
+};
 
-  export default App;
-  ```
+export default App;
+```
 
-  ① 함수형 업데이트 방식은 3번을 동시에 명령을 내리면, 그 명령을 모아 순차적으로 각각 1번씩 실행시킨다.
+① 함수형 업데이트 방식은 3번을 동시에 명령을 내리면, 그 명령을 모아 순차적으로 각각 1번씩 실행시킨다.
 
-  ② 0에 1더하고, 그 다음 1에 1을 더하고, 2에 1을 더해서 3을 출력한다.
+② 0에 1더하고, 그 다음 1에 1을 더하고, 2에 1을 더해서 3을 출력한다.
 
-  ③ 이는 불필요한 리-렌더링을 방지(렌더링 최적화)하여 리액트의 성능을 향상시키기 위해 단일 업데이트(batch update)로 한꺼번에 처리할 수 있게 하는 것이다.
+③ 이는 불필요한 리-렌더링을 방지(렌더링 최적화)하여 리액트의 성능을 향상시키기 위해 단일 업데이트(batch update)로 한꺼번에 처리할 수 있게 하는 것이다.
+
+<br>
+
+## 4.2 함수형 업데이트의 문제점
+
+리액트에서 상태 업데이트는 비동기적으로 이루어지기 때문에 상태가 즉시 업데이트 되지 않는다.
+
+따라서 아래와 같은 문제가 발생하게 된다.
+
+```js
+import { useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    // 첫 번째 상태 업데이트
+    setCount(count + 1);
+    console.log(count); // 아직 상태 변경 x, 초기 상태가 0이므로 0 출력 (비동기적으로 작동하기 때문)
+
+    // 두 번째 상태 업데이트
+    setCount(count + 1);
+    console.log(count); // 아직 상태 변경 x, 이전 상태의 값 1 출력 (비동기적으로 작동하기 때문)
+  }
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increase</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+setCount 호출에서는 각각 현재 상태가 아닌 이전 상태를 기반으로 하고 있기 때문에, 예상대로 두 번의 클릭에도 불구하고 상태가 1만 증가하게된다.<br><br>
+![](/assets/images/2024/2024-01-31-15-37-53.png)
+
+<br>
+
+## 4.3 함수형 업데이트 문제 해결방안
+
+"useEffect + 함수형 업데이트 사용"을 하면 함수형 업데이트 문제(배치 업데이트로 업데이트 값이 즉시 반영되지 않는 문제)를 해결할 수 있다.
+
+```js
+import { useEffect, useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("useEffect");
+    console.log(count);
+  }, [count]);
+
+  function handleClick() {
+    // 첫 번째 상태 업데이트
+    setCount((prev) => prev + 1);
+    console.log(count); // 아직 상태 변경 x (비동기적으로 작동하기 때문)
+
+    // 두 번째 상태 업데이트
+    setCount((prev) => prev + 1);
+    console.log(count); // 아직 상태 변경 x (비동기적으로 작동하기 때문)
+  }
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increase</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+useEffect에 대해선 다음 포스팅에서 자세히 다룰 것이다!
 
 <br>
