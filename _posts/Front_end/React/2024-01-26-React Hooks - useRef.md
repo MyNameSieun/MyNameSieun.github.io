@@ -148,7 +148,7 @@ export default App;
 `<input />` 태그에는 ref라는 속성이 있다. 이를 통해 해당 DOM 요소로 접근할 수 있다.<br>
 이 속성을 사용하여 화면이 렌더링 되고나면 아이디에 자동 포커싱되게 할 수 있다.
 
-여기서 주목할 것은, useRef는 DOM 요소에 숨겨져있었던 ref 속성을 참조하여 바로 값이 접근한 반면,<br>useState는 state를 ‘연결’해놓고 그 변화를 계속해서 추적하는것이다.() 렌더링이 계속 일어나서 변경되는 것임을 기억!
+여기서 주목할 것은, useRef는 DOM 요소에 숨겨져있었던 ref 속성을 참조하여 바로 값이 접근한 반면,<br>useState는 state를 ‘연결’해놓고 그 변화를 계속해서 추적하는것이다.<br> 렌더링이 계속 일어나서 변경되는 것임을 기억!
 
 ```jsx
 import React, { useEffect, useRef } from "react";
