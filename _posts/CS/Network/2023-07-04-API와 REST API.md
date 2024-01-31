@@ -1,5 +1,5 @@
 ---
-title: "[Network] API와 REST API (RESTful 작성해야함)"
+title: "[Network] API와 REST API"
 categories: [Network]
 tag: [Network, CS]
 toc_label: Contents
@@ -57,11 +57,11 @@ sidebar:
 
 <br><br>
 
-# 2 HTTP 요청 메서드
+# 2. HTTP 요청 메서드
 
-> - 클라이언트는 HTTP 요청 메세지를 생성하고, 해당 서버에 해당 서버의 주소(URL)와 함께 요청을 전송한다고 하였다.
+> 클라이언트는 HTTP 요청 메세지를 생성하고, 해당 서버에 해당 서버의 주소(URL)와 함께 요청을 전송한다고 하였다.
 
-- 즉, URL을 이용하면 서버에 특정 데이터를 요청할 수 있는 것이다.
+즉, URL을 이용하면 서버에 특정 데이터를 요청할 수 있는 것이다.
 
 | 요청 메서드 |                                                  설명                                                  |
 | :---------: | :----------------------------------------------------------------------------------------------------: |
@@ -72,11 +72,50 @@ sidebar:
 
 <br><br>
 
-# 3. REST API
+# 3. REST API 개요
+
+## 3.1 REST 개념
+
+> REST(REpresentational State Transfe)는 자원을 이름으로 구분하여 해당 자원의 상태를 주고받는 모든 것을 의미한다.
+
+즉,
+
+- HTTP URI를 통해 자원(Resource)을 명시하고,
+- 어떤 자원에 대해 CRUD를 진행할 수 있게
+- HTTP Method(POST, GET, PUT, DELETE, PATCH 등)를 사용하여
+- 해당 자원(URI)에 대한 요청을 보내는 것을 말한다.
+
+<br>
+
+## 3.2 REST 구성 요소
+
+- 자원(Resource): HTTP URI
+
+  - 자원을 구별하는 ID는 ‘/groups/:group_id’와 같은 HTTP URI 다.
+  - Client는 URI를 이용해서 자원을 지정하고 해당 자원의 상태(정보)에 대한 조작을 Server에 요청한다.
+
+   <br>
+
+- 자원에 대한 행위(Verb): HTTP Method
+
+  - HTTP 프로토콜의 Method를 사용한다.
+  - HTTP 프로토콜은 GET, POST, PUT, DELETE 와 같은 메서드를 제공한다.
+
+   <br>
+
+- 자원에 대한 행위의 내용(표현): HTTP Message Pay Load
+  - Client가 자원의 상태(정보)에 대한 조작을 요청하면 Server는 이에 적절한 응답(Representation)을 보낸다.
+  - REST에서 하나의 자원은 JSON, XML, TEXT, RSS 등 여러 형태의 Representation으로 나타내어 질 수 있다.
+  - JSON 혹은 XML를 통해 데이터를 주고 받는 것이 일반적이다.<br>
+    출처: (https://gmlwjd9405.github.io/2018/09/21/rest-and-restful.html)
+
+<br>
+
+## 3.3 REST API 개념
 
 > REST를 기반으로 만들어진 API를 REST API라고 한다.
 
-> REST를 사용하지 않는 API는 일반적으로 HTTP 요청 메서드를 사용하지 않고 아래와 같이 CREATE, READ, UPDATE와 같은 개선되지 않은 CRUD 동작을 수행한다.
+REST를 사용하지 않는 API는 일반적으로 HTTP 요청 메서드를 사용하지 않고 아래와 같이 CREATE, READ, UPDATE와 같은 개선되지 않은 CRUD 동작을 수행한다.
 
 REST를 사용하지 않고 영화 API를 생성해보자
 
@@ -113,78 +152,81 @@ GET /topRatedMovies: 최상위 평점을 받은 영화를 가져오는 요청
 ```
 
 위와같이 RESTful하게 만든 API는 요청을 보내는 주소 만으로도 대략 어떤 동작을 하는 동작인지 파악이 가능하다.
-그렇다면 REST와 RESTful이 뭔지 알아보자
 
 <br>
 
-## 3.1 REST
+## 3.4 REST API 규칙
 
-> REST는 자원을 이름으로 구분하여 해당 자원의 상태를 주고받는 모든 것을 의미한다.
+```jsx
+http://example.com/posts     (O)
+http://example.com/posts/    (X)
+http://example.com/post      (X)
+http://example.com/get-posts (X)
+--> URI는 명사를 사용하고 소문자로 작성되어야 한다.
+--> 명사는 복수형을 사용한다.
+--> URI의 마지막에는 /를 포함하지 않는다.
 
-즉,
+http://example.com/post-list  (O)
+http://example.com/post_list  (X)
+--> URI에는 언더바가 아닌 하이픈을 사용한다.
 
-- HTTP URI를 통해 자원(Resource)을 명시하고,
-- HTTP Method(POST, GET, PUT, DELETE, PATCH 등)를 통해
-- 해당 자원(URI)에 대한 CRUD를 적용하는 것을 의미한다.
-
-<br>
-
-## 3.2 REST 구성 요소
-
-- 자원(Resource): HTTP URI
-
-  - 자원을 구별하는 ID는 ‘/groups/:group_id’와 같은 HTTP URI 다.
-  - Client는 URI를 이용해서 자원을 지정하고 해당 자원의 상태(정보)에 대한 조작을 Server에 요청한다.
-
-   <br>
-
-- 자원에 대한 행위(Verb): HTTP Method
-
-  - HTTP 프로토콜의 Method를 사용한다.
-  - HTTP 프로토콜은 GET, POST, PUT, DELETE 와 같은 메서드를 제공한다.
-
-   <br>
-
-- 자원에 대한 행위의 내용(표현): HTTP Message Pay Load
-  - Client가 자원의 상태(정보)에 대한 조작을 요청하면 Server는 이에 적절한 응답(Representation)을 보낸다.
-  - REST에서 하나의 자원은 JSON, XML, TEXT, RSS 등 여러 형태의 Representation으로 나타내어 질 수 있다.
-  - JSON 혹은 XML를 통해 데이터를 주고 받는 것이 일반적이다.
-
-(https://gmlwjd9405.github.io/2018/09/21/rest-and-restful.html 에 있는 글을 가져왔다.)
+http://example.com/post/assets/example  (O)
+http://example.com/post/assets/example.png  (X)
+--> URI에는 파일의 확장자를 표시하지 않는다.
+```
 
 <br>
 
-## 3.3 REST의 특징
+## 3.5 RESTful API
 
-1. Server-Client(서버-클라이언트 구조)
-   REST 서버는 API 제공, 클라이언트는 사용자 인증이나 컨텍스트(세션, 로그인 정보)등을 직접 관리하는 구조로 각각의 역할이 확실히 구분되기 때문에 클라이언트와 서버에서 개발해야 할 내용이 명확해지고 서로간 의존성이 줄어들게 됩니다.
+> REST API의 조건을 만족시킨 통신 설계 상태를 말한다.
 
-2. Stateless(무상태성)
-   REST는 무상태성 성격을 갖습니다. 다시 말해 작업을 위한 상태정보를 따로 저장하고 관리하지 않습니다. 세션 정보나 쿠키정보를 별도로 저장하고 관리하지 않기 때문에 API 서버는 들어오는 요청만을 단순히 처리하면 됩니다. 때문에 서비스의 자유도가 높아지고 서버에서 불필요한 정보를 관리하지 않음으로써 구현이 단순해집니다.
+즉, 누구나 이해하기 쉽고 사용하기 쉬운 REST API를 보고 "RESTful 하다." 라고 말하는 것이다.
 
-3. Cacheable(캐시 처리 가능)
-   REST의 가장 큰 특징 중 하나는 HTTP라는 기존 웹표준을 그대로 사용하기 때문에, 웹에서 사용하는 기존 인프라를 그대로 활용이 가능합니다. 따라서 HTTP가 가진 캐싱 기능이 적용 가능합니다. HTTP 프로토콜 표준에서 사용하는 Last-Modified태그나 E-Tag를 이용하면 캐싱 구현이 가능합니다.
-4. 계층형 구조
-   REST 서버는 다중 계층으로 구성될 수 있으며 보안, 로드 밸런싱, 암호화 계층을 추가해 구조상의 유연성을 둘 수 있고 PROXY, 게이트웨이 같은 네트워크 기반의 중간매체를 사용할 수 있게 합니다.
+<br>
 
-5. Self-descriptiveness (자체 표현 구조)
-   REST API 메시지만 보고도 이를 쉽게 이해 할 수 있는 자체 표현 구조로 되어 있다는 것입니다.
+아래의 경우 RESTful하지 못한 경우이다.
 
-(https://meetup.nhncloud.com/posts/92 에 있는 글을 가져왔다.)
+- CRUD의 기능을 모두 POST method로만 처리한 API
+- URL에 resource, id외의 정보인 행위(method)에 대한 부분이 들어가는 경우(/classes/createPeople)
 
 <br><br>
 
-# 4. URL
+# 4. Path Variable과 Query Parameter
+
+## 4.1 Path Variable
+
+경로를 변수로서 사용하는 방법이다.
+
+```js
+/users/10
+```
+
+전체 데이터 또는 하나의 데이터를 다룰 때처럼 특정 resource를 식별하고 싶을 때 사용한다.
+
+<br>
+
+## 4.2 Query Parameter
+
+```js
+/users?user_id=10
+```
+
+데이터를 정렬이나 필터링하는 경우 사용한다.
+
+<br><br>
+
+# 5. URL
 
 > 서버에 자원을 요청하기 위해 입력하는 영문 주소
 
 - URL을 통해 웹 브라우저에서 접속하고자 하는 웹 페이지의 주소를 입력하면, HTTP 프로토콜을 사용하여 이 주소에 해당하는 웹 서버에 요청(Request)을 보낸다.
-- URL의 구조는 아래와 같다.
+- URL의 구조는 아래와 같다.<br><br>
   ![](https://velog.velcdn.com/images/sieunpark/post/48905101-1538-4f96-8495-64cb68227824/image.png)
 
 <br><br>
 
-# 5. 참조
+# 6. 참조
 
 - https://velog.io/@hyo123/HTTP-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9CAPI
 - https://joshua1988.github.io/web-development/http-part1/

@@ -56,7 +56,7 @@ sidebar:
 1. [Closure](https://mynamesieun.github.io/javascript/Closure/)
 2. [프로토타입](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85/)
 3. [Class](https://mynamesieun.github.io/javascript/Class/)
-4. [프로미스](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4/)
+4. 프로미스 객체와 메서드
 5. [fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/>)
 6. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
 7. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)

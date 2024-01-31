@@ -10,38 +10,43 @@ sidebar:
   nav: "counts"
 ---
 
+<br>
+
 《 [실행 컨텍스트](https://velog.io/@sieunpark/JS-%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8) 》에 이어 작성하는 글입니다.
-
----
-
-# ▶ this binding이란?
-
-- 자바스크립트에서 this가 참조하는 것은 함수가 호출되는 방식에 따라 결정되는데, 이것을 "this binding"이라고 한다.
 
 <br>
 
-## ▷ 상황에 따라 달라지는 this
+# 1. this binding 개요
 
-> 실행 컨텍스트 복습!
+## 1.1 this binding 개념
 
-- 실행 컨텍스트는 실행할 코드에 제공할 환경 정보들을 모아놓은 객체이며, 그 객체 안에는 3가지가 존재한다고 하였다.
+자바스크립트에서 this가 참조하는 것은 함수가 호출되는 방식에 따라 결정되는데, 이것을 "this binding"이라고 한다.
+
+<br>
+
+## 1.2 실행 컨택스트와 this
+
+- 실행 컨텍스트는 실행할 코드에 제공할 환경 정보들을 모아놓은 객체이며, 그 객체 안에는 3가지가 존재한다고 하였다.<br>
   ✓ VariableEnvironment
   ✓ LexicalEnvironment
   <span style="color:indianred"> ✓ ThisBindings</span>
 
 <br>
 
-### ① this의 결정
+## 1.3 this의 결정
 
 - this는 실행 컨텍스트가 생성될 때 결정된다.
 - 이 말을 this를 bind한다(= 묶는다) 라고도 한다.
 - 즉, this는 함수를 호출할 때 결정되는 것이다.
 
-<br>
+<br><br>
 
-> 전역 공간에서의 this
+# 2. 상황에 따라 달라지는 this
 
-- 전역 공간에서 this는 전역 객체를 가리킨다.
+## 2.1 전역 공간에서의 this
+
+> 전역 공간에서 this는 전역 객체를 가리킨다.
+
 - 런타임 환경에 따라 this는 window(브라우저 환경) 또는 global(node 환경)를 각각 가리킨다.
 - 런타임 환경?
   - 코드가 돌아가는 환경을 말한다.
@@ -51,31 +56,32 @@ sidebar:
 
 - 브라우저 환경에서의 this 확인
   - window라는 객체가 나온다.
-    ➡️ 브라우저에서의 this라는 전역 변수는 <span style="color:indianred">window 객체</span>를 의미한다는 것을 알 수 있다.
+    ➡️ 브라우저에서의 this라는 전역 변수는 <span style="color:indianred">window 객체</span>를 의미한다는 것을 알 수 있다.<br><br>
     ![](https://velog.velcdn.com/images/sieunpark/post/c98e4033-e7a0-4625-a50e-829f9f32fb23/image.png)![](https://velog.velcdn.com/images/sieunpark/post/2ec91eb6-ce63-44a4-a7c1-9bc51e566909/image.png)
-  ```jsx
-  console.log(this);
-  console.log(window);
-  console.log(this === window);
-  ```
+    ```jsx
+    console.log(this);
+    console.log(window);
+    console.log(this === window);
+    ```
 
 <br>
 
 - node 환경에서의 this 확인
 
   - globle이라는 객체가 나온다.
-    ➡️ node 환경에서의 this라는 전역 변수는 <span style="color:indianred">globle 객체</span>를 의미한다는 것을 알 수 있다.
-    ![](https://velog.velcdn.com/images/sieunpark/post/dcddc208-922e-4aae-b50a-bf05689cf532/image.png)![](https://velog.velcdn.com/images/sieunpark/post/a87bd5f3-2aaf-43e0-8213-6302ffd70662/image.png)
+    ➡️ node 환경에서의 this라는 전역 변수는 <span style="color:indianred">globle 객체</span>를 의미한다는 것을 알 수 있다.<br><br>
+    ![](https://velog.velcdn.com/images/sieunpark/post/dcddc208-922e-4aae-b50a-bf05689cf532/image.png)
+    ![](https://velog.velcdn.com/images/sieunpark/post/a87bd5f3-2aaf-43e0-8213-6302ffd70662/image.png)
 
-  ```jsx
-  console.log(this);
-  console.log(global);
-  console.log(this === global);
-  ```
+    ```jsx
+    console.log(this);
+    console.log(global);
+    console.log(this === global);
+    ```
 
 <br>
 
-### ② 메서드로서 호출시, 메서드 내부에서의 this
+## 2.2 메서드에서의 this(메서드로써의 호출)
 
 > 함수 vs 메서드
 
@@ -83,7 +89,7 @@ sidebar:
   - 함수는 그 자체로 독립적인 기능을 수행한다. `함수명();`
   - 메서드는 자신을 호출한 대상 객체에 대한 동작을 수행한다. (종속적) `객체.메서드명();`
 
-➡️ 즉, 함수는 호출의 주체를 명시할 수 없기 때문에 <span style="color:indianred">this가 전역 객체</span>이지만, 메서드는 <span style="color:indianred">this가 호출의 주체</span>가 된다!!
+➡️ 즉, 함수로서의 호출은 호출의 주체를 명시할 수 없기 때문에 <span style="color:indianred">this가 무조건 전역 객체</span>이지만, 메서드는 <span style="color:indianred">this가 호출의 주체</span>가 된다!!
 
 <br>
 
@@ -131,11 +137,9 @@ obj["method"](2); // { method: f } 2
 
 <br>
 
-### ③ 함수로서 호출시, 그 함수 내부에서의 this
+## 2.3 함수에서의 this(함수로써의 호출)
 
-> 함수 내부에서의 this
-
-- 어떤 함수를 함수로서 호출할 경우, this는 지정되지 않는다. (호출 주체가 알 수 없기 때문)
+- 어떤 함수를 함수로서 호출할 경우, this는 지정되지 않는다. (호출 주체를 알 수 없기 때문)
 - 실행 컨텍스트를 활성화할 당시 this가 지정되지 않은 경우, this는 전역 객체를 의미한다.
 - 따라서, 함수로서 <span style="color:indianred">독립적으로⭐</span> 호출할 때는 <span style="color:indianred">this는 항상 전역객체</span>를 가리킨다.
 
@@ -167,7 +171,7 @@ obj1.outer();
 
 <br>
 
-➡️ 실행 결과 : (1) : obj1, (2) : 전역객체, (3) : obj2
+➡️ 실행 결과 : (1) : obj1, (2) : 전역객체, (3) : obj2<br><br>
 ![](https://velog.velcdn.com/images/sieunpark/post/2d23eff4-c3a4-49ea-81c3-7782281cc77d/image.png)
 
 <br>
@@ -205,28 +209,7 @@ obj1.outer();
 
 <br>
 
-- 《 [화살표 함수 ](https://velog.io/@sieunpark/JS-%ED%95%A8%EC%88%98)》 활용 (= this를 바인딩하지 않는 함수)
-  - 실행 컨텍스트를 생성할 때 this 바인딩 과정 자체가 없기 때문에, this는 이전의 값-상위값-이 유지된다.
-  - ES6에서는 함수 내부에서 this가 전역객체를 바라보는 문제 때문에 화살표 함수를 도입했다.
-  - 일반 함수와 화살표 함수의 가장 큰 차이점은 <span style="color:indianred"> this binding 여부</span>이다!!
-
-```jsx
-var obj = {
-  outer: function () {
-    console.log(this); // (1) obj
-    var innerFunc = () => {
-      console.log(this); // (2) obj
-    };
-    innerFunc();
-  },
-};
-
-obj.outer();
-```
-
-<br>
-
-> 콜백 함수 호출 시 그 함수 내부에서의 this
+## 2.4 콜백 함수 호출 시 그 함수 내부에서의 this
 
 - 아래 코드는 모두 《 [콜백 함수](https://velog.io/@sieunpark/JS-%ED%95%A8%EC%88%98) 》이다.
 - 즉, 콜백 함수도 함수이므로 무조건 전역 객체를 바라보게 된다 ➡️ this를 잃어버리게 되는 문제 발생
@@ -256,30 +239,137 @@ document.body.querySelector("#a").addEventListener("click", function (e) {
 
 <br>
 
-> 《 [생성자 함수](https://velog.io/@sieunpark/JS-%ED%95%A8%EC%88%98) 》 내부에서의 this
+## 2.5 생성자 함수 또는 클래스에서의 this
 
-- 생성자 함수란 객체를 생성하는 함수를 말한다. 생성자 함수에 의해 생성된 객체를 인스턴스라고 한다.
-- 생성자 함수를 사용하면 비슷한 객체를 여러개 만들 수 있고 상속을 구현할 수 있다.
+생성자 함수 또는 클래스에서의 this는 항상 새로 생성되는 객체(인스턴스)를 가리킨다.<br>
 
-```jsx
-var Cat = function (name, age) {
-  this.bark = "야옹";
+(1) 생성자 함수에서의 this
+
+```js
+function Person(name, age) {
   this.name = name;
   this.age = age;
-};
 
-var choco = new Cat("초코", 7); //this : choco
-var nabi = new Cat("나비", 5); //this : nabi
+  this.describe = function () {
+    return `${this.name} is ${this.age} years old.`;
+  };
+}
+
+const person1 = new Person("Alice", 30);
+console.log(person1.describe()); // "Alice is 30 years old."
 ```
 
 <br>
 
-## ▷ 명시적 this binding
+(2) 클래스 인스턴스에서의 this
 
-- 자동으로 부여되는 상황별 this의 규칙을 깨고 this에 별도의 값을 저장하는 방법을 말한다.
-- 크게, call, apply, bind 메서드가 있다.
+```js
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
 
-### ① call 메서드
+  describe() {
+    return `${this.name} is ${this.age} years old.`;
+  }
+}
+
+const person1 = new Person("Bob", 25);
+console.log(person1.describe()); // "Bob is 25 years old."
+```
+
+<br>
+
+## 2.6 이벤트 핸들러에서의 this
+
+DOM 이벤트 핸들러에서 this는 이벤트가 발생한 요소를 가리킨다.
+
+```js
+<button id="myButton">Click me</button>
+
+<script>
+  document.getElementById("myButton").addEventListener('click', function() {
+    console.log(this); // 클릭된 버튼 요소
+  });
+</script>
+```
+
+<br>
+
+## 2.4 Arrow 함수에서의 this
+
+> 화살표 함수에서 this는 상위 스코프의 this 값을 가진다. 화살표 함수는 자신만의 this를 가지지 않는다.
+
+- 일반 함수와 화살표 함수의 가장 큰 차이점은 <span style="color:indianred"> this binding 여부</span>이다.
+- ES6에서는 함수 내부에서 this가 전역객체를 바라보는 문제 때문에 화살표 함수를 도입했다.
+- 실행 컨텍스트를 생성할 때 this 바인딩 과정 자체가 없기 때문에, this는 이전의 값-상위값-이 유지된다.
+
+(1) 상위스코프가 전역 객체인 경우
+
+```js
+const myObject = {
+  method: () => {
+    console.log(this);
+  },
+};
+
+myObject.method(); // 상위 스코프의 `this` (일반적으로 전역 객체)
+```
+
+<br>
+
+(2) 객체의 메서드 내에서 화살표 함수를 사용하는 경우
+
+```js
+const myObject = {
+  name: "MyObject",
+  regularFunction: function () {
+    console.log(this.name); // "MyObject"
+    const arrowFunction = () => {
+      console.log(this.name); // 여전히 "MyObject"
+    };
+    arrowFunction();
+  },
+};
+
+myObject.regularFunction();
+```
+
+<br>
+
+(3) 케이스 3(with call, bind)
+
+아래 명시적 this binding에서 자세히 살펴보도록 하자.
+
+```js
+const myObject = {
+  name: "MyObject",
+  regularFunction: function () {
+    console.log(this.name); // "MyObject"
+    const arrowFunction = function () {
+      console.log(this.name);
+      console.log(this);
+    };
+    arrowFunction.call({ name: "testName" });
+    // arrowFunction.bind({ name: "testName" })();
+  },
+};
+
+myObject.regularFunction();
+```
+
+<br><br>
+
+# 3. 명시적 this binding
+
+자동으로 부여되는 상황별 this의 규칙을 깨고 this에 별도의 값을 저장하는 방법을 말한다. (원하는 this를 binding하고 싶을 때 사용)
+
+크게, call, apply, bind 메서드가 있다.
+
+<br>
+
+## 3.1 call 메서드
 
 > 호출 주체인 함수를 즉시 실행하는 명령어이다.
 
@@ -321,7 +411,7 @@ obj.method.call({ a: 4 }, 5, 6); // 4 5 6
 
 <br>
 
-### ② apply 메서드
+## 3.2 apply 메서드
 
 > call 메서드와 완전히 동일하지만, this에 binding할 객체는 똑같이 넣어주고 나머지 부분만 배열 형태로 넘겨준다.
 
@@ -343,7 +433,7 @@ obj.method.apply({ a: 4 }, [5, 6]); // 4 5 6
 
 <br>
 
-### ③ call / apply 메서드 활용
+## 3.3 call / apply 메서드 활용
 
 > 유사 배열 객체(array-like-object)에 배열 메서드를 적용
 
@@ -474,9 +564,9 @@ console.log(max min);
 
 <br>
 
-### ④ bind 메서드
+## 3.4 bind 메서드
 
-> - this를 바인딩 하는 메서드
+> this를 바인딩 하는 메서드
 
 - call, apply와 비슷하지만 즉시 호출하지는 않고 넘겨받은 this 및 인수들을 바탕으로 새로운 함수를 반환한다.
 
@@ -608,13 +698,9 @@ var obj = {
 obj.outer();
 ```
 
-<br>
+<br><br>
 
----
-
-<br>
-
-# ▶ 문제📒
+# 4. 문제📒
 
 > - 출력의 결과를 제출해주세요, 그리고 그 이유를 최대한 상세히 설명해주세요
 
@@ -657,7 +743,7 @@ console.log(
 
 <br>
 
-## ▷ 풀이
+## 풀이
 
 위 코드를 브라우저 상에서 출력하면 아래와 같은 결과를 얻을 수 있다.
 
@@ -690,7 +776,7 @@ VM62:27 It is John Jones VS Ciryl Gane
 
 <br>
 
-## ▷ 전체 코드
+## 전체 코드
 
 ```jsx
 var fullname = "Ciryl Gane";
@@ -731,12 +817,8 @@ console.log(
 );
 ```
 
-<br>
+<br><br>
 
----
-
-<br>
-
-# 📎참조
+# 5. 참조
 
 - https://seungtaek-overflow.tistory.com/21
