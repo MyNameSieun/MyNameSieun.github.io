@@ -1,7 +1,7 @@
 ---
 title: "[TIL] useState와 useRef를 사용하는 input 내부의 값 관리"
 categories: [TIL]
-tag: [TIL, JavaScript]
+tag: [TIL]
 toc_label: Contents
 toc: true
 toc_sticky: true
