@@ -209,6 +209,19 @@ var coffeeMaker = async function () {
 coffeeMaker();
 ```
 
+```js
+const getWeather = async () => {
+  try {
+    const response = awite.axios.get("http://api.naver.com/weather/today");
+    // await라는 키워드를 이용해서 수행중인 작업이 끝나야지만(API 받아오기) 아래 작업이 실행되게 한다.
+    // 즉, API를 통해 날씨 정보를 받아와야만 화면에 출력되게 하는 것이다.
+    console.log("정상처리 되었습니다 : " + response);
+  } catch (error) {
+    console.log("오류가 발생하였습니다 : " + error);
+  }
+};
+```
+
 <br><br>
 
 # 3. 문제📝

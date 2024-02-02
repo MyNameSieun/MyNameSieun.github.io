@@ -83,6 +83,10 @@ const onClickHandler = () => {
 
 <br>
 
+![Alt text](../../../assets/images/2024/Reducer.png)
+
+<br>
+
 # 2. 카운터 모듈을 스토어에 연결하기
 
 modules/couter.js에서 만든 리듀서를 rootReducer 안에 넣어주면 된다.
@@ -102,42 +106,34 @@ const store = createStore(rootReducer);
 export default store;
 ```
 
-<br>
+![Alt text](<../../../assets/images/2024/모듈과 스토어 연결하기.png>)
 
-원래는 컴포넌트 내에서 state를 만들었기 때문에 그냥 state에 접근하면 됐지만, redux 사용시 중앙 저장소 store에 state(counter)가 존재하므로 store에 접근하는 로직이 필요하다.
+<br><br>
 
-![](/assets/images/2024/2024-01-29-15-41-09.png)
+> 생성한 모듈이 스토어에 잘 연결됐는지 확인해보자!
 
-<br>
+컴포넌트에서 redux store를 조회하고싶을 때 `useSelector`라는 react-redux 훅을 사용하면 된다.⭐
 
 ```js
-// src/redux/modules/counter.js
-import logo from "./logo.svg";
-import "./App.css";
-import { useSelector } from "react-redux";
+// src/App.js
 
-function App() {
-  // 가정: 여기서 store에 접근하여. counter의 값을 읽어오고 싶다.
-  // → useSelector Hook 사용 : redux store의 state를 가져옴
-  const date = useSelector((state) => {
-    // 매개변수로 들어가는 state는 store 전체의 state를 말한다.
-    //화살표 함수의 인자에서 값을 꺼내 return
-    return state;
-  });
-  console.log(date);
+import React from "react";
+import { useSelector } from "react-redux"; // import
 
-  {
-    /* 가져온 state를 사용하여 컴포넌트를 렌더링 */
-  }
-  return <div>{date}</div>;
-}
+const App = () => {
+  // useSelector로 store의 state 값을 불러올 수 있다.
+  const counterStore = useSelector((state) => state); // 추가
+  console.log(counterStore); // 스토어 조회
+
+  return <div></div>;
+};
 
 export default App;
 ```
 
 브라우저를 켜고, 콘솔을 보면 아래 이미지처럼 객체가 보이고, 그 안에 counter 라는 값이 있는 것을 볼 수 있다.
 
-즉, 만든 counter 라는 모듈의 state가 보이는 것이다.
+즉, 화살표 함수에서 꺼낸 state의 인자는 현재 프로젝트에 존재하는 <span style="color:indianred">모든 리덕스 모듈의 state</span>이다.
 
 ![](/assets/images/2024/2024-01-29-15-26-26.png)
 
@@ -150,7 +146,7 @@ function App() {
   const date = useSelector((state) => {
     return state.counter;
   });
-  console.log("counter:", date.number);
+  console.log("counter:", date.number); // 0
 
   return <div>{date}</div>;
 }
@@ -160,8 +156,8 @@ function App() {
 
 ```js
 function App() {
-  const date = useSelector((state) => state.counter.number); // 0
-  console.log("counter:", date);
+  const date = useSelector((state) => state.counter.number);
+  console.log("counter:", date); // 0
 
   return <div>{date}</div>;
 }
@@ -170,6 +166,10 @@ function App() {
 ![](/assets/images/2024/2024-01-29-15-30-55.png)
 
 <br>
+
+즉, 원래는 컴포넌트 내에서 state를 만들었기 때문에 그냥 state에 접근하면 됐지만, redux 사용시 중앙 저장소 store에 state(counter)가 존재하므로 store에 접근하는 로직이 필요하여 위와 같은 로직이 필요한 것이다.
+
+![](/assets/images/2024/2024-01-29-15-41-09.png)
 
 > 정리
 
