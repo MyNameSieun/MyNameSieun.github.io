@@ -34,18 +34,25 @@ sidebar:
 ### 2주차
 
 1. [Styled Components](https://mynamesieun.github.io/react/Styled-Components/)
-2. [React Hooks - useEffect](https://mynamesieun.github.io/react/React-Hooks-useEffect/)
-3. [React Hooks - useRef](https://mynamesieun.github.io/react/React-Hooks-useRef/)
-4. [React Hooks - useContext](https://mynamesieun.github.io/react/React-Hooks-useContext/)
-5. [React Hooks - 최적화(React.memo, useCallback, useMemo)](<https://mynamesieun.github.io/react/React-Hooks-%EC%B5%9C%EC%A0%81%ED%99%94(React.memo,-useCallback,-useMemo)/>)
-6. [클래스형 컴포넌트의 LifeCycle](https://mynamesieun.github.io/react/%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-LifeCycle/)
-7. [Virtual DOM](https://mynamesieun.github.io/react/Virtual-DOM/)
-8. [Redux 소개 및 설정](https://mynamesieun.github.io/react/Redux-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%84%A4%EC%A0%95/)
-9. [Redux - useSelector로 스토어의 state 조회하기](https://mynamesieun.github.io/react/Redux-useSelector%EB%A1%9C-%EC%8A%A4%ED%86%A0%EC%96%B4%EC%9D%98-state-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0/)
-10. [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
-11. [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
-12. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
-13. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
-14. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
+2. Styled Components로 tap 활성화 기능 구현하기
+3. [React Hooks - useEffect](https://mynamesieun.github.io/react/React-Hooks-useEffect/)
+4. [React Hooks - useRef](https://mynamesieun.github.io/react/React-Hooks-useRef/)
+5. [React Hooks - useContext](https://mynamesieun.github.io/react/React-Hooks-useContext/)
+6. [React Hooks - 최적화(React.memo, useCallback, useMemo)](<https://mynamesieun.github.io/react/React-Hooks-%EC%B5%9C%EC%A0%81%ED%99%94(React.memo,-useCallback,-useMemo)/>)
+7. [클래스형 컴포넌트의 LifeCycle](https://mynamesieun.github.io/react/%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-LifeCycle/)
+8. [Virtual DOM](https://mynamesieun.github.io/react/Virtual-DOM/)
+9. [Redux 소개 및 설정](https://mynamesieun.github.io/react/Redux-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%84%A4%EC%A0%95/)
+10. [Redux - useSelector로 스토어의 state 조회하기](https://mynamesieun.github.io/react/Redux-useSelector%EB%A1%9C-%EC%8A%A4%ED%86%A0%EC%96%B4%EC%9D%98-state-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0/)
+11. [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
+12. [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
+13. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
+14. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
+15. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
+
+<br>
+
+## 기타
+
+1. React GlobalStyle에서 reset.css 사용하기
 
 <br>
