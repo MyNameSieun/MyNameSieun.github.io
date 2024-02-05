@@ -299,3 +299,56 @@ export default Router;
 ![](/assets/images/2024/2024-01-30-13-07-56.png)
 
 <br>
+
+> 아래처럼 요소 클릭시 네비게이션을 사용하여 페이지를 이동할 수 있다.
+
+```js
+// Router.js
+import Detail from "components/Detail"; // import
+<Route path="/detail/:id" element={<Detail />} />;
+```
+
+```js
+import { useNavigate } from "react-router-dom"; //import
+
+function ListLetter({ activePeople, letters }) {
+  const navigate = useNavigate(); // useNavigate 사용
+  return (
+    <ListLetterContainer>
+      {letters
+        .filter(function (letter) {
+          return letter.writedTo === activePeople;
+        })
+        .map(function (letter) {
+          return (
+            <LetterCard
+              key={letter.id}
+              onClick={() => navigate(`/detail/${letter.id}`)}
+            ></LetterCard>
+          );
+        })}
+    </ListLetterContainer>
+  );
+}
+```
+
+```js
+// Detail.js
+import { useParams } from "react-router-dom";
+
+function Detail() {
+  const { id } = useParams();
+
+  // id 변수에는 현재 URL에서 추출한 동적 값이 들어 있다.
+  console.log("Letter ID:", id);
+
+  return <div>32432</div>;
+}
+
+export default Detail;
+```
+
+![](/assets/images/2024/2024-02-05-02-24-34.png)
+![](/assets/images/2024/2024-02-05-02-20-51.png)
+
+<br>
