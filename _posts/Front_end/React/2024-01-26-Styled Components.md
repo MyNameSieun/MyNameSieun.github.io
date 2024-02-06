@@ -120,7 +120,7 @@ const StBox = styled.div`
 
 ## 2.2 조건부 스타일링 실습
 
-JS의 map과 switch문을 이용해서 위에서 구현한 코드를 리팩토링해보자
+> JS의 map과 switch문을 이용해서 위에서 구현한 코드를 리팩토링해보자
 
 ```jsx
 // src/App.js
@@ -166,6 +166,33 @@ const App = () => {
 };
 
 export default App;
+```
+
+<br>
+
+> 버튼 색깔을 바꿔보자
+
+```js
+const Button = styled.button`
+  margin-right: 5px;
+  ${(props) => (props.withMarginRight ? "margin-right: 33px;" : "")}
+  /*  혹은 ${(props) => (props.withMarginRight ? "margin-right: 20px;" : "")} */
+  margin-bottom: 20px;
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 8px;
+  height: 33px;
+  width: 65px;
+  font-size: 12px;
+  cursor: pointer;
+`;
+```
+
+```js
+<BtnsWrapper>
+  <Button onClick={() => setIsEditing(true)}>수정</Button>
+  <Button withMarginRight>삭제</Button>
+</BtnsWrapper>
 ```
 
 <br><br>

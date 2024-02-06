@@ -352,3 +352,16 @@ export default Detail;
 ![](/assets/images/2024/2024-02-05-02-20-51.png)
 
 <br>
+
+## 2.2 뒤로가기/앞으로가기 구현
+
+```js
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
+
+<button onClick={() => navigate(-1)}>뒤로가기</button>
+<button onClick={() => navigate(1)}>앞으로가기</button>
+```
+
+<br>
