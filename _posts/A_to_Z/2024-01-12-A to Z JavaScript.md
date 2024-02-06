@@ -87,7 +87,7 @@ sidebar:
 ## 🐥추가 주제
 
 1.  [URL Query 값 가져오기](https://mynamesieun.github.io/javascript/URL-Query-%EA%B0%92-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0/)
-2.  e.target, e.target.value, e.currentTarget의 역할과 차이점
+2.  [e.target, e.target.value, e.currentTarget의 역할과 차이점](https://mynamesieun.github.io/javascript/e.target,-e.target.value,-e.currentTarget%EC%9D%98-%EC%97%AD%ED%95%A0%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
 
 <br>
 

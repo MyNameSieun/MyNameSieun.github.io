@@ -19,18 +19,16 @@ sidebar:
 
 ### 1주차
 
-1. [개발 환경 세팅](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85/)
-2. [CRA](https://mynamesieun.github.io/react/CRA/)
-3. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
-4. [Component](https://mynamesieun.github.io/react/Component/)
-5. [JSX](https://mynamesieun.github.io/react/JSX/)
-6. [props](https://mynamesieun.github.io/react/props/)
-7. [React Hooks - useState](https://mynamesieun.github.io/react/React-Hooks-useState/)
-8. [불변성과 순수함수](https://mynamesieun.github.io/react/%EB%B6%88%EB%B3%80%EC%84%B1%EA%B3%BC-%EC%88%9C%EC%88%98%ED%95%A8%EC%88%98/)
-9. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
-10. [Styling과 map](https://mynamesieun.github.io/react/Styling%EA%B3%BC-map/)
-11. [Component 추가 및 삭제하기](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
-12. Component 수정하기
+1. 개발 환경 세팅 및 CRA
+2. [Component](https://mynamesieun.github.io/react/Component/)
+3. [JSX](https://mynamesieun.github.io/react/JSX/)
+4. [props](https://mynamesieun.github.io/react/props/)
+5. [React Hooks - useState](https://mynamesieun.github.io/react/React-Hooks-useState/)
+6. [불변성과 순수함수](https://mynamesieun.github.io/react/%EB%B6%88%EB%B3%80%EC%84%B1%EA%B3%BC-%EC%88%9C%EC%88%98%ED%95%A8%EC%88%98/)
+7. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
+8. [Styling과 map](https://mynamesieun.github.io/react/Styling%EA%B3%BC-map/)
+9. [Component 추가 및 삭제하기](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
+10. [Component 수정하기](https://mynamesieun.github.io/react/Component-%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0/)
 
 ### 2주차
 
@@ -41,22 +39,23 @@ sidebar:
 5. [React Hooks - 최적화(React.memo, useCallback, useMemo)](<https://mynamesieun.github.io/react/React-Hooks-%EC%B5%9C%EC%A0%81%ED%99%94(React.memo,-useCallback,-useMemo)/>)
 6. [클래스형 컴포넌트의 LifeCycle](https://mynamesieun.github.io/react/%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-LifeCycle/)
 7. [Virtual DOM](https://mynamesieun.github.io/react/Virtual-DOM/)
+8. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
+9. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
+10. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
 
-### 3주차
+### 3주차(Redux)
 
-9.  [Redux 소개 및 설정](https://mynamesieun.github.io/react/Redux-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%84%A4%EC%A0%95/)
-10. [Redux - useSelector로 스토어의 state 조회하기](https://mynamesieun.github.io/react/Redux-useSelector%EB%A1%9C-%EC%8A%A4%ED%86%A0%EC%96%B4%EC%9D%98-state-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0/)
-11. [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
-12. [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
-13. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
-14. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
-15. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
+1.  [Redux 소개 및 설정](https://mynamesieun.github.io/react/Redux-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%84%A4%EC%A0%95/)
+2.  [Redux - useSelector로 스토어의 state 조회하기](https://mynamesieun.github.io/react/Redux-useSelector%EB%A1%9C-%EC%8A%A4%ED%86%A0%EC%96%B4%EC%9D%98-state-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0/)
+3.  [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
+4.  [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
 
 <br>
 
 ## 기타
 
-1. React GlobalStyle에서 reset.css 사용하기
-2. Styled Components로 tap 활성화 기능 구현하기
+1. React 파일 및 프로젝트 셋업
+2. [Styled Components로 tap 활성화 기능 구현하기](https://mynamesieun.github.io/react/Styled-Components%EB%A1%9C-tap-%ED%99%9C%EC%84%B1%ED%99%94-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+3. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
 
 <br>
