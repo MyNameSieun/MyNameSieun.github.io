@@ -1,5 +1,5 @@
 ---
-title: "[Firebase] Firestore Database 시작하기"
+title: "[Firebase] Firestore DB"
 categories: [Firebase]
 tag: [Firebase, DB]
 toc_label: Contents

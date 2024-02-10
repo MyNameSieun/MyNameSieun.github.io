@@ -55,7 +55,8 @@ sidebar:
 ## 기타
 
 1. React 파일 및 프로젝트 셋업
-2. [Styled Components로 tap 활성화 기능 구현하기](https://mynamesieun.github.io/react/Styled-Components%EB%A1%9C-tap-%ED%99%9C%EC%84%B1%ED%99%94-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
-3. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
+2. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
+3. [Styled Components로 tap 활성화 기능 구현하기](https://mynamesieun.github.io/react/Styled-Components%EB%A1%9C-tap-%ED%99%9C%EC%84%B1%ED%99%94-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+4. React로 상품 카테고리 필터링 구현하기
 
 <br>
