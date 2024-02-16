@@ -49,6 +49,12 @@ sidebar:
 2.  [Redux - useSelector로 스토어의 state 조회하기](https://mynamesieun.github.io/react/Redux-useSelector%EB%A1%9C-%EC%8A%A4%ED%86%A0%EC%96%B4%EC%9D%98-state-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0/)
 3.  [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
 4.  [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
+5.  Redux Toolkit (1)
+6.  Redux Toolkit (2)
+
+### 4주차
+
+1. json-serve
 
 <br>
 

@@ -162,6 +162,7 @@ export default App;
 import React from "react";
 function App() {
   // <---- 자바스크립트 영역 ---->
+  const onClickBtnHander = () => alert("클릭!");
 
   return (
     /* <---- HTML/JSX 영역  ---->*/
@@ -175,15 +176,8 @@ function App() {
         alignItems: "center",
       }}
     >
-      {/* 이곳에 퀴즈를 위한 html 코드를 작성해 주세요 */}
       <span>이것은 내가 만든 APP 컴포넌트입니다.</span>
-      <button
-        onClick={function () {
-          alert("클릭!");
-        }}
-      >
-        클릭
-      </button>
+      <button onClick={onClickBtnHander}>클릭</button>
     </div>
   );
 }
@@ -192,21 +186,6 @@ export default App;
 ```
 
 {% endraw %}
-
-<br>
-
-위 함수는 아래와 같이 변수화를 통해 효율적으로 작성할 수 있다.
-
-{% raw %}
-
-```js
-  // <---- 자바스크립트 영역 ---->
-  const onClickBtnHander = () => alert("클릭!");
-
- {/* 이곳에 퀴즈를 위한 html 코드를 작성해 주세요 */}
-      <span>이것은 내가 만든 APP 컴포넌트입니다.</span>
-      <button onClick={onClickBtnHander}>클릭</button>
-```
 
 <br><br>
 

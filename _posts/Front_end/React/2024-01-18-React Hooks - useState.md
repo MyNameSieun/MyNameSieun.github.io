@@ -238,7 +238,7 @@ export default App;
 
 ```jsx
 function App() {
-  const [fruit, setFruit] = useState("");
+  const [id, setId] = useState("");
 
   return (
     <div>
