@@ -212,15 +212,11 @@ function App() {
 export default App;
 ```
 
-{% endraw %}
-
 <br>
 
 ## 3.2 실습
 
 현재 App.js에 작성된 코드를 모두 지운 후, `App.js`에 3개의 컴포넌트를 만들고 할아버지, 엄마, 자식 컴포넌트를 만들어보고 서로 연결시켜보자.
-
-{% raw %}
 
 ```js
 import React from "react";
@@ -243,7 +239,5 @@ function App() {
 
 export default App;
 ```
-
-{% endraw %}
 
 <br>
