@@ -55,6 +55,11 @@ sidebar:
 ### 4주차
 
 1. json-serve
+2. 비동기 통신 - axios, fetch
+3. axios 심화 - instance와 interceptor
+4. Custom Hooks
+5. React Query
+6. throttling & debouncing
 
 <br>
 
@@ -64,5 +69,6 @@ sidebar:
 2. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
 3. React로 상품 카테고리 구현하기
 4. 탭 기능 구현하기
+5. [.env (환경변수 관리)](https://tooo1.tistory.com/582)
 
 <br>
