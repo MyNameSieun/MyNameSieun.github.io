@@ -55,11 +55,11 @@ sidebar:
 ### 4주차
 
 1. json-serve
-2. 비동기 통신 - axios, fetch
-3. axios 심화 - instance와 interceptor
-4. Custom Hooks
-5. React Query
-6. throttling & debouncing
+2. 비동기 통신 - axios와 interceptor
+3. Custom Hooks
+4. React Query
+5. throttling & debouncing
+6. 인증 & 인가(쿠키, 세션, 토큰, JWT)
 
 <br>
 

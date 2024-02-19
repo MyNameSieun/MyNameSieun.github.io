@@ -12,68 +12,58 @@ sidebar:
 
 <br>
 
-# 1. API
+# 1. API 개요
+
+## 1.1 API 개념
 
 > API(Application Programming lnterface)는 두 SW가 요청과 응답을 통해 데이터를 주고받는 매커니즘을 말한다.
 
 - 예를들어 날씨 서비스의 경우, 날씨 API를 사용하여 해당 서비스에 날씨 데이터를 요청하면 서비스는 요청에 대한 응답으로 날씨 데이터를 제공한다. 이를 통해 다른 프로그램에서도 날씨 데이터를 활용할 수 있다.
 - API는 클라이언트의 요청에 따라 동적으로 데이터나 정보를 제공한다.
-- 주로 JSON이나 XML형식으로 응답을 반환
+- 주로 JSON이나 XML형식으로 응답을 반환한다.
 
 <br>
 
 ## 1.1 API 사용 방법
 
-> API를 사용하기 위해선 어떻게 하면 될까?
-> -> API를 호스팅하는 서버의 주소를 알아내고, HTTP를 통해 해당 서버에 요청을 보내면 된다.
+> API를 사용하려면, API를 호스팅하는 서버의 주소를 알아내고, HTTP를 통해 해당 서버에 요청을 보내면 된다.
 
-> 1.  API를 호스팅하는 서버의 주소를 알아내기
+① API를 호스팅하는 서버의 주소를 알아내기
 
 - API를 요청하기 위해서는 해당 API를 호스팅하고 있는 주소를 알아야 한다.
 - 서버 주소는 IP(Internet Protocol) 주소로 표현되며, "127.012.0.3"과 같은 숫자로 표현되기 때문에 사람이 식별하기 힘들다.
-- 따라서 도메인(Domain Name System)을 사용하여 ex) ("127.012.0.3"과 같은) ip주소를 (www.text.com과 같은) 문자열로 변환하여 사람들이 쉽게 기억할 수 있도록 해석하는 것이다.
+- 따라서 도메인(Domain Name System)을 사용하여 (예: "127.012.0.3"과 같은) ip주소를 (www.text.com과 같은) 문자열로 변환하여 사람들이 쉽게 기억할 수 있도록 해석하는 것이다.
 - 도메인은 DNS을 통해 해당 도메인에 대응하는 IP 주소로 해석되어 서버에 접근할 수 있게 된다.
   (IP 주소가 실제로는 서버 위치를 가리키는 것이다.)
 
-> 2. 서버에 API를 요청하기 위해서는 HTTP [프로토콜](https://velog.io/@sieunpark/%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C)을 사용한다.
+<br>
 
-- HTTP는 인터넷에서 데이터를 주고받기 위한 통신 프로토콜이다.
-- 클라이언트는 HTTP 요청 메세지를 생성하고, 해당 서버에 해당 서버의 주소(URL)와 함께 요청을 보낸다.<br><br>
-  ![](https://velog.velcdn.com/images/sieunpark/post/f8d67d91-bbff-46c1-8099-d0f584bd5d8c/image.png)
+② 서버에 API를 요청하기 위해서는 HTTP 프로토콜을 사용한다.
 
-> 3. HTTP 요청 메시지에는 요청의 목적과 세부 정보가 포함된다.
+<br>
+
+③ HTTP 요청 메시지에는 요청의 목적과 세부 정보가 포함된다.
 
 - HTTP 요청 메서드(GET, POST, PUT, DELETE 등)를 지정하여 클라이언트가 서버에게 원하는 동작을 전달한다.
 
-> 4. 서버는 클라이언트의 요청을 받아 처리하고, HTTP 응답 메시지를 생성하여 클라이언트에게 반환한다.
+<br>
+
+④ 서버는 클라이언트의 요청을 받아 처리하고, HTTP 응답 메시지를 생성하여 클라이언트에게 반환한다.
 
 - 요청에 대한 처리 결과를 HTTP 응답 메시지에 담아 클라이언트에게 전송한다.
 - 응답 메시지에는 상태 코드(ex: 2xx 성공, 4xx 클라이언트 오류)와 함께 요청에 대한 결과 또는 오류 정보가 포함된다.
 
-> 5.  클라이언트는 서버로부터 받은 응답을 처리한다.
+<br>
+
+⑤ 클라이언트는 서버로부터 받은 응답을 처리한다.
 
 - 클라이언트는 HTTP 응답 메시지를 받아서 요청한 작업에 따른 데이터를 활용한다.
 
 <br><br>
 
-# 2. HTTP 요청 메서드
+# 2. REST API 개요
 
-> 클라이언트는 HTTP 요청 메세지를 생성하고, 해당 서버에 해당 서버의 주소(URL)와 함께 요청을 전송한다고 하였다.
-
-즉, URL을 이용하면 서버에 특정 데이터를 요청할 수 있는 것이다.
-
-| 요청 메서드 |                                                  설명                                                  |
-| :---------: | :----------------------------------------------------------------------------------------------------: |
-|     GET     |               서버 자원을 가져오고자 할 때 사용, 요청의 본문(body)에 데이터를 넣지 않음                |
-|    POST     |          서버에 자원을 새로 등록하고자 할 때 사용, 청의 본문에 새로 등록할 데이터를 넣어 보냄          |
-|     PUT     | 서버의 자원을 요청에 들어 있는 자원으로 치환하고자 할 때 사용, 요청의 본문에 치환할 데이터를 넣어 보냄 |
-|   DELETE    |                 서버의 자원을 삭제하고자 할 때 사용, 요청의 본문에 데이터를 넣지 않음                  |
-
-<br><br>
-
-# 3. REST API 개요
-
-## 3.1 REST 개념
+## 2.1 REST 개념
 
 > REST(REpresentational State Transfe)는 자원을 이름으로 구분하여 해당 자원의 상태를 주고받는 모든 것을 의미한다.
 
@@ -86,7 +76,7 @@ sidebar:
 
 <br>
 
-## 3.2 REST 구성 요소
+## 2.2 REST 구성 요소
 
 - 자원(Resource): HTTP URI
 
@@ -110,7 +100,7 @@ sidebar:
 
 <br>
 
-## 3.3 REST API 개념
+## 2.3 REST API 개념
 
 > REST를 기반으로 만들어진 API를 REST API라고 한다.
 
@@ -154,7 +144,7 @@ GET /topRatedMovies: 최상위 평점을 받은 영화를 가져오는 요청
 
 <br>
 
-## 3.4 REST API 규칙
+## 2.4 REST API 규칙
 
 ```jsx
 http://example.com/posts     (O)
@@ -176,7 +166,7 @@ http://example.com/post/assets/example.png  (X)
 
 <br>
 
-## 3.5 RESTful API
+## 2.5 RESTful API
 
 > REST API의 조건을 만족시킨 통신 설계 상태를 말한다.
 
@@ -191,9 +181,9 @@ http://example.com/post/assets/example.png  (X)
 
 <br><br>
 
-# 4. Path Variable과 Query Parameter
+# 3. Path Variable과 Query Parameter
 
-## 4.1 Path Variable
+## 3.1 Path Variable
 
 경로를 변수로서 사용하는 방법이다.
 
@@ -205,7 +195,7 @@ http://example.com/post/assets/example.png  (X)
 
 <br>
 
-## 4.2 Query Parameter
+## 3.2 Query Parameter
 
 ```js
 /users?user_id=10
@@ -215,7 +205,7 @@ http://example.com/post/assets/example.png  (X)
 
 <br><br>
 
-# 5. URL
+# 4. URL
 
 > 서버에 자원을 요청하기 위해 입력하는 영문 주소
 
@@ -225,7 +215,7 @@ http://example.com/post/assets/example.png  (X)
 
 <br><br>
 
-# 6. 참조
+# 5. 참조
 
 - https://velog.io/@hyo123/HTTP-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9CAPI
 - https://joshua1988.github.io/web-development/http-part1/

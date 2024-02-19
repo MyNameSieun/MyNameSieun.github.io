@@ -24,6 +24,6 @@ sidebar:
 5. [HTTP 요청 메서드 GET](https://mynamesieun.github.io/network/HTTP-%EC%9A%94%EC%B2%AD-%EB%A9%94%EC%84%9C%EB%93%9C-GET/)
 6. [Port](https://mynamesieun.github.io/network/Port/)
 7. [웹 스토리지](https://mynamesieun.github.io/network/%EC%9B%B9-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80/)
-8. [쿠키와 세션](https://mynamesieun.github.io/network/%EC%BF%A0%ED%82%A4%EC%99%80-%EC%84%B8%EC%85%98/)
+8. 쿠키, 세션, 토큰, JWT
 
 <br>
