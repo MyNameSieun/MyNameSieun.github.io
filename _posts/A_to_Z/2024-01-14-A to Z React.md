@@ -37,11 +37,9 @@ sidebar:
 3. [React Hooks - useRef](https://mynamesieun.github.io/react/React-Hooks-useRef/)
 4. [React Hooks - useContext](https://mynamesieun.github.io/react/React-Hooks-useContext/)
 5. [React Hooks - 최적화(React.memo, useCallback, useMemo)](<https://mynamesieun.github.io/react/React-Hooks-%EC%B5%9C%EC%A0%81%ED%99%94(React.memo,-useCallback,-useMemo)/>)
-6. [클래스형 컴포넌트의 LifeCycle](https://mynamesieun.github.io/react/%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-LifeCycle/)
-7. [Virtual DOM](https://mynamesieun.github.io/react/Virtual-DOM/)
-8. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
-9. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
-10. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
+6. [Custom Hooks](https://mynamesieun.github.io/react/Custom-Hooks/)
+7. [클래스형 컴포넌트의 LifeCycle](https://mynamesieun.github.io/react/%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-LifeCycle/)
+8. [Virtual DOM](https://mynamesieun.github.io/react/Virtual-DOM/)
 
 ### 3주차
 
@@ -56,11 +54,12 @@ sidebar:
 
 ### 4주차
 
-1. [json-serve](https://mynamesieun.github.io/react/json-server/)
-2. [비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)
-3. Custom Hooks
+1. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
+2. [json-server](https://mynamesieun.github.io/react/json-server/)
+3. [비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)
 4. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
-5. [인증 & 인가(쿠키, 세션, 토큰, JWT)](<https://mynamesieun.github.io/react/%EC%9D%B8%EC%A6%9D-&-%EC%9D%B8%EA%B0%80(%EC%BF%A0%ED%82%A4,-%EC%84%B8%EC%85%98,-%ED%86%A0%ED%81%B0,-JWT)/>)
+5. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
+6. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
 
 <br>
 
@@ -71,5 +70,6 @@ sidebar:
 3. [React로 상품 카테고리 구현하기](https://mynamesieun.github.io/react/React%EB%A1%9C-%EC%83%81%ED%92%88-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 4. [탭 기능 구현하기](https://mynamesieun.github.io/react/%ED%83%AD-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 5. [.env (환경변수 관리)](https://tooo1.tistory.com/582)
+6. axios, json-server를 이용한 통신 연습
 
 <br>
