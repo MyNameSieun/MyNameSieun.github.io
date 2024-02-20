@@ -63,11 +63,11 @@ src/pages에 `Home`, `About`, `Contact`, `Works` 총 4개의 컴포넌트를 만
 
 예를 들어보자
 
-```js
-localhost: 3000 / Home;
-localhost: 3000 / About;
-localhost: 3000 / Contact;
-localhost: 3000 / Works;
+```
+localhost: 3000/Home;
+localhost: 3000/About;
+localhost: 3000/Contact;
+localhost: 3000/Works;
 ```
 
 <br>
@@ -168,7 +168,7 @@ seNavigate 훅을 사용하면 라우팅을 위해 컴포넌트 외부에서 his
 
 <br>
 
-사용방법은 아래와 같다. `navigate` 를 생성하고, `navigate(’보내고자 하는 url’)` 을 통해 페이지를 이동 시킬 수 있다.
+사용방법은 아래와 같다. `navigate` 를 생성하고, `navigate("보내고자 하는 url")` 을 통해 페이지를 이동 시킬 수 있다.
 
 ```jsx
 // src/pages/home.js
@@ -189,6 +189,15 @@ const Home = () => {
 };
 
 export default Home;
+```
+
+<br>
+
+아래와 같이 작성해주면 모든 경로(\*)를 (/)로 리디렉션하게 해준다. 즉, 사용자가 잘못된 경로로 이동했을 때 기본적으로 (/)로 리다이렉션 할 수 있다.
+
+```js
+// Router.js
+<Route path="*" element={<Navigate replace to="/" />} />
 ```
 
 [useNavigate 공식 문서](https://reactrouter.com/docs/en/v6/hooks/use-navigate)

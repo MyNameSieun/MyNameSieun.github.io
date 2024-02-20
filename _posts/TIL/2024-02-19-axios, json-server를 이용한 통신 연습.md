@@ -12,7 +12,7 @@ sidebar:
 
 <br>
 
-**비동기 통신 - axios와 interceptor**를 공부하고 작성하는 글입니다.
+[비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)를 공부하고 작성하는 글입니다.
 {: .notice--danger}
 
 # 1. 통신 연습

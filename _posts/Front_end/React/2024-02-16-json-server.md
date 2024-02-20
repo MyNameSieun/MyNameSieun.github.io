@@ -52,7 +52,7 @@ yarn add json-server
 
 <br><br>
 
-# 2.json-server 사용하기
+# 2. json-server 사용하기
 
 `json-server`가 간단한 패키지이긴 하나, 서버이다. 따라서 리액트와는 별개로 따로 실행을 해줘야 리액트와 json-server가 서로 통신 할 수 있다.
 
