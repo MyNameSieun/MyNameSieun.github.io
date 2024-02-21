@@ -1,0 +1,173 @@
+---
+title: "[Project - React] styled-components의 조건부 스타일링을 활용한 탭 활성화 기능 구현"
+categories: [Project]
+toc_label: Contents
+toc: true
+toc_sticky: true
+author_profile: true
+sidebar:
+  nav: "counts"
+---
+
+<br>
+
+# 1. Styled Components로 tap 활성화 구현하기
+
+> 어떤 탭이 클릭되었는지 아래처럼 style-components의 조건부 스타일링을 적용하여 구현해보자!
+
+![](/assets/images/2024/2024-02-22-04-30-57.png)
+
+<br>
+
+## 1.1 적용 전 초기 코드
+
+```js
+import styled from "styled-components";
+
+function Tabs() {
+  const tabItems = ["토토로", "키키", "포뇨", "치히로", "소피", "가오나시"];
+
+  return (
+    <TabsList>
+      <TabsTitle>누구에게 보내실 건가요?</TabsTitle>
+      {tabItems.map((item, index) => {
+        return <TabsItem key={index}>{item}</TabsItem>;
+      })}
+    </TabsList>
+  );
+}
+
+const TabsList = styled.ul`
+  background-color: #ffffff;
+  width: 390px;
+  border-radius: 13px;
+  padding: 45px;
+  margin-right: 30px;
+`;
+
+const TabsTitle = styled.h1`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 30px;
+`;
+const TabsItem = styled.li`
+  border-radius: 8px;
+  border: 2px solid #bababa;
+  height: 65px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export default Tabs;
+```
+
+<br>
+
+## 1.2 state 생성
+
+```js
+const [activeTab, setActiveTab] = useState("토토로");
+```
+
+<br>
+
+그리고 props로 조건부 스타일을 주자<br>
+
+스타일 컴포넌트 특성상 카멜 케이스 사용시 $를 앞에 붙여줘야한다!
+
+```js
+<TabsList>
+  <TabsTitle>누구에게 보내실 건가요?</TabsTitle>
+  {tabItems.map((item, index) => {
+    return (
+      <TabsItem key={index} $activeTab={activeTab}>
+        {item}
+      </TabsItem>
+    );
+  })}
+</TabsList>
+```
+
+<br>
+
+## 1.3 props로 값 받기
+
+이제 props로 넘긴 값을 받아보자. active할 경우 border의 색상와 텍스트 색상을 변경해줄 것이다.
+
+아래와 같은 형태로 받을 수 있다.
+
+```js
+  ${props=>{}}
+```
+
+```js
+import styled, { css } from "styled-components"; // import(retrun에 css치고 tap누르면 자동 import)
+```
+
+```css
+const TabsItem = styled.li`
+  ${(props) => {
+    if (props.$activeTab === props.children) {
+      return css`
+        border: 2px solid black;
+        font-weight: bold;
+      `;
+    }
+    return css`
+      border: 2px solid #bababa;
+      font-weight: normal;
+    `;
+  }}
+
+/* 생략 */
+`
+```
+
+<br>
+
+## 1.4 클릭 이벤트 발생시키기
+
+이제 클릭했을 때 클릭에 대한 이벤트를 발생시켜보자
+
+```js
+function Tabs() {
+  const [activeTab, setActiveTab] = useState("토토로");
+
+  const tabItems = ["토토로", "키키", "포뇨", "치히로", "소피", "가오나시"];
+
+  const onActiveTab = (e) => {
+    // currentTarget: 이벤트 핸들러와 연결된 위치(태그), Target: 이벤트가 시작된 위치(태그)
+    if (e.target === e.currentTarget) return;
+    setActiveTab(e.target.textContent);
+  };
+  return (
+    <TabsList onClick={onActiveTab}>
+      <TabsTitle>누구에게 보내실 건가요?</TabsTitle>
+      {tabItems.map((item, index) => {
+        return (
+          <TabsItem key={index} $activeTab={activeTab}>
+            {item}
+          </TabsItem>
+        );
+      })}
+    </TabsList>
+  );
+}
+```
+
+1. 각 탭 항목을 클릭했을 때, onActiveTab 함수가 호출된다.
+2. e.currentTarget와 e.target을 비교하여 사용자가 클릭한 위치가 이벤트 리스너가 등록된 엘리먼트와 동일한지 확인한다.
+3. 만약 동일하지 않다면(활성화되지 않은 엘리먼트를 클릭한 경우) setActiveTab 함수를 사용하여 activeTab 상태를 변경하여 활성한다.
+
+<br><br>
+
+# 2. 부족한점😫
+
+- textContent와 같은 DOM API 개념 및 활용
+- e.target, e.target.value, e.currentTarget의 역할과 차이점 구분<br>《 [ e.target, e.target.value, e.currentTarget의 역할과 차이점](https://mynamesieun.github.io/javascript/e.target,-e.target.value,-e.currentTarget%EC%9D%98-%EC%97%AD%ED%95%A0%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90/) 》에 대해 정리 해놨다!
+
+<br>

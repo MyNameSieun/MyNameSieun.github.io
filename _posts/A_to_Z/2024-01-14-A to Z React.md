@@ -66,13 +66,12 @@ sidebar:
 ### 기타
 
 1. [React 파일 및 프로젝트 셋업](https://mynamesieun.github.io/react/React-%ED%8C%8C%EC%9D%BC-%EB%B0%8F-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%85%8B%EC%97%85/)
-2. Styled-components Naming Convention
+2. [Styled-components Naming Convention](https://mynamesieun.github.io/react/Styled-components-Naming-Convention/)
 3. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
 4. [React로 상품 카테고리 구현하기](https://mynamesieun.github.io/react/React%EB%A1%9C-%EC%83%81%ED%92%88-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
-5. [탭 기능 구현하기](https://mynamesieun.github.io/react/%ED%83%AD-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
-6. [.env (환경변수 관리)](https://tooo1.tistory.com/582)
-7. [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
-8. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-9. [JWT 로그인 구현하기](https://mynamesieun.github.io/react/JWT-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+5. [.env (환경변수 관리)](https://tooo1.tistory.com/582)
+6. [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
+7. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
+8. [JWT 로그인 구현하기](https://mynamesieun.github.io/react/JWT-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 
 <br>
