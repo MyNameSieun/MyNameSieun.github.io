@@ -37,8 +37,8 @@ yarn add react-router-dom
 react-router-dom을 사용하기 위한 순서는 다음과 같다.
 
 1. 페이지 컴포넌트 생성 (단일 페이지 → 다중 페이지)
-2. `Router.js` 생성 및 router 설정 코드 작성
-3. `App.js`에 import 및 적용
+2. `Router.jsx` 생성 및 router 설정 코드 작성
+3. `App.jsx`에 import 및 적용
 4. 페이지 이동 테스트
 
 <br>
@@ -72,10 +72,9 @@ localhost: 3000/Works;
 
 <br>
 
-src안에 shared 라는 폴더를 생성해주고, 그 안에 `Router.js` 파일을 생성해준 후, 아래 코드를 작성하자.
+src안에 shared 라는 폴더를 생성해주고, 그 안에 `Router.jsx` 파일을 생성해준 후, 아래 코드를 작성하자.
 
 ```jsx
-import React from "react";
 // (1) react-router-dom을 사용하기 위해서 아래 API들을 import
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -95,10 +94,9 @@ export default Router;
 
 <br>
 
-이제 우리가 만든 4개의 페이지 컴포넌트 마다 Route를 설정해보자.
+이제 우리가 만든 4개의 페이지 컴포넌트마다 Route를 설정해보자.
 
 ```jsx
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
@@ -127,12 +125,46 @@ export default Router;
 
 <br>
 
-> ③ App.js에 `Router.js` import 해주기
+아래와 같이 작성해주면 모든 경로(\*)를 (/)로 리디렉션하게 해준다. 즉, 사용자가 잘못된 경로로 이동했을 때 기본적으로 (/)로 리다이렉션 할 수 있다.
 
-생성한 Router 컴포넌트를 아래 코드와 같이 App.js에 넣어준다.
+```js
+// Router.jsx
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
+<Route path="*" element={<Navigate replace to="/" />} />;
+```
+
+```js
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Home from "../pages/Home";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
+import Works from "../pages/Works";
+
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="works" element={<Works />} />
+        <Route path="*" element={<Navigate replace to="/" />} />;
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default Router;
+```
+
+<br>
+
+> ③ App.jsx에 `Router.jsx` import 해주기
+
+생성한 Router 컴포넌트를 아래 코드와 같이 App.jsx에 넣어준다.
 
 ```jsx
-import React from "react";
 import Router from "./shared/Router";
 
 function App() {
@@ -189,15 +221,6 @@ const Home = () => {
 };
 
 export default Home;
-```
-
-<br>
-
-아래와 같이 작성해주면 모든 경로(\*)를 (/)로 리디렉션하게 해준다. 즉, 사용자가 잘못된 경로로 이동했을 때 기본적으로 (/)로 리다이렉션 할 수 있다.
-
-```js
-// Router.js
-<Route path="*" element={<Navigate replace to="/" />} />
 ```
 
 [useNavigate 공식 문서](https://reactrouter.com/docs/en/v6/hooks/use-navigate)

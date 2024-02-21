@@ -1,7 +1,6 @@
 ---
-title: "[Toy project] Vanilla.js + TMDB API를 사용한 영화 소개 및 검색 사이트 만들기"
-categories: [Toy project]
-tag: [Toy project, HTML, CSS]
+title: "[Project] Vanilla.js + TMDB API를 사용한 영화 소개 및 검색 사이트 만들기"
+categories: [Project]
 toc_label: Contents
 toc: true
 toc_sticky: true
