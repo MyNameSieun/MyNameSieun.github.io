@@ -192,7 +192,7 @@ export default App;
 
 ## 2.1 useNavigate
 
-seNavigate 훅을 사용하면 라우팅을 위해 컴포넌트 외부에서 history 객체를 직접 조작할 필요가 없어진다.
+useNavigate 훅을 사용하면 라우팅을 위해 컴포넌트 외부에서 history 객체를 직접 조작할 필요가 없어진다.
 
 사용자들이 브라우저에 path를 직접 입력해서 페이지를 이동하는 일은 거의 없을 것이다.
 

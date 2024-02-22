@@ -1,5 +1,5 @@
 ---
-title: "[Project - React] Dummy Data를 이용한 리스트 UI 구현 #3"
+title: "[React P.J, ForYou] Dummy Data를 이용한 리스트 UI 구현 #3"
 categories: [Project]
 toc_label: Contents
 toc: true
@@ -258,6 +258,51 @@ function LetterCard({ letter }) {
 ```
 
 ![](/assets/images/2024/2024-02-22-12-41-58.png)
+
+<br>
+
+### 1.4.2 공통 함수 만들기
+
+> 위에서 만든 날짜 형식을 다른 컴포넌트에서도 사용할 수 있게 공통 함수로 만들어주자
+
+src/util/data.js에 아래와 같이 만들어주자
+
+```js
+// src/util/data.js
+export const getFormattedDate = (date) =>
+  new Date(date).toLocaleDateString("ko", {
+    year: "2-digit",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+```
+
+<br>
+
+LetterCard에 생성한 getFormattedDate 함수 사용하기!<br>
+createdAt을 인자로 넣어줘야한다.
+
+```js
+//  LetterCard.js
+...
+import { getFormattedDate } from "util/data"; // import
+
+function LetterCard({ letter }) {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <LetterDate>
+        <p>{letter.nickname}</p>
+        <time>{getFormattedDate(letter.createdAt)}</time>
+      </LetterDate>
+    </>
+  );
+}
+```
 
 <br>
 
