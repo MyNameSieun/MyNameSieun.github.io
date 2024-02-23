@@ -93,7 +93,7 @@ import를 한 뒤, console.log로 확인하면, json 파일을 배열로 잘 받
 
 > 발생한 문제 🤦‍♀️
 
-이제 기존 코드를 Dummy Data로 교체하기 위해 아래와 같이 작성해줬더니 출력이 되지 않는 문제가 있었다.
+기존 코드를 Dummy Data로 교체하기 위해 아래와 같이 작성해줬더니 출력이 되지 않는 문제가 있었다.
 
 ```js
 // LetterList.jsx
@@ -368,5 +368,32 @@ function LetterList({ activeTab }) {
 ```
 
 ![](/assets/images/2024/2024-02-22-13-09-05.png)
+
+<br><br>
+
+# 2. 편지가 없을 경우 메시지 출력하기
+
+홈 화면에 남겨진 편지가 없을 경우, 편지가 없다는 문구를 출력하자.
+
+```js
+function LetterList({ activeTab, letters }) {
+  const filteredLetters = letters.filter(
+    (letter) => letter.writedTo === activeTab
+  );
+  return (
+    <LetterContainer>
+      {filteredLetters.length === 0 ? (
+        <p>{activeTab}에게 남겨진 편지가 없습니다.</p>
+      ) : (
+        filteredLetters.map((letter, index) => (
+          <LetterCard letter={letter} key={index} />
+        ))
+      )}
+    </LetterContainer>
+  );
+}
+```
+
+![](/assets/images/2024/2024-02-23-02-46-35.png)
 
 <br>
