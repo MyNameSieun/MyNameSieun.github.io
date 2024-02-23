@@ -28,7 +28,6 @@ sidebar:
 7. [Component와 Rendering](https://mynamesieun.github.io/react/Component%EC%99%80-Rendering/)
 8. [Styling과 map](https://mynamesieun.github.io/react/Styling%EA%B3%BC-map/)
 9. [Component 추가 및 삭제하기](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
-10. [Component 수정하기](https://mynamesieun.github.io/react/Component-%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0/)
 
 ### 2주차
 
