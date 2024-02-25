@@ -1,7 +1,6 @@
 ---
-title: "[TIL] useState와 useRef를 사용하는 input 내부의 값 관리"
-categories: [TIL]
-tag: [TIL]
+title: "[React] input 내부의 값 효율적으로 관리하기 useState vs useRef"
+categories: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true

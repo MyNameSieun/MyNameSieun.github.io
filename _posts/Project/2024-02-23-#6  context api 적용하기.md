@@ -13,7 +13,7 @@ sidebar:
 
 > props drilling으로 불편하게 관리하던 state를 context api 로 리팩토링 해보자!
 
-① src/context/LetterContext/jsx 생성
+① src/context/LetterContext.jsx 생성
 
 ```js
 import { createContext, useState } from "react"; // (1) import

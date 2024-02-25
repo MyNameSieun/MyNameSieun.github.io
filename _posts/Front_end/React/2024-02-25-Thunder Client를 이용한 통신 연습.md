@@ -1,5 +1,5 @@
 ---
-title: "[React] JWT 로그인 구현하기"
+title: "[React] Thunder Client를 이용한 통신 연습"
 categories: [React]
 tag: [React]
 toc_label: Contents
@@ -12,31 +12,28 @@ sidebar:
 
 <br>
 
-먼저 아래 패키지를 설치하자
+# 0. 개요
 
-```
-npm i axios react-router-dom styled-components
-```
-
-<br>
-
-그 후, 로그인에 필요한 레이아웃을 구성하자
-
-<br>
-
-인증과 프로필관리를 위한 API 통신은 제공된 jwt 인증서버를 이용할 것이다.
-
-<br><br>
-
-# JWT 인증 서버📡
-
-JWT 인증 서버는 회원가입, 로그인, 회원정보 확인, 프로필 이미지 변경 API를 지원하는 서버가 마련되어 있다.
+> 회원가입, 로그인, 회원정보 확인, 프로필 이미지 변경 API를 지원하는 JWT 인증 서버를 활용하여 서버통신을 연습하였다.
 
 서버 API_URL : [https://moneyfulpublicpolicy.co.kr](https://moneyfulpublicpolicy.co.kr/)
 
 <br>
 
-## 회원가입
+> Thunder Client⚡ 설치하기
+
+- Thunder Client란 vsCode내에서 HTTP 요청을 생성하고 테스트 할 수 있게 해주는 HTTP 클라이언트 확장 프로그램이다.
+- HTTP 요청을 보내고 응답을 받는데 필요한 모든 기능을 가지고 있어 쉽게 API를 테스트하고 디버깅 할 수 있게 도와준다.
+
+![](/assets/images/2024/2024-02-26-00-55-59.png)
+
+<br>
+
+# 1. API 테스트하기
+
+⚠️ Request, Response의 방식은 서버마다 다르므로 각 서버의 API 문서를 확인하여 요청과 응답 방식을 확인해야 한다!
+
+## 1. 회원가입
 
 아이디, 비밀번호, 닉네임으로 DB에 본인의 회원정보를 저장한다.
 
@@ -65,9 +62,11 @@ JWT 인증 서버는 회원가입, 로그인, 회원정보 확인, 프로필 이
 }
 ```
 
+![](/assets/images/2024/2024-02-26-01-15-06.png)
+
 <br>
 
-## 로그인
+## 2. 로그인
 
 아이디와 비밀번호가 DB에 있는 회원정보와 일치하면 accessToken, userId, avatar, nickname 총 4가지 유저정보를 응답해준다.
 
@@ -83,6 +82,17 @@ JWT 인증 서버는 회원가입, 로그인, 회원정보 확인, 프로필 이
     "password": "유저 비밀번호"
   }
   ```
+
+![](/assets/images/2024/2024-02-26-01-16-10.png)
+
+<br>
+
+로그인 정보는 서버와 클라이언트 둘 다 관리를 해야한다. 유효한 토큰을 가지고 있는지 확인하기 위함이다.
+
+- 서버는 유효한 토큰을 가지고 있는지 확인해야한다.
+- 클라이언트는 서버 낭비 방지 (토큰의 유효 기간이 만료되면 서버에게 보낼 필요가 없음) 를 하기 위해 토큰 관리를 해야한다.
+
+![](/assets/images/2024/2024-02-26-01-32-32.png)
 
 <br>
 
@@ -116,7 +126,7 @@ JWT 인증 서버는 회원가입, 로그인, 회원정보 확인, 프로필 이
 
 <br>
 
-## 회원정보 확인
+## 3. 회원정보 확인
 
 accessToken이 유효한 경우, 비밀번호를 제외한 본인의 회원정보를 응답해 준다.
 
@@ -137,6 +147,7 @@ const response = await axios.get(`${BASE_URL}/user`, {
 - Method → `GET`
 - URL PATH → `/user`
 - Header
+
   ```json
   {
     "Authorization": "Bearer AccessToken"
@@ -156,9 +167,11 @@ const response = await axios.get(`${BASE_URL}/user`, {
 }
 ```
 
+![](/assets/images/2024/2024-02-26-01-41-35.png)
+
 <br>
 
-## 프로필 변경
+## 4. 프로필 변경
 
 accessToken이 유효한 경우, 프로필 이미지 또는 닉네임을 FormData을 통해 요청하면 변경 완료된 이미지 URL과 닉네임을 응답해준다.
 
@@ -213,25 +226,6 @@ const response = await axios.patch(`${BASE_URL}/profile`, formData, {
 }
 ```
 
-<br>
-
-# 구현하기
-
-```js
-import axios from "axios";
-const login = async (id, pw) => {
-  const result = await axios.post("https://moneyfulpublicpolicy.co.kr", {
-    id,
-    pw,
-  });
-  return result.data;
-};
-
-export default login;
-```
+![](/assets/images/2024/2024-02-26-03-13-41.png)
 
 <br>
-
-# 참조
-
-https://www.youtube.com/watch?v=KMJE9FIDZl8

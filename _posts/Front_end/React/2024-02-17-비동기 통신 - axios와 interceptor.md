@@ -438,22 +438,15 @@ export default App;
 
 <br><br>
 
-# 3. Fetch와 axios
-
-## 3.1 Fetch vs axios의 차이점
+# 3. Fetch vs axios
 
 Fetch는 자바스크립트 내장 브라우저이기 때문에 별도의 설치 및 import를 필요로 하지 않는다.
 
-하지만 fetch는 아래와 같은 단점이 존재하기 때문에 axios를 사용한다.
-
-- 미지원 브라우저 존재
-- 개발자에게 불친절한 response
-- axios에 비해 부족한 기능
-- 직접 JSON으로 변환 필요
-
 <br>
 
-## 3.2 데이터 읽어오기
+## 3.1 자동 JSON 변환
+
+axios는 응답을 자동으로 JSON으로 변환하지만, fetch를 사용할 때는 응답을 JSON으로 수동 변환해야한다.
 
 > fetch
 
@@ -482,7 +475,9 @@ axios는 응답(response)을 기본적으로 JSON 포맷으로 제공하기 때�
 
 <br>
 
-## 3.3 에러 처리
+## 3.2 에러 처리
+
+axios는 네트워크 오류가 발생했거나 서버가 2xx 범위가 아닌 상태 코드를 반환했을 때 에러를 발생시키지만,<br>fetch는 네트워크 오류 시에만 예외를 발생시키고, HTTP 오류 상태에 대해서는 예외를 발생시키지 않는다.
 
 > fetch
 
@@ -497,8 +492,7 @@ axios
   });
 ```
 
-- fetch의 경우, catch()가 발생하는 경우는 오직 네트워크 장애 케이스이다.
-- 따라서 개발자가 일일히 then() 안에 모든 케이스에 대한 HTTP 에러 처리를 해야한다.
+- fetch는 개발자가 일일히 then() 안에 모든 케이스에 대한 HTTP 에러 처리를 해야한다.
 
 <br>
 
@@ -552,7 +546,87 @@ axios
 
 <br>
 
-## 3.4 .env를 활용한 리팩토링
+## 3.3 요청 취소
+
+axios는 요청 취소 기능을 제공하지만, fetch는 기본적으로 이 기능을 제공하지 않는다.
+
+> axios
+
+```js
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+axios
+  .get("https://api.example.com/data", {
+    cancelToken: source.token,
+  })
+  .catch(function (thrown) {
+    if (axios.isCancel(thrown)) {
+      console.log("Request canceled", thrown.message);
+    }
+  });
+
+// 요청 취소
+source.cancel("Operation canceled by the user.");
+```
+
+<br>
+
+> 언제 요청 취소가 필요할까?
+
+1. 자동완성 기능이 있는 검색 바에서 사용자가 입력을 계속 변경하면 이전 검색 요청을 취소하여 불필요한 네트워크 트래픽과 서버 부하를 줄일 수 있다.
+2. 사용자가 페이지를 빠르게 넘길 때 이전 페이지의 데이터 로딩을 취소할 수 있다.
+3. 사용자가 파일 업로드, 데이터 검색 등의 긴 작업을 시작한 후 작업 취소를 원할 때, 진행 중인 HTTP 요청을 취소할 수 있다.
+4. 일정 시간 내에 응답이 오지 않을 경우, 요청을 취소하고 사용자에게 피드백을 제공할 수 있다.
+
+추후 프로젝트에서 활용해보기!
+
+<br>
+
+## 3.4 타임아웃 설정
+
+axios를 사용하면 요청에 대한 타임아웃을 설정할 수 있지만, fetch는 기본적으로 이 기능을 제공하지 않는다.
+
+> axios
+
+```js
+axios
+  .get("https://api.example.com/data", {
+    timeout: 1000, // 1000ms 후에 타임아웃
+  })
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((error) => {
+    console.log("Timeout or other error:", error);
+  });
+```
+
+<br>
+
+## 3.5 인터셉터
+
+axios는 요청과 응답을 인터셉트할 수 있는 기능을 제공하여, 전역적으로 요청 또는 응답을 처리하거나 수정할 수 있도록 한다.
+
+> axios
+
+```js
+// 요청 인터셉터 추가
+axios.interceptors.request.use((request) => {
+  console.log("Starting Request", request);
+  return request;
+});
+
+// 응답 인터셉터 추가
+axios.interceptors.response.use((response) => {
+  console.log("Response:", response);
+  return response;
+});
+```
+
+<br>
+
+# 4 .env를 활용한 리팩토링
 
 .env파일을 생성하여 서버 주소를 환경 변수로 관리하자.
 
@@ -582,9 +656,9 @@ REACT_APP_SERVER_URL=http://localhost:3001
 
 <br><br>
 
-# 4. axios interceptor 개요
+# 5. axios interceptor 개요
 
-## 4.1 axios interceptor 개념
+## 5.1 axios interceptor 개념
 
 Axios 라이브러리에서 제공하는 기능 중 하나로, Axios 요청 및 응답을 가로채어 변형하는 역할을 한다.
 
@@ -594,18 +668,74 @@ Axios 라이브러리에서 제공하는 기능 중 하나로, Axios 요청 및 
 (2) 응답(response)의 then(=성공) 또는 catch(=실패)가 처리되기 전
 
 ![](/assets/images/2024/2024-02-18-23-06-01.png)
+
 [출처 : https://javascript.plainenglish.io/how-to-implement-a-request-interceptor-like-axios-896a1431304a]
+
+<br>
+
+## 5.2 axios interceptor 사용 예제
+
+```js
+import axios from "axios";
+
+// Axios 인스턴스 생성
+const api = axios.create({
+  baseURL: "https://api.example.com",
+});
+
+// 요청 인터셉터 추가
+api.interceptors.request.use(
+  (config) => {
+    // 요청을 보내기 전에 수행할 작업
+    console.log("Request sent at:", new Date().toISOString());
+    // 예: 인증 토큰이 필요한 경우 헤더에 추가
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    // 요청 오류 처리
+    console.log("Request error:", error);
+    return Promise.reject(error);
+  }
+);
+
+// 응답 인터셉터 추가
+api.interceptors.response.use(
+  (response) => {
+    // 응답 데이터를 가공
+    console.log("Response received at:", new Date().toISOString());
+    return response;
+  },
+  (error) => {
+    // 응답 오류 처리
+    if (error.response && error.response.status === 401) {
+      console.log("Unauthorized access:", error);
+      // 예: 로그인 페이지로 리디렉트
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;
+```
 
 <br><br>
 
-# 5. axios interceptor 사용 예제
+# 6. axios instance 사용 예제
 
-## 5.1 instance 만들기, baseURL 설정하기
+## 6.1 instance 만들기, baseURL 설정하기
 
 지금까지 custom 설정이 전혀 되어있지 않은 axios를 통해 데이터 통신을 했다.<br>
 이 axios를 인스턴스(instance)라고 한다.
 
+axios instance는 단순히 import해서 가져온 객체일 뿐이다.
+
 ```js
+import axios from "axios";
+
 const data = axios.get("http://localhost:4000/");
 ```
 
@@ -623,6 +753,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
+  timeout: 1000, // 모든 요청에 대해 1000ms 후 타임아웃
 });
 
 export default instance;
@@ -723,7 +854,7 @@ get 요청하는 부분이 간결해진 것을 확인할 수 있다.
 
 <br>
 
-## 5.2 request, response에 적용하기
+## 6.2 request, response에 적용하기
 
 요청을 보낼 때, 그리고 서버로부터 응답을 받을 때(실패할 때) 특정한 일을 수행해야 한다면 아래와 같이 처리하면 된다.
 
@@ -801,7 +932,7 @@ export default instance;
 
 <br>
 
-## 5.3 실패 시켜보기
+## 6.3 실패 시켜보기
 
 instance의 설정을 변경시켜서 요청을 실패시켜보자.
 
@@ -819,3 +950,5 @@ export default instance;
 이렇게 변경해주게 되면, 요청 타임아웃이 1ms(1 밀리세컨)으로 매우 짧은 시간이기 때문에 서버에서 응답을 받기 전에 오류가 발생하게 된다.
 
 ![](/assets/images/2024/2024-02-19-02-25-54.png)
+
+<br>

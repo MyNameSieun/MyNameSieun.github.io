@@ -59,6 +59,7 @@ sidebar:
 4. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
 5. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
 6. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
+7. 사용자 권한에 따른 렌더링
 
 <br>
 
@@ -68,9 +69,23 @@ sidebar:
 2. [Styled-components Naming Convention](https://mynamesieun.github.io/react/Styled-components-Naming-Convention/)
 3. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
 4. [React로 상품 카테고리 구현하기](https://mynamesieun.github.io/react/React%EB%A1%9C-%EC%83%81%ED%92%88-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
-5. [.env (환경변수 관리)](https://tooo1.tistory.com/582)
-6. [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
-7. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-8. [JWT 로그인 구현하기](https://mynamesieun.github.io/react/JWT-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+5. [.env (환경변수 관리) (--외부 블로그 링크--)](https://tooo1.tistory.com/582)
+6. Thunder Client를 이용한 통신 연습
+7. [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
+8. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
+9. [카카오맵 API 사용하기](https://mynamesieun.github.io/react/1-%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-api-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+10. input 내부의 값 효율적으로 관리하기 useState vs useRef
 
 <br>
+
+## 프로젝트🌟
+
+### ForYou
+
+1. [ForYou 프로젝트 셋업 및 UI 구성 #1](https://mynamesieun.github.io/project/1-ForYou-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%85%8B%EC%97%85-%EB%B0%8F-UI-%EA%B5%AC%EC%84%B11/)
+2. [조건부 스타일링을 활용한 탭 활성화 기능 구현 #2](https://mynamesieun.github.io/project/2-%EC%A1%B0%EA%B1%B4%EB%B6%80-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%83%AD-%ED%99%9C%EC%84%B1%ED%99%94-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84/)
+3. [Dummy Data를 이용한 리스트 UI 구현 #3](https://mynamesieun.github.io/project/3-Dummy-Data%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A6%AC%EC%8A%A4%ED%8A%B8-UI-%EA%B5%AC%ED%98%84/)
+4. [상세페이지 라우팅 및 공용 컴포넌트 만들기 #4](https://mynamesieun.github.io/project/4-%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%9D%BC%EC%9A%B0%ED%8C%85-%EB%B0%8F-%EA%B3%B5%EC%9A%A9-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
+5. [편지 등록, 삭제, 수정 기능 구현 #5](https://mynamesieun.github.io/project/5-%ED%8E%B8%EC%A7%80-%EB%93%B1%EB%A1%9D,-%EC%82%AD%EC%A0%9C,-%EC%88%98%EC%A0%95-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84/)
+6. [context api 적용하기 #6](https://mynamesieun.github.io/project/6-context-api-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0/)
+7. redux 적용하기 #7

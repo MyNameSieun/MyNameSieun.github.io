@@ -91,6 +91,12 @@ sidebar:
 
 <br>
 
+### 기타
+
+1. API 호출 방식과 데이터 처리 방식에 따른 비교
+
+<br>
+
 ## 🗒️학습 자료
 
 1. [모던 JavaScript 튜토리얼](https://ko.javascript.info/)
