@@ -11,9 +11,9 @@ sidebar:
 
 <br>
 
-props drilling으로 불편하게 관리하던 state를 context api 로 리팩토링 해보자!
+> props drilling으로 불편하게 관리하던 state를 context api 로 리팩토링 해보자!
 
-src/context/LetterContext/jsx 생성
+① src/context/LetterContext/jsx 생성
 
 ```js
 import { createContext, useState } from "react"; // (1) import
@@ -39,7 +39,8 @@ export default LetterContextProvider;
 
 <br>
 
-그 후, index.jsx에서 LetterContextProvider로 컴포넌트를 감싸주자
+② 그 후, index.jsx에서 LetterContextProvider로 컴포넌트를 감싸주자<br>
+이제 App 컴포넌트 안에 있는 모든 컴포넌트들이 letters, setLetters를 사용할 수 있다!
 
 ```js
 // index.jsx
@@ -60,9 +61,7 @@ root.render(
 
 <br>
 
-이제 App 컴포넌트 안에 있는 모든 컴포넌트들이 letters, setLetters를 사용할 수 있다!
-
-아래와 같은 식으로 props로 letters, setLetters를 내려주는 코드를 삭제해주면 된다.
+③ 아래와 같은 식으로 props로 letters, setLetters를 내려주는 코드를 삭제해주면 된다.
 
 ```js
 // 삭제 전
@@ -84,7 +83,7 @@ function Home()
 
 <br>
 
-삭제 후, props를 직접적으로 내려받는 컴포넌트는 아래와 같이 context를 적용하면 된다.
+④ 삭제 후, props를 직접적으로 내려받는 컴포넌트는 아래와 같이 context를 적용하면 된다.
 
 ```js
 // 적용 전
@@ -114,9 +113,9 @@ function Detail() {
 }
 ```
 
-<br>
+<br><br>
 
-마찬가지로 activeTab state로 context api를 적용해줬다!
+> 마찬가지로 activeTab state로 context api를 적용해줬다!
 
 ```js
 import { createContext, useState } from "react";
