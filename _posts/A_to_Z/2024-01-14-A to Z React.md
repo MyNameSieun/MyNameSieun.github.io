@@ -89,10 +89,13 @@ sidebar:
 4. [상세페이지 라우팅 및 공용 컴포넌트 만들기 #4](https://mynamesieun.github.io/project/4-%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%9D%BC%EC%9A%B0%ED%8C%85-%EB%B0%8F-%EA%B3%B5%EC%9A%A9-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 5. [편지 등록, 삭제, 수정 기능 구현 #5](https://mynamesieun.github.io/project/5-%ED%8E%B8%EC%A7%80-%EB%93%B1%EB%A1%9D,-%EC%82%AD%EC%A0%9C,-%EC%88%98%EC%A0%95-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84/)
 6. [context api 적용하기 #6](https://mynamesieun.github.io/project/6-context-api-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0/)
-7. redux 적용하기 #7
+7. [redux 적용하기 #7](https://mynamesieun.github.io/project/7-redux-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0/)
+8. Redux-Toolkit 적용하기 #8
+9. 인증 상태에 따른 조건부 렌더링 구현하기 #9
+10. 로그인 화면 UI 구현 및 API 연결 #10
 
 <br>
 
 ### 미니 프로젝트
 
-1. todolist 만들기
+1. [todolist 만들기](https://mynamesieun.github.io/project/todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)

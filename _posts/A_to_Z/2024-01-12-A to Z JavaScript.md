@@ -93,7 +93,7 @@ sidebar:
 
 ### 기타
 
-1. API 호출 방식과 데이터 처리 방식에 따른 비교
+1. [API 호출 방식과 데이터 처리 방식에 따른 비교](https://mynamesieun.github.io/javascript/API-%ED%98%B8%EC%B6%9C-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%B9%84%EA%B5%90/)
 
 <br>
 
