@@ -92,10 +92,11 @@ sidebar:
 7. [redux 적용하기 #7](https://mynamesieun.github.io/project/7-redux-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0/)
 8. Redux-Toolkit 적용하기 #8
 9. 인증 상태에 따른 조건부 렌더링 구현하기 #9
-10. 로그인 화면 UI 구현 및 API 연결 #10
+10. 로그인, 회원가입 UI 구현 및 API 연결 #10
 
 <br>
 
 ### 미니 프로젝트
 
 1. [todolist 만들기](https://mynamesieun.github.io/project/todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
+2. 카카오 맵 API 트러블 슈팅: 검색결과 제한 문제
