@@ -99,4 +99,4 @@ sidebar:
 ### 미니 프로젝트
 
 1. [todolist 만들기](https://mynamesieun.github.io/project/todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
-2. 카카오 맵 API 트러블 슈팅: 검색결과 제한 문제
+2. [카카오 맵 API 트러블 슈팅: 검색결과 제한 문제](https://mynamesieun.github.io/project/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A7%B5-API-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EA%B2%80%EC%83%89%EA%B2%B0%EA%B3%BC-%EC%A0%9C%ED%95%9C-%EB%AC%B8%EC%A0%9C/)
