@@ -172,11 +172,14 @@ export default App;
 
 > 버튼 색깔을 바꿔보자
 
+`$` 붙혀주기! 컴포넌트에게 스타일을 부여하기 위한 식별자와 같은 의미를 가진다.
+
 ```js
 const Button = styled.button`
   margin-right: 5px;
-  ${(props) => (props.withMarginRight ? "margin-right: 33px;" : "")}
-  /*  혹은 ${(props) => (props.withMarginRight ? "margin-right: 20px;" : "")} */
+  ${(props) => (props.$withMarginRight ? "margin-right: 33px;" : "")}
+  /*  혹은 ${(props) =>
+    props.$withMarginRight ? "margin-right: 20px;" : ""} */
   margin-bottom: 20px;
   background-color: #1e1e1e;
   color: white;
@@ -191,7 +194,7 @@ const Button = styled.button`
 ```js
 <BtnsWrapper>
   <Button onClick={() => setIsEditing(true)}>수정</Button>
-  <Button withMarginRight>삭제</Button>
+  <Button $withMarginRight>삭제</Button>
 </BtnsWrapper>
 ```
 
