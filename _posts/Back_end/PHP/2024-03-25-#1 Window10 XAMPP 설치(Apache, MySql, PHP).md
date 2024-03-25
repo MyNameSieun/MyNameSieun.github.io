@@ -30,7 +30,7 @@ VsCode로 C > xampp > htdocs를 열어 test.php 파일을 생성하자
 
 ```php
 <?php
-echo phpinfo()
+  echo phpinfo()
 ?>
 ```
 
@@ -68,7 +68,7 @@ Ctrl + F를 눌러 `short_`로 검색하여 `short_open_tag=Off`를 `short_open_
 
 ```php
 <?php
-echo phpinfo()
+  echo phpinfo()
 ?>
 ```
 
@@ -76,11 +76,11 @@ echo phpinfo()
 
 ```php
 <?
-echo phpinfo()
+  echo phpinfo()
 ?>
 ```
 
-<br>
+<br><br>
 
 # 4. PHP 관련 익스텐션
 
