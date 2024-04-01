@@ -61,6 +61,7 @@ sidebar:
 6. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
 7. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
 8. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
+9. 비동기 fetch vs axios vs async와 awite
 
 ### 4주차
 

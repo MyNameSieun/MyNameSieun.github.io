@@ -14,7 +14,7 @@ sidebar:
 
 # 1. XAMPP 설치
 
-Window10 XAMPP 설치(Apache, MySql, PHP)는 [여기](https://jongminlee0.github.io/2020/10/23/phpapache/) 링크를 통해 하고 오자.
+Window10 XAMPP 설치(Apache, MySql, PHP)는 [여기](https://teserre.tistory.com/12) 링크를 통해 하고 오자.
 
 <br><br>
 
