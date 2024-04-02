@@ -60,7 +60,7 @@ yarn json-server --watch db.json --port 3001
 
 ## 2.1 GET
 
-get은 서버의 데이터를 조회할 때 사용한다.
+> get은 서버의 데이터를 조회할 때 사용한다.
 
 기본적인 사용 방법은 아래와 같다. [공식문서](https://axios-http.com/kr/docs/req_config)
 
@@ -94,63 +94,44 @@ yarn add axios
 ```
 
 ```js
-// src/App.jsx
-
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // axios import
 
 const App = () => {
-  const [todos, setTodos] = useState(null);
-
-  // axios를 통해서 get 요청을 하는 함수 생성
-  // 비동기처리를 해야하므로 async/await 구문을 통해서 처리
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    console.log("response", data);
-    setTodos(data);
-  };
+  const [todos, setTodos] = useState([]);
   useEffect(() => {
-    // 생성한 함수를 컴포넌트가 mount 됐을 떄 실행하기 위해 useEffect를 사용
-    fetchTodos();
+    const getTodos = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/todos");
+        setTodos(res.data);
+      } catch (error) {
+        console.error("에러가 발생하였습니다.");
+      }
+    };
+    getTodos();
   }, []);
-
   return (
     <div>
-      {todos?.map((item) => {
-        return (
-          <div key={item.id}>
-            {item.id} : {item.title}
-          </div>
-        );
+      {todos.map((todo) => {
+        return <div key={todo.id}>{todo.title}</div>;
       })}
     </div>
   );
 };
+
 export default App;
 ```
 
 생성한 Todos를 정상적으로 서버에서 가져와서 state가 set 한 것을 확인할 수 있다.
 
-![](/assets/images/2024/2024-02-17-18-11-37.png)
-
-![](/assets/images/2024/2024-02-17-18-06-11.png)
-
-<br>
-
-위 코드는 async를 사용했기 때문에 렌더링이 먼저 된 후 비동기 함수가 호출이 된다.
-
-따라서 todos는 현재 값이 null일 수도 있는 상태이기 때문에 Optional Chaining을 넣어줘야햔다.
-
-즉, 초기에 데이터가 없는 경우에도 애플리케이션이 오류 없이 렌더링될 수 있도록 하는 것이다.
-
-`{todos?.map((item)`
+![](/assets/images/2024/2024-04-02-17-19-02.png)
 
 <br>
 
 ## 2.2 POST
 
-post 메서드는 클라이언트에서 서버로 데이터를 보낼 때 주로 사용된다.<br>
-일반적으로 데이터는 HTTP 요청의 본문(body)에 담겨 서버로 전송된다.
+> post 메서드는 클라이언트에서 서버로 데이터를 보낼 때 주로 사용된다.<br>
+> 일반적으로 데이터는 HTTP 요청의 본문(body)에 담겨 서버로 전송된다.
 
 예를들어 사용자가 어떤 폼을 작성하고 제출할 때, 그 폼 데이터가 POST 요청으로 서버에 전송되어 데이터를 <span style="color:indianred">추가하거나 업데이트</span>할 수 있다.
 
@@ -163,82 +144,59 @@ axios.post(url[, data[, config]])   // POST
 input에 어떤 값을 넣고 버튼을 클릭했을 때 todo를 body에 담아 서버로 POST 요청을 보내어 값을 추가해보자.
 
 ```js
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // axios import
 
 const App = () => {
-  const [todos, setTodos] = useState(null);
-  // 새롭게 생성하는 todo를 관리하는 state
-  const [inputValue, setInputValue] = useState({ title: "" });
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    console.log("data ", data);
-    setTodos(data);
-  };
-
-  // 추가 함수
-  const onSubmitHandle = async () => {
-    axios.post("http://localhost:3001/todos", inputValue);
-
-    // state를 변경하여 화면에 렌더링시켜준다.
-    setTodos([...todos, inputValue]);
-  };
   useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/todos");
+        setTodos(res.data);
+      } catch (err) {
+        console.err("에러가 발생하였습니다.");
+      }
+    };
     fetchTodos();
   }, []);
 
-  return (
-    <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
-          // 버튼 클릭 시, input에 들어있는 값(state)를 활용하여 DB에 저장(post 요청)
-          onSubmitHandle();
-        }}
-      >
+  const handleSubmitButton = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:4000/todos", {
+        title: inputValue,
+      });
+      setTodos([...todos, res.data]);
+      setInputValue("");
+    } catch (error) {
+      console.error("에러가 발생하였습니다.");
+    }
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmitButton}>
         <input
           type="text"
-          value={inputValue.title}
-          onChange={(e) => {
-            setInputValue({ title: e.target.value });
-          }}
-        />
-        <button>추가</button>
+          value={inputValue}
+          onChange={handleInputChange}
+        ></input>
+        <button>추가하기</button>
       </form>
-      <div>
-        {todos?.map((item) => {
-          return (
-            <div key={item.id}>
-              {item.id} : {item.title}
-            </div>
-          );
-        })}
-      </div>
-    </>
+      {todos.map((todo) => (
+        <div key={todo.id}>{todo.title}</div>
+      ))}
+    </div>
   );
 };
+
 export default App;
-```
-
-데이터 추가시 아래와 같은 오류가 발생하는 것을 확인할 수 있다.
-![](/assets/images/2024/2024-02-17-23-58-02.png)
-
-따라서 다시 데이터를 읽어 오는 방식으로 렌더링을 하는 방법을 선택하자
-
-즉, axios.post 호출 후에 fetchTodos를 호출함으로써, 새로운 todo를 추가한 후에 목록을 다시 불러와서 최신 상태로 업데이트하는 것이다.
-
-```js
-// 추가 함수
-const onSubmitHandle = async () => {
-  axios.post("http://localhost:3001/todos", inputValue);
-  // 변경 전: setTodos([...todos, inputValue]);
-  fetchTodos(); // 변경 후
-};
-useEffect(() => {
-  fetchTodos();
-}, []);
 ```
 
 <br>
@@ -252,71 +210,79 @@ axios.delete(url[, config])  // DELETE
 ```
 
 ```js
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // axios import
 
 const App = () => {
-  const [todos, setTodos] = useState(null);
-  const [inputValue, setInputValue] = useState({ title: "" });
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   // 조회 함수
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    console.log("data ", data);
-    setTodos(data);
-  };
-
-  // 추가 함수
-  const onSubmitHandle = async () => {
-    axios.post("http://localhost:3001/todos", inputValue);
-    fetchTodos();
-  };
   useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/todos");
+        setTodos(res.data);
+      } catch (err) {
+        console.err("에러가 발생하였습니다.");
+      }
+    };
     fetchTodos();
   }, []);
 
-  // 삭제 함수
-  const onDeleteBtnHandle = async (id) => {
-    axios.delete(`http://localhost:3001/todos/${id}`);
-    setTodos(
-      todos.filter((item) => {
-        return item.id !== id;
-      })
-    );
+  // 추가 함수
+  const onhandleSubmitButton = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:4000/todos", {
+        title: inputValue,
+      });
+      setTodos([...todos, res.data]);
+      setInputValue("");
+    } catch (error) {
+      console.error("에러가 발생하였습니다.");
+    }
   };
 
+  // 삭제 함수
+  const onDeleteHandleButton = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/todos/${id}`);
+      setTodos(
+        todos.filter((item) => {
+          return item.id !== id;
+        })
+      );
+    } catch (error) {
+      console.error("삭제 중 에러 발생", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
   return (
-    <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmitHandle();
-        }}
-      >
+    <div>
+      <form onSubmit={onhandleSubmitButton}>
         <input
           type="text"
-          value={inputValue.title}
-          onChange={(e) => {
-            setInputValue({ title: e.target.value });
-          }}
-        />
-        <button>추가</button>
+          value={inputValue}
+          onChange={handleInputChange}
+        ></input>
+        <button>추가하기</button>
       </form>
-      <div>
-        {todos?.map((item) => {
-          return (
-            <div key={item.id}>
-              {item.id} : {item.title}
-              &nbsp; <button onClick={() => onDeleteBtnHandle(item.id)}>
-                삭제
-              </button> {/* 삭제 버튼 추가 */}
-            </div>
-          );
-        })}
-      </div>
-    </>
+      {todos.map((todo) => (
+        <div key={todo.id}>
+          <span>{todo.title}</span>
+          <button onClick={() => onDeleteHandleButton(todo.id)}>
+            삭제하기
+          </button>
+        </div>
+      ))}
+    </div>
   );
 };
+
 export default App;
 ```
 
@@ -331,108 +297,121 @@ axios.patch(url[, data[, config]])  // PATCH
 ```
 
 ```js
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // axios import
 
 const App = () => {
-  const [todos, setTodos] = useState(null);
-  const [inputValue, setInputValue] = useState({ title: "" });
-  const [targetId, setTargetId] = useState("");
-  const [contents, setContents] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [editId, setEditId] = useState(null); // 수정 중인 항목의 ID
+  const [editValue, setEditValue] = useState(""); // 수정 입력 값
 
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    console.log("data ", data);
-    setTodos(data);
-  };
-
-  // 추가 함수
-  const onSubmitHandle = async () => {
-    axios.post("http://localhost:3001/todos", inputValue);
-    fetchTodos();
-  };
+  // 조회 함수
   useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/todos");
+        setTodos(res.data);
+      } catch (err) {
+        console.err("에러가 발생하였습니다.");
+      }
+    };
     fetchTodos();
   }, []);
 
+  // 추가 함수
+  const onhandleSubmitButton = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:4000/todos", {
+        title: inputValue,
+      });
+      setTodos([...todos, res.data]);
+      setInputValue("");
+    } catch (error) {
+      console.error("에러가 발생하였습니다.");
+    }
+  };
+
   // 삭제 함수
-  const onDeleteBtnHandle = async (id) => {
-    axios.delete(`http://localhost:3001/todos/${id}`);
-    setTodos(
-      todos.filter((item) => {
-        return item.id !== id;
-      })
-    );
+  const onDeleteHandleButton = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/todos/${id}`);
+      setTodos(
+        todos.filter((item) => {
+          return item.id !== id;
+        })
+      );
+    } catch (error) {
+      console.error("삭제 중 에러 발생", error);
+    }
   };
 
   // 수정 함수
-  const onUpdateBtnClickHandle = async () => {
-    await axios.patch(`http://localhost:3001/todos/${targetId}`, {
-      title: contents,
-    });
-
-    setTodos(
-      todos.map((item) => {
-        if (item.id === targetId) {
-          return { ...item, title: contents };
-        } else {
-          return item;
-        }
-      })
-    );
+  const onEditHandleButton = async (id) => {
+    try {
+      const res = await axios.put(`http://localhost:4000/todos/${id}`, {
+        title: editValue,
+      });
+      setTodos(
+        todos.map((item) =>
+          item.id === id ? { ...item, title: res.data.title } : item
+        )
+      );
+      setEditId(null); // 수정 모드 종료
+      setEditValue("");
+    } catch (error) {
+      console.error("수정 중 에러 발생", error);
+    }
   };
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleEditInputChange = (e) => {
+    setEditValue(e.target.value);
+  };
   return (
-    <>
-      {/* 수정 폼 추가 */}
-      <input
-        type="text"
-        placeholder="수정할 아이디"
-        value={targetId}
-        onChange={(e) => {
-          setTargetId(e.target.value);
-        }}
-      />
-      <input
-        type="text"
-        placeholder="수정할 내용"
-        value={contents}
-        onChange={(e) => {
-          setContents(e.target.value);
-        }}
-      />
-      <button onClick={onUpdateBtnClickHandle}>수정</button>
-      <br />
-      <br />
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmitHandle();
-        }}
-      >
-        <input
-          type="text"
-          value={inputValue.title}
-          onChange={(e) => {
-            setInputValue({ title: e.target.value });
-          }}
-        />
-        <button>추가</button>
+    <div>
+      <form onSubmit={onhandleSubmitButton}>
+        <input type="text" value={inputValue} onChange={handleInputChange} />
+        <button type="submit">추가하기</button>
       </form>
-      <div>
-        {todos?.map((item) => {
-          return (
-            <div key={item.id}>
-              {item.id} : {item.title}
-              &nbsp;
-              <button onClick={() => onDeleteBtnHandle(item.id)}>삭제</button>
-            </div>
-          );
-        })}
-      </div>
-    </>
+      {todos.map((todo) => (
+        <div key={todo.id}>
+          {editId === todo.id ? (
+            <input
+              type="text"
+              value={editValue}
+              onChange={handleEditInputChange}
+            />
+          ) : (
+            <span>{todo.title}</span>
+          )}
+          <button onClick={() => onDeleteHandleButton(todo.id)}>
+            삭제하기
+          </button>
+          {editId === todo.id ? (
+            <button onClick={() => onEditHandleButton(todo.id)}>
+              저장하기
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                setEditId(todo.id);
+                setEditValue(todo.title);
+              }}
+            >
+              수정하기
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
   );
 };
+
 export default App;
 ```
 

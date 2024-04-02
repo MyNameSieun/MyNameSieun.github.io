@@ -100,7 +100,7 @@ sidebar:
 
 프로미스 기반의 fetch api와 axios는 항상 프로미스 객체를 반환한다.
 
-fetch와 axios의 차이점을 자세히 살펴보고 싶으면 [여기⬅️](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)를 클릭하자.
+fetch와 axios의 차이점을 자세히 살펴보고 싶으면 [여기⭐⬅️](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)를 클릭하자.
 
 <br><br>
 
@@ -149,6 +149,8 @@ GPT : 주로 useState와 useEffect 훅을 사용하여 데이터를 가져오고
 
 ## 5.1 fetch()
 
+fetch는 body 속성을 사용한다.
+
 ```jsx
 import { useEffect, useState } from "react";
 
@@ -182,6 +184,116 @@ export default App;
 
 <br>
 
+> 작성한 함수가 아닌 곳에서 데이터를 필요로 할 경우
+
+```js
+useEffect(() => {
+  async function fetchData() {
+    const res = await fetch("API URL");
+    const result = await res.json();
+    /* 1. 데이터를 return 하고 */
+    return result;
+  }
+  /* 2. then을 통해 response를 넘긴다. */
+  fetchData().then((res) => setDocs(res));
+}, []);
+```
+
+<br>
+
 ## 5.2 axios
+
+axios는 data 속성을 사용한다.
+
+```java
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+const App = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:4000/topics").then((res) => {
+      setData(res.data);
+    });
+  }, []);
+
+  return (
+    <div>
+      {data.map((topic) => (
+        <div key={topic.id}>
+          <div>{topic.title}</div>
+          <div>{topic.body}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default App;
+```
+
+<br>
+
+> 문법적 설탕 async/await 사용
+
+비동기 코드를 동기적으로 보이게 하기 위해 변수 `res`에 저장하여 다음 코드에 사용할 수 있도록 한다.
+
+```js
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+const App = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getTopics = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/topics");
+        setData(res.data);
+      } catch (error) {
+        console.error("데이터를 불러오는 중 에러가 발생했습니다.");
+      }
+    };
+    getTopics();
+  }, []);
+
+  return (
+    <div>
+      {data.map((topic) => (
+        <div key={topic.id}>
+          <div>{topic.title}</div>
+          <div>{topic.body}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default App;
+```
+
+<br>
+
+> 작성한 함수가 아닌 곳에서 데이터를 필요로 할 경우
+
+```js
+useEffect(() => {
+  async function fetchData() {
+    const res = await axios.get("API URL");
+    const result = res.data;
+    /* 1. 데이터를 return 하고 */
+    return result;
+  }
+  /* 2. then을 통해 response를 넘긴다. */
+  fetchData().then((res) => setDocs(res));
+}, []);
+```
+
+<br>
+
+# 참조
+
+[React API 호출 - Fetch & Axios](https://velog.io/@art11010/React-API-%ED%98%B8%EC%B6%9C#fetch-api%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-api-%ED%98%B8%EC%B6%9C)
 
 <br>
