@@ -100,7 +100,6 @@ Scanner scanner = new Scanner(System.in);
 ```
 
 ```java
-
 import java.io.*;
 //(1) Scanner 호출
 import java.util.Scanner;
@@ -182,8 +181,6 @@ public class _Quiz_06 {
 - BufferedReader는 String(문자열)만 입력 받을 수 있다.
 - 따라서 int값을 할당받고 싶다면, `int num = Integer.parseInt(reader.readLine());` 처럼 형 변환을 해줘야 한다.
 
-<br>
-
 > 기본형
 
 ```java
@@ -246,6 +243,197 @@ public class useInput {
 
 <br><br>
 
+# 4. 퀴즈
+
+## 4.1 퀴즈 #1
+
+> 문제
+
+Scanner과 BufferedReader을 사용하여 아래와 같이 출력하세요.
+
+![](/assets/images/2024/2024-04-10-14-10-20.png)
+
+<br>
+
+> 정답
+
+Scanner 사용
+
+```java
+import java.util.Scanner;
+
+public class _Quiz_06 {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("정수와 실수를 입력하세요! : ");
+		int intNum=scanner.nextInt();
+		double dblNum=scanner.nextDouble();
+		System.out.println("입력한 정수는 "+ intNum + "입니다.");
+		System.out.println("입력한 실수는 "+ dblNum + "입니다.");
+
+		scanner.close();
+	}
+}
+```
+
+<br>
+
+BufferedReader 사용
+
+```java
+import java.io.*;
+
+public class _Quiz_06 {
+	public static void main(String[] args) throws Exception{
+		BufferedReader inbr = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.println("정수와 실수를 입력하세요! : ");
+		int intNum=Integer.parseInt(inbr.readLine());
+		double dblNum=Double.parseDouble(inbr.readLine());
+
+		System.out.println("입력한 정수는 "+ intNum + "입니다."); // 문자열을 정수로 변환
+		System.out.println("입력한 실수는 "+ dblNum + "입니다."); // 문자열을 실수로 변환
+
+		inbr.close();
+	}
+}
+```
+
+<br>
+
+## 4.2 퀴즈 #2
+
+> 문제
+
+- 키보드로부터 원의 반지름을 정수로 입력 받는다.
+- 원의 원둘레(원주)를 구하고, 반지름과 원주를 출력하는 프로그램을 작성하시오
+- 처리조건
+  - 파이(π = 3.141592)는 double형 변수에 저장한다.
+  - 원주 공식은 2πr이다. (r은 반지름)
+
+![](/assets/images/2024/2024-04-10-14-49-41.png)
+
+<br>
+
+> 정답
+
+내 풀이
+
+```java
+import java.util.Scanner;
+
+public class _Quiz_06 {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		double pi = 3.141592;
+
+		System.out.print("원의 반지름을 정수로 입력하세요 : ");
+		int radius = scanner.nextInt();
+		System.out.println("원의 반지름 : " + radius);
+
+		double circumference = 2 * pi * radius;
+		System.out.println("원의 원둘레 : " + circumference);
+
+		scanner.close();
+	}
+}
+```
+
+<br>
+
+공식 풀이(Math 클래스 사용)
+
+```java
+import java.util.Scanner;
+import java.lang.Math; // Math 클래스의 파이(PI) 사용
+
+public class _Quiz_06 {
+	public static void main(String[] args)  {
+		Scanner scanner = new Scanner(System.in);
+		double pi = 3.141592;
+
+		System.out.print("원의 반지름을 정수로 입력하세요 : ");
+		int radius = scanner.nextInt();
+		System.out.println("원의 반지름 : " + radius);
+
+		double circumference = (2 * Math.PI * radius);
+		System.out.println("원의 원둘레 : " + circumference);
+
+		scanner.close();
+	}
+}
+```
+
+<br>
+
+## 4.3 퀴즈 #3
+
+> 문제
+
+스포츠용품 매장에서 운동복을 세일 가격으로 구입하였다.<br>
+상품의 가격(정수, ex-50000)과 할인율(정수,ex-20)을 키보드로부터 입력을 받아서 구입가격(세일 가격)을 계산하는 프로그램을 작성하시오. (출력 항목: 상품 가격, 할인율, 세일 가격)
+
+![](/assets/images/2024/2024-04-10-16-24-03.png)
+
+<br>
+
+> 정답
+
+Scanner 사용
+
+```java
+import java.util.Scanner;
+
+public class _Quiz_ {
+	public static void main(String[] args)  {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.print("상품 가격을 입력하세요 : ");
+		int price = scanner.nextInt();
+
+		System.out.print("할인율을 입력하세요(%) : ");
+		int discountRate = scanner.nextInt();
+
+		int salePrice =  price*(100-discountRate)/100;
+
+		System.out.println("상품 가격 : " + price);
+		System.out.println("할인율 : " + discountRate + "%");
+		System.out.println("세일 가격 : " + salePrice);
+	}
+}
+```
+
+<br>
+
+BufferedReader 사용
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class _Quiz_ {
+	public static void main(String[] args) throws Exception {
+		BufferedReader inbr = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.print("상품 가격을 입력하세요 : ");
+		int price = Integer.parseInt(inbr.readLine());
+
+		System.out.print("할인율을 입력하세요(%) : ");
+		int rate = Integer.parseInt(inbr.readLine());
+
+		int salePrice = price * (100 - rate) / 100;
+
+		System.out.println("상품 가격 : " + price);
+		System.out.println("할인율 : " + rate+"%");
+		System.out.println("세일가격 : " + salePrice);
+	}
+}
+```
+
+<br><br>
+
 # 참조
 
 - [자바(JAVA) - Scanner & BufferedReader](https://dlee0129.tistory.com/238)
@@ -253,17 +441,3 @@ public class useInput {
 - [JAVA. 시스템 입출력 : BufferedReader 와 Scanner 비교](https://rang22.tistory.com/37)
 
 <br>
-
-```java
-import java.io.*;
-
-public class _Quiz_06 {
-	public static void main(String[] args) throws Exception {
-		BufferedReader inbr = new BufferedReader(new InputStreamReader(System.in));
-
-		System.out.print("년도를 입력하세요! : ");
-		int year = Integer.parseInt(inbr.readLine());
-		System.out.println("입력한 연도는 " + year + "년 입니다.");
-	}
-}
-```
