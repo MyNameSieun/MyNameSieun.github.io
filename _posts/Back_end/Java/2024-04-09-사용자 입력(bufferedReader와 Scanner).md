@@ -1,5 +1,5 @@
 ---
-title: "[Java] 사용자 입력(bufferedReader와 Scanner)"
+title: "[Java] 사용자 입력(BufferedReader와 Scanner)"
 categories: [Java]
 tag: [Java]
 toc_label: Contents
@@ -9,6 +9,13 @@ author_profile: true
 sidebar:
   nav: "counts"
 ---
+
+<br>
+
+> 사용자 입력을 받는 방식은 두 가지가 있다.
+
+1. Scanner
+2. BufferedReader
 
 <br>
 
@@ -25,18 +32,27 @@ sidebar:
 - 입력 받은 즉시 자료형이 확정된다.
 - 사용하기 편하지만 속도가 느리다.
 - System.in을 생성할 때 내부적으로 try-catch를 사용한다.
-- 공백, 개행, 탭 등을 기준으로 데이터를 입력 받아 사용자가 입력한 데이터를 쉽게 분리하여 처리할 수 있다.
+- 공백문자(공백, 개행, 탭 등)를 이용하여 토큰을 분리하고 각각의 토큰을 자료형에 따라 변환한다.
+  ("a", 3.5, "hello")와 같이 토큰 분리
+  - BufferReader은 토큰으로 쪼개지 않고, 입력받은 값 전체를 문자열로 변환한다.
+
+![](/assets/images/2024/2024-03-21-12-39-43.png)
 
 <br>
 
-## 1.3 주요 메서드
+## 1.3 주요 메소드
 
-> nextX()
+- 숫자 입력 : nextX()
+  - 이 때, X의 자리에는 입력받을 데이터 타입(Byte, Short, Int, Long, Float, Double)을 적어준다.
+  - (ex) `nextInt()`, `nextDouble()`<br>
+- 문자열 입력 : `next()`, `nextLine()`
+  - `next()` : 스페이스 즉, 공백 전까지 입력받은 문자열을 반환
+  - `nextLine()` : Enter를 치기 전까지 쓴 문자열을 모두 반환
 
-- 주로 `nextX()`의 형태를 이루며 X의 자리에는 입력 받을 데이터의 타입을 적어준다.(ex) `nextInt()`, `nextDouble()`)
-- 단, String을 입력 받는 메서드는 `nextString()`이 아닌 `next()`와 `nextLine` 이라고 한다.
-  - `next()` : 스페이스 즉, 공백 전까지 입력받은 문자열을 반환한다.
-  - `nextLine()` : Enter를 치기 전까지 쓴 문자열을 모두 반환한다.
+|      메소드       |                 설명                  |
+| :---------------: | :-----------------------------------: |
+|   void close()    |           스캐너를 닫는다.            |
+| boolean hasNext() | 입력으로 다른 토큰이 있으면 true 반환 |
 
 ```java
 // next() vs nextLine()
@@ -64,7 +80,6 @@ public class _05_practice {
 		System.out.println(str2);
 
 	}
-
 }
 ```
 
@@ -76,49 +91,52 @@ public class _05_practice {
 
 <br>
 
-![](/assets/images/2024/2024-04-09-13-51-25.png)
-
-<br>
-
 ## 1.4 사용 방법
 
+> 기본형
+
 ```java
-package chap_04;
-
-// (1) Scanner 호출
-import java.util.Scanner;
-
-public class useInput {
-	public static void main(String[] args) {
-		// (2) System.in을 통해 Scanner 객체 생성
-		Scanner sc = new Scanner(System.in);
-
-		// (3) 입력 받을 변수를 자료형에 맞춰 선언
-		System.out.println("숫자를 입력하세요.");
-		int num = sc.nextInt();
-		System.out.println("숫자 : " + num);
-
-	    // 버퍼 비우기
-        sc.nextLine();
-
-		System.out.println("문자를 입력하세요.");
-		String str = sc.nextLine();
-		System.out.println("문자 : " + str);
-
-		// (4) Scanner 사용 후 꼭 닫아주어야 함
-		sc.close();
-	}
-}
-
+Scanner scanner = new Scanner(System.in);
 ```
 
-![](/assets/images/2024/2024-04-09-13-36-06.png)
+```java
+
+import java.io.*;
+//(1) Scanner 호출
+import java.util.Scanner;
+
+public class _Quiz_06 {
+	public static void main(String[] args) {
+		// (2) System.in을 통해 Scanner 객체 생성
+		Scanner scanner = new Scanner(System.in);
+
+		// (3) 입력 받을 변수를 자료형에 맞춰 선언
+		System.out.print("이름을 입력하세요 : ");
+		String inString = scanner.nextLine();
+		System.out.println("이름 : " + inString);
+
+		// 버퍼 비우기
+		scanner.nextLine();
+
+		System.out.println("정수형과 실수 형 숫자 2개를 입력하세요");
+		int numInt = scanner.nextInt();
+		float numFloat = scanner.nextFloat();
+		float sum = numInt + numFloat;
+		System.out.println("합 : " + sum);
+
+		// (4) Scanner 사용 후 꼭 닫아주어야 함 -> 리소스 노출 방지
+		scanner.close();
+	}
+}
+```
+
+![](/assets/images/2024/2024-04-10-10-31-06.png)
 
 <br>
 
 - `System.in` 이란?
-- 사용자로부터 입력을 받기 위한 입력 스트림
-- Scanner 클래스뿐 아니라 다른 입력 클래스들도 System.in을 통해 사용자 입력을 받아야 한다.
+  - 사용자로부터 입력을 받기 위한 입력 스트림
+  - Scanner 클래스뿐 아니라 다른 입력 클래스들도 System.in을 통해 사용자 입력을 받아야 한다.
 
 <br><br>
 
@@ -147,18 +165,15 @@ public class useInput {
 
 <br>
 
-## 2.4 주요 메서드
+## 2.4 주요 메소드
 
-| 메서드                                | 설명                                                                                                   |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `read()`                              | 다음 문자를 읽어서 int 형으로 반환합니다.                                                              |
-| `read(char[] cbuf, int off, int len)` | 주어진 char 배열에 데이터를 읽어옵니다.                                                                |
-| `readLine()`                          | 한 줄을 읽어서 문자열로 반환합니다.                                                                    |
-| `skip(long n)`                        | 지정된 개수만큼 문자를 건너뜁니다.                                                                     |
-| `ready()`                             | 입력 스트림이 데이터를 읽을 준비가 되었는지 여부를 반환합니다.                                         |
-| `mark(int readAheadLimit)`            | 현재 위치를 표시하여 나중에 reset() 메서드로 돌아갈 수 있도록 합니다.                                  |
-| `reset()`                             | mark() 메서드가 호출된 지점으로 돌아갑니다. 단, mark()로 표시한 위치 이후의 데이터만 읽을 수 있습니다. |
-| `close()`                             | 스트림을 닫습니다.                                                                                     |
+입력받은 값은 String이므로 타입 변환 필요
+
+| 메소드                                | 설명               |
+| ------------------------------------- | ------------------ |
+| `inbr.readLine()`                     | 문자열 입력 메소드 |
+| `Integer.parseInt(inbr.readLine())`   | 정수 입력 메소드   |
+| `Double.parseDouble(inbr.readLine())` | 실수 입력 메소드   |
 
 <br>
 
@@ -167,9 +182,22 @@ public class useInput {
 - BufferedReader는 String(문자열)만 입력 받을 수 있다.
 - 따라서 int값을 할당받고 싶다면, `int num = Integer.parseInt(reader.readLine());` 처럼 형 변환을 해줘야 한다.
 
-```java
-package chap_04;
+<br>
 
+> 기본형
+
+```java
+BufferedReader inbr = new BufferedReader(new InputStreamReader(System.in));
+```
+
+![](/assets/images/2024/2024-04-10-11-38-57.png)
+
+-> 위 코드는 키보드로부터 사용자 입력을 받을 수 있는 BufferReader 객체를 생성하는 것.<br>
+-> 이제 BufferReader 객체인 reader을 사용하여 입력을 읽을 수 있다.
+
+<br>
+
+```java
 // (1) 3가지 import
 // import java.io.*; 한번에 import를 처리해줘도 된다.
 import java.io.BufferedReader;
@@ -179,20 +207,20 @@ import java.io.IOException; // 에외 처리를 위함
 public class useInput {
 	public static void main(String[] args) throws IOException {
 		// (2) 매개변수로 InputStreamReader를 사용하여 객체 생성
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader inbr = new BufferedReader(new InputStreamReader(System.in));
 
 		// (3) 입력 받을 변수를 자료형에 맞춰 선언
 		try {
 			System.out.println("숫자를 입력하세요.");
-			int num = Integer.parseInt(reader.readLine());
+			int num = Integer.parseInt(inbr.readLine());
 			System.out.println("숫자: " + num);
 
 			System.out.println("문자를 입력하세요.");
-			String str = reader.readLine();
+			String str = inbr.readLine();
 			System.out.println("문자: " + str);
 
 			// (4) BufferedReader 사용 후 꼭 닫아주어야 함
-			reader.close();
+			inbr.close();
 		} catch (IOException e) {
 			System.err.println("입력 오류: " + e.getMessage());
 		}
@@ -225,3 +253,17 @@ public class useInput {
 - [JAVA. 시스템 입출력 : BufferedReader 와 Scanner 비교](https://rang22.tistory.com/37)
 
 <br>
+
+```java
+import java.io.*;
+
+public class _Quiz_06 {
+	public static void main(String[] args) throws Exception {
+		BufferedReader inbr = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.print("년도를 입력하세요! : ");
+		int year = Integer.parseInt(inbr.readLine());
+		System.out.println("입력한 연도는 " + year + "년 입니다.");
+	}
+}
+```
