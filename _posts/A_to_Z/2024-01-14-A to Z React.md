@@ -59,7 +59,7 @@ sidebar:
 4. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
 5. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
 6. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
-7. 사용자 권한에 따른 렌더링
+7. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
 
 <br>
 
@@ -68,14 +68,15 @@ sidebar:
 1. [React 파일 및 프로젝트 셋업](https://mynamesieun.github.io/react/React-%ED%8C%8C%EC%9D%BC-%EB%B0%8F-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%85%8B%EC%97%85/)
 2. [Styled-components Naming Convention](https://mynamesieun.github.io/react/Styled-components-Naming-Convention/)
 3. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
-4. Array API 연습하기
+4. [Array API 연습하기](https://mynamesieun.github.io/react/Array-API-%EC%97%B0%EC%8A%B5%ED%95%98%EA%B8%B0/)
 5. [React로 상품 카테고리 구현하기](https://mynamesieun.github.io/react/React%EB%A1%9C-%EC%83%81%ED%92%88-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 6. [.env (환경변수 관리) (--외부 블로그 링크--)](https://tooo1.tistory.com/582)
 7. [Thunder Client를 이용한 통신 연습](https://mynamesieun.github.io/react/Thunder-Client%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
 8. [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
 9. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-10. [카카오맵 API 사용하기](https://mynamesieun.github.io/react/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-api-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-11. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
+10. styled-components를 활용한 조건부 스타일링 트러블슈팅
+11. [카카오맵 API 사용하기](https://mynamesieun.github.io/react/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-api-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+12. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
 
 <br>
 
