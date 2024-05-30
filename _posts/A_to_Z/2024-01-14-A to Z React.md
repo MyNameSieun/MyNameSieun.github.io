@@ -74,9 +74,10 @@ sidebar:
 7. [Thunder Client를 이용한 통신 연습](https://mynamesieun.github.io/react/Thunder-Client%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
 8. [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
 9. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-10. styled-components를 활용한 조건부 스타일링 트러블슈팅
+10. [styled-components를 활용한 조건부 스타일링 트러블슈팅](https://mynamesieun.github.io/react/styled-components%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%A1%B0%EA%B1%B4%EB%B6%80-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/)
 11. [카카오맵 API 사용하기](https://mynamesieun.github.io/react/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-api-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 12. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
+13. 토글 상태 관리 트러블슈팅
 
 <br>
 
