@@ -33,9 +33,9 @@ const Router = () => {
       <Routes>
         {/* 비효율적 */}
         <Route path="/" element={<Home />} />
-        <Route path="/works/1" element={<Works />} />
-        <Route path="/works/2" element={<Works />} />
-        <Route path="/works/3" element={<Works />} />
+        <Route path="/info/1" element={<Info />} />
+        <Route path="/info/2" element={<Info />} />
+        <Route path="/info/3" element={<Info />} />
       </Routes>
     </BrowserRouter>
   );
@@ -50,287 +50,21 @@ const Router = () => {
 
 ## 2.1 query parameter 조회하기
 
-useParams 이라는 훅을 사용해서 `Dynamic Routes` 에서 path에 입력된 id 값을 가져와보자<br>
+> useParams 이라는 훅을 사용해서 `Dynamic Routes` 에서 path에 입력된 id 값을 가져와보자<br>
+
 useParams 은 path의 있는 id 값을 조회할 수 있게 해주는 훅이다.
 
-Dynamic Routes를 사용하면 element에 설정된 같은 컴포넌트를 렌더링하게 된다.
+Dynamic Routes를 사용하면 element에 설정된 같은 컴포넌트를 렌더링하게 되지만, useParam을 이용하면 같은 컴포넌트를 렌더링하더라도 각각의 고유한 `id` 값을 조회할 수 있다.
 
 ```jsx
-<Route path="works/:id" element={<Work />} />
+<Route path="/info/:id" element={<Info />} />>
 ```
-
-하지만 useParam을 이용하면 같은 컴포넌트를 렌더링하더라도 각각의 고유한 `id` 값을 조회할 수 있다.
 
 즉, works/1로 이동하면 1 이라는 값을 주고, works/100으로 이동하면 100 이라는 값을 사용할 수 있게 해주는 것이다.
 
-```jsx
-// src/pages/Works.js
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-
-const data = [
-  { id: 1, todo: "리액트 배우기" },
-  { id: 2, todo: "노드 배우기" },
-  { id: 3, todo: "자바스크립트 배우기" },
-  { id: 4, todo: "파이어 베이스 배우기" },
-  { id: 5, todo: "넥스트 배우기" },
-  { id: 6, todo: "HTTP 프로토콜 배우기" },
-];
-
-function Works() {
-  return (
-    <div>
-      {data.map((item) => {
-        return (
-          <div key={item.id}>
-            {item.id}
-            {item.todo}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-export default Works;
-```
-
-![](/assets/images/2024/2024-01-30-12-08-53.png)
-
 <br>
 
-이제 works/1이런식으로 해당 번호를 클릭할 때 세부 페이지로 이동해보도록하자
-
-<br>
-
-work 컴포넌트 생성
-
-```jsx
-// src/pages/Work.js
-
-import React from "react";
-import { useParams } from "react-router-dom";
-
-const data = [
-  { id: 1, todo: "리액트 배우기" },
-  { id: 2, todo: "노드 배우기" },
-  { id: 3, todo: "자바스크립트 배우기" },
-  { id: 4, todo: "파이어 베이스 배우기" },
-  { id: 5, todo: "넥스트 배우기" },
-  { id: 6, todo: "HTTP 프로토콜 배우기" },
-];
-
-function Work() {
-  const param = useParams();
-
-  const work = data.find((work) => work.id === parseInt(param.id));
-
-  return <div>{work.todo}</div>;
-}
-
-export default Work;
-```
-
-<br>
-
-그리고 이제 Router.jsx 이동해서 아래 코드를 추가하자
-
-```jsx
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
-import About from "../pages/About";
-import Contact from "../pages/Contact";
-import Works from "../pages/Works";
-
-const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="works" element={<Works />} />
-        {/* 이 부분 추가 */}
-        <Route path="works/:id" element={<Works />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
-
-export default Router;
-```
-
-<br>
-
-이전과는 다르게 path에 `works/:id` 라고 path가 들어간다.
-
-`:id` 라는 것이 바로 동적인 값을 받겠다라는 의미이다.
-
-그래서 works/1 로 이동해도 `<Work />` 로 이동하고, `works/2`, `works/3` …. `works/100` 모두 `<Work />`하게 되는 것이다.
-
-<br>
-
-이제 하위 페이지로 넘어갈 수 있게 하기 위해 Link 태그를 사용하자
-
-```jsx
-// src/pages/Works.js
-
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-
-const data = [
-  { id: 1, todo: "리액트 배우기" },
-  { id: 2, todo: "노드 배우기" },
-  { id: 3, todo: "자바스크립트 배우기" },
-  { id: 4, todo: "파이어 베이스 배우기" },
-  { id: 5, todo: "넥스트 배우기" },
-  { id: 6, todo: "HTTP 프로토콜 배우기" },
-];
-
-function Works() {
-  return (
-    <div>
-      {data.map((item) => {
-        return (
-          <div key={item.id}>
-            {item.id}
-            {/* 아래부분 추가 */}
-            <Link to={`/works/${item.id}`}>{item.todo}</Link>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-export default Works;
-```
-
-하이퍼링크가 생긴 것을 확인할 수 있다.
-
-![](/assets/images/2024/2024-01-30-12-18-59.png)
-
-<br>
-
-이제 works에 id에 따라 페이지를 출력해보도록 하자.
-
-Works.jsx에 있는 아래 코드를 shared/data.js 파일로 옮겨주도록 하자.
-
-```jsx
-// src/shared/data.js
-
-// export
-export const data = [
-  { id: 1, todo: "리액트 배우기" },
-  { id: 2, todo: "노드 배우기" },
-  { id: 3, todo: "자바스크립트 배우기" },
-  { id: 4, todo: "파이어 베이스 배우기" },
-  { id: 5, todo: "넥스트 배우기" },
-  { id: 6, todo: "HTTP 프로토콜 배우기" },
-];
-```
-
-```jsx
-// src/pages/Works.js
-
-// import
-import { data } from "../shared/data";
-```
-
-<br>
-
-이제 Work 컴포넌트를 생성하자.
-
-```jsx
-// src/pages/Work.js
-
-import React from "react";
-import { useParams } from "react-router-dom";
-import { data } from "../shared/data"; // import
-
-function Work() {
-  const param = useParams();
-
-  // find로 어떤 todo인지 찾아보기
-  const work = data.find((work) => work.id === parseInt(param.id));
-
-  return (
-    <div>
-      <h3>할 일</h3>
-      {work.todo}
-    </div>
-  );
-}
-
-export default Work;
-```
-
-```jsx
-// Router.js
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
-import About from "../pages/About";
-import Contact from "../pages/Contact";
-import Works from "../pages/Works";
-import Work from "../pages/Work"; // import
-
-const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="works" element={<Works />} />
-        {/* 아래 코드 추가 */}
-        <Route path="works/:id" element={<Work />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
-
-export default Router;
-```
-
-잘 나오는 걸 볼 수 있다!
-
-![](/assets/images/2024/2024-01-30-13-07-56.png)
-
-<br>
-
-> 아래처럼 요소 클릭시 네비게이션을 사용하여 페이지를 이동할 수 있다.
-
-```js
-// Router.js
-import Detail from "components/Detail"; // import
-<Route path="/detail/:id" element={<Detail />} />;
-```
-
-```js
-import { useNavigate } from "react-router-dom"; //import
-
-function ListLetter({ activePeople, letters }) {
-  const navigate = useNavigate(); // useNavigate 사용
-  return (
-    <ListLetterContainer>
-      {letters
-        .filter(function (letter) {
-          return letter.writedTo === activePeople;
-        })
-        .map(function (letter) {
-          return (
-            <LetterCard
-              key={letter.id}
-              onClick={() => navigate(`/detail/${letter.id}`)}
-            ></LetterCard>
-          );
-        })}
-    </ListLetterContainer>
-  );
-}
-```
+> useParams를 찍어볼까?
 
 ```js
 // Detail.js
@@ -350,6 +84,108 @@ export default Detail;
 
 ![](/assets/images/2024/2024-02-05-02-24-34.png)
 ![](/assets/images/2024/2024-02-05-02-20-51.png)
+
+<br>
+
+> works/1이런식으로 해당 번호를 클릭할 때 세부 페이지로 이동해보도록 하자
+
+① Router.jsx 이동해서 아래 코드를 추가하자
+
+```jsx
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "pages/Home";
+import About from "pages/About";
+import Contact from "pages/Contact";
+import Info from "pages/Info";
+
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        {/* 이 부분 추가 */}
+        <Route path="/info/:id" element={<Info />} />>
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default Router;
+```
+
+<br>
+
+이전과는 다르게 path에 `info/:id` 라고 path가 들어간다.
+
+`:id` 라는 것이 바로 동적인 값을 받겠다라는 의미이다.
+
+그래서 works/1 로 이동해도 `<Info />` 로 이동하고, `info/2`, `info/3` …. `info/100` 모두 `<Info />`로 이동하는 것이다.
+
+<br>
+
+② info.json
+
+```jsx
+[
+  {
+    id: 1,
+    textsub: "졸업학점 계산기",
+    textContent: " 졸업학점 계산기졸업학점 계산기졸업학점 계산기.",
+    infoImage: "images/3d-calculator.png",
+    infoLink: "",
+  },
+  {
+    id: 2,
+    textsub: "학교 근처 맛집",
+    textContent:
+      "학교 근처 맛집학교 근처 맛집학교 근처 맛집학교 근처 맛집학교 근처 맛집",
+    infoImage: "images/udon.png",
+    infoLink: "",
+  },
+];
+```
+
+<br>
+
+③ Info.jsx 컴포넌트 변경
+
+이제 info id에 따라 페이지가 출력되게 된다.
+
+```jsx
+import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
+import info from "info.json";
+
+const Info = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  return (
+    <InfoLayout>
+      <InfoBox>
+        <InfoImage src="images/leftArrow.png" onClick={() => navigate(-1)} />
+        <InfoText>유용한 정보 /</InfoText>
+      </InfoBox>
+      <TextContent>
+        {info
+          .filter((item) => item.id === parseInt(id))
+          .map((item) => {
+            return (
+              <div key={item.id}>
+                <InfoTextSub>{item.textsub}</InfoTextSub>
+                <TextContent>{item.textContent}</TextContent>
+              </div>
+            );
+          })}
+      </TextContent>
+    </InfoLayout>
+  );
+};
+
+export default Info;
+```
 
 <br>
 
