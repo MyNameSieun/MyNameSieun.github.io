@@ -78,6 +78,7 @@ sidebar:
 11. [카카오맵 API 사용하기](https://mynamesieun.github.io/react/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-api-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 12. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
 13. 토글 상태 관리 트러블슈팅
+14. 리액트 이미지 경로 지정방법 2가지
 
 <br>
 
