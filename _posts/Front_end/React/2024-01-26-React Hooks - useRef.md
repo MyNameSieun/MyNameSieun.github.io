@@ -16,9 +16,10 @@ sidebar:
 
 ## 1.1 useRef 개념
 
-DOM 요소에 접근할 수 있도록 하는 React Hook이다.
+> DOM 요소에 접근할 수 있도록 하는 React Hook이다.
 
-JS에서 `getElementById`, `querySelector`를 이용하여 특정 DOM을 선택한 것 처럼 리액트에서도 useRef hook을 사용해 DOM을 선택할 수 있다.
+- JS에서 `getElementById`, `querySelector`를 이용하여 특정 DOM을 선택한 것 처럼 리액트에서도 useRef hook을 사용해 DOM을 제어할 수 있다.
+- reference는 참조라는 뜻을 갖고 있다. 즉, 어떤 것을 참조해야만(엮어야만) 의미가 있는 것이다.
 
 <br>
 
@@ -95,6 +96,67 @@ export default App;
   - 컴포넌트가 100번 렌더링 → ref에 저장한 값은 유지
 - DOM 요소에 접근
   - 렌더링 되자마자 특정 input이 focusing 돼야 한다면 useRef를 사용하면 된다.
+
+<br>
+
+## 1.3 useRef로 변경하기[연습]
+
+> 아래 useState 코드를 useRef로 변경해보자
+
+- useState
+
+```js
+import { useState } from "react";
+
+const App = () => {
+  const [name, setName] = useState();
+
+  return (
+    <div>
+      <h2>useState 활용</h2>
+      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <button
+        onClick={() => {
+          alert(name);
+        }}
+      >
+        확인
+      </button>
+    </div>
+  );
+};
+
+export default App;
+```
+
+<br>
+
+- useRef
+
+```js
+import { useRef } from "react";
+
+const App = () => {
+  const inputRef = useRef();
+  return (
+    <>
+      <div>
+        <h2>useRef 활용</h2>
+        <input ref={inputRef} />
+        <button
+          onClick={() => {
+            alert(inputRef.current.value);
+          }}
+        >
+          확인
+        </button>
+      </div>
+    </>
+  );
+};
+
+export default App;
+```
 
 <br><br>
 
