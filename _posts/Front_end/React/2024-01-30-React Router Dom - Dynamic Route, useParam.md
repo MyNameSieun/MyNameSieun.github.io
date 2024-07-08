@@ -89,7 +89,7 @@ export default Detail;
 
 > works/1이런식으로 해당 번호를 클릭할 때 세부 페이지로 이동해보도록 하자
 
-① Router.jsx 이동해서 아래 코드를 추가하자
+① Router.jsx 이동해서 Route를 설정하자
 
 ```jsx
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -119,9 +119,7 @@ export default Router;
 
 이전과는 다르게 path에 `info/:id` 라고 path가 들어간다.
 
-`:id` 라는 것이 바로 동적인 값을 받겠다라는 의미이다.
-
-그래서 works/1 로 이동해도 `<Info />` 로 이동하고, `info/2`, `info/3` …. `info/100` 모두 `<Info />`로 이동하는 것이다.
+`:id` 라는 것이 바로 "동적인 값을 받겠다."라는 의미이다.
 
 <br>
 
