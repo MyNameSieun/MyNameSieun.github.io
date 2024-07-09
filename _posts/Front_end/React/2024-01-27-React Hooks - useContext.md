@@ -31,585 +31,119 @@ sidebar:
 
 ## 1.2 context API 필수 개념
 
+> useContext Hook은 Context 객체를 받아 해당 Context의 현재 값을 반환한다. 이 Hook을 사용하면 Context의 Provider에서 제공한 값을 자식 컴포넌트에서 바로 사용할 수 있다.
+
 - `createContext` : context 생성
 - `Consumer` : context 변화 감지
 - `Provider` : context 전달(to 하위 컴포넌트)
+
+<br>
+
+## 1.3 범위 상태
+
+> context 는 문맥, 맥락이라는 의미이다.
+
+- 아래 사진에서 A라는 컴포넌트 하위에 있는 컴포넌트들은 동일한 맥락에서 대화를 하고 있다.
+- useContext를 root 경로에 두었을 때, 비로소 전역상태라고 할 수 있다.
+- 예시를 들면, 각 나라마다 다른 언어를 사용한다고 했을 때 나라의 꼭대기에 context를 잡아주면 하위에 있는 모든 국민들은 동일한 언어(데이터)를 사용할 수 있는 것이다.
+
+![](/assets/images/2024/2024-07-09-01-04-43.png)
 
 <br><br>
 
 # 2. useContext 구현하기
 
-## 2.1 예시 1
+Context를 사용해서 isDark라는 데이터를 모든 하위 컴포넌트들에게 props를 사용하지 않고 공유해보도록하자.
 
-```js
-import React from "react";
-import "./App.css";
+## 2.1 Context 생성
 
-function App() {
+```jsx
+// src/context/ThemeContext.jsx
+
+// (1) import
+import { createContext, useState } from "react";
+
+// (2) Context 생성
+export const ThemeContext = createContext(null);
+
+// (3) Provider 생성 :
+// children props를 사용해서 LetterContextProvider로 감싸지는 모든 자식 컴포넌트들이 value 값을 공유할 수 있도록 한다.
+export const ThemeContextProvider = ({ children }) => {
+  // (4) props drilling으로 공유되는 useState를 옮겨주자
+  const [isDark, setIsDark] = useState(false);
+
   return (
-    <div className="root">
-      <h1>Hello World</h1>
-      <Sub2 />
-    </div>
+    <ThemeContext.Provider value={{ isDark, setIsDark }}>
+      {children}
+    </ThemeContext.Provider>
   );
-}
-
-// 하위 컴포넌트
-function Sub1() {
-  return (
-    <div>
-      <h1>Sub1</h1>
-      <Sub2 />
-    </div>
-  );
-}
-
-function Sub2() {
-  return (
-    <div>
-      <h1>Sub2</h1>
-      <Sub3 />
-    </div>
-  );
-}
-
-function Sub3() {
-  return (
-    <div>
-      <h1>Sub3</h1>
-    </div>
-  );
-}
-
-export default App;
+};
 ```
-
-```css
-/* App.css */
-.root,
-.root div {
-  border: 10px solid gray;
-  margin: 10px;
-  padding: 10px;
-}
-```
-
-![](/assets/images/2024/2024-02-01-01-02-18.png)
 
 <br>
 
-> 위 컴포넌트의 border color을 Context를 사용하여 전부 초록색으로 바꿔보자
+## 2.2 Context 제공 (Provider)
 
-```js
-import React, { createContext, useContext } from "react"; // (1) import
-import "./App.css";
+```jsx
+// index.jsx
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { ThemeContextProvider } from "./context/ThemeContext"; // (1) 만든 Context import
 
-const themeDefault = { border: "10px solid green" }; // (2) 디자인 코드 작성
-const themeContext = createContext(themeDefault); // (3) Context 만들기
-
-function App() {
-  const theme = useContext(themeContext); // (4) useContext에 사용할 Context를 표기
-  // console.log(theme);
-
-  return (
-    <div className="root" style={theme}>
-      {" "}
-      {/* (5) 값 넣기 */}
-      <h1>Hello World</h1>
-      <Sub1 />
-    </div>
-  );
-}
-
-// 하위 컴포넌트
-function Sub1() {
-  const theme = useContext(themeContext);
-  return (
-    <div style={theme}>
-      <h1>Sub1</h1>
-      <Sub2 />
-    </div>
-  );
-}
-
-function Sub2() {
-  const theme = useContext(themeContext);
-  return (
-    <div style={theme}>
-      <h1>Sub2</h1>
-      <Sub3 />
-    </div>
-  );
-}
-
-function Sub3() {
-  const theme = useContext(themeContext);
-  return (
-    <div style={theme}>
-      <h1>Sub3</h1>
-    </div>
-  );
-}
-
-export default App;
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  // (2) 만든 Provider 로 감싸기
+  // (3) value엔 전달하고자하는 데이터 넣기
+  <ThemeContextProvider>
+    <App />
+  </ThemeContextProvider>
+);
 ```
-
-모든 컴포넌트들이 themeDefault값을 공유하게 됐다.
-
-![](/assets/images/2024/2024-02-01-01-07-00.png)
 
 <br>
 
-> 이 상태에서 Sub2와 Sub3의 테두리 색만 변경해보도록 하자.
+## 2.3 useContext를 통한 값 사용
 
-Sub2의 부모 컴포넌트인 Sub1 컴포넌트에 `<themeContext.Provider>`으로 감싸주면 된다.
+```jsx
+// components/pages/MainPage.jsx
 
-```js
-function Sub1() {
-  const theme = useContext(themeContext);
+import { useContext } from "react";
+import styled from "styled-components";
+import { ThemeContext } from "../../context/ThemeContext";
+
+const MainPage = () => {
+  // useContext Hook으로 Context로 전달한 정보 받아오기
+  const { isDark, setIsDark } = useContext(ThemeContext);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => !prev);
+  };
+
   return (
-    // Provider컴포넌트는 value값을 작성해줘야한다.
-    <themeContext.Provider value={{ border: "10px solid red" }}>
-      <div style={theme}>
-        <h1>Sub1</h1>
-        <Sub2 />
-      </div>
-    </themeContext.Provider>
+    <MainLayout isDark={isDark}>
+      <p>안녕</p>
+      <p>Hello</p>
+      <button onClick={toggleTheme}>
+        {isDark ? "라이트 모드" : "다크모드"}
+      </button>
+    </MainLayout>
   );
-}
-```
+};
 
-![](/assets/images/2024/2024-02-01-01-16-00.png)
+export default MainPage;
 
-즉, useContext를 사용하면 부모 컨텍스트의 첫 번째로 등장하는 Provider의 value가 리턴되는 것을 확인할 수 있다.
-
-<br>
-
-## 2.2 예시 2
-
-> 다크 모드를 구현하는 코드이다.
-
-<details>
-  <summary>index.css</summary>
-
-```css
-/* index.css */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  font-family: sans-serif;
-}
-
-.page {
-  width: 100%;
+const MainLayout = styled.div`
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.header {
-  width: 100%;
-  height: 80px;
-  border-bottom: 2px solid gray;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-}
-
-.footer {
-  width: 100%;
-  height: 80px;
-  border-top: 2px solid gray;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.button {
-  padding: 10px;
-  margin-right: 30px;
-}
+  background-color: ${(props) => (props.isDark ? "#000000" : "#ffffff")};
+  color: ${(props) => (props.isDark ? "#ffffff" : "#000000")};
+`;
 ```
 
-</details>
+![](/assets/images/2024/2024-07-09-02-44-54.png)
 
-<br>
+<br><br>
 
-```jsx
-// src/App.jsx
-import React, { useState } from "react";
-import Page from "./components/Page";
-
-function App() {
-  const [isDark, setIsDark] = useState(false);
-  return <Page isDark={isDark} setIsDark={setIsDark} />;
-}
-
-export default App;
-```
-
-```jsx
-// src/components/Page.jsx
-import React from "react";
-import Content from "./Content";
-import Footer from "./Footer";
-import Header from "./Header";
-
-function Page({ isDark, setIsDark }) {
-  return (
-    <div className="page">
-      <Header isDark={isDark} />
-      <Content isDark={isDark} />
-      <Footer isDark={isDark} setIsDark={setIsDark} />
-    </div>
-  );
-}
-
-export default Page;
-```
-
-```jsx
-// src/components/Header.jsx
-import React from "react";
-
-function Header({ isDark }) {
-  return (
-    <header
-      className="header"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-        color: isDark ? "white" : "black",
-      }}
-    >
-      <h1>Hello 사용자!</h1>
-    </header>
-  );
-}
-
-export default Header;
-```
-
-```jsx
-// src/components/Content.jsx
-import React from "react";
-
-function Content({ isDark }) {
-  return (
-    <div
-      className="content"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-        color: isDark ? "white" : "black",
-      }}
-    >
-      <h1>사용자님 반가워요!</h1>
-    </div>
-  );
-}
-export default Content;
-```
-
-```jsx
-// src/components/Footer.jsx
-import React from "react";
-
-function Footer({ isDark, setIsDark }) {
-  const toggleThem = () => {
-    setIsDark(!isDark);
-  };
-  return (
-    <div
-      className="footer"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-      }}
-    >
-      <button className="button" onClick={toggleThem}>
-        Dark Mode
-      </button>
-    </div>
-  );
-}
-export default Footer;
-```
-
-![Alt text](../../../assets/images/2024/useContextToggle.gif)
-
-<br>
-
-> 위 코드를 Context를 사용하여 개선해보자.
-
-Page 컴포넌트는 isDark를 사용하고 있지 않다. 단지 자녀 컴포넌트들에게 값을 전달해 주는 중간 컴포넌트일 뿐이다.
-
-따라서 Context를 사용해서 isDark라는 데이터를 모든 하위 컴포넌트들에게 props를 사용하지 않고 공유해보도록하자.
-
-<br>
-
-```js
-// src/context/ThemContext.js
-import { createContext } from "react"; // (1) import
-
-// (2) Context 생성 (초기값 null, 상위 컴포넌트 value 없을 때 출력)
-export const ThemContext = createContext(null);
-```
-
-{% raw %}
-
-```jsx
-// src/App.jsx
-import React, { useState } from "react";
-import Page from "./components/Page";
-import { ThemContext } from "./context/ThemContext"; // (1) 만든 Context import
-
-function App() {
-  const [isDark, setIsDark] = useState(false);
-
-  return (
-    // (2) 만든 Provider 로 감싸기
-    // (3) value엔 전달하고자하는 데이터 넣기
-    <ThemContext.Provider value={{ isDark, setIsDark }}>
-      <Page /> {/* (4) props 지우기 (Context를 사용할 것이므로 필요 x) */}
-    </ThemContext.Provider>
-  );
-}
-
-export default App;
-```
-
-{% endraw %}
-
-```jsx
-// src/components/Page.jsx
-import React, { useContext } from "react";
-import Content from "./Content";
-import Footer from "./Footer";
-import Header from "./Header";
-import { ThemContext } from "../context/ThemContext";
-
-// (1) props 지우기
-function Page() {
-  // (2) useContext Hook으로 Context로 전달한 정보 받아오기
-  const data = useContext(ThemContext);
-
-  return (
-    <div className="page">
-      {/* (3) props 지우기 */}
-      <Header />
-      <Content />
-      <Footer />
-    </div>
-  );
-}
-
-export default Page;
-```
-
-{% raw %}
-
-```jsx
-// src/components/Header.jsx
-import React, { useContext } from "react";
-import { ThemContext } from "../context/ThemContext";
-
-// (1) props 지우기
-function Header() {
-  // (2) useContext Hook으로 Context로 전달한 정보 받아오기
-  const { isDark } = useContext(ThemContext);
-
-  return (
-    <header
-      className="header"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-        color: isDark ? "white" : "black",
-      }}
-    >
-      <h1>Hello 사용자!</h1>
-    </header>
-  );
-}
-
-export default Header;
-```
-
-{% endraw %}
-
-{% raw %}
-
-```jsx
-// src/components/Content.jsx
-import React, { useContext } from "react";
-import { ThemContext } from "../context/ThemContext";
-
-// (1) props 지우기
-function Content() {
-  // (2) useContext Hook으로 Context로 전달한 정보 받아오기
-  const { isDark } = useContext(ThemContext);
-
-  return (
-    <div
-      className="content"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-        color: isDark ? "white" : "black",
-      }}
-    >
-      <h1>사용자님 반가워요!</h1>
-    </div>
-  );
-}
-export default Content;
-```
-
-{% endraw %}
-
-{% raw %}
-
-```jsx
-// src/components/Footer.jsx
-import React, { useContext } from "react";
-import { ThemContext } from "../context/ThemContext";
-
-// (1) props 지우기
-function Footer() {
-  // (2) useContext Hook으로 Context로 전달한 정보 받아오기
-  const { isDark, setIsDark } = useContext(ThemContext);
-
-  const toggleThem = () => {
-    setIsDark(!isDark);
-  };
-  return (
-    <div
-      className="footer"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-      }}
-    >
-      <button className="button" onClick={toggleThem}>
-        Dark Mode
-      </button>
-    </div>
-  );
-}
-export default Footer;
-```
-
-{% endraw %}
-
-<br>
-
-> 더 연습해보기 위해 UseContext를 만들어주자
-
-```js
-// src/context/UserContext.js
-import { createContext } from "react";
-export const UserContext = createContext(null);
-```
-
-{% raw %}
-
-```jsx
-// src/App.jsx
-import React, { useState } from "react";
-import Page from "./components/Page";
-import { ThemContext } from "./context/ThemContext";
-import { UserContext } from "./context/UserContext"; // (1) 만든 Context import
-
-function App() {
-  const [isDark, setIsDark] = useState(false);
-
-  return (
-    // (2) 만든 Provider 로 감싸기
-    // (3) value엔 전달하고자하는 데이터 넣기
-    <UserContext.Provider value={"박시은"}>
-      <ThemContext.Provider value={{ isDark, setIsDark }}>
-        <Page />
-      </ThemContext.Provider>
-    </UserContext.Provider>
-  );
-}
-
-export default App;
-```
-
-{% endraw %}
-
-{% raw %}
-
-```jsx
-// src/components/Header.jsx
-import React, { useContext } from "react";
-import { ThemContext } from "../context/ThemContext";
-import { UserContext } from "../context/UserContext"; // (1) import
-
-function Header() {
-  // (2) useContext Hook으로 Context로 전달한 정보 받아오기
-  const { isDark } = useContext(ThemContext);
-  const user = useContext(UserContext);
-
-  return (
-    <header
-      className="header"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-        color: isDark ? "white" : "black",
-      }}
-    >
-      {/* (3) 값 넣기 */}
-      <h1>Hello {user}!</h1>
-    </header>
-  );
-}
-
-export default Header;
-```
-
-{% endraw %}
-
-{% raw %}
-
-```jsx
-// src/components/Content.jsx
-import React, { useContext } from "react";
-import { ThemContext } from "../context/ThemContext";
-import { UserContext } from "../context/UserContext"; // (1) import
-
-function Content() {
-  // (2) useContext Hook으로 Context로 전달한 정보 받아오기
-  const { isDark } = useContext(ThemContext);
-  const user = useContext(UserContext);
-
-  return (
-    <div
-      className="content"
-      style={{
-        backgroundColor: isDark ? "black" : "lightgray",
-        color: isDark ? "white" : "black",
-      }}
-    >
-      {/* (3) 값 넣기 */}
-      <h1>{user}님 반가워요!</h1>
-    </div>
-  );
-}
-export default Content;
-```
-
-{% endraw %}
-
-![Alt text](../../../assets/images/2024/useContextToggleValue.gif)
-
-<br>
-
-## 2.3 주의사항
+# 3. 주의사항
 
 > 재사용성
 
@@ -619,9 +153,8 @@ Context를 사용하면 컴포넌트를 재사용하기 어려워질 수 있다.
 
 > 렌더링 문제
 
-useContext를 사용할 때, Provider에서 제공한 value가 달라진다면 useContext를 사용하고 있는 모든 컴포넌트가 리렌더링 된다.
-
-즉, value 부분을 항상 신경써줘야 한다. → 따라서 메모이제이션이 필요하다.
+- useContext를 사용할 때, Provider에서 제공한 value가 달라진다면 useContext를 사용하고 있는 모든 컴포넌트가 리렌더링 된다.
+- 즉, value 부분을 항상 신경써줘야 한다. → 따라서 메모이제이션이 필요하다.
 
 <br><br>
 
