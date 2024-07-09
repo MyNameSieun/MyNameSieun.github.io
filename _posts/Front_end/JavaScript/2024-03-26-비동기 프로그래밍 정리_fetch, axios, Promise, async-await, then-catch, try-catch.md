@@ -1,5 +1,5 @@
 ---
-title: "[JS] JavaScript 비동기 프로그래밍 정리: fetch, axios, Promise, async/await, then/catch, try/catch"
+title: "[JS] 비동기 프로그래밍 정리: fetch, axios, Promise, async/await, then/catch, try/catch"
 categories: [JavaScript]
 toc_label: Contents
 toc: true
@@ -100,7 +100,7 @@ nav: "counts"
 | **then/catch**  | `Promise`의 결과를 처리하는 메소드.                                                   |
 | **try/catch**   | 에러 처리를 위한 구문으로, `async/await`와 함께 사용.                                 |
 
-### 공통점과 차이점
+> 공통점과 차이점
 
 | 항목                  | fetch                | axios                                   | Promise                             | async/await                         | then/catch                          | try/catch                              |
 | --------------------- | -------------------- | --------------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- | -------------------------------------- |
