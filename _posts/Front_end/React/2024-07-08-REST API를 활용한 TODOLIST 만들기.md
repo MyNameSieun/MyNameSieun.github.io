@@ -11,7 +11,14 @@ sidebar:
 
 <br>
 
-# 1. SON Server 설정하기
+- [비동기 fetch vs axios vs async와 await](https://mynamesieun.github.io/javascript/%EB%B9%84%EB%8F%99%EA%B8%B0-fetch-vs-axios-vs-async%EC%99%80-await/#2-fetch-vs-axios)
+  <br>
+
+# 1. fetch 사용
+
+[fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/#25-delete-%EC%9A%94%EC%B2%AD>)
+
+# 1. JSON Server 설정하기
 
 > JSON Server를 설치하여 간단히 데이터베이스를 설정
 

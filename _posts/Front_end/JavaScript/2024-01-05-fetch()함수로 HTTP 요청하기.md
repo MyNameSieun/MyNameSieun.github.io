@@ -68,7 +68,7 @@ fetch(url, options)
 
    ![](/assets/images/2024/2024-01-05-20-02-52.png)
 
-   <br>
+   <br> <br>
 
 2. 응답(response) 객체는 `json()` 메서드를 제공하고, 이 메서드를 호출하면 응답(response) 객체로부터 JSON 형태의 데이터를 자바스크립트 객체로 변환하여 얻을 수 있다. [[참고자료]](https://www.daleseo.com/js-window-fetch/)
 
