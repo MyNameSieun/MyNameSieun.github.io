@@ -1,6 +1,6 @@
 ---
-title: "[React P.J, ForYou] Dummy Data를 이용한 리스트 UI 구현 #3"
-categories: [Project]
+title: "[React] Dummy Data를 이용한 리스트 UI 구현"
+categories: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
