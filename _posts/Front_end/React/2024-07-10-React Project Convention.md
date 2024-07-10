@@ -17,28 +17,37 @@ sidebar:
 
 <br>
 
-## 1. Code Convention
+# 1. Code Convention
 
 > React Team Project를 진행하면서 좋았던 코드 컨벤션!
 
 ① **주석은 반드시 쓸 것!!!**
 
-<br>
-
 ② 작명 방식
 
-| 종류            | 네이밍 규칙                                                                                                                       | 예시                                                      |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| 변수명, 함수명  | - camelCase(카멜 케이스)<br>- 함수는 `동사 + 명사` 구성                                                                           | myVariable, calculateTotal                                |
-| 상수명          | SNAKE_CASE(스네이크 케이스)                                                                                                       | MAX_LENGTH, API_KEY                                       |
-| 이벤트 핸들러명 | - 클래스명 : kebab-case(케밥 케이스) <br> - 컴포넌트명 : PascalCase(파스칼 케이스) <br> - 일반 파일 이름 : camelCase(카멜 케이스) | -> handleAddButton<br>-> MyComponent<br>-> userProfile.js |
+| 케이스       | 사용 예시                                        | 예시                                |
+| ------------ | ------------------------------------------------ | ----------------------------------- |
+| `camelCase`  | - 변수명, 함수명 <br>- 함수는 `동사 + 명사` 구성 | `calculateTotal`, `handleAddButton` |
+| `kebab-case` | CSS 클래스명, 폴더명, 컴포넌트가 아닌 JS 파일명  | `main-container`, `utils-date.js`   |
+| `PascalCase` | React 컴포넌트명(.jsx)                           | `App.jsx`, `TodoList.jsx`,          |
+| `SNAKE_CASE` | 상수명                                           | `MAX_LENGTH`, `API_KEY`             |
 
 - 이벤트 핸들러의 변수명은 `handle`으로 시작(onClick, onChange 등 이벤트 handleOnClick, handleOnChange)
 - 반환 값이 boolean형인 함수는 `is`로 시작(모달 열려있는지? isOpen)
 
 <br><br>
 
-## 2. Styled-components Naming Convention
+# 2. 변수와 함수 네이밍
+
+| 유형 | 규칙                                                                                                                                                                                                                                        |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 공통 | - 줄임말 사용하지 않음(`TDItem` → `todoItem` )<br> - 길어도 좋으며 명확하게 작성(`addEventListener`)<br> - 2개 이상의 단어 사용(`list` → `todoList`)<br> - 단수와 복수 구분 (`card`/ `cards`, `getElementById` /`getElementsByClassName ` ) |
+| 변수 | - 담는 값의 타입이 무엇인지 파악 후 명확하게 작성<><br> -- HTML 요소를 가져올 경우 `Element` 추가(`cardElement` / `cardElements`)<br> -- 배열일 경우에는 `list` 나 `복수(s)`를, 객체일 경우에는 `object` 를 붙이기                          |
+| 함수 | - 동사 + 명사 사용<br> - 가끔 `on` 또는 `handle` 추가                                                                                                                                                                                       |
+
+<br><br>
+
+## 3. Styled-components Naming Convention
 
 - 최상위 부모
   - `컴포넌트명 + Layout`<br><br>

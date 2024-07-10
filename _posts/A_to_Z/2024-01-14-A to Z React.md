@@ -29,8 +29,7 @@ sidebar:
 8. [Styled Components](https://mynamesieun.github.io/react/Styled-Components/)
 9. [클래스형 컴포넌트의 LifeCycle](https://mynamesieun.github.io/react/%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-LifeCycle/)
 10. [Virtual DOM](https://mynamesieun.github.io/react/Virtual-DOM/)
-11. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
-12. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
+11. React Router Dom
 
 ### 2주차 - React Hooks
 
@@ -42,11 +41,10 @@ sidebar:
 6. [Custom Hooks](https://mynamesieun.github.io/react/Custom-Hooks/)
 7. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
 
-> React Hooks 연습
-
-1. [Component 추가 및 삭제하기(useState 활용)](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
-2. [React CRUD 연습 Todolist](https://mynamesieun.github.io/react/React-CRUD-%EC%97%B0%EC%8A%B5-Todolist/)
-3. [todolist 만들기(useState 연습)](https://mynamesieun.github.io/project/todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
+- React Hooks 연습
+  1. [Component 추가 및 삭제하기(useState 활용)](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
+  2. [React CRUD 연습 Todolist](https://mynamesieun.github.io/react/React-CRUD-%EC%97%B0%EC%8A%B5-Todolist/)
+  3. [todolist 만들기(useState 연습)](https://mynamesieun.github.io/project/todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 
 ### 3주차 - 비동기와 REST API
 
@@ -56,12 +54,11 @@ sidebar:
 3. [비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)
 4. [React 비동기 데이터 처리 최적화: 로딩, 에러, 재시도 로직](https://mynamesieun.github.io/react/React-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EC%B5%9C%EC%A0%81%ED%99%94_%EB%A1%9C%EB%94%A9,-%EC%97%90%EB%9F%AC,-%EC%9E%AC%EC%8B%9C%EB%8F%84-%EB%A1%9C%EC%A7%81/)
 
-> 비동기와 REST API 연습
-
-5. [Thunder Client를 이용한 통신 연습](https://mynamesieun.github.io/react/Thunder-Client%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
-6. [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
-7. [비동기 프로그래밍과 REST API 호출 연습](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC-REST-API-%ED%98%B8%EC%B6%9C-%EC%97%B0%EC%8A%B5/)
-8. [REST API를 활용한 TODOLIST 만들기](https://mynamesieun.github.io/react/REST-API%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-TODOLIST-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
+- 비동기와 REST API 연습
+  1.  [Thunder Client를 이용한 통신 연습](https://mynamesieun.github.io/react/Thunder-Client%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
+  2.  [axios, json-server를 이용한 통신 연습](https://mynamesieun.github.io/react/axios,-json-server%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
+  3.  [비동기 프로그래밍과 REST API 호출 연습](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC-REST-API-%ED%98%B8%EC%B6%9C-%EC%97%B0%EC%8A%B5/)
+  4.  [REST API를 활용한 TODOLIST 만들기](https://mynamesieun.github.io/react/REST-API%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-TODOLIST-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 
 ### 4주차 - 상태관리
 

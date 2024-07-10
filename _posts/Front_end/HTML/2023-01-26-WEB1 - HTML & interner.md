@@ -1,7 +1,6 @@
 ---
 title: "[HTML] WEB1 - HTML & internet"
 categories: [HTML]
-tag: [HTML]
 toc_label: Contents
 toc: true
 toc_sticky: true

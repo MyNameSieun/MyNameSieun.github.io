@@ -16,11 +16,10 @@ sidebar:
 
 ## 1.1 Css-in-Js
 
-Css-in-Js란 JavaScript로 CSS코드를 작성하는 방식을 말한다.
+> Css-in-Js란 JavaScript로 CSS코드를 작성하는 방식을 말한다.
 
-이 방식을 사용하기 위해 styled-components 컴포넌트를 설치해줘야한다.
-
-styled-components는 리액트에서 CSS-in-JS 방식으로 컴포넌트를 꾸밀수 있게 도와주는 패키지이다.
+- 이 방식을 사용하기 위해 styled-components 컴포넌트를 설치해줘야한다.
+- styled-components는 리액트에서 CSS-in-JS 방식으로 컴포넌트를 꾸밀수 있게 도와주는 패키지이다.
 
 <br>
 
@@ -43,22 +42,20 @@ yarn add styled-components
 ```jsx
 // src/App.js
 
-import React from "react";
 import styled from "styled-components"; // (1) import하기
+
+const App = () => {
+  // (3) 만든 CS를 JSX에서 html 태그를 사용하듯이 사용
+  return <StBox>박스</StBox>;
+};
 
 // (2) styled 키워드를 사용해서 SC 방식대로 컴포넌트를 만들기
 const StBox = styled.div`
-  // (3) 스타일 코드 작성
   width: 100px;
   height: 100px;
   border: 1px solid red;
   margin: 20px;
 `;
-
-const App = () => {
-  // (4) 만든 CS를 JSX에서 html 태그를 사용하듯이 사용
-  return <StBox>박스</StBox>;
-};
 
 export default App;
 ```
@@ -74,22 +71,12 @@ export default App;
 > Styled Components을 사용하면 props를 통해서 부모 컴포넌트로부터 값을 전달받고, 조건문을 이용해서 조건부 스타일링을 할 수 있다.
 
 ```jsx
-// src/App.js
-
-import React from "react";
 import styled from "styled-components";
 
-// (1) styled-components 생성
-const StBox = styled.div`
-  width: 100px;
-  height: 100px;
-  border: 1px solid ${(props) => props.borderColor}; // (3) 부모 컴포넌트에서 보낸 props를 받아 사용
-  margin: 20px;
-`;
 const App = () => {
   return (
     <div>
-      {/* (2) props를 통해 borderColor라는 값을 전달 */}
+      {/* (1) props를 통해 borderColor라는 값을 전달 */}
       <StBox borderColor="red">빨간 박스</StBox>
       <StBox borderColor="green">초록 박스</StBox>
       <StBox borderColor="blue">파랑 박스</StBox>
@@ -98,6 +85,13 @@ const App = () => {
 };
 
 export default App;
+
+const StBox = styled.div`
+  width: 100px;
+  height: 100px;
+  border: 1px solid ${(props) => props.borderColor}; // (2) 부모 컴포넌트에서 보낸 props를 받아 사용
+  margin: 20px;
+`;
 ```
 
 ![](/assets/images/2024/2024-01-26-02-54-34.png)
@@ -118,84 +112,31 @@ const StBox = styled.div`
 
 <br>
 
-## 2.2 조건부 스타일링 실습
-
-> JS의 map과 switch문을 이용해서 위에서 구현한 코드를 리팩토링해보자
-
-```jsx
-// src/App.js
-
-import React from "react";
-import styled from "styled-components";
-
-const StContainer = styled.div`
-  display: flex;
-`;
-
-const StBox = styled.div`
-  width: 100px;
-  height: 100px;
-  border: 1px solid ${(props) => props.borderColor};
-  margin: 20px;
-`;
-// 박스의 색을 배열에 담기
-const boxList = ["red", "green", "blue"];
-
-// 색을 넣으면, 이름을 반환해주는 함수
-const getBoxName = (color) => {
-  switch (color) {
-    case "red":
-      return "빨간 박스";
-    case "green":
-      return "초록 박스";
-    case "blue":
-      return "파란 박스";
-    default:
-      return "검정 박스";
-  }
-};
-const App = () => {
-  return (
-    <StContainer>
-      {/* map을 이용해서 StBox를 반복하여 화면에 그리기 */}
-      {boxList.map((box) => (
-        <StBox borderColor={box}>{getBoxName(box)}</StBox>
-      ))}
-    </StContainer>
-  );
-};
-
-export default App;
-```
+## 2.2 조건부 스타일링 실습 - button
 
 <br>
 
-> 버튼 색깔을 바꿔보자
+> Props를 사용하는 Button 컴포넌트
 
-`$` 붙혀주기! 컴포넌트에게 스타일을 부여하기 위한 식별자와 같은 의미를 가진다.
+styled-component에서만 사용되는 props라는 뜻으로 `$` 를 접두사로 붙혀주자.
 
 ```js
+function App() {
+  return (
+    <div>
+      <Button $primary>Primary Button</Button>
+    </div>
+  );
+}
+
 const Button = styled.button`
-  margin-right: 5px;
-  ${(props) => (props.$withMarginRight ? "margin-right: 33px;" : "")}
-  /*  혹은 ${(props) =>
-    props.$withMarginRight ? "margin-right: 20px;" : ""} */
-  margin-bottom: 20px;
-  background-color: #1e1e1e;
+  background-color: ${(props) => (props.$primary ? "blue" : "gray")};
   color: white;
-  border-radius: 8px;
-  height: 33px;
-  width: 65px;
-  font-size: 12px;
-  cursor: pointer;
-`;
-```
 
-```js
-<BtnsWrapper>
-  <Button onClick={() => setIsEditing(true)}>수정</Button>
-  <Button $withMarginRight>삭제</Button>
-</BtnsWrapper>
+  &:hover {
+    background-color: ${(props) => (props.$primary ? "darkblue" : "darkgray")};
+  }
+`;
 ```
 
 <br><br>
