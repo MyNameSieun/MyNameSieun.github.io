@@ -26,10 +26,11 @@ sidebar:
 <br>
 
 ② 작명 방식
-| 종류 | 네이밍 규칙 | 예시 |
+
+| 종류            | 네이밍 규칙                                                                                                                       | 예시                                                      |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| 변수명, 함수명 | - camelCase(카멜 케이스)<br>- 함수는 `동사 + 명사` 구성 | myVariable, calculateTotal |
-| 상수명 | SNAKE_CASE(스네이크 케이스) | MAX_LENGTH, API_KEY |
+| 변수명, 함수명  | - camelCase(카멜 케이스)<br>- 함수는 `동사 + 명사` 구성                                                                           | myVariable, calculateTotal                                |
+| 상수명          | SNAKE_CASE(스네이크 케이스)                                                                                                       | MAX_LENGTH, API_KEY                                       |
 | 이벤트 핸들러명 | - 클래스명 : kebab-case(케밥 케이스) <br> - 컴포넌트명 : PascalCase(파스칼 케이스) <br> - 일반 파일 이름 : camelCase(카멜 케이스) | -> handleAddButton<br>-> MyComponent<br>-> userProfile.js |
 
 - 이벤트 핸들러의 변수명은 `handle`으로 시작(onClick, onChange 등 이벤트 handleOnClick, handleOnChange)
