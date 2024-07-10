@@ -56,10 +56,11 @@ sidebar:
 1. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
 2. [json-server](https://mynamesieun.github.io/react/json-server/)
 3. [비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)
-4. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
-5. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
-6. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
-7. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
+4. 비동기 프로그래밍과 REST API 호출 연습
+5. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
+6. [React Router Dom - hooks, children](https://mynamesieun.github.io/react/React-Router-Dom-hooks,-children/)
+7. [React Router Dom - Dynamic Route, useParam](https://mynamesieun.github.io/react/React-Router-Dom-Dynamic-Route,-useParam/)
+8. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
 
 <br>
 
