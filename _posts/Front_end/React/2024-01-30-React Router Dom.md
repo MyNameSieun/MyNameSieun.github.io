@@ -286,7 +286,7 @@ export default Home;
 
 <br><br>
 
-# 5. useLocation를 활용하여 페이지 정보 얻기
+# 5. useLocation로 페이지 정보 얻기
 
 > `react-router-dom`을 사용하면, 현재 위치하고 있는 페이지의 여러가지 정보를 추가적으로 얻을 수 있다.
 

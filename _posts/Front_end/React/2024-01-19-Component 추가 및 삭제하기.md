@@ -12,9 +12,6 @@ sidebar:
 
 <br>
 
-《 [Styling과 map ](https://mynamesieun.github.io/react/Styling%EA%B3%BC-map/)》에 이어 작성하는 글입니다.
-{: .notice--danger}
-
 # 1. user 추가 및 삭제
 
 ## 1.1 user 추가

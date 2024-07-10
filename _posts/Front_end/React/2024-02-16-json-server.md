@@ -27,7 +27,7 @@ sidebar:
 yarn 또는 npm을 이용해 설치 하면 된다. [공식문서](https://www.npmjs.com/package/json-server)
 
 ```
-yarn add json-server
+yarn global add json-server
 ```
 
 <br>
