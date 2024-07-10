@@ -1,7 +1,6 @@
 ---
 title: "[Git] git push 오류 해결(git allow-unrelated-histories)"
 categories: [Git]
-tag: [Git]
 toc_label: Contents
 toc: true
 toc_sticky: true

@@ -1,5 +1,5 @@
 ---
-title: "[React] Styled-components Naming Convention"
+title: "[React] React Project Convention"
 categories: [React]
 tag: [React]
 toc_label: Contents
@@ -12,12 +12,32 @@ sidebar:
 
 <br>
 
-프로젝트를 진행하면서 Styled-components를 효율적이고 깔끔하게 작성하고 싶었다.<br>
-따라서 여러 방법을 적용하면서 나에게 적합한 컨벤션을 찾았다.
+🤝 팀 프로젝트를 진행하면서 좋았던 코드 컨벤션
+{: .notice--danger}
 
 <br>
 
-## Styled-components Naming Convention
+## 1. Code Convention
+
+> React Team Project를 진행하면서 좋았던 코드 컨벤션!
+
+① **주석은 반드시 쓸 것!!!**
+
+<br>
+
+② 작명 방식
+| 종류 | 네이밍 규칙 | 예시 |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| 변수명, 함수명 | - camelCase(카멜 케이스)<br>- 함수는 `동사 + 명사` 구성 | myVariable, calculateTotal |
+| 상수명 | SNAKE_CASE(스네이크 케이스) | MAX_LENGTH, API_KEY |
+| 이벤트 핸들러명 | - 클래스명 : kebab-case(케밥 케이스) <br> - 컴포넌트명 : PascalCase(파스칼 케이스) <br> - 일반 파일 이름 : camelCase(카멜 케이스) | -> handleAddButton<br>-> MyComponent<br>-> userProfile.js |
+
+- 이벤트 핸들러의 변수명은 `handle`으로 시작(onClick, onChange 등 이벤트 handleOnClick, handleOnChange)
+- 반환 값이 boolean형인 함수는 `is`로 시작(모달 열려있는지? isOpen)
+
+<br><br>
+
+## 2. Styled-components Naming Convention
 
 - 최상위 부모
   - `컴포넌트명 + Layout`<br><br>
@@ -41,7 +61,6 @@ sidebar:
 - Box : 한 개의 요소를 감쌀 때
 
 ```js
-// 예시
 import styled from "styled-components";
 
 import Navbar from "components/common/Navbar";
@@ -88,12 +107,7 @@ export default Home;
 
 > 지양해야 할 사항
 
-1. Styled'컴포넌트명': 앞에 Styled 사용을 지양할 것
-2. ~Wrapper: ~Wrapper 대신 Box라는 이름을 사용할 것.
+1. Styled 컴포넌트명 앞에 `Styled` 사용을 지양할 것
+2. ~Wrapper: ~Wrapper 대신 `Box`라는 이름을 사용할 것.
 
-<br><br>
-
-## 참조
-
-- [복잡한 styled-components 구조 개선해보기](https://velog.io/@hayoung474/Front-End-%EB%B3%B5%EC%9E%A1%ED%95%9C-styled-components-%EA%B5%AC%EC%A1%B0-%EA%B0%9C%EC%84%A0%ED%95%B4%EB%B3%B4%EA%B8%B0)
-- [Styled Components : Naming Convention](https://github.com/Hi-Fi-Club/FE/wiki/Styled-Components-%3A-Naming-Convention)
+<br>

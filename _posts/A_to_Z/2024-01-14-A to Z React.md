@@ -72,25 +72,28 @@ sidebar:
 6.  Redux Toolkit (2)
 7.  [React Query](https://mynamesieun.github.io/react/React-Query/)
 
+### 프로젝트 초기 세팅 및 컨벤션
+
+1. [React 파일 및 프로젝트 셋업📌](https://mynamesieun.github.io/react/React-%ED%8C%8C%EC%9D%BC-%EB%B0%8F-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%85%8B%EC%97%85/)
+2. React Project Convention
+3. Github Convention
+4. [리액트 이미지 경로 지정방법 2가지](https://mynamesieun.github.io/react/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EA%B2%BD%EB%A1%9C-%EC%A7%80%EC%A0%95%EB%B0%A9%EB%B2%95-2%EA%B0%80%EC%A7%80/)
+5. [.env (환경변수 관리) (--외부 블로그 링크--)](https://tooo1.tistory.com/582)
+
 ### 기타
 
 1. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
-2. [React 파일 및 프로젝트 셋업📌](https://mynamesieun.github.io/react/React-%ED%8C%8C%EC%9D%BC-%EB%B0%8F-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%85%8B%EC%97%85/)
-3. . [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
-4. [Styled-components Naming Convention](https://mynamesieun.github.io/react/Styled-components-Naming-Convention/)
-5. [Array API 연습하기](https://mynamesieun.github.io/react/Array-API-%EC%97%B0%EC%8A%B5%ED%95%98%EA%B8%B0/)
-6. [React로 상품 카테고리 구현하기](https://mynamesieun.github.io/react/React%EB%A1%9C-%EC%83%81%ED%92%88-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
-7. [.env (환경변수 관리) (--외부 블로그 링크--)](https://tooo1.tistory.com/582)
-8. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-9. [카카오맵 API 사용하기](https://mynamesieun.github.io/react/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-api-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-10. [리액트 이미지 경로 지정방법 2가지](https://mynamesieun.github.io/react/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EA%B2%BD%EB%A1%9C-%EC%A7%80%EC%A0%95%EB%B0%A9%EB%B2%95-2%EA%B0%80%EC%A7%80/)
-11. [더미데이터](https://mynamesieun.github.io/react/%EB%8D%94%EB%AF%B8%EB%8D%B0%EC%9D%B4%ED%84%B0/)
-12. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-13. 공용 컴포넌트로 만들어 재사용하기
-14. 조건부 스타일링을 활용한 탭 활성화 기능 구현
-15. Dummy Data를 이용한 리스트 UI 구현
-16. uuid 사용하기
-17. 상태 직접 업데이트 vs 콜백 함수 사용 비교
+2. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
+3. [Array API 연습하기](https://mynamesieun.github.io/react/Array-API-%EC%97%B0%EC%8A%B5%ED%95%98%EA%B8%B0/)
+4. [React로 상품 카테고리 구현하기](https://mynamesieun.github.io/react/React%EB%A1%9C-%EC%83%81%ED%92%88-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+5. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
+6. [카카오맵 API 사용하기](https://mynamesieun.github.io/react/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-api-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+7. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
+8. 공용 컴포넌트로 만들어 재사용하기
+9. 조건부 스타일링을 활용한 탭 활성화 기능 구현
+10. Dummy Data를 이용한 리스트 UI 구현
+11. uuid 사용하기
+12. 상태 직접 업데이트 vs 콜백 함수 사용 비교
 
 ### 트러블 슈팅💫
 
@@ -99,6 +102,5 @@ sidebar:
 3. [카카오 맵 API 트러블 슈팅: 검색결과 제한 문제](https://mynamesieun.github.io/project/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A7%B5-API-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EA%B2%80%EC%83%89%EA%B2%B0%EA%B3%BC-%EC%A0%9C%ED%95%9C-%EB%AC%B8%EC%A0%9C/)
 4. JS 배열 메서드 find vs filter 구조분해할당 트러블슈팅
 5. React 트러블슈팅: 삭제 버튼 클릭 시 'Cannot destructure property' 에러 해결
-6. 로그인, 회원가입 UI 구현 및 API 연결
 
 <br>
