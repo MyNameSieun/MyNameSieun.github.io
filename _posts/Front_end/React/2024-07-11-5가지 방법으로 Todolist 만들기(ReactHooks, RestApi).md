@@ -15,145 +15,142 @@ sidebar:
 
 ## 1.1 state 사용하기
 
+> Main.jsx
+
 ```jsx
-import styled from "styled-components";
+import TodoForm from "component/TodoForm";
+import TodoList from "component/TodoList";
 import { useState } from "react";
-import { v4 as uuid } from "uuid";
+import styled from "styled-components";
 
-const Home = () => {
+const Main = () => {
   const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
+  const [content, setContent] = useState("");
   const [todos, setTodos] = useState([]);
-  const [isEdit, setIsEdit] = useState(null);
-
-  const handleOnsubmit = (e) => {
-    e.preventDefault();
-
-    if (!title || !contents) {
-      alert("내용을 입력하세요");
-      return;
-    }
-
-    const addTodos = {
-      id: uuid(),
-      title,
-      contents,
-      isDone: false,
-    };
-
-    setTodos([...todos, addTodos]);
-    setTitle("");
-    setContents("");
-  };
-  const handleDeleteButton = (id) => {
-    const isConfirmed = window.confirm("정말 삭제하시겠습니까?");
-    if (isConfirmed) {
-      const newTodos = todos.filter((todo) => todo.id !== id);
-      setTodos(newTodos);
-      alert("삭제되었습니다.");
-    }
-  };
-
-  const handleUpdateButton = () => {
-    // 최종적으로 편집이 완료된 todo 항목들을 업데이트하여 전체 todos 배열에 반영
-    const newTodos = todos.map((todo) =>
-      todo.id === isEdit.id
-        ? { ...todo, title: isEdit.title, contents: isEdit.contents }
-        : todo
-    );
-    setTodos(newTodos);
-    setIsEdit(null);
-  };
-
-  const handleEditButton = (todo) => {
-    setIsEdit(todo);
-  };
 
   return (
-    <StHomeLayout>
-      <StH1>TodoList</StH1>
-
-      <StTodoForm onSubmit={handleOnsubmit}>
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="제목을 입력하세요"
-        />
-        <input
-          value={contents}
-          onChange={(e) => setContents(e.target.value)}
-          placeholder="내용을 입력하세요"
-        />
-        <button>추가하기</button>
-      </StTodoForm>
-
-      {todos.map((todo) => (
-        <StTodoBox key={todo.id}>
-          {isEdit && isEdit.id == todo.id ? (
-            <>
-              <input
-                value={isEdit.title}
-                onChange={(e) =>
-                  setIsEdit({ ...isEdit, title: e.target.value })
-                }
-              />
-              <input
-                value={isEdit.contents}
-                onChange={(e) =>
-                  setIsEdit({ ...isEdit, contents: e.target.value })
-                }
-              />
-              <button onClick={() => handleDeleteButton(todo.id)}>
-                삭제하기
-              </button>
-              <button onClick={handleUpdateButton}>수정 완료</button>
-            </>
-          ) : (
-            <>
-              <div>제목: {todo.title}</div>
-              <div>내용: {todo.contents}</div>
-              <button onClick={() => handleDeleteButton(todo.id)}>
-                삭제하기
-              </button>
-              <button onClick={() => handleEditButton(todo)}>수정하기</button>
-            </>
-          )}
-        </StTodoBox>
-      ))}
-    </StHomeLayout>
+    <StTodoLayout>
+      <TodoForm
+        title={title}
+        setTitle={setTitle}
+        content={content}
+        setContent={setContent}
+        setTodos={setTodos}
+      />
+      <TodoList todos={todos} setTodos={setTodos} />
+    </StTodoLayout>
   );
 };
 
-export default Home;
+export default Main;
 
-const StHomeLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  height: 100vh;
-`;
-const StH1 = styled.h1`
-  font-size: 3rem;
-  font-weight: bold;
-
-  padding: 3rem;
-`;
-
-const StTodoForm = styled.form`
-  padding: 3rem;
-`;
-
-const StTodoBox = styled.div`
+const StTodoLayout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  padding: 1rem 4rem;
-  border: 1px solid black;
 `;
 ```
+
+<br>
+
+> TodoList.jsx
+
+```jsx
+import TodoItem from "./TodoItem";
+
+const TodoList = ({ todos, setTodos }) => {
+  return (
+    <div>
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />
+      ))}
+    </div>
+  );
+};
+
+export default TodoList;
+```
+
+<br>
+
+> TodoItem.jsx
+
+```jsx
+import { useState } from "react";
+import styled from "styled-components";
+
+const TodoItem = ({ todo, todos, setTodos }) => {
+  const [edit, setEdit] = useState(null);
+
+  const handleDeleteButton = (id) => {
+    const onConfirm = window.confirm("정말 삭제하시겠습니까?");
+    if (onConfirm) {
+      const newTodos = todos.filter((todo) => todo.id !== id);
+      setTodos(newTodos);
+      alert("삭제되셨습니다.");
+    }
+  };
+
+  const handleEditButton = (todo) => {
+    setEdit(todo);
+  };
+  const handleUpdateButton = () => {
+    const newTodos = todos.map((todo) =>
+      todo.id === edit.id
+        ? { ...todos, title: edit.title, content: edit.content }
+        : todo
+    );
+
+    setTodos(newTodos);
+    alert("수정되었습니다.");
+
+    setEdit(null);
+  };
+
+  return (
+    <StTodoListBox>
+      {edit ? (
+        <>
+          <input
+            value={edit.title}
+            onChange={(e) => setEdit({ ...edit, title: e.target.value })}
+          />
+          <input
+            value={edit.content}
+            onChange={(e) => setEdit({ ...edit, content: e.target.value })}
+          />
+          <button onClick={() => handleDeleteButton(todo.id)}>삭제하기</button>
+          <button onClick={handleUpdateButton}>수정완료</button>
+        </>
+      ) : (
+        <>
+          <p>제목: {todo.title}</p>
+          <p>내용: {todo.content}</p>
+          <button onClick={() => handleDeleteButton(todo.id)}>삭제하기</button>
+          <button onClick={() => handleEditButton(todo)}>수정하기</button>
+        </>
+      )}
+    </StTodoListBox>
+  );
+};
+
+export default TodoItem;
+
+const StTodoListBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid black;
+  padding: 2rem;
+`;
+```
+
+<br>
+
+<br>
+
+<br>
 
 <br>
 
