@@ -15,13 +15,12 @@ sidebar:
 
 ## 1.1 state 사용하기
 
-> Home.jsx
-
-> Main.jsx
+### 1.1.1 Home.jsx
 
 ```jsx
 import TodoForm from "components/TodoForm";
 import TodoList from "components/TodoList";
+import TodoSort from "components/TodoSort";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -35,6 +34,7 @@ const Home = () => {
     <StHomeLayout>
       <StH1>TodoList</StH1>
       <TodoForm setTodos={setTodos} />
+      <TodoSort setTodos={setTodos} />
 
       <StH2>미완료</StH2>
       <TodoList todos={workingTodos} setTodos={setTodos} />
@@ -47,7 +47,7 @@ const Home = () => {
 
 export default Home;
 
-const StHomeLayout = styled.div`
+const StHomeLayout = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +69,7 @@ const StH2 = styled.h2`
 
 <br>
 
-> TodoForm.jsx
+### 1.1.2 TodoForm.jsx
 
 ```jsx
 import styled from "styled-components";
@@ -123,7 +123,7 @@ const StTodoForm = styled.form`
 
 <br>
 
-> TodoList.jsx
+### 1.1.3 TodoList.jsx
 
 ```jsx
 import TodoItem from "./TodoItem";
@@ -143,7 +143,7 @@ export default TodoList;
 
 <br>
 
-> TodoItem.jsx
+### 1.1.4 TodoItem.jsx
 
 ```jsx
 import { useState } from "react";
@@ -165,13 +165,6 @@ const TodoItem = ({ todo, todos, setTodos }) => {
     setEdit(todo);
   };
 
-  const handleEditButton = (todo) => {
-    setEdit(todo);
-  };
-
-  const handleEditButton = (todo) => {
-    setEdit(todo);
-  };
   const handleUpdateButton = () => {
     const newTodos = todos.map((todo) =>
       todo.id === edit.id
@@ -183,7 +176,6 @@ const TodoItem = ({ todo, todos, setTodos }) => {
           }
         : todo
     );
-
     setTodos(newTodos);
     alert("수정 되셨습니다.");
     setEdit(null);
@@ -258,13 +250,55 @@ const StTodoBox = styled.div`
 `;
 ```
 
-<br><br>
+<br>
+
+### 1.1.5 TodoSort.jsx
+
+```jsx
+import { useState } from "react";
+
+const TodoSort = ({ setTodos }) => {
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  const onChangeSortOrder = (e) => {
+    const nextSortOrder = e.target.value;
+
+    setSortOrder(nextSortOrder);
+
+    if (nextSortOrder === "asc") {
+      // 오름차순 정렬
+      setTodos((prev) =>
+        [...prev].sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+      );
+      return;
+    }
+    //내림차순 정렬
+    setTodos((prev) =>
+      [...prev].sort((a, b) => new Date(b.deadline) - new Date(a.deadline))
+    );
+  };
+
+  return (
+    <div>
+      <select value={sortOrder} onChange={onChangeSortOrder}>
+        <option value="asc" selected>
+          오름차순
+        </option>
+        <option value="desc">내림차순</option>
+      </select>
+    </div>
+  );
+};
+export default TodoSort;
+```
+
+<br>
 
 ## 1.2 useRef 사용하기
 
-✨ Home.jsx, TodoList.jsx, TodoForm.jsx는 동일
+### 1.2.1 TodoForm.jsx
 
-> TodoForm.jsx
+> TodoForm.jsx만 수정
 
 ```jsx
 import { useEffect, useRef } from "react";
@@ -328,10 +362,6 @@ const StTodoForm = styled.form`
   padding: 3rem;
 `;
 ```
-
-<br>
-
-## 1.2 useRef 사용하기
 
 <br>
 

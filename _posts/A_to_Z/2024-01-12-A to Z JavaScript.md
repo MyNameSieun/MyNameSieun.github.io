@@ -59,9 +59,8 @@ sidebar:
 4. [프로미스 객체와 메서드](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4-%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%A9%94%EC%84%9C%EB%93%9C/)
 5. [fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/>)
 6. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
-7. [비동기 프로그래밍 정리⭐](https://mynamesieun.github.io/javascript/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%A0%95%EB%A6%AC/)
-8. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
-9. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
+7. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
+8. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
 
 ### 4주차
 
@@ -95,11 +94,11 @@ sidebar:
 
 1. [API 호출 방식과 데이터 처리 방식에 따른 비교](https://mynamesieun.github.io/javascript/API-%ED%98%B8%EC%B6%9C-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%B9%84%EA%B5%90/)
 2. [e.target, e.target.value, e.currentTarget의 역할과 차이점](https://mynamesieun.github.io/javascript/e.target,-e.target.value,-e.currentTarget%EC%9D%98-%EC%97%AD%ED%95%A0%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
-3. Date 생성자와 날짜 포맷팅
-4. Intl API로 Date 객체 쉽게 다루기
+3. [Date 생성자와 날짜 포맷팅](https://mynamesieun.github.io/javascript/Date-%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80-%EB%82%A0%EC%A7%9C-%ED%8F%AC%EB%A7%B7%ED%8C%85/)
+4. [Intl API로 Date 객체 쉽게 다루기](https://mynamesieun.github.io/javascript/Intl-API%EB%A1%9C-Date-%EA%B0%9D%EC%B2%B4-%EC%89%BD%EA%B2%8C-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
 
 <br>
-
+  
 ## 🗒️학습 자료
 
 1. [모던 JavaScript 튜토리얼](https://ko.javascript.info/)

@@ -29,7 +29,7 @@ sidebar:
 
 # 1. Intl.DateTimeFormat
 
-> Intl.DateTimeFormat 객체는 날짜와 시간을 지역화된 형식으로 표시하는 데 사용된다. 예를 들어, 특정 언어와 지역에 따라 날짜와 시간을 포맷팅하고, 원하는 형식으로 조정할 수 있다.
+> Intl.DateTimeFormat 객체는 날짜와 시간을 지역화된 형식으로 표시하는 데 사용된다. 예를 들어, 특정 언어와 지역에 따라 날짜와 시간을 포맷팅하고, 원하는 형식으로 조정할 수 있다. [[공식문서↗️]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat)
 
 ```js
 const date = new Date();
