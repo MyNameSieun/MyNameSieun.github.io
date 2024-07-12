@@ -88,13 +88,15 @@ sidebar:
 ## 🐥추가 주제
 
 1.  [URL Query 값 가져오기](https://mynamesieun.github.io/javascript/URL-Query-%EA%B0%92-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0/)
-2.  [e.target, e.target.value, e.currentTarget의 역할과 차이점](https://mynamesieun.github.io/javascript/e.target,-e.target.value,-e.currentTarget%EC%9D%98-%EC%97%AD%ED%95%A0%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
 
 <br>
 
 ### 🎸기타
 
 1. [API 호출 방식과 데이터 처리 방식에 따른 비교](https://mynamesieun.github.io/javascript/API-%ED%98%B8%EC%B6%9C-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%B9%84%EA%B5%90/)
+2. [e.target, e.target.value, e.currentTarget의 역할과 차이점](https://mynamesieun.github.io/javascript/e.target,-e.target.value,-e.currentTarget%EC%9D%98-%EC%97%AD%ED%95%A0%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
+3. Date 생성자와 날짜 포맷팅
+4. Intl API로 Date 객체 쉽게 다루기
 
 <br>
 

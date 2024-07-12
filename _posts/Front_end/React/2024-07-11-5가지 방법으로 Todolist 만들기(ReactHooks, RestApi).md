@@ -15,111 +15,30 @@ sidebar:
 
 ## 1.1 state 사용하기
 
+> Home.jsx
+
 ```jsx
-import styled from "styled-components";
+import TodoForm from "components/TodoForm";
+import TodoList from "components/TodoList";
 import { useState } from "react";
-import { v4 as uuid } from "uuid";
+import styled from "styled-components";
 
 const Home = () => {
-  const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
   const [todos, setTodos] = useState([]);
-  const [isEdit, setIsEdit] = useState(null);
 
-  const handleOnsubmit = (e) => {
-    e.preventDefault();
-
-    if (!title || !contents) {
-      alert("내용을 입력하세요");
-      return;
-    }
-
-    const addTodos = {
-      id: uuid(),
-      title,
-      contents,
-      isDone: false,
-    };
-
-    setTodos([...todos, addTodos]);
-    setTitle("");
-    setContents("");
-  };
-  const handleDeleteButton = (id) => {
-    const isConfirmed = window.confirm("정말 삭제하시겠습니까?");
-    if (isConfirmed) {
-      const newTodos = todos.filter((todo) => todo.id !== id);
-      setTodos(newTodos);
-      alert("삭제되었습니다.");
-    }
-  };
-
-  const handleUpdateButton = () => {
-    // 최종적으로 편집이 완료된 todo 항목들을 업데이트하여 전체 todos 배열에 반영
-    const newTodos = todos.map((todo) =>
-      todo.id === isEdit.id
-        ? { ...todo, title: isEdit.title, contents: isEdit.contents }
-        : todo
-    );
-    setTodos(newTodos);
-    setIsEdit(null);
-  };
-
-  const handleEditButton = (todo) => {
-    setIsEdit(todo);
-  };
+  const workingTodos = todos.filter((todo) => !todo.isDone);
+  const doneTodos = todos.filter((todo) => todo.isDone);
 
   return (
     <StHomeLayout>
       <StH1>TodoList</StH1>
+      <TodoForm setTodos={setTodos} />
 
-      <StTodoForm onSubmit={handleOnsubmit}>
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="제목을 입력하세요"
-        />
-        <input
-          value={contents}
-          onChange={(e) => setContents(e.target.value)}
-          placeholder="내용을 입력하세요"
-        />
-        <button>추가하기</button>
-      </StTodoForm>
+      <StH2>미완료</StH2>
+      <TodoList todos={workingTodos} setTodos={setTodos} />
 
-      {todos.map((todo) => (
-        <StTodoBox key={todo.id}>
-          {isEdit && isEdit.id == todo.id ? (
-            <>
-              <input
-                value={isEdit.title}
-                onChange={(e) =>
-                  setIsEdit({ ...isEdit, title: e.target.value })
-                }
-              />
-              <input
-                value={isEdit.contents}
-                onChange={(e) =>
-                  setIsEdit({ ...isEdit, contents: e.target.value })
-                }
-              />
-              <button onClick={() => handleDeleteButton(todo.id)}>
-                삭제하기
-              </button>
-              <button onClick={handleUpdateButton}>수정 완료</button>
-            </>
-          ) : (
-            <>
-              <div>제목: {todo.title}</div>
-              <div>내용: {todo.contents}</div>
-              <button onClick={() => handleDeleteButton(todo.id)}>
-                삭제하기
-              </button>
-              <button onClick={() => handleEditButton(todo)}>수정하기</button>
-            </>
-          )}
-        </StTodoBox>
-      ))}
+      <StH2>할 일 완료</StH2>
+      <TodoList todos={doneTodos} setTodos={setTodos} />
     </StHomeLayout>
   );
 };
@@ -140,9 +59,183 @@ const StH1 = styled.h1`
   padding: 3rem;
 `;
 
+const StH2 = styled.h2`
+  font-size: 2rem;
+  padding: 3rem;
+`;
+```
+
+<br>
+
+> TodoForm.jsx
+
+```jsx
+import styled from "styled-components";
+import { v4 as uuid } from "uuid";
+
+const TodoForm = ({ setTodos }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const title = e.target.title.value;
+    const content = e.target.content.value;
+    const deadline = e.target.deadline.value;
+
+    if (!title || !content || !deadline) {
+      alert("값을 입력하세요");
+      return;
+    }
+
+    const addTodos = {
+      id: uuid(),
+      title,
+      content,
+      isDone: false,
+      deadline,
+    };
+
+    setTodos((prev) => [...prev, addTodos]);
+
+    // 입력폼 초기화
+    e.target.title.value = "";
+    e.target.content.value = "";
+    e.target.deadline.value = "";
+  };
+
+  return (
+    <StTodoForm onSubmit={onSubmit}>
+      <input type="text" name="title" placeholder="제목" />
+      <input type="text" name="content" placeholder="내용" />
+      <input type="date" name="deadline" />
+      <button>추가</button>
+    </StTodoForm>
+  );
+};
+
+export default TodoForm;
+
 const StTodoForm = styled.form`
   padding: 3rem;
 `;
+```
+
+<br>
+
+> TodoList.jsx
+
+```jsx
+import TodoItem from "./TodoItem";
+
+const TodoList = ({ todos, setTodos }) => {
+  return (
+    <>
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />
+      ))}
+    </>
+  );
+};
+
+export default TodoList;
+```
+
+<br>
+
+> TodoItem.jsx
+
+```jsx
+import { useState } from "react";
+import styled from "styled-components";
+
+const TodoItem = ({ todo, todos, setTodos }) => {
+  const [edit, setEdit] = useState(null);
+
+  const handleDeleteButton = (id) => {
+    const deleteConfirm = window.confirm("정말 삭제하시겠습니까?");
+    if (deleteConfirm) {
+      const newTodos = todos.filter((todo) => todo.id !== id);
+      setTodos(newTodos);
+      alert("삭제 되셨습니다.");
+    }
+  };
+
+  const handleEditButton = (todo) => {
+    setEdit(todo);
+  };
+
+  const handleUpdateButton = () => {
+    const newTodos = todos.map((todo) =>
+      todo.id === edit.id
+        ? {
+            ...todo,
+            title: edit.title,
+            content: edit.content,
+            deadline: edit.deadline,
+          }
+        : todo
+    );
+    setTodos(newTodos);
+    alert("수정 되셨습니다.");
+    setEdit(null);
+  };
+
+  const isDoneOnToggleButton = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
+
+  const formattedDate = new Date(todo.deadline).toLocaleDateString("ko-KR", {
+    year: "2-digit",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  });
+
+  return (
+    <StTodoBox>
+      {edit && todo.id === edit.id ? (
+        <ul>
+          <input
+            type="text"
+            name="text"
+            value={edit.title}
+            onChange={(e) => setEdit({ ...edit, title: e.target.value })}
+          />
+          <input
+            type="content"
+            name="content"
+            value={edit.content}
+            onChange={(e) => setEdit({ ...edit, content: e.target.value })}
+          />
+          <input
+            type="date"
+            name="deadline"
+            value={edit.deadline}
+            onChange={(e) => setEdit({ ...edit, deadline: e.target.value })}
+          />
+          <button onClick={() => handleDeleteButton(todo.id)}>삭제</button>
+          <button onClick={handleUpdateButton}>수정 완료</button>
+        </ul>
+      ) : (
+        <ul>
+          <li>제목: {todo.title}</li>
+          <li>내용: {todo.content}</li>
+          <li>마감일: {formattedDate}</li>
+          <button onClick={() => handleDeleteButton(todo.id)}>삭제</button>
+          <button onClick={() => handleEditButton(todo)}>수정</button>
+          <button onClick={() => isDoneOnToggleButton(todo.id)}>
+            {todo.isDone ? "할 일 취소" : "할 일 완료"}
+          </button>
+        </ul>
+      )}
+    </StTodoBox>
+  );
+};
+
+export default TodoItem;
 
 const StTodoBox = styled.div`
   display: flex;
@@ -155,11 +248,82 @@ const StTodoBox = styled.div`
 `;
 ```
 
-<br>
+<br><br>
 
 ## 1.2 useRef 사용하기
 
-<br><br>
+✨ Home.jsx, TodoList.jsx, TodoForm.jsx는 동일
+
+> TodoForm.jsx
+
+```jsx
+import { useEffect, useRef } from "react";
+import styled from "styled-components";
+import { v4 as uuid } from "uuid";
+
+const TodoForm = ({ setTodos }) => {
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 title 입력 필드에 포커스 설정
+    titleRef.current.focus();
+  }, []);
+
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
+  const deadlineRef = useRef(null);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const title = titleRef.current.value;
+    const content = contentRef.current.value;
+    const deadline = deadlineRef.current.value;
+
+    if (!title || !content || !deadline) {
+      alert("값을 입력하세요");
+      return;
+    }
+
+    const addTodos = {
+      id: uuid(),
+      title,
+      content,
+      isDone: false,
+      deadline,
+    };
+
+    setTodos((prev) => [...prev, addTodos]);
+
+    // 입력폼 초기화
+    titleRef.current.value = "";
+    contentRef.current.value = "";
+    deadlineRef.current.value = "";
+
+    // 제출 후 첫 번째 입력 필드에 포커스 설정
+    titleRef.current.focus();
+  };
+
+  return (
+    <StTodoForm onSubmit={onSubmit}>
+      <input type="text" name="title" ref={titleRef} placeholder="제목" />
+      <input type="text" name="content" ref={contentRef} placeholder="내용" />
+      <input type="date" name="deadline" ref={deadlineRef} />
+      <button>추가</button>
+    </StTodoForm>
+  );
+};
+
+export default TodoForm;
+
+const StTodoForm = styled.form`
+  padding: 3rem;
+`;
+```
+
+<br>
+
+---
+
+<br>
 
 # 2. REST API를 활용하기
 
