@@ -207,7 +207,7 @@ const TodoItem = ({ todo, todos, setTodos }) => {
             onChange={(e) => setEdit({ ...edit, title: e.target.value })}
           />
           <input
-            type="content"
+            type="text"
             name="content"
             value={edit.content}
             onChange={(e) => setEdit({ ...edit, content: e.target.value })}
@@ -281,9 +281,7 @@ const TodoSort = ({ setTodos }) => {
   return (
     <div>
       <select value={sortOrder} onChange={onChangeSortOrder}>
-        <option value="asc" selected>
-          오름차순
-        </option>
+        <option value="asc">오름차순</option>
         <option value="desc">내림차순</option>
       </select>
     </div>
@@ -306,14 +304,14 @@ import styled from "styled-components";
 import { v4 as uuid } from "uuid";
 
 const TodoForm = ({ setTodos }) => {
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
+  const deadlineRef = useRef(null);
+
   useEffect(() => {
     // 컴포넌트가 마운트될 때 title 입력 필드에 포커스 설정
     titleRef.current.focus();
   }, []);
-
-  const titleRef = useRef(null);
-  const contentRef = useRef(null);
-  const deadlineRef = useRef(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -363,7 +361,7 @@ const StTodoForm = styled.form`
 `;
 ```
 
-<br>
+<br><br>
 
 # 2. REST API를 활용하기
 

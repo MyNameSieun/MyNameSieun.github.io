@@ -45,9 +45,7 @@ const [sortOrder, setSortOrder] = useState("asc");
 
 /* 정렬 옵션 선택 드롭다운 메뉴 */
 <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-  <option value="asc" selected>
-    오름차순
-  </option>
+  <option value="asc">오름차순</option>
   <option value="desc">내림차순</option>
 </select>;
 ```
