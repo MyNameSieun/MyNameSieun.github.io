@@ -65,7 +65,7 @@ const Router = () => {
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         {/* 사용자가 잘못된 경로로 이동했을 때 기본적으로 (/)로 리다이렉션 할 수 있다. */}
-        <Route path="*" element={<Navigate replace to="/" />} />; // //
+        <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </BrowserRouter>
   );

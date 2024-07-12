@@ -57,6 +57,8 @@ Context를 사용해서 isDark라는 데이터를 모든 하위 컴포넌트들�
 
 ## 2.1 Context 생성
 
+{% raw %}
+
 ```jsx
 // src/context/ThemeContext.jsx
 
@@ -79,6 +81,8 @@ export const ThemeContextProvider = ({ children }) => {
   );
 };
 ```
+
+{% endraw %}
 
 <br>
 

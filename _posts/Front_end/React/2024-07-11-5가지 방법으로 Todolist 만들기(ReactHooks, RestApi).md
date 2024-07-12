@@ -17,6 +17,8 @@ sidebar:
 
 > Home.jsx
 
+> Main.jsx
+
 ```jsx
 import TodoForm from "components/TodoForm";
 import TodoList from "components/TodoList";
@@ -163,6 +165,13 @@ const TodoItem = ({ todo, todos, setTodos }) => {
     setEdit(todo);
   };
 
+  const handleEditButton = (todo) => {
+    setEdit(todo);
+  };
+
+  const handleEditButton = (todo) => {
+    setEdit(todo);
+  };
   const handleUpdateButton = () => {
     const newTodos = todos.map((todo) =>
       todo.id === edit.id
@@ -174,6 +183,7 @@ const TodoItem = ({ todo, todos, setTodos }) => {
           }
         : todo
     );
+
     setTodos(newTodos);
     alert("수정 되셨습니다.");
     setEdit(null);
@@ -321,7 +331,7 @@ const StTodoForm = styled.form`
 
 <br>
 
----
+## 1.2 useRef 사용하기
 
 <br>
 
