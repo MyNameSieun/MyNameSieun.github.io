@@ -67,6 +67,10 @@ sidebar:
 6.  Redux Toolkit (2)
 7.  [React Query](https://mynamesieun.github.io/react/React-Query/)
 
+### 5주차 - 파이어베이스 x 리액트
+
+1.
+
 ### 기타
 
 1. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)

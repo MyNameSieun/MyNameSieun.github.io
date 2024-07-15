@@ -1,7 +1,6 @@
 ---
 title: "[Firebase] Firestore DB"
 categories: [Firebase]
-tag: [Firebase, DB]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -9,6 +8,8 @@ author_profile: true
 sidebar:
   nav: "counts"
 ---
+
+<br>
 
 # ▶ Firestore란?
 
@@ -30,35 +31,41 @@ sidebar:
 
 ## ▷ 파이어스토어 시작하기
 
-1. 빌드에서 Firestore Database 클릭
-   ![](https://velog.velcdn.com/images/sieunpark/post/256934ea-7071-4cff-afdb-1b5ee5987e8f/image.png)
+① 빌드에서 Firestore Database 클릭
+
+![](https://velog.velcdn.com/images/sieunpark/post/256934ea-7071-4cff-afdb-1b5ee5987e8f/image.png)
 
 <br>
 
-2. DB 만들기 클릭
-   ![](https://velog.velcdn.com/images/sieunpark/post/453a57dd-d141-43b8-bb92-9bb75864f5f7/image.png)
+② DB 만들기 클릭
+
+![](https://velog.velcdn.com/images/sieunpark/post/453a57dd-d141-43b8-bb92-9bb75864f5f7/image.png)
 
 <br>
 
-3. 프로덕션 모드에서 시작하기 클릭
-   ![](https://velog.velcdn.com/images/sieunpark/post/8218e0b0-f56b-44c3-a4fb-593c7b2e8914/image.png)
+③ 프로덕션 모드에서 시작하기 클릭
+
+![](https://velog.velcdn.com/images/sieunpark/post/8218e0b0-f56b-44c3-a4fb-593c7b2e8914/image.png)
 
 <br>
 
-4. Cloud Firestore위치는 Seoul로 설정하고, 사용 설정 클릭
-   ![](https://velog.velcdn.com/images/sieunpark/post/a0cfda6a-878d-4ca4-b15d-af4d3fac7880/image.png)
+④ Cloud Firestore위치는 Seoul로 설정하고, 사용 설정 클릭
+
+![](https://velog.velcdn.com/images/sieunpark/post/a0cfda6a-878d-4ca4-b15d-af4d3fac7880/image.png)
 
 <br>
 
 ## ▷ 파이어스토어 규칙 수정하기
 
-1. 규칙 클릭
-   ![](https://velog.velcdn.com/images/sieunpark/post/a2eb355e-c14f-4a83-89f6-3409430e5b05/image.png)
+① 규칙 클릭
+
+![](https://velog.velcdn.com/images/sieunpark/post/a2eb355e-c14f-4a83-89f6-3409430e5b05/image.png)
 
 <br>
 
-2. false → true 변경 후, 게시 클릭
-   ![](https://velog.velcdn.com/images/sieunpark/post/6f7264cc-a1cf-4d53-9ab4-6d2e867110f1/image.png)
+② false → true 변경 후, 게시 클릭
+
+![](https://velog.velcdn.com/images/sieunpark/post/6f7264cc-a1cf-4d53-9ab4-6d2e867110f1/image.png)
 
 <br>
 
@@ -66,18 +73,20 @@ sidebar:
 
 > 추후 프로젝트 진행시, 이 코드 그냥 복사하면 됨!
 
-1. 프로젝트 설정 클릭
-   ![](https://velog.velcdn.com/images/sieunpark/post/be0f50b2-b83d-40ce-b8f4-3df1090b588d/image.png)
+① 프로젝트 설정 클릭
+
+![](https://velog.velcdn.com/images/sieunpark/post/be0f50b2-b83d-40ce-b8f4-3df1090b588d/image.png)
 
 <br>
 
-2. 구성 클릭후 코드 복사
-   ![](https://velog.velcdn.com/images/sieunpark/post/9e8644b3-738c-484f-a653-5da4014ff244/image.png)
+② 구성 클릭후 코드 복사
+
+![](https://velog.velcdn.com/images/sieunpark/post/9e8644b3-738c-484f-a653-5da4014ff244/image.png)
 
 <br>
 
-3. VS를 킨 다음, 파이어스토어 세팅 코드 넣기 (DB가 필요한 프로젝트에 넣으면 된다.)
-   ➡️ 저장하지 않았거나 잊어버린 경우 프로젝트 설정 누르면 나와있다.
+③ VS를 킨 다음, 파이어스토어 세팅 코드 넣기 (DB가 필요한 프로젝트에 넣으면 된다.)<br>
+➡️ 저장하지 않았거나 잊어버린 경우 프로젝트 설정 누르면 나와있다.
 
 ```jsx
 // Firebase SDK 라이브러리 가져오기

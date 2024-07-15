@@ -11,6 +11,10 @@ sidebar:
 
 <br>
 
+> ⚠️ setTodos를 호출할 때 이전 상태를 기반으로 새 상태를 생성하여 불변성을 유지해야 함에 주의하자!!
+
+<br>
+
 # 1. state 사용하기
 
 ## 1.1 Home.jsx
@@ -130,7 +134,7 @@ const TodoList = ({ todos, setTodos }) => {
   return (
     <>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />
+        <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />
       ))}
     </>
   );
@@ -147,14 +151,14 @@ export default TodoList;
 import { useState } from "react";
 import styled from "styled-components";
 
-const TodoItem = ({ todo, todos, setTodos }) => {
+const TodoItem = ({ todo, setTodos }) => {
   const [edit, setEdit] = useState(null);
 
   const handleDeleteButton = (id) => {
     const deleteConfirm = window.confirm("정말 삭제하시겠습니까?");
     if (deleteConfirm) {
-      const newTodos = todos.filter((todo) => todo.id !== id);
-      setTodos(newTodos);
+      // ⚠️  setTodos를 호출할 때 이전 상태를 기반으로 새 상태를 생성하여 불변성을 유지해야 함
+      setTodos((prev) => prev.filter((todo) => todo.id !== id));
       alert("삭제 되셨습니다.");
     }
   };
@@ -164,17 +168,18 @@ const TodoItem = ({ todo, todos, setTodos }) => {
   };
 
   const handleUpdateButton = () => {
-    const newTodos = todos.map((todo) =>
-      todo.id === edit.id
-        ? {
-            ...todo,
-            title: edit.title,
-            content: edit.content,
-            deadline: edit.deadline,
-          }
-        : todo
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === edit.id
+          ? {
+              ...todo,
+              title: edit.title,
+              content: edit.content,
+              deadline: edit.deadline,
+            }
+          : todo
+      )
     );
-    setTodos(newTodos);
     alert("수정 되셨습니다.");
     setEdit(null);
   };
@@ -200,7 +205,7 @@ const TodoItem = ({ todo, todos, setTodos }) => {
         <ul>
           <input
             type="text"
-            name="text"
+            name="title"
             value={edit.title}
             onChange={(e) => setEdit({ ...edit, title: e.target.value })}
           />
@@ -365,9 +370,9 @@ const StTodoForm = styled.form`
 
 ## 3.1 세팅하기
 
-### 3.1.1 JSON Server 설정하기
+### 3.1.1 JSON Server 실행
 
-> JSON Server를 설치하여 간단히 데이터베이스를 설정
+> `db.json` 파일 구성
 
 ```json
 {
@@ -392,11 +397,11 @@ const StTodoForm = styled.form`
 
 <br>
 
-> db설정 후, JSON Server 설치 및 실행하기
+> 그 후, JSON Server 설치 및 실행하기
 
 ```
 yarn global add json-server
-json-server --watch db.json --port 3001
+json-server --watch db.json --port 4000
 ```
 
 <br>
@@ -406,7 +411,7 @@ json-server --watch db.json --port 3001
 > React 프로젝트 루트 디렉토리에 `.env` 파일 생성 후, 환경변수 설정
 
 ```
-REACT_APP_SERVER_URL=http://localhost:3001
+REACT_APP_SERVER_URL=http://localhost:4000
 ```
 
 <br>
@@ -566,8 +571,9 @@ const TodoItem = ({ todo, todos, setTodos }) => {
     if (deleteConfirm) {
       try {
         await axios.delete(`${process.env.REACT_APP_SERVER_URL}/todos/${id}`);
-        const newTodos = todos.filter((todo) => todo.id !== id);
-        setTodos(newTodos);
+
+        setTodos((prev) => prev.filter((todo) => todo.id !== id));
+
         alert("삭제되었습니다.");
       } catch (error) {
         console.error("할 일을 삭제하는 중 오류가 발생했습니다:", error);
@@ -587,17 +593,20 @@ const TodoItem = ({ todo, todos, setTodos }) => {
         `${process.env.REACT_APP_SERVER_URL}/todos/${edit.id}`,
         edit
       );
-      const newTodos = todos.map((todo) =>
-        todo.id === edit.id
-          ? {
-              ...todo,
-              title: edit.title,
-              content: edit.content,
-              deadline: edit.deadline,
-            }
-          : todo
+
+      // 새로운 할 일 객체 생성
+      const updatedTodo = {
+        ...edit,
+        title: edit.title,
+        content: edit.content,
+        deadline: edit.deadline,
+      };
+
+      // 이전 상태(prev)를 이용하여 새로운 할 일 목록 생성✨✨
+      setTodos((prev) =>
+        prev.map((todo) => (todo.id === edit.id ? updatedTodo : todo))
       );
-      setTodos(newTodos);
+
       alert("수정 되셨습니다.");
       setEdit(null);
     } catch (error) {
@@ -617,7 +626,12 @@ const TodoItem = ({ todo, todos, setTodos }) => {
           todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
         )
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error(
+        "할 일의 완료 상태를 토글하는 중 오류가 발생했습니다:",
+        error
+      );
+    }
   };
 
   // 날짜 형식을 한국어로 변환
