@@ -69,7 +69,7 @@ sidebar:
 
 ### 5주차 - 파이어베이스 x 리액트
 
-1.
+1. [Firebase로 todolist 만들기](https://mynamesieun.github.io/firebase/Firebase%EB%A1%9C-todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 
 ### 기타
 

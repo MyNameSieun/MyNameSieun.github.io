@@ -118,8 +118,9 @@ onclick 이런거 안되기 때문에, click을 동적으로 만들어줘야한�
 
 > <span style="color:indianred">⚠️</span> 브라우저 자체의 보안적인 설정으로 인해 외부파일 js가 index.html에 연결되지 않아 html코드 내에서 해당 js코드를 사용해야하는 것이 강제된다고 한다!
 
-- 따라서 index.html에서 진행해주자.
-  ![](https://velog.velcdn.com/images/sieunpark/post/3da0faf6-8d0d-49a0-aa96-8c46f4cdc1b5/image.png)
+따라서 index.html에서 진행해주자.
+
+![](https://velog.velcdn.com/images/sieunpark/post/3da0faf6-8d0d-49a0-aa96-8c46f4cdc1b5/image.png)
 
 <br>
 
@@ -168,13 +169,15 @@ $("#postingBtn").click(async function () {
 
 <br>
 
-- 짜잔!🎇 (신기해서 절로 감탄사가 나왔다.. 너무 신기해..)
-  ![](https://velog.velcdn.com/images/sieunpark/post/72e69d20-6219-4474-9661-309ac6d832be/image.png)
+짜잔!🎇 (신기해서 절로 감탄사가 나왔다.. 너무 신기해..)
+
+![](https://velog.velcdn.com/images/sieunpark/post/72e69d20-6219-4474-9661-309ac6d832be/image.png)
 
 <br>
 
-- 이제, name과 age가 아닌 이미지, 제목, 내용 날짜의 데이터를 넣어주자
-  ![](https://velog.velcdn.com/images/sieunpark/post/66044554-c6a9-41f9-ae02-18f9ad52f6ba/image.png)
+이제, name과 age가 아닌 이미지, 제목, 내용 날짜의 데이터를 넣어주자
+
+![](https://velog.velcdn.com/images/sieunpark/post/66044554-c6a9-41f9-ae02-18f9ad52f6ba/image.png)
 
 ```jsx
 $("#postingBtn").click(async function () {
@@ -195,8 +198,9 @@ $("#postingBtn").click(async function () {
 
 <br>
 
-- 짜잔!🎇
-  ![](https://velog.velcdn.com/images/sieunpark/post/78e3b3db-fc16-4a18-8acf-63c6b8c027ce/image.png)
+짜잔!🎇
+
+![](https://velog.velcdn.com/images/sieunpark/post/78e3b3db-fc16-4a18-8acf-63c6b8c027ce/image.png)
 
 <br>
 
@@ -229,8 +233,9 @@ $("#postingBtn").click(async function () {
 });
 ```
 
-- 짜잔!🎇
-  ![](https://velog.velcdn.com/images/sieunpark/post/3393eb2f-f828-4785-b42a-b26c54297a32/image.png)
+짜잔!🎇
+
+![](https://velog.velcdn.com/images/sieunpark/post/3393eb2f-f828-4785-b42a-b26c54297a32/image.png)
 
 <br>
 
