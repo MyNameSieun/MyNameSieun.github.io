@@ -21,6 +21,20 @@ sidebar:
 3. UI(컴포넌트)에서 이벤트가 발생해서 store(중앙 데이터 관리소)에 있는 state를 바꿔야하는 상황이면(ex. onClick)<br> Dispatch가 스토어에게 <span style="color:indianred">액션 객체(type, payload)</span>를 전달한다. (Dispatch는 액션 객체를 가지고 스토어에게 던져주는 느낌⭐)
 4. 스토어의 Reducer은 액션 객체에 있는 type에 따라 state를 변경한다.<br> → 스토어에 있는 state에 직접 접근하는 것이 금지되어 있기 때문
 
+<br>
+
+> Redux를 이해하기 위한 핵심 개념
+
+1. 컴포넌트(뷰): React 컴포넌트는 사용자 인터페이스를 렌더링한다. 사용자가 어떤 동작을 하면(예: 버튼 클릭) 컴포넌트에서 dispatch 메서드를 호출하여 액션을 보낸다.
+2. 액션(Action): 액션은 어떤 일이 일어났는지를 설명하는 객체이다. 보통 type 속성과 추가 데이터(payload)를 포함한다. 예: { type: 'INCREMENT', payload: 1 }.
+3. 디스패치(Dispatch): 컴포넌트에서 액션을 dispatch 하면, 그 액션이 Redux 스토어로 전달된다. 예: dispatch({ type: 'INCREMENT', payload: 1 }).
+4. 리듀서(Reducer): 리듀서는 현재 상태와 액션을 받아서 새로운 상태를 반환하는 순수 함수이다. 예: (state, action) => newState. 리듀서는 상태를 직접 변경하지 않고, 새로운 상태 객체를 반환한다.
+5. 스토어(Store): 스토어는 애플리케이션의 상태를 보관하는 객체이다. createStore 함수를 통해 생성된다. 스토어는 리듀서에 의해 상태가 업데이트되면, 모든 구독자(subscribers)에게 변경 사항을 알린다.
+6. 구독(Subscription): 컴포넌트는 useSelector 훅을 사용하여 스토어의 상태를 구독한다. 상태가 변경되면 useSelector는 자동으로 컴포넌트를 리렌더링한다.
+7. 상태 업데이트 및 리렌더링: 상태가 업데이트되면, 스토어는 변경 사항을 구독자들에게 알린다. 구독 중인 컴포넌트는 새로운 상태를 받아서 리렌더링된다.
+
+![](/assets/images/2024/2024-07-19-19-55-34.png)
+
 <br><br>
 
 # 2. state 수정 기능 만들기
