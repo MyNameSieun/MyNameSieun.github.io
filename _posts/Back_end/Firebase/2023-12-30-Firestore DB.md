@@ -92,9 +92,6 @@ sidebar:
 // Firebase SDK 라이브러리 가져오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
 
 // Firebase 구성 정보 설정
 const firebaseConfig = {
@@ -103,15 +100,15 @@ const firebaseConfig = {
 
 
 // Firebase 인스턴스 초기화
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
 ```
 
 <br>
 
-4. 그 후, script의 type을 module로 바꿔주자.
-   <span style="color:indianred">⚠️</span> type을 module로 바꾸면 script가 맨 마지막에 호출되고,
-   onclick 이런거 안되기 때문에, click을 동적으로 만들어줘야한다! (아래에서 다시 설명)
+④ 그 후, script의 type을 module로 바꿔주자. (바닐라js 사용 시)<br>
+<span style="color:indianred">⚠️</span> type을 module로 바꾸면 script가 맨 마지막에 호출되고,
+onclick 이런거 안되기 때문에, click을 동적으로 만들어줘야한다! (아래에서 다시 설명)
 
 ```jsx
 <script type="module">
@@ -129,6 +126,8 @@ const db = getFirestore(app);
 ---
 
 <br>
+
+아래 내용은 [[파이어스토어 문서↗️]](https://firebase.google.com/docs/firestore?hl=ko&authuser=0&_gl=1*1vedb72*_up*MQ..*_ga*NzA3NjY1OTMwLjE3MjEwMzA2NzU.*_ga_CW55HF8NVT*MTcyMTAzMDY3NS4xLjEuMTcyMTAzMjYzMS4yOC4wLjA.)에서 더 정확히 확인할 수 있다!
 
 # ▶ addDoc : DB에 데이터 넣기
 
