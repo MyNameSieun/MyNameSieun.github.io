@@ -69,7 +69,9 @@ sidebar:
 
 ### 5주차 - 파이어베이스 x 리액트
 
-1. [Firebase로 todolist 만들기](https://mynamesieun.github.io/firebase/Firebase%EB%A1%9C-todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
+1. [Firebase 시작하기](https://mynamesieun.github.io/firebase/Firebase-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/)
+2. [Firestore DB](https://mynamesieun.github.io/firebase/Firestore-DB/)
+3. [Firebase로 todolist 만들기](https://mynamesieun.github.io/firebase/Firebase%EB%A1%9C-todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 
 ### 기타
 

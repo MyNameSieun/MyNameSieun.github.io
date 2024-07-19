@@ -337,4 +337,188 @@ const StTodoBox = styled.div`
 
 {% endraw %}
 
+<br><br>
+
+# 3. TodoList CRUD 정리
+
+## 3.1 CREATE
+
+> Optimistic Update 사용
+
+- Optimistic Update는 서버의 응답을 기다리지 않고 UI를 미리 업데이트하는 방법이다.
+- 더 빠른 반응을 제공하여 사용자 경험(UX)을 향상시키는 효과가 있다.
+
+{% raw %}
+
+```jsx
+// 새로운 Todo를 추가하는 비동기 함수
+const onSubmitTodo = async (nextTodo) => {
+  // Firestore의 'todos' 컬렉션에 새로운 문서를 추가
+  // `nextTodo`는 추가할 할 일 객체
+  const ref = await addDoc(collection(db, TODOS_COLLECTION), nextTodo);
+
+  // Firestore 서버에서 생성된 문서의 ID를 가져와서 원래 객체에 추가
+  // 이렇게 하면 로컬 상태에서도 Firestore 서버의 ID를 사용할 수 있게 됨-> 데이터 일관성
+  const nextTodoWithServerId = {
+    ...nextTodo, // 기존의 할 일 객체를 spread operator로 복사해 넣어주기
+    id: ref.id, // Firestore에서 생성된 문서 ID를 추가
+  };
+
+  // Optimistic Update를 수행
+  setTodos((prevTodos) => [nextTodoWithServerId, ...prevTodos]);
+};
+```
+
+{% endraw %}
+
+<br>
+
+> Optimistic Update 사용x
+
+- Optimistic Update를 사용하지 않는 코드는 서버로부터 응답을 받은 후에만 UI를 업데이트하므로, 서버와의 데이터 일관성은 확실히 유지
+- 오류가 발생할 경우를 대비해 try-catch 블록을 추가하여 오류를 처리
+
+{% raw %}
+
+```jsx
+const onSubmitTodo = async (nextTodo) => {
+  try {
+    const ref = await addDoc(collection(db, TODOS_COLLECTION), nextTodo);
+
+    const nextTodoWithServerId = {
+      ...nextTodo,
+      id: ref.id,
+    };
+
+    // Firestore 서버에서 문서 추가가 완료된 후 상태를 업데이트
+    setTodos((prevTodos) => [nextTodoWithServerId, ...prevTodos]);
+  } catch (error) {
+    // 오류가 발생하면 오류를 처리
+    console.error("Error adding document: ", error);
+  }
+};
+```
+
+{% endraw %}
+
+<br>
+
+## 3.2 READ
+
+{% raw %}
+
+```jsx
+// useEffect 훅을 사용하여 컴포넌트가 마운트될 때 한 번만 실행되도록 합니다.
+useEffect(() => {
+  // Firestore에서 투두 리스트를 비동기적으로 가져오는 함수
+  const fetchTodos = async () => {
+    // 'todos' 컬렉션에서 문서들을 가져옵니다.
+    const querySnapshot = await getDocs(collection(db, TODOS_COLLECTION));
+
+    // 가져온 문서들을 순회하면서, 각 문서의 데이터와 문서 ID를 객체로 변환하여 배열에 담습니다.
+    const nextTodos = querySnapshot.docs.map((doc) => ({
+      ...doc.data(), // 문서의 데이터를 객체로 가져옵니다.
+      id: doc.id, // 문서의 ID를 추가합니다. 데이터를 식별하는 데 사용됩니다.
+    }));
+
+    // 변환된 객체 배열을 사용하여 로컬 상태를 업데이트합니다.
+    setTodos(nextTodos);
+
+    // forEach를 사용한 방법
+    // 빈 배열을 생성합니다. 이 배열에는 Firestore에서 가져온 각 문서의 데이터가 저장됩니다.
+    // const nextTodos = []
+
+    // querySnapshot의 각 문서에 대해 반복합니다.
+    // querySnapshot.forEach((doc) => {
+    //   console.log(`${doc.id} => ${doc.data()}`); // 콘솔에 문서 ID와 데이터를 출력합니다.
+    //   const data = doc.data(); // 문서의 데이터를 가져옵니다.
+
+    //   // 가져온 데이터와 문서 ID를 객체로 만들어 nextTodos 배열에 추가합니다.
+    //   nextTodos.push({
+    //     ...data, // 문서의 데이터
+    //     id: doc.id, // 문서의 ID
+    //   });
+    // });
+  };
+
+  // 함수를 호출합니다.
+  fetchTodos();
+}, []); // 빈 의존성 배열을 전달하여, 이 useEffect 훅이 컴포넌트가 마운트될 때 단 한 번만 실행되도록 합니다.
+```
+
+{% endraw %}
+
+<br>
+
+## 3.3 UPDATE
+
+{% raw %}
+
+```jsx
+// 투두 아이템의 완료 상태를 토글하는 비동기 함수
+const onToggleTodoItem = async (id) => {
+  // Firestore에서 업데이트할 데이터를 가져옵니다.
+  const todoRef = doc(db, TODOS_COLLECTION, id);
+
+  // 해당 문서의 현재 상태를 가져옵니다.
+  const docSnap = await getDoc(todoRef);
+
+  // 또는 로컬 데이터를 가져와서 업데이트합니다.
+  // const todo = todos.find((todoItem) => todoItem.id === id);
+  // await updateDoc(doc(db, TODOS_COLLECTION, id), {
+  //   isDone: !todo.isDone,
+  // });
+
+  // 문서의 `isDone` 필드를 현재 값의 반대로 설정하여 업데이트합니다.
+  await updateDoc(todoRef, {
+    isDone: !docSnap.data().isDone,
+  });
+
+  // 로컬 상태도 업데이트합니다.
+  // `prevTodos`는 업데이트 이전의 최신 상태입니다.
+  setTodos((prevTodos) =>
+    prevTodos.map((todoItem) => {
+      // 변경하려는 투두 아이템의 ID가 일치하는 경우
+      if (todoItem.id === id) {
+        // 해당 항목의 `isDone` 상태를 토글합니다.
+        return {
+          ...todoItem,
+          isDone: !todoItem.isDone,
+        };
+      }
+
+      // ID가 일치하지 않는 항목은 변경 없이 그대로 반환합니다.
+      return todoItem;
+    })
+  );
+};
+```
+
+{% endraw %}
+
+<br>
+
+## 3.4 DELETE
+
+{% raw %}
+
+```jsx
+// 투두 아이템을 삭제하는 비동기 함수입니다.
+const onDeleteTodoItem = async (id) => {
+  // Firestore에서 해당 ID를 가진 할 일 문서를 삭제합니다.
+  await deleteDoc(doc(db, TODOS_COLLECTION, id));
+
+  // 삭제 후, 로컬 상태를 업데이트합니다.
+  setTodos((prevTodos) =>
+    // `prevTodos`는 삭제하기 전의 최신 상태입니다.
+    // `.filter()` 메소드를 사용하여, 삭제된 항목을 제외한 나머지 항목만을 새로운 배열로 반환합니다.
+    // `todo.id !== id` 조건은 현재 처리 중인 항목의 ID가 삭제하려는 항목의 ID와 다른 경우에만 true를 반환합니다.
+    // 즉, 삭제하려는 항목을 제외하고 나머지 항목들로만 구성된 새로운 배열이 생성됩니다.
+    prevTodos.filter((todo) => todo.id !== id)
+  );
+};
+```
+
+{% endraw %}
+
 <br>
