@@ -1,5 +1,5 @@
 ---
-title: "[React] RTK(Redux Toolkit)"
+title: "[React] RTK(Redux Toolkit)[작성중]"
 categories: [React]
 toc_label: Contents
 toc: true
@@ -8,6 +8,9 @@ author_profile: true
 sidebar:
   nav: "counts"
 ---
+
+먼저 [[Redux↗️]](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)에 대해 알고 오자!
+{: .notice--Warning}
 
 <br>
 
@@ -30,14 +33,120 @@ Redux Toolkit (RTK)은 Redux를 더 쉽게 사용하고 복잡성을 줄이기 �
 ## 1.3 설치
 
 ```
-yarn add @reduxjs/toolkit
+yarn add @reduxjs/toolkit react-redux
 ```
 
 <br><br>
 
-# 2. RTK 메서드
+# 2. RTK 시작하기
 
-## 2.1 configureStore
+[[Redux 공식 문서↗️](https://ko.redux.js.org/tutorials/quick-start)]
+
+## 2.1 Create a Redux Store
+
+`src/app/store.js`
+
+{% raw %}
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+
+export default configureStore({
+  reducer: {},
+});
+```
+
+{% endraw %}
+
+<br>
+
+## 2.2 Provide the Redux Store to React
+
+`src/index.js`에서 React에게 Redux Store를 제공해주자
+
+{% raw %}
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import store from "./app/store";
+import { Provider } from "react-redux";
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
+{% endraw %}
+
+<br>
+
+## 2.3 Create a Redux State Slice
+
+`src/features/todo/todoSlice.js.js`에서 `createSlice`를 만들자
+
+{% raw %}
+
+```jsx
+import { createSlice } from "@reduxjs/toolkit";
+
+export const todoSlice = createSlice({
+  name: "todo",
+  initialState: {
+    todos: [],
+  },
+});
+
+export default todoSlice.reducer;
+```
+
+{% endraw %}
+
+<br>
+
+## 2.4 Add Slice Reducers to the Store
+
+`src/index.js`에서 reducer
+
+{% raw %}
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+import todoReducer from "../features/todo/todoSlice";
+
+export default configureStore({
+  reducer: {
+    todo: todoReducer,
+  },
+});
+```
+
+{% endraw %}
+
+<br>
+
+## 2.5 Use Redux State and Actions in React Components
+
+아래 코드는 외우는 것이 좋다!
+
+{% raw %}
+
+```jsx
+
+```
+
+{% endraw %}
+
+<br><br>
+
+# 3. RTK 메서드
+
+## 3.1 configureStore
 
 - 목적: Redux 스토어의 설정과 생성을 간소화한다.
 - 특징: `configureStore`는 미들웨어와 Redux DevTools를 자동으로 설정해준다.
@@ -61,7 +170,7 @@ const store = configureStore({
 
 <br>
 
-## 2.2 createSlice
+## 3.2 createSlice
 
 - 목적: 액션 타입, 액션 생성자, 리듀서 함수를 한 번에 생성한다.
 - 특징: `createSlice`는 이름, 초기 상태, 리듀서 함수를 객체 형태로 받아, 액션 생성자와 액션 타입을 자동으로 생성한다. 또한 lmmer 라이브러리를 내장하고 있어, 상태 업데이트 로직을 불변성을 유지하면서 간결하게 작성할 수 있다.
@@ -101,7 +210,7 @@ export default todoSlice.reducer;
 
 <br>
 
-## 2.3 createAsyncThunk
+## 3.3 createAsyncThunk
 
 - 목적: 비동기 로직을 처리하기 위한 Thunk 함수를 생성
 - 특징: `createAsyncThunk`는 비동기 함수를 인자로 받고, 해당 비동기 함수의 실행 결과에 따라 "pending", "fulfilled", "rejected" 상태의 액션을 자동으로 디스패치한다. 이를 통해 비동기 로직을 쉽게 Redux 스토어와 연동할 수 있다.
@@ -126,7 +235,7 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
 
 <br>
 
-## 2.4 extraReducer
+## 3.4 extraReducer
 
 - 목적: `createAsyncThunk`로 정의한 함수를 사용하는 방법
 - 특징: `createSlice` 내에서 비동기 액션의 결과(상태)를 다룰 수 있다.

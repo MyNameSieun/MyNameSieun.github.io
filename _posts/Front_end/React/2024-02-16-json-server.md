@@ -68,4 +68,24 @@ json 파일에 있는 posts, comments, profile 라는 기본적인 값을 통해
 
 ![](/assets/images/2024/2024-02-16-23-14-28.png)
 
+<br><br>
+
+# 3. 간단히 JSON 서버 시작하기
+
+package.json 파일에 스크립트를 추가하여 JSON 서버를 간편하게 실행할 수 있다. 다음과 같은 내용을 package.json 파일의 scripts 섹션에 추가해 보자
+
+```json
+"scripts": {
+  "serve": "json-server --watch db.json --port 4000"
+}
+```
+
+이제 터미널에서 `yarn serve` 명령어를 입력하면, json-server가 db.json 파일을 감시(--watch)하고 4000번 포트에서 서버를 시작한다.
+
+<br>
+
+> ❓--watch란?
+
+json-server를 사용할 때 --watch 옵션을 사용하면 지정한 JSON 파일의 변화를 실시간으로 감시하고, 파일이 변경될 때마다 서버 데이터를 자동으로 갱신할 수 있다.
+
 <br>

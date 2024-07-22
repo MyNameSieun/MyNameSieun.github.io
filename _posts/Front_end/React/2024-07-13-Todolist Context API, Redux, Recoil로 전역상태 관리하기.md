@@ -1,5 +1,5 @@
 ---
-title: "[React] Todolist 다양한 방법으로 전역상태 관리하기[작성중]"
+title: "[React] Todolist Context API, Redux, Recoil로 전역상태 관리하기"
 categories: [React]
 toc_label: Contents
 toc: true
@@ -416,11 +416,5 @@ const TodoSort = () => {
 
 export default TodoSort;
 ```
-
-<br><br>
-
-# 2. Redux
-
-<br><br>
 
 <br>
