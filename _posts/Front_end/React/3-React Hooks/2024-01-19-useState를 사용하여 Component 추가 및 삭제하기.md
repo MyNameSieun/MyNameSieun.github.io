@@ -1,5 +1,5 @@
 ---
-title: "[React] Component 추가 및 삭제하기"
+title: "[React] useState를 사용하여 Component 추가 및 삭제하기"
 categories: [React]
 tag: [React]
 toc_label: Contents

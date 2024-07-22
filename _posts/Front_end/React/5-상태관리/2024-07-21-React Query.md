@@ -1,7 +1,6 @@
 ---
-title: "[React] React Qurey(=Tanstack Query)"
+title: "[React] React Qurey"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -29,6 +28,7 @@ sidebar:
 ## 1.2 React Query 개념
 
 > - 리액트 쿼리는 <span style="color:indianred">서버 상태 관리</span>를 쉽게 하도록 도와주는 라이브러리이다.
+> - React Query의 v4 부터 라이브러리명이 Tanstack Query로 변경되었다!
 
 서버 상태 관리를 쉽게 한다는 게 무슨 뜻일까?
 
@@ -36,6 +36,8 @@ sidebar:
 2. caching: 서버에서 받아온 데이터를 따로 보관해서 동일한 데이터가 단 시간 내에 다시 필요할 시 서버 요청없이 보관된 데이터에서 꺼내쓰기
 3. synchronizing: 서버상의 데이터와 보관 중인 캐시 데이터(서버상태)를 동일하게 만들기 (동기화)
 4. updating : 서버 데이터 변경 용이 (mutation & invalidateQueries)
+
+<br>
 
 ➡️ 즉, 리액트 쿼리는 쿼리데이터 패칭, 캐싱, 동기화를 쉽게 관리할 수 있게 해주며, 이를 통해 UI를 자동으로 업데이트할 수 있다. 이로써 서버 상태와 클라이언트 상태의 동기화를 용이하게 해준다.
 
@@ -76,9 +78,9 @@ const { data: todos, isLoading } = useQuery(["todos"], getTodos);
 
 # 2. server state vs client state
 
-> 서버 상태(Server State)
+## 2.1 서버 상태(Server State)
 
-서버에 저장되고 관리되는 데이터를 말한다. 데이터베이스, 파일 시스템, 또는 서버의 메모리 등에 저장될 수 있다.
+> 서버에 저장되고 관리되는 데이터를 말한다. 데이터베이스, 파일 시스템, 또는 서버의 메모리 등에 저장될 수 있다.
 
 - 동기화와 일관성: 클라이언트에서 서버로 데이터를 요청하거나 업데이트하면서 발생하는 네트워크 지연과 <span style="color:indianred">데이터 동기화</span>에 대한 고려가 필요하다.
 - 지속성: 데이터가 서버에 저장되므로, 클라이언트의 상태가 초기화되거나 변경되어도 영구적으로 유지된다.
@@ -86,9 +88,9 @@ const { data: todos, isLoading } = useQuery(["todos"], getTodos);
 
 <br>
 
-> 클라이언트 상태(Client State)
+## 2.2 클라이언트 상태(Client State)
 
-사용자의 브라우저 내에서 저장되고 관리되는 상태를 말한다. 리액트 컴포넌트의 `useState` 또는 상태 관리 라이브러리(ex) Redux, Recoil)를 통해 관리된다.
+> 사용자의 브라우저 내에서 저장되고 관리되는 상태를 말한다. 리액트 컴포넌트의 `useState` 또는 상태 관리 라이브러리(ex) Redux, Recoil)를 통해 관리된다.
 
 - 로컬 데이터: 주로 UI 컴포넌트의 상태, 사용자 입력, 토글 상태와 같이 로컬에서만 필요한 데이터를 관리한다.
 - 성능: 네트워크 지연 없이 빠르게 상태를 변경하고 반응할 수 있다.
@@ -99,7 +101,14 @@ const { data: todos, isLoading } = useQuery(["todos"], getTodos);
 
 # 3. 주요개념
 
-## 3.1 캐시 데이터의 보관
+## 3.1 React Query 의 swr 전략
+
+> swr(stale-while-revalidate) 전략이란?
+
+- 신규 데이터가 도착하는 동안 일단 기존 캐싱된 데이터를 사용하도록 하는 전략이다.
+- 즉, 썩은(오래된) 데이터를 새로운 데이터가 도착하기 전까지 사용하는 것이다.
+
+## 3.2 캐시 데이터의 보관
 
 > 캐시 데이터는 어디에 보관할까?
 
@@ -122,7 +131,7 @@ const App = () => {
 
 <br>
 
-## 3.2 React Query의 데이터 흐름
+## 3.3 React Query의 데이터 흐름
 
 > "헌거 먼저, 리렌더링되면서 새거로 교체" 한다는 것을 기억하자!
 
@@ -130,20 +139,11 @@ const App = () => {
 
 <br>
 
-## 3.3 React Query 의 swr 전략
-
-> swr(stale-while-revalidate) 전략이란?
-
-- 신규 데이터가 도착하는 동안 일단 기존 캐싱된 데이터를 사용하도록 하는 전략이다.
-- 즉, 썩은(오래된) 데이터를 새로운 데이터가 도착하기 전까지 사용하는 것이다.
-
-<br>
-
 ## 3.4 React Query의 Lifecycle
 
-> React Query 의 Lifecycle
+> 하나의 쿼리 인스턴스(하나의 query key)마다 같은 Lifecycle을 가진다.
 
-하나의 쿼리 인스턴스(하나의 query key)마다 같은 Lifecycle을 가진다.
+fetching을 해서 가져온 "직후" 데이터는 늘 "fresh"
 
 ```jsx
 const data = useQuery(["abc"], () => {});
@@ -151,17 +151,11 @@ const data = useQuery(["abc"], () => {});
 
 ![](/assets/images/2024/2024-07-22-11-50-05.png)
 
-- fetching을 해서 가져온 "직후" 데이터는 늘 "fresh"
-- `staleTime > 0`인 경우, 가져온 데이터는 그 시간 만큼 fresh한 것으로 간주(= fresh data)
-- `staleTime = 0`인 경우, 가져온 데이터는 즉시 stale한 것으로 간주(= stale data)
-
-➡️ 즉, fresh 하면 새거가 필요없지만, stale 하면 새거가 필요하다!
-
 <br>
 
 > ① fresh(신선한)
 
-- 'Fresh' 상태는 데이터가 최신 상태임을 의미한다.
+- "Fresh" 상태는 데이터가 최신 상태임을 의미한다.
 - 즉, 최근에 가져온(fetch) 데이터이며 staleTime이 아직 경과하지 않았다.
 - 이 상태에서는 추가적인 데이터 요청이 발생해도 리액트 쿼리가 데이터를 재요청하지 않고 현재 캐시된 값을 사용한다.
 
@@ -169,25 +163,83 @@ const data = useQuery(["abc"], () => {});
 
 > ② stale(썩은)
 
-- 'Stale' 상태는 데이터가 더 이상 최신 상태가 아니며 <span style="color:indianred">재검증(revalidation)</span>이 필요할 수 있는 상태를 의미한다.
+- "Stale" 상태는 데이터가 더 이상 최신 상태가 아니며 <span style="color:indianred">재검증(revalidation)</span>이 필요할 수 있는 상태를 의미한다.
 - staleTime이 경과하면 데이터는 자동으로 "stale" 상태가 된다.
-- 이 상태에서 쿼리가 다시 실행되면, 리액트 쿼리는 자동으로 백그라운드에서 데이터를 새로고침하여 최신 상태로 유지하려고 시도한다. -> query key
+- 이 상태에서 쿼리가 다시 실행되면, 리액트 쿼리는 자동으로 백그라운드에서 데이터를 새로고침하여 최신 상태로 유지하려고 시도한다. → query key
+  <br><br>
+- staleTime 과 stale/fresh 의 관계
+  - `staleTime > 0`인 경우, 가져온 데이터는 그 시간 만큼 fresh한 것으로 간주(= fresh data)
+  - `staleTime = 0`인 경우, 가져온 데이터는 즉시 stale한 것으로 간주(= stale data)
 
 <br>
 
 > ③ staleTime
 
-- 특정 쿼리에 대한 데이터가 "싱싱함(fresh)" 상태로 유지되는 시간을 정의하며, 이 시간이 지나면 데이터는 "오래됨(stale)"으로 간주된다.
-- `staleTime` 설정 시간 동안에는 쿼리를 다시 실행해도 서버로부터 데이터를 재요청(fetch)하지 않으며, 캐시된 데이터를 사용한다.
-- 예: staleTime이 5분으로 설정되어 있다면, 데이터는 5분 동안 새로고침되지 않으며 이 기간 동안 여러 번의 요청에서도 동일한 캐시된 데이터를 재사용한다.
+- 특정 쿼리에 대한 데이터가 "싱싱함(fresh)" 상태로 유지되는 시간을 정의하며, 이 시간이 지나면 데이터는 "썩음(stale)"으로 간주된다.
+- 즉, `staleTime` 설정 시간 동안에는 쿼리를 다시 실행해도 서버로부터 데이터를 재요청(fetch)하지 않으며, 캐시된 데이터를 사용한다.
+- staleTime의 기본값은 0ms이기 때문에 쿼리가 성공적으로 해결되면 데이터가 즉시 'stale'(오래된 상태)로 표시된다. -> 최신 상태 유지 가능
+- 예: staleTime이 5분(300,000ms)으로 설정되어 있다면, 데이터는 5분 동안 새로고침되지 않으며 이 기간 동안 여러 번의 요청에서도 동일한 캐시된 데이터를 재사용한다.
 
 <br>
 
 > ④ inActive
 
-- `inActive` 상태는 특정 쿼리에 대한 모든 옵저버(observer)가 제거되었을 때 발생한다.
-- 해당 데이터를 사용하는 컴포넌트가 더 이상 마운트되지 않거나 해당 쿼리를 구독하는 컴포넌트가 없을 때
+- 해당 데이터를 사용하는 컴포넌트가 더 이상 마운트되지 않거나 해당 쿼리를 구독하는 컴포넌트가 없는 상태를 의미한다.
+- 즉, inActive 상태는 특정 쿼리에 대한 모든 옵저버(observer)가 제거되었을 때 발생한다.
 - 이 상태에서는 데이터가 캐시에서 자동으로 삭제되기 전까지 일정 기간 동안 유지된다.
+- inactive에서 fresh가 다시 될 수 있다.(컴포넌트 재마운트, 데이터 재요청, Refetch 함수 호출)
+
+<br>
+
+## 3.5 staleTime vs cacheTime
+
+> staleTime
+
+| 항목          | 내용                                                                                                                                                                                                                                                                                             |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **뜻**        | 유통 기한                                                                                                                                                                                                                                                                                        |
+| **설명**      | - 얼마의 시간이 흐른 뒤에 stale 취급할 건지를 나타낸다.(default: 0)<br> - 이 시간 동안에는 쿼리를 다시 실행해도 서버로부터 데이터를 재요청하지 않고, 캐시된 데이터를 사용한다.                                                                                                                   |
+| **용도**      | 빈번한 데이터 업데이트가 필요하지 않은 경우, 네트워크 요청을 줄여 성능을 향상할 때 유용하다.                                                                                                                                                                                                     |
+| **동작 방식** | `staleTime`이 지나면 데이터는 "오래됨(stale)"으로 간주되고, 해당 쿼리가 다시 호출되면 React-Query는 새로운 데이터를 패칭한다.                                                                                                                                                                    |
+| **예**        | - cacheTime을 5분(300,000ms)으로 설정되어 있을 때, 사용자가 포스트를 읽고 나서 다른 페이지로 이동한 후 5분 이내에 포스트 목록으로 돌아오면 캐시된 데이터가 즉시 표시된다.<br> - 사용자가 5분 이후에 돌아온다면 캐시된 데이터는 이미 제거되었기 때문에, 새로운 데이터를 서버로부터 가져와야 한다. |
+
+<br>
+
+> cacheTime
+
+| 항목          | 내용                                                                                                                                                                                                                                           |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **뜻**        | 캐시 지속 시간, 사용하지 않는 데이터를 언제까지 유지할 것인가 (사용하지 않는 데이터 보관이 핵심)                                                                                                                                               |
+| **설명**      | - 쿼리 데이터가 캐시에서 제거되기 전까지 유지되는 최대 시간을 설정한다.(default: 5분, cacheTime 0되면 삭제처리)<br> - 즉 inactive 된 이후로 데이터를 캐시에 유지하는 시간이며, 쿼리가 언마운트된 후에도 이 시간 동안 캐시된 데이터가 유지된다. |
+| **용도**      | 사용자가 빈번하게 동일한 데이터를 요청하는 경우, 캐시를 통해 즉각적인 응답을 제공하여 사용자 경험을 개선하고자 할 때 사용한다.                                                                                                                 |
+| **동작 방식** | - `cacheTime` 동안에는 쿼리 데이터가 캐시에 남아 있어서 빠르게 재사용할 수 있다.<br> - 이 시간이 지나면 캐시된 데이터는 삭제되어, 다음 번에 해당 데이터가 필요할 때 다시 패칭해야 한다.                                                        |
+
+<br>
+
+> 정리하자면,
+
+- **`staleTime`**은 데이터가 얼마나 오랫동안 "신선"으로 간주되는지를 결정하고, **`cacheTime`**은 캐시된 데이터가 메모리에 얼마나 오래 유지되는지를 결정.
+
+- **`staleTime`**은 데이터가 캐시에 남아 있는 동안 자동 re-fetching의 필요성을 제어하는 반면, **`cacheTime`**은 캐시에서 데이터가 완전히 제거되기까지의 시간을 관리.
+
+<br>
+
+## 3.6 revalidate(재검증) vs invalidateQueries(Query 무효화)
+
+> 데이터의 stale함, fresh함과 관련된 두 가지 다른 개념이다.
+
+- revalidate(재검증)
+  - `Revalidate`는 캐시된 데이터가 'stale'(오래된) 상태가 되었을 때, 이를 자동으로 감지하고 새로운 데이터를 가져오는 프로세스이다.
+  - React Query는 `staleTime`이 지나거나 다른 특정 이벤트(예: 브라우저 창 포커스 재획득)가 발생했을 때 데이터를 재검증한다.
+  - 이 과정은 일반적으로 백그라운드에서 이루어지며, 사용자는 데이터가 최신 상태로 유지되고 있음을 자동으로 알 수 있다.
+
+<br>
+
+- invalidateQueries(Query 무효화)
+  - 서버의 데이터는 언제든지 변경될 수 있기 때문에, 가져온 Query가 최신 상태가 아닐 수 있다. 이런 경우, 기존의 Query를 무효화한 후 최신 데이터를 다시 가져오는 작업이 필요하며, 이 과정을 React Query에서는 자동으로 처리해준다.
+  - invalidateQueries 메소드는 특정 쿼리 또는 쿼리 그룹을 명시적으로 'stale' 상태로 만든다.
+  - 이는 React Query에게 해당 쿼리의 데이터가 더 이상 유효하지 않으며, 가능한 한 빨리 재검증해야 한다는 것을 알린다.
+  - 사용자가 데이터를 수정하는 작업을 수행한 후, 관련 쿼리를 'invalidate'함으로써 최신 데이터로의 자동 업데이트를 트리거할 수 있다.
 
 <br><br>
 
@@ -273,6 +325,8 @@ useQuery는 두 가지 인자를 받는다.
 
 ## 5.4 useQuery 주요 리턴 데이터
 
+### 5.4.1 주요 리턴 데이터
+
 > 반환 데이터를 더 자세히 알고 싶다면 [[공식문서↗️]](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery)를 참고하자
 
 ```jsx
@@ -306,24 +360,40 @@ const {
 
 <br>
 
-> 💡 isLoading vs isFetching
+### 5.4.2 isLoading vs isFetching
 
 isLoading은 데이터가 처음 로드될 때만 true가 되는 반면, isFetching은 데이터가 처음 로드될 때뿐만 아니라 데이터가 업데이트되거나 재요청될 때도 true가 된다.
 
+```jsx
+function App() {
+  const { isLoading, data, isError, isFetching } = useQuery('todos', getTodos);
+
+  if (isFetching) {
+    return <div>로딩중..!</div>;
+  }
+
+  if (isError) {
+    return <div>에러</div>;
+  }
+
+  return <div>{data.map()~~~}</div>;
+}
+```
+
 <br>
 
-> 💡 status, fetchStatus 나눠서 다루는 이유?
+### 5.4.3 status vs fetchStatus
 
 - status는 data가 있는지 없는지에 대한 상태를 의미한다.
 - fetchStatus는 쿼리 즉, queryFn 요청이 진행 중인지 아닌지에 대한 상태를 의미한다.
 
-<br><br>
+<br>
 
-# 5.5 useQuery 주요 옵션
+## 5.5 useQuery 주요 옵션
 
 `useQuery`의 인자로 구성 옵션을 제공할 수 있다. 이 옵션들을 통해 쿼리의 캐싱 동작을 세밀하게 제어할 수 있다.
 
-### 5.5.1 staleTime: 데이터 신선도 유지 시간 설정
+### 5.5.1 staleTime
 
 - 기본값 : staleTime: 0 (fetch 후에 바로 stale이 됨)
 - 설명: 쿼리 데이터가 stale(썩은) 것으로 간주되기까지의 시간을 밀리초 단위로 설정한다. 이 시간 동안에는 쿼리 인스턴스가 새롭게 mount 되어도 데이터를 다시 패칭하지 않는다.
@@ -342,7 +412,7 @@ const { data, error, isLoading } = useQuery(
 
 <br>
 
-### 5.5.2 cacheTime: 캐시 유지 시간 설정
+### 5.5.2 cacheTime
 
 - 기본값: 5 _ 60 _ 1000ms (5분)
 - 설명: 데이터가 캐시된 상태로 유지되는 시간을 밀리초 단위로 설정한다.
@@ -364,7 +434,15 @@ const { data, error, isLoading } = useQuery(
 
 <br>
 
-## 4.2 enabled: 쿼리 활성화 조건 설정
+> useQuery 실행 시 cacheTime > 0 인 것과 queryFn 실행간의 관계?
+
+- `cacheTime > 0` 인 것과 queryFn 실행은 상관 없다. staleTime 과 관계가 있다.
+- `cacheTime > 0` 이면, 캐시 데이터가 존재하고, 이 경우 useQuery 를 실행할 때 stale data을 우선 받고 staleTime이 0이면 queryFn을 실행한 리턴값으로 리렌더링하면서 바꿔준다.
+- cacheTime 이 0이 되면 캐시 데이터가 삭제되기 때문에, 이 경우 useQuery 로 data 호출 시 undefined 값을 우선 받고, queryFn을 실행한 리턴값으로 리렌더링하면서 바꿔준다.
+
+<br>
+
+### 5.5.3 enabled
 
 - 기본값: true
 - 설명: 쿼리가 활성화될 조건을 설정한다. false로 설정하면 쿼리는 자동으로 실행되지 않는다. (true인 경우에만 queryFn 실행)
@@ -429,7 +507,7 @@ const {
 
 <br>
 
-## 4.3 select: 쿼리 데이터 변형
+### 5.5.4 select
 
 - 기본값: undefined
 - 설명: 쿼리 데이터를 반환하기 전에 변형하는 함수이다. 데이터의 형식을 변경하거나 필요한 정보만 추출할 때 사용한다.
@@ -445,7 +523,7 @@ const { data } = useQuery(
 
 <br>
 
-## 4.5 retry: 쿼리 실패 시 재시도 설정
+### 5.5.5 retry
 
 - 기본값: 클라이언트 환경에서는 3, 서버 환경에서는 0
 - 설명: 쿼리가 실패할 경우 재시도할 횟수를 결정하는 옵션이다. false로 설정하면 재시도하지 않으며, true인 경우에는 실패한 쿼리에 대해서 무한 재요청을 시도한다.
@@ -461,7 +539,7 @@ const { data, error } = useQuery(
 
 <br>
 
-## 4.6 retryDelay: 재시도 간의 지연 시간 설정
+### 5.5.6 retryDelay
 
 - 기본값: 1000 ms (1초)
 - 설명: 재시도 간의 지연 시간을 밀리초 단위로 설정한다.
@@ -477,7 +555,7 @@ const { data, error } = useQuery(
 
 <br>
 
-## 4.6 Polling
+### 5.5.7 Polling
 
 > 💡 Polling(폴링)이란?
 
@@ -493,7 +571,7 @@ const { data } = useQuery("todos", fetchTodos, {
 
 <br>
 
-### 4.6.1 refetchInterval: 자동 패칭 간격 설정
+> refetchInterval
 
 - 기본값: false
 - 설명: 쿼리를 일정 간격으로 자동으로 다시 패칭한다. 밀리초 단위로 설정하며, false로 설정하면 자동 패칭이 비활성화된다.
@@ -507,7 +585,7 @@ const { data } = useQuery("todos", fetchTodos, {
 
 <br>
 
-### 4.6.2 refetchIntervalInBackground
+> refetchIntervalInBackground
 
 - 기본값: false
 - 설명: refetchInterval과 함께 사용하는 옵션이며, 브라우저가 백그라운드에 있을 때도 refetchInterval에 따라 쿼리를 자동으로 다시 패칭할지 여부를 설정한다.
@@ -515,7 +593,7 @@ const { data } = useQuery("todos", fetchTodos, {
 
 <br>
 
-## 4.7 refetchOnWindowFocus: 브라우저 포커스 시 자동 패칭 설정
+### 5.5.8 refetchOnWindowFocus
 
 - 기본값: true
 - 설명: 데이터가 stale 상태일 경우, 브라우저 창이 포커스를 받을 때 쿼리를 자동으로 다시 패칭할지 여부를 설정한다.
@@ -533,7 +611,7 @@ const { data } = useQuery(
 
 <br>
 
-## 4.8 refetchOnMount: 컴포넌트 마운트 시 자동 패칭 설정
+### 5.5.9 refetchOnMount
 
 - 기본값: true
 - 설명: 컴포넌트가 마운트될 때 쿼리를 자동으로 다시 패칭할지 여부를 설정한다.
@@ -549,7 +627,7 @@ const { data } = useQuery(
 
 <br>
 
-## 4.9 refetchOnReconnect: : 네트워크 재연결 시 자동 패칭 설정
+### 5.5.10 refetchOnReconnect
 
 - 기본값: true
 - 설명: 네트워크가 재연결될 때 쿼리를 자동으로 다시 패칭할지 여부를 설정한다.
@@ -565,7 +643,7 @@ const { data } = useQuery(
 
 <br>
 
-## notifyOnChangeProps: 데이터 변경 시 알림 프로퍼티 설정
+### 5.5.11 notifyOnChangeProps
 
 - 기본값: ['data']
 - 설명: 쿼리 데이터가 변경될 때 알림을 받을 프로퍼티를 지정한다.
@@ -581,7 +659,7 @@ const { data, error } = useQuery(
 
 <br>
 
-## 4.10 onSuccess, onError, onSettled: 쿼리 호출 콜백
+### 5.5.12 onSuccess, onError, onSettled
 
 - onSuccess: 쿼리가 성공적으로 완료되었을 때 호출되는 콜백 함수이다.
 - onError: 쿼리 실행 중 오류가 발생했을 때 호출되는 콜백 함수이다.
@@ -648,7 +726,7 @@ export default TodosComponent;
 
 <br>
 
-## placeholderData: 초기 데이터 설정
+### 5.5.13 placeholderData
 
 - 설명
   - 쿼리가 처음으로 로드될 때 사용할 초기 데이터를 설정한다. 이 데이터는 쿼리가 성공적으로 완료될 때까지 UI에 표시된다.
@@ -668,47 +746,6 @@ const {
   placeholderData: placeholderData,
 });
 ```
-
-<br>
-
-> revalidate(재검증) vs invalidateQueries(Query 무효화)
-
-데이터의 stale함, fresh함과 관련된 두 가지 다른 개념이다.
-
-- revalidate(재검증)
-  - `Revalidate`는 캐시된 데이터가 'stale'(오래된) 상태가 되었을 때, 이를 자동으로 감지하고 새로운 데이터를 가져오는 프로세스이다.
-  - React Query는 `staleTime`이 지나거나 다른 특정 이벤트(예: 브라우저 창 포커스 재획득)가 발생했을 때 데이터를 재검증한다.
-  - 이 과정은 일반적으로 백그라운드에서 이루어지며, 사용자는 데이터가 최신 상태로 유지되고 있음을 자동으로 알 수 있다.
-
-<br>
-
-- invalidateQueries(Query 무효화)
-  - 서버의 데이터는 언제든지 변경될 수 있기 때문에, 가져온 Query가 최신 상태가 아닐 수 있다. 이런 경우, 기존의 Query를 무효화한 후 최신 데이터를 다시 가져오는 작업이 필요하며, 이 과정을 React Query에서는 자동으로 처리해준다.
-  - invalidateQueries 메소드는 특정 쿼리 또는 쿼리 그룹을 명시적으로 'stale' 상태로 만든다.
-  - 이는 React Query에게 해당 쿼리의 데이터가 더 이상 유효하지 않으며, 가능한 한 빨리 재검증해야 한다는 것을 알린다.
-  - 사용자가 데이터를 수정하는 작업을 수행한 후, 관련 쿼리를 'invalidate'함으로써 최신 데이터로의 자동 업데이트를 트리거할 수 있다.
-
-<br>
-
-> staleTime vs cacheTime
-
-- staleTime<br><br>
-  | 항목 | 내용 |
-  |-------------|---------------------------------------------------------------------------------------------------------|
-  | **뜻** | 유통 기한 |
-  | **설명** | - 얼마의 시간이 흐른 뒤에 stale 취급할 건지를 나타낸다.(default: 0)<br> - 이 시간 동안에는 쿼리를 다시 실행해도 서버로부터 데이터를 재요청하지 않고, 캐시된 데이터를 사용한다. |
-  | **용도** | 빈번한 데이터 업데이트가 필요하지 않은 경우, 네트워크 요청을 줄여 성능을 향상할 때 유용하다. |
-  | **동작 방식**| `staleTime`이 지나면 데이터는 "오래됨(stale)"으로 간주되고, 해당 쿼리가 다시 호출되면 React-Query는 새로운 데이터를 패칭한다. |
-
-<br>
-
-- cacheTime<br><br>
-  | 항목 | 내용 |
-  |-------------|---------------------------------------------------------------------------------------------------------|
-  | **뜻** | 캐시 지속 시간, 지금 사용이 끝난 데이터를 언제까지 유지할 것인가 |
-  | **설명** | - 쿼리 데이터가 캐시에서 제거되기 전까지 유지되는 최대 시간을 설정한다.(default: 5분, cacheTime 0되면 삭제처리)<br> - 쿼리가 **언마운트**된 후에도 이 시간 동안 캐시된 데이터가 유지된다.|
-  | **용도** | 사용자가 빈번하게 동일한 데이터를 요청하는 경우, 캐시를 통해 즉각적인 응답을 제공하여 사용자 경험을 개선하고자 할 때 사용한다. |
-  | **동작 방식**| - `cacheTime` 동안에는 쿼리 데이터가 캐시에 남아 있어서 빠르게 재사용할 수 있다.<br> - 이 시간이 지나면 캐시된 데이터는 삭제되어, 다음 번에 해당 데이터가 필요할 때 다시 패칭해야 한다. |
 
 <br><br>
 
@@ -764,7 +801,7 @@ function AddTodo() {
 
 <br><br>
 
-# 7. QueryClient: 쿼리 관리 클래스
+# 7. QueryClient
 
 ## 7.1 개념
 
@@ -819,8 +856,7 @@ const queryClient = new QueryClient({
 
 ### 7.3.1 invalidateQueries
 
-- 설명: 특정 쿼리를 무효화하여, 다음에 해당 쿼리를 사용할 때 자동으로 재패칭되도록 한다.
-- 사용법: 쿼리 키를 인자로 전달하여 무효화한다.
+> 특정 쿼리('todos')의 캐시를 무효화한다. 이를 통해 데이터가 변경되었을 때 관련된 쿼리를 자동으로 갱신할 수 있다.
 
 ```jsx
 queryClient.invalidateQueries("todos"); // 'todos' 쿼리를 무효화
@@ -830,8 +866,7 @@ queryClient.invalidateQueries("todos"); // 'todos' 쿼리를 무효화
 
 ### 7.3.2 refetchQueries
 
-- 설명: 특정 쿼리를 즉시 재패칭한다.
-- 사용법: 쿼리 키를 인자로 전달하여 재패칭한다.
+> 특정 쿼리를 즉시 재패칭한다.
 
 ```jsx
 queryClient.resetQueries("todos"); // 'todos' 쿼리를 초기 상태로 재설정
@@ -841,8 +876,7 @@ queryClient.resetQueries("todos"); // 'todos' 쿼리를 초기 상태로 재설�
 
 ### 7.3.3 resetQueries
 
-- 설명: 특정 쿼리를 초기 상태로 재설정한다.
-- 사용법: 쿼리 키를 인자로 전달하여 초기화한다.
+> 특정 쿼리를 초기 상태로 재설정한다.
 
 ```jsx
 queryClient.resetQueries("todos"); // 'todos' 쿼리를 초기 상태로 재설정
@@ -852,8 +886,7 @@ queryClient.resetQueries("todos"); // 'todos' 쿼리를 초기 상태로 재설�
 
 ### 7.3.4 removeQueries
 
-- 설명: 특정 쿼리를 캐시에서 완전히 제거한다.
-- 사용법: 쿼리 키를 인자로 전달하여 제거한다.
+> 특정 쿼리를 캐시에서 완전히 제거한다.
 
 ```jsx
 queryClient.removeQueries("todos"); // 'todos' 쿼리를 캐시에서 제거
@@ -863,8 +896,7 @@ queryClient.removeQueries("todos"); // 'todos' 쿼리를 캐시에서 제거
 
 ### 7.3.5 cancelQueries
 
-- 설명: 진행 중인 특정 쿼리의 요청을 취소한다.
-- 사용법: 쿼리 키를 인자로 전달하여 취소한다.
+> 진행 중인 특정 쿼리의 요청을 취소한다.
 
 ```jsx
 queryClient.cancelQueries("todos"); // 'todos' 쿼리의 진행 중인 요청을 취소
@@ -872,17 +904,9 @@ queryClient.cancelQueries("todos"); // 'todos' 쿼리의 진행 중인 요청을
 
 <br><br>
 
-# 8. 실습하기
+# 8. React Qurey 연습
 
 ## 8.1 설치
-
-```
-yarn add @tanstack/react-query
-```
-
-> [선택]@tanstack/react-query-devtools:
-
-@tanstack/react-query 라이브러리를 사용하는 애플리케이션에서 React Query의 상태를 디버깅하고 모니터링하는 데 도움을 주는 개발 도구이다.
 
 ```
 yarn add @tanstack/react-query-devtools
@@ -915,7 +939,7 @@ const queryClient = new QueryClient({
 > QueryClientProvider를 사용하여 QueryClient 인스턴스를 React 컴포넌트 트리에 제공한다.
 
 ```jsx
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; // 가져오기
 
 function App() {
   return (
@@ -975,7 +999,9 @@ const Todos = () => {
 
 <br>
 
-# 참조 문서
+<br><br>
+
+# 참조
 
 - [[React Query 공식문서↗️]](https://tanstack.com/query/latest)
 - [[TanStack Query(aka. react query) 에서 자주 사용되는 개념 정리↗️]](https://github.com/ssi02014/react-query-tutorial?tab=readme-ov-file#%EC%A3%BC%EC%9A%94-%EC%BB%A8%EC%85%89-%EB%B0%8F-%EA%B0%80%EC%9D%B4%EB%93%9C-%EB%AA%A9%EC%B0%A8)

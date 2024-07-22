@@ -1,6 +1,6 @@
 ---
-title: "[Firebase/React] Firebase로 todolist 만들기"
-categories: [Firebase]
+title: "[React] Firebase로 todolist 만들기"
+categories: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -8,6 +8,8 @@ author_profile: true
 sidebar:
   nav: "counts"
 ---
+
+<br>
 
 <br>
 
