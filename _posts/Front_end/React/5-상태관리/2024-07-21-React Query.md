@@ -108,16 +108,17 @@ const { data: todos, isLoading } = useQuery(["todos"], getTodos);
 - 신규 데이터가 도착하는 동안 일단 기존 캐싱된 데이터를 사용하도록 하는 전략이다.
 - 즉, 썩은(오래된) 데이터를 새로운 데이터가 도착하기 전까지 사용하는 것이다.
 
-## 3.2 캐시 데이터의 보관
+<br>
 
-> 캐시 데이터는 어디에 보관할까?
+## 3.2 QueryClientProvider
 
-- QueryClientProvider 는 React Context API를 내부적으로 사용한다.
-- QueryClientProvider 의 자식으로 있는 모든 컴포넌트들은 캐시 데이터에 접근할 수 있다.
-- 페이지 컴포넌트 외부에 상태가 존재한다는 점에서 캐시 데이터는 전역 상태로 볼 수 있다.
+- QueryClientProvider의 역할: React Query의 컨텍스트를 설정하여 애플리케이션 전역에 걸쳐 데이터 패칭 및 상태 관리를 가능하게 한다.
+- Context API 사용: React Query는 Context API를 활용하여 QueryClient를 공급하고, 이를 통해 데이터와 상태를 중앙에서 관리한다.
+- 자식 컴포넌트의 데이터 접근: QueryClientProvider의 자식 컴포넌트들은 QueryClient를 통해 캐시 데이터에 접근할 수 있다.
+- 전역 상태: QueryClient를 통해 캐시 데이터가 전역적으로 관리되므로, 페이지 컴포넌트 외부에서도 데이터가 일관되게 유지된다.
 
 ```jsx
-// App.jsx
+//  React Query에서 모든 쿼리와 캐시된 데이터는 QueryClient의 메모리 내에 보관
 const queryClient = new QueryClinet();
 
 const App = () => {
@@ -139,7 +140,68 @@ const App = () => {
 
 <br>
 
-## 3.4 React Query의 Lifecycle
+# 3.4 React Query 사용 방법
+
+① QueryClient 생성
+
+```jsx
+const queryClient = new QueryClient();
+```
+
+- QueryClient는 React Query의 핵심 객체로, 쿼리와 캐시의 상태를 관리한다.
+- QueryClient를 생성함으로써 서버 상태를 중앙에서 관리할 수 있다.
+
+<br>
+
+② QueryClientProvider 제공
+
+```jsx
+<QueryClientProvider client={queryClient}>
+  <App />
+</QueryClientProvider>
+```
+
+- QueryClientProvider는 React의 Context API를 사용하여 QueryClient를 애플리케이션의 모든 하위 컴포넌트에 제공한다.
+- 이렇게 하면, 하위 컴포넌트에서 React Query 훅(useQuery, useMutation 등)을 사용할 수 있게 된다.
+
+<br>
+
+③ 쿼리 훅을 통해 데이터 패칭
+
+```jsx
+const { data, error, isLoading } = useQuery("todos", fetchTodos);
+```
+
+- useQuery는 데이터를 서버에서 가져오는 역할을 한다.
+- 첫 번째 인자는 쿼리 키(쿼리를 식별하는 문자열 또는 배열)이며, 두 번째 인자는 데이터 패칭 함수이다.
+
+<br>
+
+④ 컴포넌트에서 데이터 사용 및 업데이트
+
+```jsx
+function TodoList() {
+  const { data, error, isLoading } = useQuery("todos", fetchTodos);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <ul>
+      {data.map((todo) => (
+        <li key={todo.id}>{todo.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+- useQuery를 통해 데이터를 패칭하고, QueryClient의 캐시에 저장한다.
+- 데이터는 useMutation 훅을 사용하여 업데이트할 수 있다.
+
+<br>
+
+## 3.5 React Query의 Lifecycle
 
 > 하나의 쿼리 인스턴스(하나의 query key)마다 같은 Lifecycle을 가진다.
 
@@ -191,7 +253,7 @@ const data = useQuery(["abc"], () => {});
 
 <br>
 
-## 3.5 staleTime vs cacheTime
+## 3.6 staleTime vs cacheTime
 
 > staleTime
 
@@ -224,7 +286,7 @@ const data = useQuery(["abc"], () => {});
 
 <br>
 
-## 3.6 revalidate(재검증) vs invalidateQueries(Query 무효화)
+## 3.7 revalidate(재검증) vs invalidateQueries(Query 무효화)
 
 > 데이터의 stale함, fresh함과 관련된 두 가지 다른 개념이다.
 
@@ -243,9 +305,9 @@ const data = useQuery(["abc"], () => {});
 
 <br><br>
 
-# 5. useQuery 사용하기
+# 4. useQuery 사용하기
 
-## 5.1 기본 기능
+## 4.1 기본 기능
 
 > useQuery 훅
 
@@ -259,7 +321,7 @@ const data = useQuery(["abc"], () => {});
 
 <br>
 
-## 5.2 사용 예시
+## 4.2 사용 예시
 
 ```jsx
 const data = useQuery(["abc"], () => {});
@@ -310,7 +372,7 @@ export default TodoList;
 
 <br>
 
-## 5.3 queryKey와 queryFn
+## 4.3 queryKey와 queryFn
 
 useQuery는 두 가지 인자를 받는다.
 
@@ -323,9 +385,9 @@ useQuery는 두 가지 인자를 받는다.
 
 <br>
 
-## 5.4 useQuery 주요 리턴 데이터
+## 4.4 useQuery 주요 리턴 데이터
 
-### 5.4.1 주요 리턴 데이터
+### 4.4.1 주요 리턴 데이터
 
 > 반환 데이터를 더 자세히 알고 싶다면 [[공식문서↗️]](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery)를 참고하자
 
@@ -360,7 +422,7 @@ const {
 
 <br>
 
-### 5.4.2 isLoading vs isFetching
+### 4.4.2 isLoading vs isFetching
 
 isLoading은 데이터가 처음 로드될 때만 true가 되는 반면, isFetching은 데이터가 처음 로드될 때뿐만 아니라 데이터가 업데이트되거나 재요청될 때도 true가 된다.
 
@@ -382,18 +444,18 @@ function App() {
 
 <br>
 
-### 5.4.3 status vs fetchStatus
+### 4.4.3 status vs fetchStatus
 
 - status는 data가 있는지 없는지에 대한 상태를 의미한다.
 - fetchStatus는 쿼리 즉, queryFn 요청이 진행 중인지 아닌지에 대한 상태를 의미한다.
 
 <br>
 
-## 5.5 useQuery 주요 옵션
+## 4.5 useQuery 주요 옵션
 
 `useQuery`의 인자로 구성 옵션을 제공할 수 있다. 이 옵션들을 통해 쿼리의 캐싱 동작을 세밀하게 제어할 수 있다.
 
-### 5.5.1 staleTime
+### 4.5.1 staleTime
 
 - 기본값 : staleTime: 0 (fetch 후에 바로 stale이 됨)
 - 설명: 쿼리 데이터가 stale(썩은) 것으로 간주되기까지의 시간을 밀리초 단위로 설정한다. 이 시간 동안에는 쿼리 인스턴스가 새롭게 mount 되어도 데이터를 다시 패칭하지 않는다.
@@ -412,7 +474,7 @@ const { data, error, isLoading } = useQuery(
 
 <br>
 
-### 5.5.2 cacheTime
+### 4.5.2 cacheTime
 
 - 기본값: 5 _ 60 _ 1000ms (5분)
 - 설명: 데이터가 캐시된 상태로 유지되는 시간을 밀리초 단위로 설정한다.
@@ -442,7 +504,7 @@ const { data, error, isLoading } = useQuery(
 
 <br>
 
-### 5.5.3 enabled
+### 4.5.3 enabled
 
 - 기본값: true
 - 설명: 쿼리가 활성화될 조건을 설정한다. false로 설정하면 쿼리는 자동으로 실행되지 않는다. (true인 경우에만 queryFn 실행)
@@ -507,7 +569,7 @@ const {
 
 <br>
 
-### 5.5.4 select
+### 4.5.4 select
 
 - 기본값: undefined
 - 설명: 쿼리 데이터를 반환하기 전에 변형하는 함수이다. 데이터의 형식을 변경하거나 필요한 정보만 추출할 때 사용한다.
@@ -523,7 +585,7 @@ const { data } = useQuery(
 
 <br>
 
-### 5.5.5 retry
+### 4.5.5 retry
 
 - 기본값: 클라이언트 환경에서는 3, 서버 환경에서는 0
 - 설명: 쿼리가 실패할 경우 재시도할 횟수를 결정하는 옵션이다. false로 설정하면 재시도하지 않으며, true인 경우에는 실패한 쿼리에 대해서 무한 재요청을 시도한다.
@@ -539,7 +601,7 @@ const { data, error } = useQuery(
 
 <br>
 
-### 5.5.6 retryDelay
+### 4.5.6 retryDelay
 
 - 기본값: 1000 ms (1초)
 - 설명: 재시도 간의 지연 시간을 밀리초 단위로 설정한다.
@@ -555,7 +617,7 @@ const { data, error } = useQuery(
 
 <br>
 
-### 5.5.7 Polling
+### 4.5.7 Polling
 
 > 💡 Polling(폴링)이란?
 
@@ -593,7 +655,7 @@ const { data } = useQuery("todos", fetchTodos, {
 
 <br>
 
-### 5.5.8 refetchOnWindowFocus
+### 4.5.8 refetchOnWindowFocus
 
 - 기본값: true
 - 설명: 데이터가 stale 상태일 경우, 브라우저 창이 포커스를 받을 때 쿼리를 자동으로 다시 패칭할지 여부를 설정한다.
@@ -611,7 +673,7 @@ const { data } = useQuery(
 
 <br>
 
-### 5.5.9 refetchOnMount
+### 4.5.9 refetchOnMount
 
 - 기본값: true
 - 설명: 컴포넌트가 마운트될 때 쿼리를 자동으로 다시 패칭할지 여부를 설정한다.
@@ -627,7 +689,7 @@ const { data } = useQuery(
 
 <br>
 
-### 5.5.10 refetchOnReconnect
+### 4.5.10 refetchOnReconnect
 
 - 기본값: true
 - 설명: 네트워크가 재연결될 때 쿼리를 자동으로 다시 패칭할지 여부를 설정한다.
@@ -643,7 +705,7 @@ const { data } = useQuery(
 
 <br>
 
-### 5.5.11 notifyOnChangeProps
+### 4.5.11 notifyOnChangeProps
 
 - 기본값: ['data']
 - 설명: 쿼리 데이터가 변경될 때 알림을 받을 프로퍼티를 지정한다.
@@ -659,7 +721,7 @@ const { data, error } = useQuery(
 
 <br>
 
-### 5.5.12 onSuccess, onError, onSettled
+### 4.5.12 onSuccess, onError, onSettled
 
 - onSuccess: 쿼리가 성공적으로 완료되었을 때 호출되는 콜백 함수이다.
 - onError: 쿼리 실행 중 오류가 발생했을 때 호출되는 콜백 함수이다.
@@ -726,7 +788,7 @@ export default TodosComponent;
 
 <br>
 
-### 5.5.13 placeholderData
+### 4.5.13 placeholderData
 
 - 설명
   - 쿼리가 처음으로 로드될 때 사용할 초기 데이터를 설정한다. 이 데이터는 쿼리가 성공적으로 완료될 때까지 UI에 표시된다.
@@ -749,16 +811,16 @@ const {
 
 <br><br>
 
-# 6. useMutation 사용하기
+# 5. useMutation 사용하기
 
-## 6.1 기본 기능
+## 5.1 기본 기능
 
 - `useMutation` 훅은 데이터 생성, 업데이트, 삭제(CUD)등의 변경 작업을 처리하는 데 사용된다.
 - R(read)는 useQuery, CUD(Create, Update, Delete)는 useMutation을 사용한다.
 
 <br>
 
-## 6.2 사용 예시
+## 5.2 사용 예시
 
 - useMutation의 반환 값인 mutation 객체의 mutate 메서드를 이용해서 요청 함수를 호출할 수 있다.
 - mutate는 onSuccess, onError 메서드를 통해 성공했을 시, 실패했을 시 response 데이터를 핸들링할 수 있다.
@@ -801,9 +863,9 @@ function AddTodo() {
 
 <br><br>
 
-# 7. QueryClient
+# 6. QueryClient
 
-## 7.1 개념
+## 6.1 개념
 
 - QueryClient는 React Query에서 쿼리와 관련된 상태, 캐시, 설정을 중앙에서 관리하는 클래스이다.
 - 모든 쿼리와 뮤테이션은 QueryClient 인스턴스를 통해 수행된다.
@@ -811,16 +873,16 @@ function AddTodo() {
 
 <br>
 
-## 7.2 QueryClient의 속성
+## 6.2 QueryClient의 속성
 
-### 7.2.1 queryCache
+### 6.2.1 queryCache
 
 - 설명: 쿼리 데이터를 저장하고 관리하는 캐시이다.
 - 사용법: queryCache를 직접 접근하여 쿼리 상태를 확인하거나 조작할 수 있다.
 
 <br>
 
-### 7.2.2 mutationCache
+### 6.2.2 mutationCache
 
 - 설명: 뮤테이션 상태를 저장하고 관리하는 캐시이다.
 - 사용법: mutationCache를 직접 접근하여 뮤테이션 상태를 확인하거나 조작할 수 있다.
@@ -832,7 +894,7 @@ const mutationCache = queryClient.getMutationCache();
 
 <br>
 
-### 7.2.3 defaultOptions
+### 6.2.3 defaultOptions
 
 - 설명: 쿼리와 뮤테이션에 대한 기본 옵션을 설정할 수 있다.
 - 사용법: QueryClient를 생성할 때 defaultOptions를 설정하여 기본 옵션을 지정한다.
@@ -852,9 +914,9 @@ const queryClient = new QueryClient({
 
 <br>
 
-## 7.3 QueryClient의 메서드
+## 6.3 QueryClient의 메서드
 
-### 7.3.1 invalidateQueries
+### 6.3.1 invalidateQueries
 
 > 특정 쿼리('todos')의 캐시를 무효화한다. 이를 통해 데이터가 변경되었을 때 관련된 쿼리를 자동으로 갱신할 수 있다.
 
@@ -864,7 +926,7 @@ queryClient.invalidateQueries("todos"); // 'todos' 쿼리를 무효화
 
 <br>
 
-### 7.3.2 refetchQueries
+### 6.3.2 refetchQueries
 
 > 특정 쿼리를 즉시 재패칭한다.
 
@@ -874,7 +936,7 @@ queryClient.resetQueries("todos"); // 'todos' 쿼리를 초기 상태로 재설�
 
 <br>
 
-### 7.3.3 resetQueries
+### 6.3.3 resetQueries
 
 > 특정 쿼리를 초기 상태로 재설정한다.
 
@@ -884,7 +946,7 @@ queryClient.resetQueries("todos"); // 'todos' 쿼리를 초기 상태로 재설�
 
 <br>
 
-### 7.3.4 removeQueries
+### 6.3.4 removeQueries
 
 > 특정 쿼리를 캐시에서 완전히 제거한다.
 
@@ -894,7 +956,7 @@ queryClient.removeQueries("todos"); // 'todos' 쿼리를 캐시에서 제거
 
 <br>
 
-### 7.3.5 cancelQueries
+### 6.3.5 cancelQueries
 
 > 진행 중인 특정 쿼리의 요청을 취소한다.
 
@@ -904,9 +966,9 @@ queryClient.cancelQueries("todos"); // 'todos' 쿼리의 진행 중인 요청을
 
 <br><br>
 
-# 8. React Qurey 연습
+# 7. React Qurey 연습
 
-## 8.1 설치
+## 7.1 설치
 
 ```
 yarn add @tanstack/react-query-devtools
@@ -914,7 +976,7 @@ yarn add @tanstack/react-query-devtools
 
 <br>
 
-## 8.2 QueryClient 인스턴스 생성
+## 7.2 QueryClient 생성
 
 > QueryClient를 생성하고, 기본 옵션을 설정할 수 있다.
 
@@ -934,7 +996,7 @@ const queryClient = new QueryClient({
 
 <br>
 
-## 8.3 QueryClientProvider로 제공
+## 7.3 QueryClientProvider로 제공
 
 > QueryClientProvider를 사용하여 QueryClient 인스턴스를 React 컴포넌트 트리에 제공한다.
 
@@ -969,7 +1031,7 @@ function App() {
 
 <br>
 
-## 8.4 쿼리 및 뮤테이션 사용
+## 7.4 쿼리 및 뮤테이션 사용
 
 useQuery, useMutation 훅을 사용하여 쿼리와 뮤테이션을 수행한다. QueryClient를 통해 상태와 캐시가 관리된다.
 
@@ -996,8 +1058,6 @@ const Todos = () => {
   );
 };
 ```
-
-<br>
 
 <br><br>
 
