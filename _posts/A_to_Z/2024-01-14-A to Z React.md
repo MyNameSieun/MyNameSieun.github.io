@@ -19,8 +19,8 @@ sidebar:
 ### 매 주 연습 - Todolist 📍
 
 - [state, useRef, axios를 활용한 Todolist 만들기](https://mynamesieun.github.io/react/state,-useRef,-axios%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
-- [Todolist Context API, Redux, Recoil로 전역상태 관리하기](https://mynamesieun.github.io/react/Todolist-Context-API,-Redux,-Recoil%EB%A1%9C-%EC%A0%84%EC%97%AD%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0/)
-- [Todolist React Query로 서버 상태 관리하기](https://mynamesieun.github.io/react/Todolist-React-Query%EB%A1%9C-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0/)
+- Context API, Redux, Zustand, Jotai로 Todolist 전역상태 관리하기
+- React Query + Zustand로 Todolist 상태 관리하기
 - [Firebase로 todolist 만들기](https://mynamesieun.github.io/firebase/Firebase%EB%A1%9C-todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 
 ### 1 - React 기초
@@ -69,12 +69,27 @@ sidebar:
 
 ### 5 - 상태 관리
 
+- 트렌드 분석
+
+  - Redux ➡️ Zustand
+  - ContenxtAPI ➡️ Recoil, Jotai
+
+- 조합(클라이언트 상태 관리 + 서버 상태 관리)
+  - zustand + jotai/zustand
+
+> 클라이언트 상태 관리
+
 1.  [Redux 소개 및 설정](https://mynamesieun.github.io/react/Redux-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%84%A4%EC%A0%95/)
 2.  [Redux - useSelector로 스토어의 state 조회하기](https://mynamesieun.github.io/react/Redux-useSelector%EB%A1%9C-%EC%8A%A4%ED%86%A0%EC%96%B4%EC%9D%98-state-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0/)
 3.  [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
 4.  [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
 5.  [RTK(Redux Toolkit)](<https://mynamesieun.github.io/react/RTK(Redux-Toolkit)/>)
-6.  [React Query⭐](https://mynamesieun.github.io/react/React-Query/)
+6.  Zustand⭐
+7.  Jotai
+
+> 서버 상태 관리
+
+2.  [React Query⭐](https://mynamesieun.github.io/react/React-Query/)
 
 ### 6 - 기타
 

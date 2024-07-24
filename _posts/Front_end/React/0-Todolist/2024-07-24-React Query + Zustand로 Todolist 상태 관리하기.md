@@ -1,5 +1,5 @@
 ---
-title: "[React] Todolist React Query로 서버 상태 관리하기"
+title: "[React] React Query + Zustand로 Todolist 상태 관리하기[작성중]"
 categories: [React]
 toc_label: Contents
 toc: true

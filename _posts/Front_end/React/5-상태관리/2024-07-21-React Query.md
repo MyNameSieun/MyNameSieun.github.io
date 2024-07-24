@@ -140,7 +140,7 @@ const App = () => {
 
 <br>
 
-# 3.4 React Query 사용 방법
+## 3.4 React Query 사용 방법
 
 ① QueryClient 생성
 
