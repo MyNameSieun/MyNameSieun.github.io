@@ -19,8 +19,8 @@ sidebar:
 ### 매 주 연습 - Todolist 📍
 
 - [state, useRef, axios를 활용한 Todolist 만들기](https://mynamesieun.github.io/react/state,-useRef,-axios%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
-- Context API, Redux, Zustand, Jotai로 Todolist 전역상태 관리하기
-- React Query + Zustand로 Todolist 상태 관리하기
+- [Context API, Redux, Zustand, Jotai로 Todolist 전역상태 관리하기](https://mynamesieun.github.io/react/Context-API,-Redux,-Zustand,-Jotai%EB%A1%9C-Todolist-%EC%A0%84%EC%97%AD%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0/)
+- [React Query + Zustand로 Todolist 상태 관리하기](https://mynamesieun.github.io/react/React-Query-+-Zustand%EB%A1%9C-Todolist-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0/)
 - [Firebase로 todolist 만들기](https://mynamesieun.github.io/firebase/Firebase%EB%A1%9C-todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 
 ### 1 - React 기초
@@ -84,8 +84,8 @@ sidebar:
 3.  [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
 4.  [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
 5.  [RTK(Redux Toolkit)](<https://mynamesieun.github.io/react/RTK(Redux-Toolkit)/>)
-6.  Zustand⭐
-7.  Jotai
+6.  [Zustand⭐](https://mynamesieun.github.io/react/Zustand/)
+7.  [Jotai](https://mynamesieun.github.io/react/Jotai/)
 
 > 서버 상태 관리
 
