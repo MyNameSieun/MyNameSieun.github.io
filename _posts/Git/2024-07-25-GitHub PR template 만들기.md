@@ -1,5 +1,5 @@
 ---
-title: "[Git] GitHub PR template 만들기"
+title: "[Git] GitHub PR template 만들고 사용하기"
 categories: [Git]
 toc_label: Contents
 toc: true
@@ -100,7 +100,7 @@ PR이 다음 요구 사항을 충족하는지 확인하세요.
 
 > PR (Pull Request) 할 때 PR 본문에 `키워드 #이슈번호` 입력하자
 
-- 이슈 생성 방법은 [여기↗️]를 참고하자
+- 이슈 생성 방법은 [[여기↗️]](https://mynamesieun.github.io/git/GitHub-Issue-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%ED%98%91%EC%97%85%ED%95%98%EA%B8%B0/)를 참고하자
 - 예를들어 `fix #1 - 버그를 수정하였습니다.`와 같이 작성하면 된다.
 - 이렇게 하면 해당 PR이 머지될 경우 자동으로 해당 이슈가 자동으로 Close되기 때문에, 굳이 이슈에 들어가 Close 상태로 전환하지 않아도 된다.
 

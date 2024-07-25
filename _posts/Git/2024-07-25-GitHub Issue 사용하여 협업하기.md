@@ -225,10 +225,11 @@ sidebar:
 
 ## 4.2 이슈에 커밋 반영하기
 
-① 브랜치 생성 및 이동
+① 브랜치 생성 및 이동<br>
+: 이슈 추적을 위한 브랜치이므로 `feature/{issue-number}-{기능 요약}`와 같이 짓기
 
 ```
-git checkout feat/1   // (처리기능/이슈번호)
+git checkout feat/1-login   // (처리기능/이슈번호-기능 요약)
 ```
 
 ② 스테이지에 파일 추가
@@ -247,7 +248,7 @@ git commit -m "[feat/#1] - issue test"
 ④ push하기
 
 ```
-git push -u origin feat/1
+git push -u origin feat/1-login
 ```
 
 ⑤ 결과물 이슈에서 확인하기
