@@ -9,6 +9,8 @@ sidebar:
   nav: "counts"
 ---
 
+<br>
+
 # 0. Github PR(pull request)이란?
 
 - PR(Pull Request)은 개발자가 자신의 브랜치에서 작업한 내용을 다른 브랜치에 병합(merge)하고자 할 때 먼저 검토할 수 있는 기능이다.
