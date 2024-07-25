@@ -47,7 +47,7 @@ sidebar:
 
 <br><br>
 
-## 3. Styled-components Naming Convention
+# 3. Styled-components Naming Convention
 
 - 최상위 부모
   - `컴포넌트명 + Layout`<br><br>
@@ -119,5 +119,21 @@ export default Home;
 
 1. Styled 컴포넌트명 앞에 `Styled` 사용을 지양할 것
 2. ~Wrapper: ~Wrapper 대신 `Box`라는 이름을 사용할 것.
+
+<br><br>
+
+# 4. 코드 스니펫
+
+> `rafce`사용하자!
+
+`rafce`(React Arrow Function Component Export)는 함수형 컴포넌트를 빠르게 생성하기 위해 사용되는 코드 스니펫
+
+```jsx
+const Home = () => {
+  return <div>Home</div>;
+};
+
+export default Home;
+```
 
 <br>
