@@ -79,10 +79,11 @@ sidebar:
 
 > 클라이언트 상태 관리
 
-1.  Redux
-2.  [RTK(Redux Toolkit)](<https://mynamesieun.github.io/react/RTK(Redux-Toolkit)/>)
-3.  [Zustand⭐](https://mynamesieun.github.io/react/Zustand/)
-4.  [Jotai](https://mynamesieun.github.io/react/Jotai/)
+1.  [Redux](https://mynamesieun.github.io/react/Redux/)
+2.  순수 redux에 비동기 추가하기
+3.  [RTK(Redux Toolkit)](<https://mynamesieun.github.io/react/RTK(Redux-Toolkit)/>)
+4.  [Zustand⭐](https://mynamesieun.github.io/react/Zustand/)
+5.  [Jotai](https://mynamesieun.github.io/react/Jotai/)
 
 > 서버 상태 관리
 
