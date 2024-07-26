@@ -17,30 +17,30 @@ sidebar:
 
 | 타입     | 설명                         |
 | -------- | ---------------------------- |
-| Feat     | 기능 구현                    |
-| Rename   | 파일/폴더 이름 변경 및 이동  |
-| Script   | 라이브러리 추가              |
-| Fix      | 버그 수정                    |
-| Chore    | 주석 추가/삭제, console 제거 |
-| Refactor | 코드 리팩토링                |
-| Style    | CSS 코드                     |
-| Test     | 테스트 코드                  |
-| Docs     | 문서 수정                    |
+| feat     | 기능 구현                    |
+| rename   | 파일/폴더 이름 변경 및 이동  |
+| script   | 라이브러리 추가              |
+| fix      | 버그 수정                    |
+| chore    | 주석 추가/삭제, console 제거 |
+| refactor | 코드 리팩토링                |
+| style    | CSS 코드                     |
+| test     | 테스트 코드                  |
+| docs     | 문서 수정                    |
 
 > 예시
 
 |      예시       |                 설명                  |
 | :-------------: | :-----------------------------------: |
-|    기능 구현    |   [Feat] - 페인페이지 레이아웃 구현   |
-| 라이브러리 추가 |  [Script] - supabase 라이브러리 추가  |
-|    버그 수정    | [Fix] - supabase env 미연결 문제 해결 |
+|    기능 구현    |   [feat] - 페인페이지 레이아웃 구현   |
+| 라이브러리 추가 |  [script] - supabase 라이브러리 추가  |
+|    버그 수정    | [fix] - supabase env 미연결 문제 해결 |
 
 <br><br>
 
 # 2. 브랜치 네이밍
 
 - master, develop: 본래 이름 그대로 사용
-- feature : `feature/{기능 요약}` 혹은, 이슈 추적을 위한 브랜치일 경우 `feature/{issue-number}-{기능 요약}`
+- feature : `feat/{기능 요약}` 혹은, 이슈 추적을 위한 브랜치일 경우 `feat/{issue-number}-{기능 요약}`
 - release : `release-{버전}`
 - hotfix : `hotfix-{버전}`
 
@@ -56,7 +56,7 @@ sidebar:
 
 ## 3.2 PR 템플릿 정하기
 
-[GitHub PR template 만들고 사용하기↗️]
+[[GitHub PR template 만들고 사용하기↗️]](https://mynamesieun.github.io/git/GitHub-PR-template-%EB%A7%8C%EB%93%A4%EA%B3%A0-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 
 <br><br>
 
