@@ -50,17 +50,17 @@ sidebar:
 # 3. Styled-components Naming Convention
 
 - 최상위 부모
-  - `컴포넌트명 + Layout`<br><br>
+  - `St + 컴포넌트명 + Layout`<br><br>
 - 최상위 부모의 자식 (optional)
-  - `컴포넌트명 + Container`
-  - `컴포넌트명 + Row/Col` (Row는 가로, Col은 세로)<br><br>
+  - `St + 컴포넌트명 + Container`
+  - `St + 컴포넌트명 + Row/Col` (Row는 가로, Col은 세로)<br><br>
 - 나머지 요소들
-  - div 태그: `컴포넌트명 + Box`
-  - section 태그: ` 컴포넌트명 + Section`
-  - ul 태그: `컴포넌트명 + List`
-  - li 태그: `컴포넌트명 + Item`
-  - p 태그: `컴포넌트명 + Paragraph`
-  - span 태그: `컴포넌트명 + Span` or `컴포넌트명 + Text`
+  - div 태그: `St + 컴포넌트명 + Box`
+  - section 태그: `St + 컴포넌트명 + Section`
+  - ul 태그: `St + 컴포넌트명 + List`
+  - li 태그: `St + 컴포넌트명 + Item`
+  - p 태그: `St + 컴포넌트명 + Paragraph`
+  - span 태그: `St + 컴포넌트명 + Span` or `St + 컴포넌트명 + Text`
 
 <br>
 
@@ -73,37 +73,37 @@ sidebar:
 ```js
 import styled from "styled-components";
 
-import Navbar from "components/common/Navbar";
-import Tabs from "components/Tabs";
-import AddForm from "components/AddForm";
-import LetterList from "components/LetterList";
+import Navbar from "components/layouts/Navbar";
+import Tabs from "./Tabs";
+import AddForm from "./AddForm";
+import LetterList from "./LetterList";
 
 function Home() {
   return (
-    <HomeLayout>
+    <StHomeLayout>
       <Navbar />
-      <HomeRow>
+      <StHomeRow>
         <Tabs />
-        <HomeCol>
+        <StHomeCol>
           <AddForm />
           <LetterList />
-        </HomeCol>
-      </HomeRow>
-    </HomeLayout>
+        </StHomeCol>
+      </StHomeRow>
+    </StHomeLayout>
   );
 }
 
-const HomeLayout = styled.div`
+const StHomeLayout = styled.div`
   max-width: 1200px;
   margin: auto;
 `;
-const HomeRow = styled.div`
+const StHomeRow = styled.div`
   display: flex;
   flex-direction: row;
   max-height: 750px;
   width: 100%;
 `;
-const HomeCol = styled.div`
+const StHomeCol = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 750px;

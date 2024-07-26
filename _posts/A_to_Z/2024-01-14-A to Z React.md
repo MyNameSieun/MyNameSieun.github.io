@@ -75,17 +75,14 @@ sidebar:
   - ContenxtAPI ➡️ Recoil, Jotai
 
 - 조합(클라이언트 상태 관리 + 서버 상태 관리)
-  - zustand + jotai/zustand
+  - zustand/Jotai + React Quer
 
 > 클라이언트 상태 관리
 
-1.  [Redux 소개 및 설정](https://mynamesieun.github.io/react/Redux-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%84%A4%EC%A0%95/)
-2.  [Redux - useSelector로 스토어의 state 조회하기](https://mynamesieun.github.io/react/Redux-useSelector%EB%A1%9C-%EC%8A%A4%ED%86%A0%EC%96%B4%EC%9D%98-state-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0/)
-3.  [Redux - useDispatch로 action 발생시키기](https://mynamesieun.github.io/react/Redux-useDispatch%EB%A1%9C-action-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EA%B8%B0/)
-4.  [Redux - Payload 및 Ducks 패턴](https://mynamesieun.github.io/react/Redux-Payload-%EB%B0%8F-Ducks-%ED%8C%A8%ED%84%B4/)
-5.  [RTK(Redux Toolkit)](<https://mynamesieun.github.io/react/RTK(Redux-Toolkit)/>)
-6.  [Zustand⭐](https://mynamesieun.github.io/react/Zustand/)
-7.  [Jotai](https://mynamesieun.github.io/react/Jotai/)
+1.  Redux
+2.  [RTK(Redux Toolkit)](<https://mynamesieun.github.io/react/RTK(Redux-Toolkit)/>)
+3.  [Zustand⭐](https://mynamesieun.github.io/react/Zustand/)
+4.  [Jotai](https://mynamesieun.github.io/react/Jotai/)
 
 > 서버 상태 관리
 

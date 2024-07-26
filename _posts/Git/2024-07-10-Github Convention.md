@@ -15,34 +15,31 @@ sidebar:
 
 > `[타입] - 하려는 내용` 형태로 작성하기,
 
-| 타입     | 설명                         |
-| -------- | ---------------------------- |
-| feat     | 기능 구현                    |
-| rename   | 파일/폴더 이름 변경 및 이동  |
-| script   | 라이브러리 추가              |
-| fix      | 버그 수정                    |
-| chore    | 주석 추가/삭제, console 제거 |
-| refactor | 코드 리팩토링                |
-| style    | CSS 코드                     |
-| test     | 테스트 코드                  |
-| docs     | 문서 수정                    |
+## 커밋 타입 설명
 
-> 예시
-
-|      예시       |                 설명                  |
-| :-------------: | :-----------------------------------: |
-|    기능 구현    |   [feat] - 페인페이지 레이아웃 구현   |
-| 라이브러리 추가 |  [script] - supabase 라이브러리 추가  |
-|    버그 수정    | [fix] - supabase env 미연결 문제 해결 |
+| 타입     | 설명                         | 예시                                                  |
+| -------- | ---------------------------- | ----------------------------------------------------- |
+| feat     | 기능 구현                    | [feat] - 페인페이지 레이아웃 구현                     |
+| rename   | 파일/폴더 이름 변경 및 이동  | [rename] - `src/old-folder`를 `src/new-folder`로 이동 |
+| script   | 라이브러리 추가              | [script] - `supabase` 라이브러리 추가                 |
+| fix      | 버그 수정                    | [fix] - `supabase` env 미연결 문제 해결               |
+| chore    | 주석 추가/삭제, console 제거 | [chore] - 불필요한 console.log 제거                   |
+| refactor | 코드 리팩토링                | [refactor] - 함수 분리 및 코드 정리                   |
+| style    | CSS 코드                     | [style] - 버튼 스타일 수정                            |
+| test     | 테스트 코드                  | [test] - 유저 로그인 기능 테스트 추가                 |
+| docs     | 문서 수정                    | [docs] - API 문서 업데이트                            |
 
 <br><br>
 
 # 2. 브랜치 네이밍
 
-- master, develop: 본래 이름 그대로 사용
-- feature : `feat/{기능 요약}` 혹은, 이슈 추적을 위한 브랜치일 경우 `feat/{issue-number}-{기능 요약}`
-- release : `release-{버전}`
-- hotfix : `hotfix-{버전}`
+| 브랜치 유형 | 네이밍 규칙                                                     |
+| ----------- | --------------------------------------------------------------- |
+| **main**    | `main`                                                          |
+| **develop** | `dev`                                                           |
+| **feature** | `feat/{기능 요약}`<br>또는<br>`feat/{issue-number}-{기능 요약}` |
+| **release** | `release-{버전}`                                                |
+| **hotfix**  | `hotfix-{버전}`                                                 |
 
 <br><br>
 

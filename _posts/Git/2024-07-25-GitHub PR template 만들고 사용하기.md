@@ -21,25 +21,21 @@ sidebar:
 
 # 1. PR 템플릿 만들기
 
-PR 템플릿은 Issue 템플릿처럼 여러 개를 설정할 수 없다.
+> ① pull_request_template.md 파일을 만든다.
 
-<br>
-
-① pull_request_template.md 파일을 만든다.
-
-: PR 템플릿을 만들기 위해 github 디렉토리에서 `pull_request_template.md` 파일을 만든다.
+PR 템플릿을 만들기 위해 github 디렉토리에서 `pull_request_template.md` 파일을 만든다.
 
 ![](/assets/images/2024/2024-07-25-23-14-52.png)
 
 <br>
 
-② 템플릿을 작성한다.
+> ② 템플릿을 작성한다.
 
-: 마크다운 형식으로 원하는 템플릿을 작성한다. (목차2. 템플릿 양식 참고)
+마크다운 형식으로 원하는 템플릿을 작성한다. (목차2. 템플릿 양식 참고)
 
 <br>
 
-③ Comit changes 를 클릭하여 커밋한다.
+> ③ Comit changes 를 클릭하여 커밋한다.
 
 <br><br>
 
@@ -90,13 +86,13 @@ PR이 다음 요구 사항을 충족하는지 확인하세요.
 
 # 3. PR 생성하기
 
-① "Compare & pull request" 버튼 클릭
+> ① "Compare & pull request" 버튼 클릭
 
 ![](/assets/images/2024/2024-07-25-23-54-57.png)
 
 <br>
 
-② "Create pull request" 버튼을 클릭하여 PR을 생성
+> ② "Create pull request" 버튼을 클릭하여 PR을 생성
 
 ![](/assets/images/2024/2024-07-25-23-55-34.png)
 
