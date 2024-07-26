@@ -286,7 +286,123 @@ export default Home;
 
 <br><br>
 
-# 5. useLocation로 페이지 정보 얻기
+# 5. 중첩 라우트
+
+## 5.1 중첩 라우트란?
+
+> 중첩 라우트는 하나의 라우트 내부에 다른 라우트를 포함하는 구조이다.
+
+- 중첩 라우트를 사용하면 복잡한 UI 구조를 보다 명확하고 체계적으로 구성할 수 있다.
+- 예를 들어, 대시보드에 여러 섹션이 있는 경우, 각 섹션에 해당하는 라우트를 대시보드 라우트 내에 중첩하여 정의할 수 있다.
+
+```jsx
+/* dashboard/profile 및 /dashboard/settings는 중첩 라우트. */
+<Route path="/dashboard" element={<DashboardLayout />}>
+  <Route path="profile" element={<Profile />} />
+  <Route path="settings" element={<Settings />} />
+</Route>
+```
+
+<br>
+
+> 사용 예시
+
+- index 속성은 부모 경로(/)에 자동으로 렌더링되는 기본 하위 페이지를 설정한다. 이를 통해, 부모 경로에 접근했을 때 보여줄 기본 페이지를 지정할 수 있다.
+- 아래 코드에서 /dashboard 경로에 접근하면 Dashboard가 렌더링되고, 그 내부에 기본적으로 Overview가 표시된다.
+
+```jsx
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} /> {/* 루트 경로에서 기본 페이지 */}
+      <Route path="dashboard" element={<Dashboard />}>
+        <Route index element={<Overview />} /> {/* 기본 대시보드 페이지 */}
+        <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
+      <Route path="about" element={<About />} />
+    </Route>
+
+    {/* 정의되지 않은 경로는 홈 페이지로 리다이렉트 */}
+    <Route path="*" element={<Navigate replace to="/" />} />
+  </Routes>
+</BrowserRouter>
+```
+
+> 사용 사례
+
+- 검색 필터링: 사용자가 원하는 카테고리나 가격대에 맞는 제품을 필터링할 수 때
+- 페이지네이션: 페이지 번호를 쿼리 문자열로 관리하여 페이지를 전환할 때
+- 정렬 옵션: 정렬 기준을 URL에 쿼리 문자열로 추가하여 사용자가 선택한 정렬 옵션을 유지할 때
+
+<br>
+
+## 5.2 Outlet 컴포넌트
+
+> 중첩된 라우트의 자식 컴포넌트를 렌더링하는 데 사용된다.
+
+공통 레이아웃을 구현할 때 유용하다.
+
+```jsx
+// Layout 컴포넌트
+function Layout() {
+  return (
+    <div>
+      <header>Header</header>
+      <main>
+        <Outlet /> {/* 여기에 자식 라우트 컴포넌트가 렌더링된다. */}
+      </main>
+      <footer>Footer</footer>
+    </div>
+  );
+}
+```
+
+#
+
+<br><br>
+
+# 6. useSearchParams로 검색 기능 구현하기
+
+> useSearchParams는 URL의 쿼리 문자열을 읽고, 수정하는 기능을 제공하는 훅이다.
+
+- 사용자에게 검색 필터링, 페이지네이션 등 다양한 검색 기능을 구현할 수 있다.
+- 쿼리 문자열은 URL의 `?` 뒤에 오는 부분으로, 예를 들어 `?category=books&price=low`와 같은 형식이다.
+
+```jsx
+import { useSearchParams } from "react-router-dom";
+
+function SearchPage() {
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  let category = searchParams.get("category") || "all";
+  let price = searchParams.get("price") || "any";
+
+  // URL의 쿼리 스트링을 변경하는 함수
+  const updateSearch = (newCategory, newPrice) => {
+    setSearchParams({ category: newCategory, price: newPrice });
+  };
+
+  return (
+    <div>
+      <h1>Products</h1>
+      <div>
+        Current search: category={category}, price={price}
+      </div>
+      {/* 검색 업데이트 예시 */}
+      <button onClick={() => updateSearch("books", "low")}>
+        Search for low-priced books
+      </button>
+    </div>
+  );
+}
+
+export default SearchPage;
+```
+
+<br><br>
+
+# 7. useLocation로 페이지 정보 얻기
 
 > `react-router-dom`을 사용하면, 현재 위치하고 있는 페이지의 여러가지 정보를 추가적으로 얻을 수 있다.
 

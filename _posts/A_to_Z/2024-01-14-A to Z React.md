@@ -80,7 +80,7 @@ sidebar:
 > 클라이언트 상태 관리
 
 1.  [Redux](https://mynamesieun.github.io/react/Redux/)
-2.  순수 redux에 비동기 추가하기
+2.  [순수 redux에 비동기 추가하기](https://mynamesieun.github.io/react/%EC%88%9C%EC%88%98-redux%EC%97%90-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/)
 3.  [RTK(Redux Toolkit)](<https://mynamesieun.github.io/react/RTK(Redux-Toolkit)/>)
 4.  [Zustand⭐](https://mynamesieun.github.io/react/Zustand/)
 5.  [Jotai](https://mynamesieun.github.io/react/Jotai/)
