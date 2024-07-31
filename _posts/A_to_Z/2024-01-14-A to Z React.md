@@ -54,8 +54,9 @@ sidebar:
 4. [React Hooks - useRef](https://mynamesieun.github.io/react/React-Hooks-useRef/)
 5. [React Hooks - useContext](https://mynamesieun.github.io/react/React-Hooks-useContext/)
 6. [React Hooks - 최적화(React.memo, useCallback, useMemo)](<https://mynamesieun.github.io/react/React-Hooks-%EC%B5%9C%EC%A0%81%ED%99%94(React.memo,-useCallback,-useMemo)/>)
-7. [Custom Hooks](https://mynamesieun.github.io/react/Custom-Hooks/)
-8. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
+7. [React Hooks - useReducer](https://mynamesieun.github.io/react/React-Hooks-useReducer/)
+8. [Custom Hooks](https://mynamesieun.github.io/react/Custom-Hooks/)
+9. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
 
 ### 4 - 비동기와 REST API
 

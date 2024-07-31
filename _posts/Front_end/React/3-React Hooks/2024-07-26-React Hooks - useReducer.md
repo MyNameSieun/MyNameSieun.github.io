@@ -44,12 +44,17 @@ import { useReducer } from "react";
 // 초기 상태 정의
 const initialState = { count: 0 };
 
+// 액션 타입을 상수로 정의
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
+
 // 리듀서 함수 정의
-function reducer(state, action) {
+function reducerCounter(state, action) {
+  // action.type에 따라 action.payload 만큼을 state에 반영해준다.
   switch (action.type) {
-    case "INCREMENT":
+    case INCREMENT:
       return { count: state.count + 1 };
-    case "DECREMENT":
+    case DECREMENT:
       return { count: state.count - 1 };
     default:
       return state;
@@ -58,7 +63,7 @@ function reducer(state, action) {
 
 function Counter() {
   // useReducer 훅 호출
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducerCounter, initialState);
 
   return (
     <div>
@@ -68,6 +73,11 @@ function Counter() {
     </div>
   );
 }
+export default Counter;
 ```
+
+<br>
+
+💡 useReducer + useContext = redux!
 
 <br>
