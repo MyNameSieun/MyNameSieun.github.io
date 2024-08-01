@@ -421,6 +421,72 @@ export default TodoSort;
 
 # 2. Redux
 
+## 2.0 파일 구조
+
+<br>
+
+## 2.1 index.js
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./redux/config/configStore";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+reportWebVitals();
+```
+
+<br>
+
+## 2.2 todos.js - 모듈 생성
+
+```jsx
+
+```
+
+<br>
+
+## 2.3 configStore.js - 리듀서 연결
+
+```jsx
+import { createStore } from "redux";
+import { combineReducers } from "redux";
+import todos from "../modules/todos";
+
+const rootReducer = combineReducers({
+  todos,
+});
+
+const store = createStore(rootReducer);
+
+export default store;
+```
+
+## 2.5
+
+<br>
+
+## 2.6
+
+<br>
+
+## 2.7
+
+<br>
+
+## 2.8
+
+<br>
+
 <br><br>
 
 # 3. Zustand
