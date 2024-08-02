@@ -173,7 +173,19 @@ export default Info;
 
 <br>
 
-## 3.4 응용 - id에 따른 조건부 렌더링
+## 3.4 응용(1) - params id를 활용한 상세 페이지 구현
+
+"상세" 버튼을 클릭하면, 해당 아이템의 ID를 포함한 URL로 이동하여 Info 페이지에서 상세 정보를 볼 수 있도록 구현
+
+```jsx
+<Link to={`info/${todo.id}`}>상세</Link>
+```
+
+![](/assets/images/2024/2024-08-02-18-48-35.png)
+
+<br>
+
+## 3.5 응용(2) - id에 따른 조건부 렌더링
 
 > info.json
 
@@ -193,27 +205,28 @@ export default Info;
 ```
 
 ```jsx
-import infoData from "info.json";
+import infoData from "./info.json";
 import { useParams } from "react-router-dom";
 
-const Home = () => {
+const Info = () => {
   const { id } = useParams();
+
+  // find를 사용하여 id에 맞는 첫 번째 요소를 찾음
+  const info = infoData.find((item) => item.id === parseInt(id));
 
   return (
     <div>
-      {infoData
-        .filter((info) => info.id === parseInt(id))
-        .map((info) => (
-          <div key={info.id}>
-            <p>{info.title}</p>
-            <p>{info.content}</p>
-          </div>
-        ))}
+      {info && (
+        <div>
+          <h1>{info.title}</h1>
+          <p>{info.content}</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Home;
+export default Info;
 ```
 
 ![](/assets/images/2024/2024-07-10-21-58-03.png)

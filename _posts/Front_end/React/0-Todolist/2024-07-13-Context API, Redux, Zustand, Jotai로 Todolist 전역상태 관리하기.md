@@ -423,6 +423,8 @@ export default TodoSort;
 
 ## 2.0 파일 구조
 
+![](/assets/images/2024/2024-08-02-20-49-30.png)
+
 <br>
 
 ## 2.1 index.js
@@ -450,7 +452,83 @@ reportWebVitals();
 ## 2.2 todos.js - 모듈 생성
 
 ```jsx
+// import uuid from "react-uuid";
+import shortid from "shortid";
 
+// 액션 객체 type value 상수로 지정
+const ADD_TODO = "ADD_TODO";
+const DELETE_TODO = "DELETE_TODO";
+const SWITCH_TODO = "SWITCH_TODO";
+const UPDATE_TODO = "UPDATE_TODO";
+
+// action creator 생성
+export const addTodo = (title, body) => ({
+  type: ADD_TODO,
+  payload: {
+    id: shortid.generate(),
+    title,
+    body,
+    isDone: false,
+  },
+});
+
+export const deleteTodo = (id) => ({
+  type: DELETE_TODO,
+  payload: id,
+});
+
+export const switchTodo = (id) => ({
+  type: SWITCH_TODO,
+  payload: id,
+});
+
+export const updateTodo = (id, title, body) => ({
+  type: UPDATE_TODO,
+  payload: { id, title, body },
+});
+
+// 초기 상태 값
+const initialState = [
+  {
+    id: shortid.generate(),
+    title: "타이틀",
+    body: "내용",
+    isDone: false,
+  },
+  {
+    id: shortid.generate(),
+    title: "타이틀2",
+    body: "내용2",
+    isDone: true,
+  },
+];
+
+// 리듀서
+const todos = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_TODO:
+      return [...state, action.payload];
+
+    case DELETE_TODO:
+      return state.filter((item) => item.id !== action.payload);
+
+    case SWITCH_TODO:
+      return state.map((item) =>
+        item.id === action.payload ? { ...item, isDone: !item.isDone } : item
+      );
+
+    case UPDATE_TODO:
+      const { id, title, body } = action.payload;
+      return state.map((item) =>
+        item.id === id ? { ...item, title, body } : item
+      );
+
+    default:
+      return state;
+  }
+};
+
+export default todos;
 ```
 
 <br>
@@ -471,21 +549,240 @@ const store = createStore(rootReducer);
 export default store;
 ```
 
-## 2.5
+<br>
+
+## 2.5 Router.js
+
+라우터 설정
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Detail from "../pages/Detail";
+import Home from "../pages/Home";
+
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default Router;
+```
 
 <br>
 
-## 2.6
+## 2.6 Home.jsx
+
+```jsx
+import TodoArea from "../components/todo/TodoArea";
+import TodoList from "../components/todo/TodoList";
+
+const Home = () => {
+  return (
+    <div>
+      <TodoArea />
+      <TodoList isActive={true} />
+      <TodoList isActive={false} />
+    </div>
+  );
+};
+
+export default Home;
+```
 
 <br>
 
-## 2.7
+## 2.7 TodoArea.jsx
+
+```jsx
+// src/components/TodoArea.jsx
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../redux/modules/todos";
+
+const TodoArea = () => {
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  const handleAddTodo = () => {
+    if (title.trim() === "" || body.trim() === "") {
+      alert("제목과 내용을 입력하세요.");
+      return;
+    }
+    dispatch(addTodo(title, body));
+    setTitle("");
+    setBody("");
+  };
+
+  return (
+    <div>
+      <input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="제목"
+      />
+      <input
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        placeholder="내용"
+      />
+      <button onClick={handleAddTodo}>입력</button>
+    </div>
+  );
+};
+
+export default TodoArea;
+```
 
 <br>
 
-## 2.8
+## 2.8 TodoList.jsx
+
+```jsx
+import React from "react";
+import { useSelector } from "react-redux";
+import TodoItem from "./TodoItem";
+
+const TodoList = ({ isActive }) => {
+  const todos = useSelector((state) => state.todos);
+
+  return (
+    <div>
+      <h1>{isActive ? "투두 리스트" : "던 리스트"}</h1>
+      {todos
+        .filter((todo) => todo.isDone !== isActive)
+        .map((todo) => (
+          <TodoItem key={todo.id} todo={todo} />
+        ))}
+    </div>
+  );
+};
+
+export default TodoList;
+```
 
 <br>
+
+## 2.9 TodoItem.jsx
+
+```jsx
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateTodo, deleteTodo, switchTodo } from "../../redux/modules/todos";
+import { Link } from "react-router-dom";
+
+const TodoItem = ({ todo }) => {
+  const dispatch = useDispatch();
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTitle, setNewTitle] = useState(todo.title);
+  const [newBody, setNewBody] = useState(todo.body);
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleSave = () => {
+    dispatch(updateTodo(todo.id, newTitle, newBody));
+    setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTodo(todo.id));
+  };
+
+  const handleSwitch = () => {
+    dispatch(switchTodo(todo.id));
+  };
+
+  return (
+    <div>
+      {isEditing ? (
+        <>
+          <input
+            type="text"
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+          />
+          <textarea
+            value={newBody}
+            onChange={(e) => setNewBody(e.target.value)}
+          />
+          <button onClick={handleSave}>저장</button>
+          <button onClick={handleEditToggle}>취소</button>
+          <Link to={`/detail/${todo.id}`}>상세</Link>
+        </>
+      ) : (
+        <>
+          <p>제목: {todo.title}</p>
+          <p>내용: {todo.body}</p>
+          <button onClick={handleEditToggle}>수정</button>
+          <button onClick={handleDelete}>삭제</button>
+          <button onClick={handleSwitch}>
+            {todo.isDone ? "취소" : "완료"}
+          </button>
+          <Link to={`/${todo.id}`}>상세</Link>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default TodoItem;
+```
+
+<br>
+
+## 2.10 Detail.jsx
+
+```jsx
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteTodo } from "../redux/modules/todos";
+
+const Detail = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const todos = useSelector((state) => state.todos);
+  const todo = todos.find((item) => item.id === id);
+
+  if (!todo) {
+    // Handle case where todo is not found
+    return <p>Todo not found</p>;
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteTodo(id));
+    navigate("/");
+  };
+
+  return (
+    <div>
+      <h1>상세 보기</h1>
+      <p>
+        <strong>제목:</strong> {todo.title}
+      </p>
+      <p>
+        <strong>내용:</strong> {todo.body}
+      </p>
+      <p>
+        <strong>완료 여부:</strong> {todo.isDone ? "완료" : "미완료"}
+      </p>
+      <button onClick={() => navigate(-1)}>뒤로 가기</button>
+      <button onClick={handleDelete}>삭제</button>
+    </div>
+  );
+};
+
+export default Detail;
+```
 
 <br><br>
 
