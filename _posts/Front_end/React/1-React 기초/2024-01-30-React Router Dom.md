@@ -297,6 +297,68 @@ export default Home;
 - 사용자가 직접 클릭하여 페이지를 이동할 수 있는 명시적인 경로가 필요할 때
 - 시맨틱 웹 구조가 필요할 때
 
+<br>
+
+## 4.3 NavLink
+
+- NavLink는 react-router-dom 라이브러리에서 제공하는 컴포넌트로, Link와 유사하게 사용되지만, 추가적으로 현재 경로와 매칭되었을 때 특정 스타일이나 클래스를 적용할 수 있는 기능을 제공합한다.
+- 내비게이션 바나 메뉴에서 현재 활성화된 링크를 시각적으로 구분할 때 유용하다.
+
+```jsx
+import { NavLink } from "react-router-dom";
+
+const Navigation = () => {
+  return (
+    <nav>
+      <NavLink
+        to="/home"
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/about"
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        About
+      </NavLink>
+    </nav>
+  );
+};
+```
+
+<br>
+
+아래와 같이 styled-components를 사용해서도 NavLink를 사용하여 현재 경로와 일치하는 경우 특정 스타일을 적용할 수 있다.
+
+```jsx
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+
+const Navigation = () => {
+  return (
+    <nav>
+      <StyledNavLink to="/home">Home</StyledNavLink>
+      <StyledNavLink to="/about">About</StyledNavLink>
+      <StyledNavLink to="/contact">Contact</StyledNavLink>
+    </nav>
+  );
+};
+
+export default Navigation;
+
+const StyledNavLink = styled(NavLink)`
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+
+  &.active {
+    color: red;
+    font-weight: bold;
+  }
+`;
+```
+
 <br><br>
 
 # 5. 중첩 라우트
@@ -357,7 +419,13 @@ export default Home;
 공통 레이아웃을 구현할 때 유용하다.
 
 ```jsx
-// Layout 컴포넌트
+<Route path="/" element={<Layout />}>
+  <Route index element={<Home />} />
+  <Route path="about" element={<About />} />
+</Route>
+```
+
+```jsx
 function Layout() {
   return (
     <div>
@@ -371,7 +439,82 @@ function Layout() {
 }
 ```
 
-#
+<br>
+
+아래와 같이 Outlet을 통해 특정 경로에 대해 로그인 여부를 확인하고, 로그인된 사용자만 해당 페이지에 접근할 수 있도록 설정할 수 있다.
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Detail from "../pages/Detail";
+import Home from "../pages/Home";
+import Header from "../components/layouts/Header";
+import Footer from "../components/layouts/Footer";
+import AuthLayout from "./AuthLayout";
+import Sample01 from "../pages/Sample01";
+import Sample02 from "../pages/Sample02";
+
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<Detail />} />
+        <Route element={<AuthLayout />}>
+          <Route path="/sample01" element={<Sample01 />} />
+          <Route path="/sample02" element={<Sample02 />} />
+        </Route>
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+};
+
+export default Router;
+```
+
+<br>
+
+```jsx
+// src/shared/AuthLayout.jsx
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+
+// 로그인이 되어있어야만 접근 가능한 페이지
+const AuthLayout = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRendered, setIsRendered] = useState(false);
+
+  useEffect(() => {
+    // 로그인 여부를 체크
+    if (isLoggedIn) {
+      return;
+    } else {
+      // login 페이지로 이동
+    }
+    setIsRendered(true);
+  }, []);
+
+  if (!isRendered) {
+    return;
+  }
+
+  return (
+    <div>
+      AuthLayout
+      <Outlet />
+    </div>
+  );
+};
+
+export default AuthLayout;
+```
+
+- AuthLayout은 해당 경로에 맞는 컴포넌트를 Outlet을 통해 렌더링한다.
+  - 따라서 http://localhost:3000/sample01 에서 Sample01만,
+  - http://localhost:3000/sample02 에서 Sample02만 보이게 된다.
+
+![](/assets/images/2024/2024-08-09-09-21-40.png)
 
 <br><br>
 
