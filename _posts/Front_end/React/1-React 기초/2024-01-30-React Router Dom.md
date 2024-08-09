@@ -76,7 +76,7 @@ export default Router;
 
 <br>
 
-## 2.1 App.jsx에 `Router.jsx` import 해주기
+## 2.1 App.jsx에 Router.jsx import 해주기
 
 생성한 Router 컴포넌트를 아래 코드와 같이 App.jsx에 import 해준다.
 
@@ -529,6 +529,9 @@ export default AuthLayout;
 import { useSearchParams } from "react-router-dom";
 
 function SearchPage() {
+  //  searchParams: 이미 존재하는 쿼리 문자열을 읽어올 수 있는 값
+  // setSearchParams: 쿼리 문자열을 세팅할 수 있는 값
+
   let [searchParams, setSearchParams] = useSearchParams();
 
   let category = searchParams.get("category") || "all";
