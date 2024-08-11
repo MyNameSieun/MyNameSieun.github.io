@@ -414,7 +414,7 @@ const StyledNavLink = styled(NavLink)`
 
 ## 5.2 Outlet 컴포넌트
 
-> - 중첩된 라우트의 자식 컴포넌트를 렌더링하는 데 사용된다.
+> 중첩된 라우트의 자식 컴포넌트를 렌더링하는 데 사용된다.
 
 공통 레이아웃을 구현할 때 유용하다.
 
@@ -616,6 +616,8 @@ import styled from "styled-components";
 
 const InfoPage = () => {
   const [searchParams, setSearchParams] = useSearchParams(); // 쿼리 파라미터 상태
+
+  // searchParams.get("search")을 초기 상태로 넣어주는 이유? 사용자가 페이지를 새로 고침하거나 URL을 직접 입력했을 때 검색 쿼리 파라미터를 기억하기 위함!
   const [query, setQuery] = useState(searchParams.get("search") || ""); // 검색 쿼리 상태
   const [filteredData, setFilteredData] = useState(infoData); // 필터링된 데이터 상태
 
@@ -644,15 +646,13 @@ const InfoPage = () => {
   return (
     <>
       <form onSubmit={handleSearch}>
-        <section>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="검색어를 입력하세요"
-          />
-          <button type="submit">검색하기</button>
-        </section>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="검색어를 입력하세요"
+        />
+        <button type="submit">검색하기</button>
       </form>
 
       <h1>InfoPage</h1>
