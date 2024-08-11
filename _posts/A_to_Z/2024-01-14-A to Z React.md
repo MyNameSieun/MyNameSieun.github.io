@@ -42,9 +42,10 @@ sidebar:
 1. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
 2. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
 3. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-4. [공용 컴포넌트로 만들어 재사용하기](https://mynamesieun.github.io/react/%EA%B3%B5%EC%9A%A9-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-5. [상태 직접 업데이트 vs 콜백 함수 사용 비교](https://mynamesieun.github.io/react/%EC%83%81%ED%83%9C-%EC%A7%81%EC%A0%91-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-vs-%EC%BD%9C%EB%B0%B1-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EB%B9%84%EA%B5%90/)
-6. [select와 option](https://mynamesieun.github.io/react/select%EC%99%80-option/)
+4. [인증 및 인가](https://mynamesieun.github.io/react/%EC%9D%B8%EC%A6%9D-%EB%B0%8F-%EC%9D%B8%EA%B0%80/)
+5. [공용 컴포넌트로 만들어 재사용하기](https://mynamesieun.github.io/react/%EA%B3%B5%EC%9A%A9-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+6. [상태 직접 업데이트 vs 콜백 함수 사용 비교](https://mynamesieun.github.io/react/%EC%83%81%ED%83%9C-%EC%A7%81%EC%A0%91-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-vs-%EC%BD%9C%EB%B0%B1-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EB%B9%84%EA%B5%90/)
+7. [select와 option](https://mynamesieun.github.io/react/select%EC%99%80-option/)
 
 ### 3 - React Hooks
 
@@ -101,6 +102,8 @@ sidebar:
 7. [uuid 사용하기](https://mynamesieun.github.io/react/uuid-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 8. [리액트 이미지 경로 지정방법 2가지](https://mynamesieun.github.io/react/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EA%B2%BD%EB%A1%9C-%EC%A7%80%EC%A0%95%EB%B0%A9%EB%B2%95-2%EA%B0%80%EC%A7%80/)
 9. [로그인, 회원가입 UI 구현 및 API 연결](https://mynamesieun.github.io/react/%EB%A1%9C%EA%B7%B8%EC%9D%B8,-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-UI-%EA%B5%AC%ED%98%84-%EB%B0%8F-API-%EC%97%B0%EA%B2%B0/)
+10. [useContext로 만드는 dropdown](https://mynamesieun.github.io/react/useContext%EB%A1%9C-%EB%A7%8C%EB%93%9C%EB%8A%94-dropdown/)
+11. [useContext로 만드는 modal](https://mynamesieun.github.io/react/useContext%EB%A1%9C-%EB%A7%8C%EB%93%9C%EB%8A%94-modal/)
 
 ### 7 - 프로젝트 초기 세팅 및 협업 시 컨벤션
 

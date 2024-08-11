@@ -70,6 +70,8 @@ export default App;
 
 > Styled Components을 사용하면 props를 통해서 부모 컴포넌트로부터 값을 전달받고, 조건문을 이용해서 조건부 스타일링을 할 수 있다.
 
+styled-component에서만 사용되는 props라는 뜻으로 `$` 를 접두사로 붙혀주자.
+
 ```jsx
 import styled from "styled-components";
 
@@ -77,9 +79,9 @@ const App = () => {
   return (
     <div>
       {/* (1) props를 통해 borderColor라는 값을 전달 */}
-      <StBox borderColor="red">빨간 박스</StBox>
-      <StBox borderColor="green">초록 박스</StBox>
-      <StBox borderColor="blue">파랑 박스</StBox>
+      <StBox $borderColor="red">빨간 박스</StBox>
+      <StBox $borderColor="green">초록 박스</StBox>
+      <StBox $borderColor="blue">파랑 박스</StBox>
     </div>
   );
 };
@@ -89,7 +91,7 @@ export default App;
 const StBox = styled.div`
   width: 100px;
   height: 100px;
-  border: 1px solid ${(props) => props.borderColor}; // (2) 부모 컴포넌트에서 보낸 props를 받아 사용
+  border: 1px solid ${(props) => props.$borderColor}; // (2) 부모 컴포넌트에서 보낸 props를 받아 사용
   margin: 20px;
 `;
 ```
@@ -114,11 +116,7 @@ const StBox = styled.div`
 
 ## 2.2 조건부 스타일링 실습 - button
 
-<br>
-
 > Props를 사용하는 Button 컴포넌트
-
-styled-component에서만 사용되는 props라는 뜻으로 `$` 를 접두사로 붙혀주자.
 
 ```js
 function App() {

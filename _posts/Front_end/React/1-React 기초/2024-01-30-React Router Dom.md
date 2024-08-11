@@ -76,7 +76,7 @@ export default Router;
 
 <br>
 
-## 2.1 App.jsx에 `Router.jsx` import 해주기
+## 2.1 App.jsx에 Router.jsx import 해주기
 
 생성한 Router 컴포넌트를 아래 코드와 같이 App.jsx에 import 해준다.
 
@@ -173,7 +173,19 @@ export default Info;
 
 <br>
 
-## 3.4 응용 - id에 따른 조건부 렌더링
+## 3.4 응용(1) - params id를 활용한 상세 페이지 구현
+
+"상세" 버튼을 클릭하면, 해당 아이템의 ID를 포함한 URL로 이동하여 Info 페이지에서 상세 정보를 볼 수 있도록 구현
+
+```jsx
+<Link to={`info/${todo.id}`}>상세</Link>
+```
+
+![](/assets/images/2024/2024-08-02-18-48-35.png)
+
+<br>
+
+## 3.5 응용(2) - id에 따른 조건부 렌더링
 
 > info.json
 
@@ -193,27 +205,29 @@ export default Info;
 ```
 
 ```jsx
-import infoData from "info.json";
+import infoData from "./info.json";
 import { useParams } from "react-router-dom";
 
-const Home = () => {
+const Info = () => {
   const { id } = useParams();
+
+  // find를 사용하여 id에 맞는 첫 번째 요소를 찾음
+  // URL 파라미터는 기본적으로 문자열로 전달
+  const info = infoData.find((item) => item.id === parseInt(id));
 
   return (
     <div>
-      {infoData
-        .filter((info) => info.id === parseInt(id))
-        .map((info) => (
-          <div key={info.id}>
-            <p>{info.title}</p>
-            <p>{info.content}</p>
-          </div>
-        ))}
+      {info && (
+        <div>
+          <h1>{info.title}</h1>
+          <p>{info.content}</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Home;
+export default Info;
 ```
 
 ![](/assets/images/2024/2024-07-10-21-58-03.png)
@@ -284,6 +298,68 @@ export default Home;
 - 사용자가 직접 클릭하여 페이지를 이동할 수 있는 명시적인 경로가 필요할 때
 - 시맨틱 웹 구조가 필요할 때
 
+<br>
+
+## 4.3 NavLink
+
+- NavLink는 react-router-dom 라이브러리에서 제공하는 컴포넌트로, Link와 유사하게 사용되지만, 추가적으로 현재 경로와 매칭되었을 때 특정 스타일이나 클래스를 적용할 수 있는 기능을 제공한다.
+- 내비게이션 바나 메뉴에서 현재 활성화된 링크를 시각적으로 구분할 때 유용하다.
+
+```jsx
+import { NavLink } from "react-router-dom";
+
+const Navigation = () => {
+  return (
+    <nav>
+      <NavLink
+        to="/home"
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/about"
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        About
+      </NavLink>
+    </nav>
+  );
+};
+```
+
+<br>
+
+아래와 같이 styled-components를 사용해서도 NavLink를 사용하여 현재 경로와 일치하는 경우 특정 스타일을 적용할 수 있다.
+
+```jsx
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+
+const Navigation = () => {
+  return (
+    <nav>
+      <StyledNavLink to="/home">Home</StyledNavLink>
+      <StyledNavLink to="/about">About</StyledNavLink>
+      <StyledNavLink to="/contact">Contact</StyledNavLink>
+    </nav>
+  );
+};
+
+export default Navigation;
+
+const StyledNavLink = styled(NavLink)`
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+
+  &.active {
+    color: red;
+    font-weight: bold;
+  }
+`;
+```
+
 <br><br>
 
 # 5. 중첩 라우트
@@ -344,7 +420,13 @@ export default Home;
 공통 레이아웃을 구현할 때 유용하다.
 
 ```jsx
-// Layout 컴포넌트
+<Route path="/" element={<Layout />}>
+  <Route index element={<Home />} />
+  <Route path="about" element={<About />} />
+</Route>
+```
+
+```jsx
 function Layout() {
   return (
     <div>
@@ -358,47 +440,193 @@ function Layout() {
 }
 ```
 
-#
+<br>
+
+아래와 같이 Outlet을 통해 특정 경로에 대해 로그인 여부를 확인하고, 로그인된 사용자만 해당 페이지에 접근할 수 있도록 설정할 수 있다.
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Detail from "../pages/Detail";
+import Home from "../pages/Home";
+import Header from "../components/layouts/Header";
+import Footer from "../components/layouts/Footer";
+import AuthLayout from "./AuthLayout";
+import Sample01 from "../pages/Sample01";
+import Sample02 from "../pages/Sample02";
+
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<Detail />} />
+        <Route element={<AuthLayout />}>
+          <Route path="sample01" element={<Sample01 />} />
+          <Route path="sample02" element={<Sample02 />} />
+        </Route>
+
+        <Route path="*" element={<Navigate replace to="/" />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+};
+
+export default Router;
+```
+
+<br>
+
+```jsx
+// src/shared/AuthLayout.jsx
+import { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+
+const AuthLayout = () => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 로그인 여부를 체크
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn]);
+
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
+};
+
+export default AuthLayout;
+```
+
+- AuthLayout 컴포넌트는 isLoggedIn이 true일 때 해당 경로에 맞는 컴포넌트를 Outlet을 통해 렌더링한다.
+  - 따라서, http://localhost:3000/sample01 에서 Sample01만,
+  - http://localhost:3000/sample02 에서 Sample02만 보이게 된다.
+
+![](/assets/images/2024/2024-08-09-09-21-40.png)
 
 <br><br>
 
-# 6. useSearchParams로 검색 기능 구현하기
+# 6. useSearchParams
+
+## 6.1 useSearchParams란?
 
 > useSearchParams는 URL의 쿼리 문자열을 읽고, 수정하는 기능을 제공하는 훅이다.
 
 - 사용자에게 검색 필터링, 페이지네이션 등 다양한 검색 기능을 구현할 수 있다.
 - 쿼리 문자열은 URL의 `?` 뒤에 오는 부분으로, 예를 들어 `?category=books&price=low`와 같은 형식이다.
+- searchParams 객체는 URLSearchParams의 다양한 메서드(get, set, append, delete 등)를 지원한다.
 
 ```jsx
 import { useSearchParams } from "react-router-dom";
 
-function SearchPage() {
-  let [searchParams, setSearchParams] = useSearchParams();
+const SearchPage = () => {
+  // searchParams: 현재 URL의 쿼리 파라미터를 나타내는 객체
+  // setSearchParams: 쿼리 파라미터를 업데이트하는 함수
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  let category = searchParams.get("category") || "all";
-  let price = searchParams.get("price") || "any";
+  // 쿼리 파라미터 읽기
+  const paramValue = searchParams.get("paramName"); // paramName에 해당하는 값을 가져옴
 
-  // URL의 쿼리 스트링을 변경하는 함수
-  const updateSearch = (newCategory, newPrice) => {
-    setSearchParams({ category: newCategory, price: newPrice });
+  // 쿼리 파라미터 설정
+  const updateSearchParams = () => {
+    setSearchParams({ paramName: "newValue" }); // paramName의 값을 newValue로 설정
   };
 
   return (
     <div>
-      <h1>Products</h1>
-      <div>
-        Current search: category={category}, price={price}
-      </div>
-      {/* 검색 업데이트 예시 */}
-      <button onClick={() => updateSearch("books", "low")}>
-        Search for low-priced books
-      </button>
+      <p>Parameter Value: {paramValue}</p>
+      <button onClick={updateSearchParams}>Update Parameter</button>
     </div>
   );
-}
+};
 
 export default SearchPage;
 ```
+
+![](/assets/images/2024/2024-08-11-10-15-28.png)
+
+<br>
+
+## 6.2 useSearchParams로 검색 기능 구현하기
+
+> 사용자가 입력한 검색어를 query state에 저장하고, 이 state를 URL 쿼리 파라미터(searchParams)와 비교하여 필터링을 적용해보자!
+
+```jsx
+import { useSearchParams } from "react-router-dom";
+
+const SearchPage = () => {
+  // 과일 데이터
+  const fruits = [
+    { id: 1, name: "사과" },
+    { id: 2, name: "바나나" },
+    { id: 3, name: "체리" },
+  ];
+
+  // URL에서 검색 파라미터 가져오기
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // 상태 변수 정의
+  const [query, setQuery] = useState("");
+  const [filteredFruits, setFilteredFruits] = useState(fruits);
+
+  // 검색어 입력 처리
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  // 검색 완료 버튼 클릭 처리
+  const handleSearch = () => {
+    // 검색어가 있는 경우만 필터링 처리
+    if (query.trim()) {
+      setFilteredFruits(
+        fruits.filter((fruit) =>
+          fruit.name.toLowerCase().includes(query.toLowerCase())
+        )
+      );
+      setSearchParams({ query });
+    } else {
+      // 검색어가 비어있는 경우, 모든 과일을 다시 표시
+      setFilteredFruits(fruits);
+      setSearchParams({});
+    }
+  };
+
+  return (
+    <div>
+      <h1>과일 검색</h1>
+      <input
+        type="text"
+        value={query}
+        onChange={handleInputChange}
+        placeholder="과일을 검색하세요..."
+      />
+      <button onClick={handleSearch}>검색 완료</button>
+      <ul>
+        {filteredFruits.length > 0 ? (
+          filteredFruits.map((fruit) => <li key={fruit.id}>{fruit.name}</li>)
+        ) : (
+          <li>검색 결과가 없습니다.</li>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default SearchPage;
+```
+
+- `searchParams.get("query")`
+  - URL에서 query라는 이름의 쿼리 파라미터를 가져온다.
+  - 예를 들어, URL이 http://example.com/search?query=apple 이면 searchParams.get("query")는 "apple"을 반환한다.
+  - 쿼리 파라미터가 없다면 null을 반환하므로 query 변수는 빈 문자열로 설정된다.
+
+![](/assets/images/2024/2024-08-11-10-37-39.png)
 
 <br><br>
 
