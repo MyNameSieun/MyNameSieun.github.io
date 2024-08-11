@@ -1,7 +1,6 @@
 ---
 title: "[React] React Project Convention"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -78,7 +77,7 @@ import Tabs from "./Tabs";
 import AddForm from "./AddForm";
 import LetterList from "./LetterList";
 
-function Home() {
+function HomePage() {
   return (
     <StHomeLayout>
       <Navbar />
@@ -110,7 +109,7 @@ const StHomeCol = styled.div`
   width: 100%;
 `;
 
-export default Home;
+export default HomePage;
 ```
 
 <br>
@@ -129,11 +128,11 @@ export default Home;
 `rafce`(React Arrow Function Component Export)는 함수형 컴포넌트를 빠르게 생성하기 위해 사용되는 코드 스니펫
 
 ```jsx
-const Home = () => {
+const HomePage = () => {
   return <div>Home</div>;
 };
 
-export default Home;
+export default HomePage;
 ```
 
 <br>

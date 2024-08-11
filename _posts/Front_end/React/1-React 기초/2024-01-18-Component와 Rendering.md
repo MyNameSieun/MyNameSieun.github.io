@@ -1,7 +1,6 @@
 ---
 title: "[React] Component와 Rendering"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true

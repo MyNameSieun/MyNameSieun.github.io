@@ -1,7 +1,6 @@
 ---
 title: "[React] Styling과 map"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true

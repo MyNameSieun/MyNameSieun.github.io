@@ -1,7 +1,6 @@
 ---
 title: "[React] 클래스형 컴포넌트의 LifeCycle"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true

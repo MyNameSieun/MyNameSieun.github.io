@@ -1,7 +1,6 @@
 ---
 title: "[React] React Router Dom"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -205,29 +204,29 @@ export default Info;
 ```
 
 ```jsx
-import infoData from "./info.json";
 import { useParams } from "react-router-dom";
+import infoData from "../info.json";
 
-const Info = () => {
+const InfoPage = () => {
   const { id } = useParams();
+  const infoFiltered = infoData.find((info) => info.id === parseInt(id));
 
-  // find를 사용하여 id에 맞는 첫 번째 요소를 찾음
-  // URL 파라미터는 기본적으로 문자열로 전달
-  const info = infoData.find((item) => item.id === parseInt(id));
+  if (!infoFiltered) {
+    return <div>정보를 찾을 수 없습니다.</div>;
+  }
 
   return (
-    <div>
-      {info && (
-        <div>
-          <h1>{info.title}</h1>
-          <p>{info.content}</p>
-        </div>
-      )}
-    </div>
+    <>
+      <h1>InfoPage</h1>
+      <ul>
+        <li>{infoFiltered.title}</li>
+        <li>{infoFiltered.content}</li>
+      </ul>
+    </>
   );
 };
 
-export default Info;
+export default InfoPage;
 ```
 
 ![](/assets/images/2024/2024-07-10-21-58-03.png)
@@ -273,7 +272,7 @@ export default Home;
 
 > `Link` 는 html 태그중에 `<a>` 태그의 기능을 대체하는 API이다.
 
-- `<a>` 태그를 사용하면, 브라우저가 새로고침 되면 모든 컴포넌트가 다시 렌더링되야 하고, 또한 우리가 리덕스나 useState를 통해 메모리상에 구축해놓은 모든 상태값이 초기화 되서 성능이 저하될 수 있다.
+- `<a>` 태그를 사용하면, 브라우저가 새로고침 되면 모든 컴포넌트가 다시 렌더링되야 하고, 우리가 리덕스나 useState를 통해 메모리상에 구축해놓은 모든 상태값이 초기화 되서 성능이 저하될 수 있다.
 - 따라서, `Link` 를 사용하여 SPA 환경에서 페이지 리로드 없이 라우트를 변경해야한다.
 
 ```jsx
@@ -407,7 +406,7 @@ const StyledNavLink = styled(NavLink)`
 
 > 사용 사례
 
-- 검색 필터링: 사용자가 원하는 카테고리나 가격대에 맞는 제품을 필터링할 수 때
+- 검색 필터링: 사용자가 원하는 카테고리나 가격대에 맞는 제품을 필터링할 때
 - 페이지네이션: 페이지 번호를 쿼리 문자열로 관리하여 페이지를 전환할 때
 - 정렬 옵션: 정렬 기준을 URL에 쿼리 문자열로 추가하여 사용자가 선택한 정렬 옵션을 유지할 때
 
@@ -415,29 +414,59 @@ const StyledNavLink = styled(NavLink)`
 
 ## 5.2 Outlet 컴포넌트
 
-> 중첩된 라우트의 자식 컴포넌트를 렌더링하는 데 사용된다.
+> - 중첩된 라우트의 자식 컴포넌트를 렌더링하는 데 사용된다.
 
 공통 레이아웃을 구현할 때 유용하다.
 
 ```jsx
-<Route path="/" element={<Layout />}>
-  <Route index element={<Home />} />
-  <Route path="about" element={<About />} />
-</Route>
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="info" element={<InfoPage />} />
+          <Route path="info/:id" element={<InfoDetailPage />} />
+        </Route>
+
+        <Route path="*" element={<Navigate replace to="/" />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default Router;
 ```
 
 ```jsx
-function Layout() {
+// src/components/layouts/Layout.jsx
+import { Outlet } from "react-router-dom";
+import styled from "styled-components";
+import Navbar from "./Navbar";
+
+const Layout = () => {
   return (
-    <div>
-      <header>Header</header>
-      <main>
+    <StLayout>
+      <StContainer>
+        <Navbar />
         <Outlet /> {/* 여기에 자식 라우트 컴포넌트가 렌더링된다. */}
-      </main>
-      <footer>Footer</footer>
-    </div>
+      </StContainer>
+    </StLayout>
   );
-}
+};
+
+export default Layout;
+
+const StLayout = styled.main`
+  width: 100%;
+  height: 100vh;
+`;
+
+const StContainer = styled.div`
+  width: 80%;
+  background-color: #dfdfdf;
+  margin: auto;
+`;
 ```
 
 <br>
@@ -555,70 +584,113 @@ export default SearchPage;
 
 ## 6.2 useSearchParams로 검색 기능 구현하기
 
-> 사용자가 입력한 검색어를 query state에 저장하고, 이 state를 URL 쿼리 파라미터(searchParams)와 비교하여 필터링을 적용해보자!
+```jsx
+// info.json
+[
+  {
+    id: 1,
+    title: "내가 제일 좋아하는 아이스크림은?",
+    content: "부라보콘 피스타치오 맛!!!🍦🍦",
+  },
+  {
+    id: 2,
+    title: "내가 제일 좋아하는 음식은?",
+    content: "돈가스!! 💰💰💲",
+  },
+  {
+    id: 3,
+    title: "테스트",
+    content: "A B C d e f",
+  },
+];
+```
 
 ```jsx
-import { useSearchParams } from "react-router-dom";
+// src/pages/InfoPage.jsx
+import { useState, useEffect } from "react";
+import { useSearchParams, Link } from "react-router-dom";
+import infoData from "../info.json";
+import styled from "styled-components";
 
-const SearchPage = () => {
-  // 과일 데이터
-  const fruits = [
-    { id: 1, name: "사과" },
-    { id: 2, name: "바나나" },
-    { id: 3, name: "체리" },
-  ];
+const InfoPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams(); // 쿼리 파라미터 상태
+  const [query, setQuery] = useState(searchParams.get("search") || ""); // 검색 쿼리 상태
+  const [filteredData, setFilteredData] = useState(infoData); // 필터링된 데이터 상태
 
-  // URL에서 검색 파라미터 가져오기
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  // 상태 변수 정의
-  const [query, setQuery] = useState("");
-  const [filteredFruits, setFilteredFruits] = useState(fruits);
-
-  // 검색어 입력 처리
-  const handleInputChange = (e) => {
-    setQuery(e.target.value);
+  // 검색 버튼 클릭 시 검색어를 URL 쿼리 파라미터로 설정
+  const handleSearch = (e) => {
+    e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
+    const trimmedQuery = query.trim(); // 검색어의 공백 제거
+    setSearchParams({ search: trimmedQuery }); // 쿼리 파라미터 업데이트
   };
 
-  // 검색 완료 버튼 클릭 처리
-  const handleSearch = () => {
-    // 검색어가 있는 경우만 필터링 처리
-    if (query.trim()) {
-      setFilteredFruits(
-        fruits.filter((fruit) =>
-          fruit.name.toLowerCase().includes(query.toLowerCase())
-        )
+  // 검색어가 변경될 때 필터링된 데이터 업데이트
+  useEffect(() => {
+    const trimmedQuery = searchParams.get("search")?.trim().toLowerCase() || "";
+    if (trimmedQuery) {
+      const result = infoData.filter(
+        (info) =>
+          info.title.toLowerCase().includes(trimmedQuery) ||
+          info.content.toLowerCase().includes(trimmedQuery)
       );
-      setSearchParams({ query });
+      setFilteredData(result);
     } else {
-      // 검색어가 비어있는 경우, 모든 과일을 다시 표시
-      setFilteredFruits(fruits);
-      setSearchParams({});
+      setFilteredData(infoData); // 검색어가 공백만 있는 경우 전체 데이터 표시
     }
-  };
+  }, [searchParams]); // searchParams가 변경될 때마다 호출됨
 
   return (
-    <div>
-      <h1>과일 검색</h1>
-      <input
-        type="text"
-        value={query}
-        onChange={handleInputChange}
-        placeholder="과일을 검색하세요..."
-      />
-      <button onClick={handleSearch}>검색 완료</button>
-      <ul>
-        {filteredFruits.length > 0 ? (
-          filteredFruits.map((fruit) => <li key={fruit.id}>{fruit.name}</li>)
-        ) : (
-          <li>검색 결과가 없습니다.</li>
-        )}
-      </ul>
-    </div>
+    <>
+      <form onSubmit={handleSearch}>
+        <section>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="검색어를 입력하세요"
+          />
+          <button type="submit">검색하기</button>
+        </section>
+      </form>
+
+      <h1>InfoPage</h1>
+
+      {filteredData.length === 0 ? (
+        <div>검색 결과가 없습니다.</div>
+      ) : (
+        <ul>
+          {filteredData.map((info) => (
+            <StInfoList key={info.id}>
+              <Link to={`/info/${info.id}`}>
+                <li>{info.title}</li>
+                <li>{info.content}</li>
+              </Link>
+            </StInfoList>
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
-export default SearchPage;
+export default InfoPage;
+
+const StInfoList = styled.li`
+  background-color: #b6b6b6;
+  padding: 1rem;
+  cursor: pointer;
+  list-style: none;
+  margin-bottom: 0.5rem;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  &:hover {
+    background-color: #a0a0a0;
+  }
+`;
 ```
 
 - `searchParams.get("query")`
@@ -639,14 +711,14 @@ export default SearchPage;
 ```jsx
 import { useLocation } from "react-router-dom";
 
-const Home = () => {
+const HomePage = () => {
   const location = useLocation();
   console.log("location: ", location);
 
   return <div>{`현재 페이지 : ${location.pathname.slice(1)}`}</div>;
 };
 
-export default Home;
+export default HomePage;
 ```
 
 ![](/assets/images/2024/2024-07-10-21-27-00.png)
