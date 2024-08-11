@@ -675,7 +675,7 @@ const InfoPage = () => {
 
 export default InfoPage;
 
-const StInfoList = styled.li`
+const StInfoList = styled.ul`
   background-color: #b6b6b6;
   padding: 1rem;
   cursor: pointer;
