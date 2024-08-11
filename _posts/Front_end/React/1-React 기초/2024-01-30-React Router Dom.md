@@ -584,6 +584,8 @@ export default SearchPage;
 
 ## 6.2 useSearchParams로 검색 기능 구현하기
 
+> useSearchParams는 쿼리 파라미터를 통해 URL에 상태를 유지하며 페이지 리로드 없이도 검색을 구현할 수 있는 장점이 있다.
+
 ```jsx
 // info.json
 [

@@ -73,8 +73,9 @@ sidebar:
   9. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
 
 - 실습
-  1.  [useContext로 만드는 dropdown](https://mynamesieun.github.io/react/useContext%EB%A1%9C-%EB%A7%8C%EB%93%9C%EB%8A%94-dropdown/)
-  2.  [useContext로 만드는 modal](https://mynamesieun.github.io/react/useContext%EB%A1%9C-%EB%A7%8C%EB%93%9C%EB%8A%94-modal/)
+  1.  [useContext로 dropdown 구현하기]()
+  2.  [useContext로 modal 구현하기]()
+  3.  [useContext로 검색 기능 구현하기]()
 
 ---
 
