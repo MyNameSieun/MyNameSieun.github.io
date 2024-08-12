@@ -32,18 +32,18 @@ sidebar:
 ## 3.1 App.jsx
 
 ```jsx
-import Dropdown from "./Dropdown";
+import Dropdown from "components/ContextPractice/Dropdown";
 
-const items = ["첫 번째 아이템", "두 번째 아이템", "세 번째 아이템"];
+const App = () => {
+  const items = ["첫 번째 아이템", "두 번째 아이템", "세 번째 아이템"];
 
-function App() {
   return (
-    <div>
-      <h3>useContext로 만드는 Dropdown Item</h3>
+    <>
+      <h1>useContext로 만드는 DropDown Item</h1>
       <Dropdown items={items} />
-    </div>
+    </>
   );
-}
+};
 
 export default App;
 ```
@@ -64,16 +64,17 @@ export const useDropdown = () => useContext(DropdownContext);
 
 export const DropdownProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState("아이템을 클릭하세요");
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
   const selectItem = (item) => {
     setSelectedItem(item);
+    setIsOpen(false); // 선택 후 드롭다운 닫기
   };
 
   return (
     <DropdownContext.Provider
-      value={{ isOpen, toggleDropdown, selectItem, selectedItem }}
+      value={{ isOpen, selectedItem, toggleDropdown, selectItem }}
     >
       {children}
     </DropdownContext.Provider>
@@ -88,35 +89,28 @@ export const DropdownProvider = ({ children }) => {
 드롭다운 버튼과 메뉴를 구현하여 DropdownProvider를 통해 상태를 공유한다. 버튼을 클릭하면 드롭다운 메뉴가 열리고, 메뉴 아이템을 클릭하면 선택된 아이템으로 버튼 텍스트가 변경되며 드롭다운이 닫힌다.
 
 ```jsx
-import { DropdownProvider, useDropdown } from "./context/DropdownContext";
+import { DropdownProvider, useDropdown } from "context/DropdownContext";
 
+// 버튼 컴포넌트
 const DropdownButton = () => {
   const { toggleDropdown, selectedItem } = useDropdown();
   return (
     <button onClick={toggleDropdown}>
-      {selectedItem ? selectedItem : "Dropdown Button"}
+      {selectedItem || "Dropdown Button"}
     </button>
   );
 };
 
+// 메뉴 컴포넌트
 const DropdownMenu = ({ items }) => {
-  const { isOpen, toggleDropdown, selectItem } = useDropdown();
+  const { isOpen, selectItem } = useDropdown();
 
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
+
   return (
     <ul>
       {items.map((item) => (
-        <li
-          key={item}
-          onClick={() => {
-            // (1) Dropdwon이 닫힘
-            toggleDropdown();
-            // (2) selectItem이 선택됨
-            selectItem(item);
-          }}
-        >
+        <li key={item} onClick={() => selectItem(item)}>
           {item}
         </li>
       ))}
@@ -124,6 +118,7 @@ const DropdownMenu = ({ items }) => {
   );
 };
 
+// 메인 Dropdown 컴포넌트
 const Dropdown = ({ items }) => {
   return (
     <DropdownProvider>
