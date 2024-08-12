@@ -20,7 +20,7 @@ sidebar:
 
 # 2. 구현하기
 
-![](/assets/images/2024/2024-08-02-22-37-57.png)
+![](/assets/images/2024/2024-08-12-16-50-38.png)
 
 ## 2.1 App.jsx
 
@@ -29,8 +29,6 @@ import Modal from "components/ContextPractice/Modal";
 import { ModalContextProvider } from "context/ModalContext";
 
 const HomePage = () => {
-  const items = ["첫 번째 아이템", "두 번째 아이템", "세 번째 아이템"];
-
   return (
     <ModalContextProvider>
       <h1>useContext로 Modal 구현하기</h1>
@@ -94,12 +92,12 @@ const Modal = () => {
     <div>
       <button onClick={openModal}>Open Modal</button>
       {isOpen && (
-        <Overlay onClick={closeModal}>
+        <StOverlay onClick={closeModal}>
           <StModalBox onClick={(e) => e.stopPropagation()}>
             <button onClick={closeModal}>Close</button>
             <p>모달 열림!!✨</p>
           </StModalBox>
-        </Overlay>
+        </StOverlay>
       )}
     </div>
   );
@@ -107,7 +105,7 @@ const Modal = () => {
 
 export default Modal;
 
-const Overlay = styled.div`
+const StOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
