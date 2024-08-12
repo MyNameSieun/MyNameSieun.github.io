@@ -1,5 +1,5 @@
 ---
-title: "[React] useContext로 만드는 modal"
+title: "[React] useContext로 modal 구현하기"
 categories: [React]
 toc_label: Contents
 toc: true

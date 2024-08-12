@@ -50,11 +50,12 @@ sidebar:
 
 1. [개발 서버 실행 및 빌드](https://mynamesieun.github.io/react/%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EB%B9%8C%EB%93%9C/)
 2. [throttling & debouncing](https://mynamesieun.github.io/react/throttling-&-debouncing/)
-3. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-4. [인증 및 인가](https://mynamesieun.github.io/react/%EC%9D%B8%EC%A6%9D-%EB%B0%8F-%EC%9D%B8%EA%B0%80/)
-5. [공용 컴포넌트로 만들어 재사용하기](https://mynamesieun.github.io/react/%EA%B3%B5%EC%9A%A9-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-6. [상태 직접 업데이트 vs 콜백 함수 사용 비교](https://mynamesieun.github.io/react/%EC%83%81%ED%83%9C-%EC%A7%81%EC%A0%91-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-vs-%EC%BD%9C%EB%B0%B1-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EB%B9%84%EA%B5%90/)
-7. [select와 option](https://mynamesieun.github.io/react/select%EC%99%80-option/)
+3. 로컬 스토리지와 세션 스토리지 사용하기
+4. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
+5. [인증 및 인가](https://mynamesieun.github.io/react/%EC%9D%B8%EC%A6%9D-%EB%B0%8F-%EC%9D%B8%EA%B0%80/)
+6. [공용 컴포넌트로 만들어 재사용하기](https://mynamesieun.github.io/react/%EA%B3%B5%EC%9A%A9-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+7. [상태 직접 업데이트 vs 콜백 함수 사용 비교](https://mynamesieun.github.io/react/%EC%83%81%ED%83%9C-%EC%A7%81%EC%A0%91-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-vs-%EC%BD%9C%EB%B0%B1-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EB%B9%84%EA%B5%90/)
+8. [select와 option](https://mynamesieun.github.io/react/select%EC%99%80-option/)
 
 ---
 
@@ -73,9 +74,9 @@ sidebar:
   9. [input 내부의 값 효율적으로 관리하기 useState vs useRef](https://mynamesieun.github.io/react/input-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B0%92-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-useState-vs-useRef/)
 
 - 실습
-  1.  [useContext로 dropdown 구현하기]()
-  2.  [useContext로 modal 구현하기]()
-  3.  [useContext로 검색 기능 구현하기]()
+  1.  [useContext로 dropdown 구현하기](https://mynamesieun.github.io/react/useContext%EB%A1%9C-dropdown-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+  2.  [useContext로 modal 구현하기](https://mynamesieun.github.io/react/useContext%EB%A1%9C-modal-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+  3.  [useContext로 검색 기능 구현하기](https://mynamesieun.github.io/react/useContext%EB%A1%9C-%EA%B2%80%EC%83%89-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 
 ---
 

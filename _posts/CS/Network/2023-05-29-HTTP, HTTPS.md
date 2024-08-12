@@ -1,7 +1,6 @@
 ---
 title: "[Network] HTTP / HTTPS"
 categories: [Network]
-tag: [Network, CS]
 toc_label: Contents
 toc: true
 toc_sticky: true

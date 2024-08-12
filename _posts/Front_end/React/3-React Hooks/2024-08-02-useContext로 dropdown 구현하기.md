@@ -1,5 +1,5 @@
 ---
-title: "[React] useContext로 만드는 dropdown"
+title: "[React] useContext로 dropdown 구현하기"
 categories: [React]
 toc_label: Contents
 toc: true

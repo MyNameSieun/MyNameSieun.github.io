@@ -57,6 +57,11 @@ Context를 사용해서 isDark라는 데이터를 모든 하위 컴포넌트들�
 
 ## 2.1 Context 생성
 
+- children?
+  - children은 해당 컴포넌트의 여는 태그와 닫는 태그 사이에 포함된 모든 요소나 컴포넌트를 의미한다.
+  - 아래 코드에서 children은 ThemeContextProvider 컴포넌트로 감싸진 모든 하위 컴포넌트를 의미한다.
+  - children props를 사용해서 ThemeContextProvider로 감싸지는 모든 자식 컴포넌트들이 value 값을 공유할 수 있다.
+
 {% raw %}
 
 ```jsx
@@ -68,8 +73,7 @@ import { createContext, useState } from "react";
 // (2) Context 생성
 export const ThemeContext = createContext(null);
 
-// (3) Provider 생성 :
-// children props를 사용해서 LetterContextProvider로 감싸지는 모든 자식 컴포넌트들이 value 값을 공유할 수 있도록 한다.
+// (3) Provider 생성
 export const ThemeContextProvider = ({ children }) => {
   // (4) props drilling으로 공유되는 useState를 옮겨주자
   const [isDark, setIsDark] = useState(false);
@@ -110,10 +114,9 @@ root.render(
 
 ```jsx
 // components/pages/MainPage.jsx
-
+import { ThemeContext } from "context/ThemeContext";
 import { useContext } from "react";
-import styled from "styled-components";
-import { ThemeContext } from "../../context/ThemeContext";
+import styled, { css } from "styled-components";
 
 const MainPage = () => {
   // useContext Hook으로 Context로 전달한 정보 받아오기
@@ -124,7 +127,7 @@ const MainPage = () => {
   };
 
   return (
-    <MainLayout isDark={isDark}>
+    <MainLayout $isDark={isDark}>
       <p>안녕</p>
       <p>Hello</p>
       <button onClick={toggleTheme}>
@@ -136,10 +139,20 @@ const MainPage = () => {
 
 export default MainPage;
 
-const MainLayout = styled.div`
+// const MainLayout = styled.main`
+//   height: 100vh;
+//   background-color: ${(props) => (props.isDark ? '#000000' : '#ffffff')};
+// `;
+const MainLayout = styled.main`
   height: 100vh;
-  background-color: ${(props) => (props.isDark ? "#000000" : "#ffffff")};
-  color: ${(props) => (props.isDark ? "#ffffff" : "#000000")};
+  ${(props) =>
+    props.$isDark
+      ? css`
+          background-color: black;
+        `
+      : css`
+          background-color: white;
+        `}
 `;
 ```
 

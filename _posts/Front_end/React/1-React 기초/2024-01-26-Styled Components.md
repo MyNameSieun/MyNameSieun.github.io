@@ -138,7 +138,50 @@ const Button = styled.button`
 
 <br><br>
 
-# 3. Global Styles
+# 3. CSS를 JS 파일에 직접 작성하기
+
+> Styled Components를 사용하면 CSS를 JavaScript 파일에 직접 작성할 수 있다.
+
+다크 모드와 라이트 모드에 따라 동적으로 스타일을 변경해보자
+
+```jsx
+import { ThemeContext } from "context/ThemeContext";
+import { useContext } from "react";
+import styled, { css } from "styled-components";
+
+const Theme = () => {
+  const { isDark, setIsDark } = useContext(ThemeContext);
+
+  const handleToggleThemeButton = () => {
+    setIsDark((prev) => !prev);
+  };
+
+  return (
+    <ThemeLayout $isDark={isDark}>
+      <button onClick={handleToggleThemeButton}>
+        {isDark ? "라이트모드" : "다크모드"}
+      </button>
+    </ThemeLayout>
+  );
+};
+
+export default Theme;
+
+const ThemeLayout = styled.main`
+  ${(props) =>
+    props.$isDark
+      ? css`
+          background-color: black;
+        `
+      : css`
+          background-color: white;
+        `}
+`;
+```
+
+<br><br>
+
+# 4. Global Styles
 
 > Global Styles(전역 스타일링)이란?
 >

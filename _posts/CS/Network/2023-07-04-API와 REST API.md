@@ -1,7 +1,6 @@
 ---
 title: "[Network] API와 REST API"
 categories: [Network]
-tag: [Network, CS]
 toc_label: Contents
 toc: true
 toc_sticky: true
