@@ -14,8 +14,7 @@ sidebar:
 # 1. 기능 요구사항
 
 1. 모달을 열고 닫을 수 있어야 한다.
-2. 모달의 내용은 동적으로 변경할 수 있어야 한다.
-3. 모달이 열려 있을 때, 배경 클릭 시 모달이 닫혀야 한다.
+2. 모달이 열려 있을 때, 배경 클릭 시 모달이 닫혀야 한다.
 
 <br>
 
@@ -26,18 +25,21 @@ sidebar:
 ## 2.1 App.jsx
 
 ```jsx
-import Modal from "./Modal";
+import Modal from "components/ContextPractice/Modal";
+import { ModalContextProvider } from "context/ModalContext";
 
-function App() {
+const HomePage = () => {
+  const items = ["첫 번째 아이템", "두 번째 아이템", "세 번째 아이템"];
+
   return (
-    <div>
-      <h3>useContext로 만드는 Modal</h3>
+    <ModalContextProvider>
+      <h1>useContext로 Modal 구현하기</h1>
       <Modal />
-    </div>
+    </ModalContextProvider>
   );
-}
+};
 
-export default App;
+export default HomePage;
 ```
 
 <br>
@@ -46,37 +48,32 @@ export default App;
 
 모달의 상태를 관리하기 위해 ModalContext를 설정한다. useContext와 useState를 활용하여 모달의 열림/닫힘 상태와 모달 내용을 관리한다.
 
+{% raw %}
+
 ```jsx
 // src/context/ModalContext.jsx
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
-const ModalContext = createContext();
+export const ModalContext = createContext();
 
-export const useModal = () => useContext(ModalContext);
-
-export const ModalProvider = ({ children }) => {
+export const ModalContextProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-
-  const openModal = (content) => {
-    setModalContent(content);
+  const openModal = () => {
     setIsOpen(true);
   };
 
   const closeModal = () => {
     setIsOpen(false);
-    setModalContent(null);
   };
-
   return (
-    <ModalContext.Provider
-      value={{ isOpen, openModal, closeModal, modalContent }}
-    >
+    <ModalContext.Provider value={{ isOpen, setIsOpen, openModal, closeModal }}>
       {children}
     </ModalContext.Provider>
   );
 };
 ```
+
+{% endraw %}
 
 <br>
 
@@ -86,43 +83,25 @@ ModalProvider를 통해 상태를 공유한다. 버튼을 클릭하면 모달이
 
 ```jsx
 // src/Modal.jsx
-import { ModalProvider, useModal } from "./context/ModalContext";
+import { ModalContext } from "context/ModalContext";
+import { useContext } from "react";
 import styled from "styled-components";
 
-const ModalButton = () => {
-  const { openModal } = useModal();
-  return (
-    <button onClick={() => openModal("This is the modal content!")}>
-      Open Modal
-    </button>
-  );
-};
-
-const ModalContent = () => {
-  const { isOpen, closeModal, modalContent } = useModal();
-
-  if (!isOpen) {
-    return null;
-  }
-
-  return (
-    <Overlay onClick={closeModal}>
-      <Content onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={closeModal}>Close</CloseButton>
-        <p>{modalContent}</p>
-      </Content>
-    </Overlay>
-  );
-};
-
 const Modal = () => {
+  const { openModal, isOpen, closeModal } = useContext(ModalContext);
+
   return (
-    <ModalProvider>
-      <div>
-        <ModalButton />
-        <ModalContent />
-      </div>
-    </ModalProvider>
+    <div>
+      <button onClick={openModal}>Open Modal</button>
+      {isOpen && (
+        <Overlay onClick={closeModal}>
+          <StModalBox onClick={(e) => e.stopPropagation()}>
+            <button onClick={closeModal}>Close</button>
+            <p>모달 열림!!✨</p>
+          </StModalBox>
+        </Overlay>
+      )}
+    </div>
   );
 };
 
@@ -140,18 +119,25 @@ const Overlay = styled.div`
   align-items: center;
 `;
 
-const Content = styled.div`
+const StModalBox = styled.div`
+  border: 2px solid black;
+  width: 300px;
+  height: 100px;
   background: white;
   padding: 20px;
-  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
 `;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
 ```
+
+> stopPropagation : 이벤트 전파 방지
+
+- 이벤트는 DOM 트리에서 자식 요소에서 부모 요소로, 혹은 다른 방향으로 전파된다. 이 전파를 "버블링"이라고 하며, 부모 요소가 자식 요소의 이벤트를 감지할 수 있다.
+- `stopPropagation` 메서드를 호출하면, 이벤트가 더 이상 상위 요소로 전파되지 않기 때문에, 이벤트가 상위 요소에서 처리되지 않게 된다.
+
+<br>
+
+- 위 코드에서 모달의 Overlay가 클릭되면 모달이 닫히도록 설정한 경우, 모달 박스(StModalBox)를 클릭할 때도 Overlay가 클릭된 것으로 간주되어 모달이 닫히게 된다.
+- stopPropagation을 사용하면, 모달 박스 내에서의 클릭 이벤트는 Overlay로 전파되지 않아 모달이 닫히지 않게 된다.
 
 <br>

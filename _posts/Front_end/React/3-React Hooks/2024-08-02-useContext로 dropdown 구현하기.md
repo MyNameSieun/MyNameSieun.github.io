@@ -33,19 +33,22 @@ sidebar:
 
 ```jsx
 import Dropdown from "components/ContextPractice/Dropdown";
+import { DropdownProvider } from "context/DropdownContext";
 
-const App = () => {
+const HomePage = () => {
   const items = ["첫 번째 아이템", "두 번째 아이템", "세 번째 아이템"];
 
   return (
     <>
-      <h1>useContext로 만드는 DropDown Item</h1>
-      <Dropdown items={items} />
+      <DropdownProvider>
+        <h1>useContext로 만드는 Dropdown Item</h1>
+        <Dropdown items={items} />
+      </DropdownProvider>
     </>
   );
 };
 
-export default App;
+export default HomePage;
 ```
 
 <br>
@@ -54,27 +57,30 @@ export default App;
 
 드롭다운의 상태를 관리하기 위해 DropdownContext를 설정한다. useContext와 useState를 활용하여 드롭다운의 열림/닫힘 상태와 선택된 아이템을 관리한다.
 
+{% raw %}
+
 ```jsx
 // src/context/DropdownContext.jsx
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
-const DropdownContext = createContext();
-
-export const useDropdown = () => useContext(DropdownContext);
+export const DropdownContext = createContext();
 
 export const DropdownProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("아이템을 클릭하세요");
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
+  const toggleDropdown = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   const selectItem = (item) => {
     setSelectedItem(item);
-    setIsOpen(false); // 선택 후 드롭다운 닫기
+    setIsOpen(false); // 아이템 선택 후 드롭다운 닫기
   };
 
   return (
     <DropdownContext.Provider
-      value={{ isOpen, selectedItem, toggleDropdown, selectItem }}
+      value={{ isOpen, toggleDropdown, selectedItem, selectItem }}
     >
       {children}
     </DropdownContext.Provider>
@@ -82,55 +88,62 @@ export const DropdownProvider = ({ children }) => {
 };
 ```
 
+{% endraw %}
+
 <br>
 
 ## 3.3 Dropdown 컴포넌트 구현
 
 드롭다운 버튼과 메뉴를 구현하여 DropdownProvider를 통해 상태를 공유한다. 버튼을 클릭하면 드롭다운 메뉴가 열리고, 메뉴 아이템을 클릭하면 선택된 아이템으로 버튼 텍스트가 변경되며 드롭다운이 닫힌다.
 
+{% raw %}
+
 ```jsx
-import { DropdownProvider, useDropdown } from "context/DropdownContext";
+import { DropdownContext } from "context/DropdownContext";
+import { useContext } from "react";
 
-// 버튼 컴포넌트
-const DropdownButton = () => {
-  const { toggleDropdown, selectedItem } = useDropdown();
-  return (
-    <button onClick={toggleDropdown}>
-      {selectedItem || "Dropdown Button"}
-    </button>
-  );
-};
-
-// 메뉴 컴포넌트
-const DropdownMenu = ({ items }) => {
-  const { isOpen, selectItem } = useDropdown();
-
-  if (!isOpen) return null;
-
-  return (
-    <ul>
-      {items.map((item) => (
-        <li key={item} onClick={() => selectItem(item)}>
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-// 메인 Dropdown 컴포넌트
 const Dropdown = ({ items }) => {
+  // 버튼 컴포넌트
+  const DropdownButton = () => {
+    const { toggleDropdown, selectedItem } = useContext(DropdownContext);
+
+    return (
+      <button onClick={toggleDropdown}>
+        {selectedItem || "아이템을 선택하세요"}
+      </button>
+    );
+  };
+
+  // 메뉴 컴포넌트
+  const DropdownMenu = () => {
+    const { isOpen, selectItem } = useContext(DropdownContext);
+
+    return (
+      <>
+        {isOpen && (
+          <ul>
+            {items.map((item) => (
+              <li key={item} onClick={() => selectItem(item)}>
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  };
+
   return (
-    <DropdownProvider>
-      <div>
-        <DropdownButton />
-        <DropdownMenu items={items} />
-      </div>
-    </DropdownProvider>
+    <>
+      <DropdownButton />
+      <DropdownMenu items={items} />
+    </>
   );
 };
 
 export default Dropdown;
 ```
+
+{% endraw %}
 
 <br>
