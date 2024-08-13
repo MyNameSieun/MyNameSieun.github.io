@@ -22,6 +22,8 @@ sidebar:
 
 ③ `import React, { useEffect } from "react";` 로 import 해서 사용한다.
 
+④ ⭐ useEffect는 컴포넌트의 렌더링(혹은 리렌더링)이 모두 끝난 후에 실행된다.
+
 <br>
 
 ## 1.2 useEffect 원리
@@ -30,18 +32,15 @@ useEffect 훅은 기본적으로 콜백함수를 받는다.<br>
 콜백함수 내부에 원하는 작업을 작성해주면 된다.
 
 ```js
-useEffect(() => {// 실행하고 싶은 함수});
+useEffect(() => {실행하고 싶은 함수});
 ```
 
 <br>
 
-브라우저에서 App 컴포넌트가 화면에 렌더링될 때 useEffect 안에 있는 console.log가 실행된다.
+브라우저에서 컴포넌트가 화면에 렌더링될 때 useEffect 안에 있는 console.log가 실행된다.
 
 ```jsx
-// src/App.js
-
-import React, { useEffect } from "react";
-import "./App.css";
+import { useEffect } from "react";
 
 const App = () => {
   useEffect(() => {
@@ -66,13 +65,13 @@ useEffect는 컴포넌트가 렌더링 될 때에 특정 작업을 수행한다�
 아래 코드를 콘솔에서 확인해보면 브라우저에 input에 어떤 값을 입력했을 때 useEffect가 계속 실행되는 것을 볼 수 있다.
 
 ```jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    console.log("hello useEffect");
+    console.log("안녕!");
   });
 
   return (
@@ -80,8 +79,8 @@ const App = () => {
       <input
         type="text"
         value={value}
-        onChange={(event) => {
-          setValue(event.target.value);
+        onChange={(e) => {
+          setValue(e.target.value);
         }}
       />
     </div>
@@ -136,12 +135,11 @@ useEffect 에서 함수를 1번만 실행시키고자 할때는 의존성 배열
 ⭐ 의존성배열이 비어있는 경우 최초 렌더링 할 때만 실행되기 때문이다.(DB 통신시 유용)
 
 ```jsx
-// src/App.js
-
-import React, { useEffect, useState } from "react";
+import  useEffect, useState } from "react";
 
 const App = () => {
   const [value, setValue] = useState("");
+
   useEffect(() => {
     console.log("hello useEffect");
   }, []); // 비어있는 의존성 배열
@@ -173,12 +171,11 @@ input에 어떤 값을 입력하더라도, 처음에 실행된 hello useEffect�
 value는 state이고 우리가 input을 입력할 때마다 그 값이 변하게 되니 useEffect도 계속 실행된다.
 
 ```jsx
-// src/App.js
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [value, setValue] = useState("");
+
   useEffect(() => {
     console.log("hello useEffect");
   }, [value]); // value를 넣음
@@ -218,9 +215,7 @@ useEffect가 실행될 때 반환된 함수로, 주로 특정 작업이 더 이�
 useEffect 안에서 return 을 해주고 이 부분에 실행되길 원하는 함수를 넣으면 된다. (그냥 console.log와 같다.)
 
 ```jsx
-// src/App.js
-
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const App = () => {
   useEffect(() => {
@@ -245,7 +240,7 @@ export default App;
 
 ```jsx
 // src/App.js
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Timer from "./components/Timer";
 
 const App = () => {
@@ -264,7 +259,7 @@ export default App;
 
 ```js
 // components/Timer.jsx
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const Timer = (props) => {
   useEffect(() => {

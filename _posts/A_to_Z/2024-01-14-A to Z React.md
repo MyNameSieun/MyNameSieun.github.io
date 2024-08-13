@@ -76,7 +76,7 @@ sidebar:
 - 실습
   1.  [useContext로 dropdown 구현하기](https://mynamesieun.github.io/react/useContext%EB%A1%9C-dropdown-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
   2.  [useContext로 modal 구현하기](https://mynamesieun.github.io/react/useContext%EB%A1%9C-modal-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
-  3.  [useContext로 검색 기능 구현하기](https://mynamesieun.github.io/react/useContext%EB%A1%9C-%EA%B2%80%EC%83%89-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+  3.  useContext와 useSearchParams로 검색 기능 구현하기
 
 ---
 
