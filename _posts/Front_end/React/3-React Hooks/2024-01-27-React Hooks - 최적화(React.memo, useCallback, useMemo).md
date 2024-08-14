@@ -34,9 +34,17 @@ sidebar:
 
 <br><br>
 
-# 2.memo(React.memo) 개요
+# 2.memo(React.memo)
 
-## 2.1 memo 개념
+## 2.1 memo 개요
+
+> memo 개념
+
+- React.memo는 컴포넌트의 리렌더링을 최적화하는 고차 컴포넌트(HOC, Higher-Order Component)이다.
+- 부모 컴포넌트가 리렌더링되더라도 props가 변경되지 않은 자식 컴포넌트의 불필요한 리렌더링을 방지할 수 있다.
+- React.memo는 컴포넌트의 props를 비교하여 이전과 동일하다면 리렌더링을 건너뛰고, 다르다면 리렌더링을 수행한다.
+
+> memo 필요성
 
 리-렌더링의 발생 조건 중 3번째 경우. 즉, 부모 컴포넌트가 리렌더링 되면 자식컴포넌트는 모두 리렌더링 된다는 것은 그림으로 보면 아래와 같다.
 
@@ -51,53 +59,40 @@ sidebar:
 
 ## 2.2 memo의 필요성
 
-아래와 같이 디렉토리를 구성해보자
-
-![](/assets/images/2024/2024-01-27-20-58-28.png)
-
-그 후, 예제 코드를 만들어보자.
+예제 코드를 통해 memo의 필요성을 살펴보자
 
 ```jsx
-// App.jsx
-import React, { useState } from "react";
-import Box1 from "./components/Box1";
-import Box2 from "./components/Box2";
-import Box3 from "./components/Box3";
+import { useState } from "react";
+import Box1 from "./Box1";
+import Box2 from "./Box2";
+import Box3 from "./Box3";
 
-const boxesStyle = {
-  display: "flex",
-  marginTop: "10px",
-};
-
-function App() {
-  console.log("App 컴포넌트가 렌더링되었습니다!");
+const App = () => {
+  console.log("App 컴포넌트가 렌더링 되었습니다.");
 
   const [count, setCount] = useState(0);
 
   // 1을 증가시키는 함수
   const onPlusButtonClickHandler = () => {
-    setCount(count + 1);
+    setCount((prev) => prev + 1);
   };
 
   // 1을 감소시키는 함수
   const onMinusButtonClickHandler = () => {
-    setCount(count - 1);
+    setCount((prev) => prev - 1);
   };
 
   return (
     <>
-      <h3>카운트 예제입니다!</h3>
-      <p>현재 카운트 : {count}</p>
+      <p>현재 카운트: {count}</p>
       <button onClick={onPlusButtonClickHandler}>+</button>
       <button onClick={onMinusButtonClickHandler}>-</button>
-      <div style={boxesStyle}>
-        <Box1 />
-        <Box2 />
-        <Box3 />
-      </div>
+      <Box1 />
+      <Box2 />
+      <Box3 />
     </>
   );
-}
+};
 
 export default App;
 ```
@@ -106,72 +101,38 @@ export default App;
 // Box1.jsx
 import React from "react";
 
-const boxStyle = {
-  width: "100px",
-  height: "100px",
-  backgroundColor: "#91c49f",
-  color: "white",
+const Box1 = () => {
+  console.log("Box1 렌더링!");
 
-  // 가운데 정렬 3종세트
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  return <div>Box1</div>;
 };
 
-function Box1() {
-  console.log("Box1이 렌더링되었습니다.");
-  return <div style={boxStyle}>Box1</div>;
-}
-
-export default Box1;
+export default React.memo(Box1);
 ```
 
 ```jsx
 // Box2.jsx
 import React from "react";
 
-const boxStyle = {
-  width: "100px",
-  height: "100px",
-  backgroundColor: "#4e93ed",
-  color: "white",
+const Box2 = () => {
+  console.log("Box2 렌더링!");
 
-  // 가운데 정렬 3종세트
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  return <div>Box2</div>;
 };
 
-function Box2() {
-  console.log("Box2가 렌더링되었습니다.");
-  return <div style={boxStyle}>Box2</div>;
-}
-
-export default Box2;
+export default React.memo(Box2);
 ```
 
 ```jsx
 // Box3.jsx
 import React from "react";
 
-const boxStyle = {
-  width: "100px",
-  height: "100px",
-  backgroundColor: "#c491be",
-  color: "white",
-
-  // 가운데 정렬 3종세트
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+const Box3 = () => {
+  console.log("Box3 렌더링!");
+  return <div>Box3</div>;
 };
 
-function Box3() {
-  console.log("Box3가 렌더링되었습니다.");
-  return <div style={boxStyle}>Box3</div>;
-}
-
-export default Box3;
+export default React.memo(Box3);
 ```
 
 ![](/assets/images/2024/2024-01-27-20-57-45.png)
@@ -186,11 +147,11 @@ plus 버튼 또는 minus 버튼을 누른 순간 실제로 변한 것은 부모�
 
 ## 2.3 memo 적용
 
-`React.memo`를 이용하면 컴포넌트를 메모리에 저장(캐싱)해두고 필요할 때 갖다 쓸 수 있다.
+> `React.memo`를 이용하면 컴포넌트를 메모리에 저장(캐싱)해두고 필요할 때 갖다 쓸 수 있다.
 
-이렇게 하면 부모 컴포넌트의 `state`의 변경으로 인해 `props`가 변경이 일어나지 않는 한 컴포넌트는 리렌더링 되지 않는다. 즉, props로 전달받은 자식 컴포넌트가 리렌더링 되지 않게 하기 위해 memo를 사용하는 것이다.
-
-이것을 컴포넌트 memoization 이라고 한다.
+- 이렇게 하면 부모 컴포넌트의 `state`의 변경으로 인해 `props`가 변경이 일어나지 않는 한 컴포넌트는 리렌더링 되지 않는다.
+- 즉, props로 전달받은 자식 컴포넌트가 리렌더링 되지 않게 하기 위해 memo를 사용하는 것이다.
+- 이것을 컴포넌트 memoization 이라고 한다.
 
 <br>
 
@@ -208,11 +169,15 @@ export default React.memo(Box3);
 
 <br><br>
 
-# 3. useCallback 개요
+# 3. useCallback
 
-## 3.1 useCallback 개념
+## 3.1 useCallback 개요
 
-React.memo는 컴포넌트를 메모이제이션 했다면, useCallback은 인자로 들어오는 함수 자체를 기억(메모이제이션)한다.
+> useCallback 개념
+
+- useCallback은 메모이제이션된 콜백 함수를 반환하는 Hook이다.
+- React.memo는 컴포넌트를 메모이제이션 했다면, useCallback은 인자로 들어오는 함수 자체를 기억(메모이제이션)한다.
+- 함수가 의존성 배열에 포함된 값이 변경되지 않는 한, 동일한 함수 인스턴스를 반환하여 자식 컴포넌트에 불필요하게 새로운 함수가 전달되는 것을 방지한다.
 
 <br>
 
@@ -221,30 +186,24 @@ React.memo는 컴포넌트를 메모이제이션 했다면, useCallback은 인�
 아래와 같이 Box1이 count를 초기화 해 주는 코드라고 가정해보자.
 
 ```jsx
-// App.jsx
-import React, { useState } from "react";
-import Box1 from "./components/Box1";
-import Box2 from "./components/Box2";
-import Box3 from "./components/Box3";
+import { useState } from "react";
+import Box1 from "./Box1";
+import Box2 from "./Box2";
+import Box3 from "./Box3";
 
-const boxesStyle = {
-  display: "flex",
-  marginTop: "10px",
-};
-
-function App() {
-  console.log("App 컴포넌트가 렌더링되었습니다!");
+const App = () => {
+  console.log("App 컴포넌트가 렌더링 되었습니다.");
 
   const [count, setCount] = useState(0);
 
   // 1을 증가시키는 함수
   const onPlusButtonClickHandler = () => {
-    setCount(count + 1);
+    setCount((prev) => prev + 1);
   };
 
   // 1을 감소시키는 함수
   const onMinusButtonClickHandler = () => {
-    setCount(count - 1);
+    setCount((prev) => prev - 1);
   };
 
   // counter를 초기화해주는 함수
@@ -254,16 +213,13 @@ function App() {
 
   return (
     <>
-      <h3>카운트 예제입니다!</h3>
-      <p>현재 카운트 : {count}</p>
+      <p>현재 카운트: {count}</p>
       <button onClick={onPlusButtonClickHandler}>+</button>
       <button onClick={onMinusButtonClickHandler}>-</button>
-      <div style={boxesStyle}>
-        <Box1 initCount={initCount} />
-      </div>
+      <Box1 initCount={initCount} />
     </>
   );
-}
+};
 
 export default App;
 ```
@@ -272,26 +228,15 @@ export default App;
 // Box1.jsx
 import React from "react";
 
-const boxStyle = {
-  width: "100px",
-  height: "100px",
-  backgroundColor: "#91c49f",
-  color: "white",
+const Box1 = ({ initCount }) => {
+  console.log("Box1 렌더링!");
 
-  // 가운데 정렬 3종세트
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-function Box1({ initCount }) {
-  console.log("Box1이 렌더링되었습니다.");
   return (
-    <div style={boxStyle}>
+    <div>
       <button onClick={() => initCount()}>초기화</button>
     </div>
   );
-}
+};
 
 export default React.memo(Box1);
 ```
@@ -391,9 +336,11 @@ const initCount = useCallback(() => {
 
 <br><br>
 
-# 4. useMemo 개요
+# 4. useMemo
 
-## 4.1 useMemo 개념
+## 4.1 useMemo 개요
+
+> useMemo 개념
 
 memo는 memoization(기억)을 뜻한다.
 
