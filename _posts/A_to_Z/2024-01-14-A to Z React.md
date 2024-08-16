@@ -83,12 +83,12 @@ sidebar:
 ### 4 - 비동기와 REST API
 
 1. [비동기 프로그래밍 정리⭐](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%A0%95%EB%A6%AC/)
-2. [React 비동기 데이터 처리 최적화: 로딩, 에러, 재시도 로직](https://mynamesieun.github.io/react/React-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EC%B5%9C%EC%A0%81%ED%99%94_%EB%A1%9C%EB%94%A9,-%EC%97%90%EB%9F%AC,-%EC%9E%AC%EC%8B%9C%EB%8F%84-%EB%A1%9C%EC%A7%81/)
-3. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
-4. [json-server](https://mynamesieun.github.io/react/json-server/)
-5. [비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)
-6. [Thunder Client를 이용한 통신 연습](https://mynamesieun.github.io/react/Thunder-Client%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
-7. [비동기 프로그래밍과 REST API 호출 연습](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC-REST-API-%ED%98%B8%EC%B6%9C-%EC%97%B0%EC%8A%B5/)
+2. [JSON과 비동기통신](https://mynamesieun.github.io/react/JSON%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0%ED%86%B5%EC%8B%A0/)
+3. [json-server](https://mynamesieun.github.io/react/json-server/)
+4. [비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)
+5. [Thunder Client를 이용한 통신 연습](https://mynamesieun.github.io/react/Thunder-Client%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
+6. [비동기 프로그래밍과 REST API 호출 연습](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC-REST-API-%ED%98%B8%EC%B6%9C-%EC%97%B0%EC%8A%B5/)
+7. [React 비동기 데이터 처리 최적화: 로딩, 에러, 재시도 로직](https://mynamesieun.github.io/react/React-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EC%B5%9C%EC%A0%81%ED%99%94_%EB%A1%9C%EB%94%A9,-%EC%97%90%EB%9F%AC,-%EC%9E%AC%EC%8B%9C%EB%8F%84-%EB%A1%9C%EC%A7%81/)
 
 ---
 

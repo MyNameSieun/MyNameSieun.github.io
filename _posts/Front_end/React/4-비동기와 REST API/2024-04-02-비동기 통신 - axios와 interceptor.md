@@ -245,7 +245,7 @@ export default App;
 
 <br>
 
-## 2.3 delete
+## 2.3 DELETE
 
 > DELETE는 저장되어 있는 데이터를 삭제하고자 요청을 보낼 때 사용한다.
 
@@ -336,7 +336,7 @@ export default App;
 
 <br>
 
-## 2.4 patch
+## 2.4 PATCH
 
 > patch는 보통 어떤 데이터를 수정하고자 서버에 요청을 보낼 때 사용하는 메서드이다.
 

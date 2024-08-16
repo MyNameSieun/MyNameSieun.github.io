@@ -21,9 +21,9 @@ sidebar:
 
 ## 1.1 callback hell
 
-"콜백 지옥"은 콜백 함수가 중첩되어 복잡하고 가독성이 떨어지는 코드 패턴을 말한다.
+> "콜백 지옥"은 콜백 함수가 중첩되어 복잡하고 가독성이 떨어지는 코드 패턴을 말한다.
 
-then과 catch를 사용하는 비동기 프로그래밍에서 이러한 상황이 발생하기 쉽다.
+`then`과 `catch`를 사용하는 비동기 프로그래밍에서 이러한 상황이 발생하기 쉽다.
 
 ```js
 // case1
@@ -58,17 +58,14 @@ fetch('https://jsonplaceholder.typicode.com/posts/1')
 
 ## 1.2 프로미스 체이닝
 
+> 프로미스를 사용하면 프로미스 체이닝을 사용한다.
+
+- 따라서 작업이 많아지면 체인의 길이가 길어지고 코드가 복잡해져 버그를 찾거나 수정하기 어려울 수 있다.
+- async ~ await를 사용하면 이러한 문제를 해결할 수 있다!
+
 ![](https://velog.velcdn.com/images/sieunpark/post/03e5d6e6-c0e9-4389-baad-bb20105eeffc/image.png)
 
-프로미스를 사용하면 프로미스 체이닝을 사용한다.
-
-따라서 작업이 많아지면 체인의 길이가 길어지고 코드가 복잡해져 버그를 찾거나 수정하기 어려울 수 있다.
-
-⚠️ 프로미스를 쓰는 것이 효율적인 상황도 있다.
-
 <br>
-
-async ~ await를 사용하면 이러한 문제를 해결할 수 있다!
 
 <br><br>
 
@@ -84,6 +81,12 @@ async와 await는 프로미스를 조금 더 간결하게 만들어주고 콜백
 <br>
 
 ## 2.2 async 사용하기
+
+> async 함수는 항상 프로미스를 반환한다.
+
+- async 함수는 await 키워드를 사용하여 프로미스의 결과를 기다릴 수 있게 해준다.
+- await는 async 함수 내부에서만 사용할 수 있으며, 프로미스가 해결될 때까지 함수의 실행을 일시 중지한다. 프로미스가 해결된 후, 프로미스의 결과값을 반환한다.
+- 함수 앞에 async를 키워드를 붙여주면 번거롭게 프로미스를 쓰지 않아도 자동적으로 함수 안에 있는 코드 블록들이 프로미스로 변환된다.
 
 ```js
 // 정말 동기적으로 작성한 것처럼 보인다!
@@ -105,18 +108,14 @@ async function processData() {
 processData();
 ```
 
-async를 어디 넣어야할지 모르겠으면 await만 쓴다. 즉 언제 기다려야 하는지를 먼저 정의하자.<br>
-그 후, 가장 가까운 함수에 async를 붙히면 된다.
-
 <br>
 
-> try ~ catch를 사용해보자
+## 2.3 예외 처리
 
-try ~ catch문은 예외를 처리하기 위한 구문이다.<br>
-"try" 블록 안에서 예외가 발생하면 "catch" 블록이 실행되어 예외를 처리한다.
+> try ~ catch문은 예외를 처리하기 위한 구문이다.
 
-try(시도하다), catch(오류를) 잡아낸다.<br>
-즉, 시도할 내용을 try 블럭에 적고 예외 처리를 catch 블록에 적으면 되는 것이다.
+- "try" 블록 안에서 예외가 발생하면 "catch" 블록이 실행되어 예외를 처리한다.
+- 즉, 시도할 내용을 try 블럭에 적고 예외 처리를 catch 블록에 적으면 되는 것이다.
 
 ```js
 async function fetchPosts() {
@@ -138,41 +137,13 @@ async function fetchPosts() {
 fetchPosts();
 ```
 
-<br>
+<br><br>
 
-> 프로미스를 이용해 유저의 데이터를 비동기적으로 작성해보자
+# 3 Promise + async/await
 
-```jsx
-function fetchUser() {
-  return new Promise((resolve, reject) => {
-    resolve("sieun");
-  });
-}
-const user = fetchUser();
-user.then(console.log);
-console.log(user);
-```
+> 비동기 작업을 수행하고자 하는 함수 앞에 async 함수 내부에서 실질적인 비동기 작업이 필요한 위치마다 await를 붙여주면 된다.
 
-<br>
-
-> async를 사용하여 프로미스를 간편하게 비동기적으로 작성해보자
-
-```jsx
-async function fetchUser() {
-  return "sieun";
-}
-const user = fetchUser();
-console.log(user);
-```
-
-함수 앞에 async를 키워드를 붙여주면 번거롭게 프로미스를 쓰지 않아도 자동적으로 함수 안에 있는 코드 블록들이 프로미스로 변환된다.
-
-<br>
-
-## 2.3 Promise + async/await
-
-- 비동기 작업을 수행코자 하는 함수 앞에 async 함수 내부에서 실질적인 비동기 작업이 필요한 위치마다 await를 붙여주면 된다.
-- Promise ~ then과 동일한 효과를 얻을 수 있다.
+Promise ~ then과 동일한 효과를 얻을 수 있다.
 
 ```jsx
 // addCoffee 함수에서 호출할 함수, "addCoffee"를 선언
