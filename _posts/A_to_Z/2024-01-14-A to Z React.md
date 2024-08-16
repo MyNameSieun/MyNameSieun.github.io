@@ -64,7 +64,7 @@ sidebar:
 - 공부
 
   1. [React Hooks - useState](https://mynamesieun.github.io/react/React-Hooks-useState/)
-  2. [useState를 사용하여 Component 추가 및 삭제하기](https://mynamesieun.github.io/react/Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
+  2. [useState를 사용하여 Component 추가 및 삭제하기](https://mynamesieun.github.io/react/useState%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-Component-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
   3. [React Hooks - useEffect](https://mynamesieun.github.io/react/React-Hooks-useEffect/)
   4. [React Hooks - useRef](https://mynamesieun.github.io/react/React-Hooks-useRef/)
   5. [React Hooks - useContext](https://mynamesieun.github.io/react/React-Hooks-useContext/)
