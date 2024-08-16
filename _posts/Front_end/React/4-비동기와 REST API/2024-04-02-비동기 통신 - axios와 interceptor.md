@@ -691,17 +691,17 @@ await axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`);
 
 # 5. axios instance
 
-## 5.1 instance 개요
+## 5.1 axios instance 개요
 
-> instance 개념
+> axios instance 개념
 
-- axios 라이브러리에서 제공하는 기능으로, 기본 설정을 미리 구성해 놓은 axios 객체를 생성하는 사용자 정의 인스턴스이다.
-- HTTP 요청을 보낼 때 일관된 설정을 유지하고, 여러 개의 요청에 대해 반복적으로 같은 설정을 적용할 수 있다.
+- axios 라이브러리에서 제공하는 기능 중 하나로, 기본 설정을 미리 구성해 놓은 사용자 정의 axios 인스턴스를 생성하는 것을 말한다.
+- 이 사용자 정의 인스턴스를 통해 특정 API 요청에 대해 동일한 설정을 유지할 수 있게 해준다.
 - `axios.create()` 메서드를 사용하여 생성할 수 있다.
 
 <br>
 
-> Axios instance 주요 특징
+> axios instance 주요 특징
 
 - 재사용성: 인스턴스를 생성할 때 기본 URL, 헤더, 타임아웃, 응답 형식 등과 같은 기본 설정을 지정할 수 있다. 이를 통해 매번 요청할 때마다 이러한 설정을 반복적으로 입력할 필요가 없다.
 - 인터셉터: 인스턴스에 인터셉터를 추가하여 요청 또는 응답을 가로채어 수정하거나 오류를 처리할 수 있다.
@@ -709,7 +709,7 @@ await axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`);
 
 <br>
 
-## 5.2 instance 사용하기
+## 5.2 axios instance 사용하기
 
 > Axios 인스턴스 생성
 
@@ -790,7 +790,7 @@ export default instance;
 
 > Axios 라이브러리에서 제공하는 기능 중 하나로, Axios 요청 및 응답을 가로채어 변형하는 역할을 한다.
 
-요청 헤더 수정, 인증 토큰 추가, 로그 관련 로직 삽입, 에러 핸들링 등 요청 및 응답시에 필요한 작업들을 한꺼번에 처리를 할 수 있다.
+- 요청 헤더 수정, 인증 토큰 추가, 로그 관련 로직 삽입, 에러 핸들링 등 요청 및 응답시에 필요한 작업들을 한꺼번에 처리를 할 수 있다.
 
 (1) 요청(request)이 처리되기 전( = http request가 서버에 전달되기 전)<br>
 (2) 응답(response)의 then(=성공) 또는 catch(=실패)가 처리되기 전
@@ -803,7 +803,11 @@ export default instance;
 
 > 요청을 보낼 때, 그리고 서버로부터 응답을 받을 때(실패할 때) 특정한 일을 수행해야 한다면 아래와 같이 처리하면 된다.
 
+- 인스턴스마다 고유의 설정이 있기 때문에, 인터셉터 역시 인스턴스별로 독립적으로 설정할 수 있다.
+- 보통 상위에 Axios 인스턴스를 생성한 후에 하위에 인터셉터를 설정한다.
+
 ```js
+// src/api/api.js
 import axios from "axios";
 
 // 인스턴스 생성
@@ -839,6 +843,7 @@ export default api;
 // src/axios/api.js
 import axios from "axios";
 
+// 인스턴스 생성
 const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
@@ -892,7 +897,7 @@ export default api;
 ```jsx
 import axios from "axios";
 
-// Axios 인스턴스 생성
+// 인스턴스 생성
 const apiClient = axios.create({
   baseURL: "https://api.example.com",
   timeout: 1000,
