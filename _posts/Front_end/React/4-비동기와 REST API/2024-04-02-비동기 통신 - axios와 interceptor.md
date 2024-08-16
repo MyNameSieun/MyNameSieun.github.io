@@ -1,7 +1,6 @@
 ---
 title: "[React] 비동기 통신 - axios와 interceptor"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -16,8 +15,10 @@ sidebar:
 
 ## 1.1 Axios 개념
 
-axios 란 node.js와 브라우저를 위한 Promise 기반 http 클라이언트이다.
-즉, http를 이용해서 서버와 통신하기 위해 사용하는 패키지다.
+> Axios는 <span style="color:indianred">프로미스 기반</span> HTTP 클라이언트 라이브러리이다.
+
+- [[fetch↗️]](https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/)와 마찬가지로 주로 [[HTTP↗️]](https://mynamesieun.github.io/network/HTTP,-HTTPS/) 요청을 통해 서버와 데이터를 주고받을 때 사용한다.
+- fetch보다 간편하게 사용할 수 있으며, 다양한 기능을 제공한다.
 
 <br>
 
@@ -480,9 +481,9 @@ export default App;
 
 <br><br>
 
-# 3. Fetch vs axios
+# 3. fetch vs axios
 
-- Fetch는 자바스크립트 내장 브라우저이기 때문에 별도의 설치 및 import를 필요로 하지 않는다.
+Fetch는 자바스크립트 내장 브라우저이기 때문에 별도의 설치 및 import를 필요로 하지 않는다.
 
 <br>
 
@@ -526,9 +527,14 @@ axios는 네트워크 오류가 발생했거나 서버가 2xx 범위가 아닌 �
 ```js
 const url = "https://jsonplaceholder.typicode.com/todos";
 
-axios
-  .get(url)
-  .then((response) => console.log(response.data))
+fetch(url)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => console.log(data))
   .catch((err) => {
     console.log(err.message);
   });
@@ -540,18 +546,7 @@ axios
 
 > axios
 
-```js
-const url = "https://jsonplaceholder.typicode.com/todos";
-
-axios
-  .get(url)
-  .then((response) => console.log(response.data))
-  .catch((err) => {
-    console.log(err.message);
-  });
-```
-
-- axios.get()요청이 반환하는 Promise 객체가 갖고있는 상태코드가 2xx의 범위를 넘어가면 거부(reject)를 한다.
+- `axios.get()`요청이 반환하는 Promise 객체가 갖고있는 상태코드가 2xx의 범위를 넘어가면 거부(reject)를 한다.
 - 따라서, 아래와 같이 곧바로 catch() 부분을 통해 error handling이 가능하다.
 
 ```js
@@ -673,65 +668,72 @@ axios.interceptors.response.use((response) => {
 > root 경로에 `.env` 파일을 생성하여 서버 주소를 환경 변수로 관리하자.
 
 ```env
-// .env
 REACT_APP_SERVER_URL=http://localhost:3001
 ```
 
 <br>
 
-이제 프로젝트 어디에서든 process.env 객체를 통해 환경 변수에 접근할 수 있다.
+> 이제 프로젝트 어디에서든 process.env 객체를 통해 환경 변수에 접근할 수 있다.
 
-> 변경 전
+변경 전
 
 ```js
-("http://localhost:3001/todos");
+await axios.get("http://localhost:3001/todos");
 ```
 
-<br>
-
-> 변경 후
+변경 후
 
 ```js
-`${process.env.REACT_APP_SERVER_URL}/todos`;
+await axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`);
 ```
 
 <br><br>
 
 # 5. axios instance
 
-## 5.1 instance 만들기, baseURL 설정하기
+## 5.1 instance 개요
 
-> 지금까지 custom 설정이 전혀 되어있지 않은 axios를 통해 데이터 통신을 했다. 이 axios를 인스턴스(instance)라고 한다.
+> instance 개념
 
-axios instance는 단순히 import해서 가져온 객체일 뿐이다.
-
-```js
-import axios from "axios";
-
-const data = axios.get("http://localhost:4000/");
-```
+- axios 라이브러리에서 제공하는 기능으로, 기본 설정을 미리 구성해 놓은 axios 객체를 생성하는 사용자 정의 인스턴스이다.
+- HTTP 요청을 보낼 때 일관된 설정을 유지하고, 여러 개의 요청에 대해 반복적으로 같은 설정을 적용할 수 있다.
+- `axios.create()` 메서드를 사용하여 생성할 수 있다.
 
 <br>
 
-json-server 설정을 먼저 한 후, instance를 만들어 가공해보자.
+> Axios instance 주요 특징
+
+- 재사용성: 인스턴스를 생성할 때 기본 URL, 헤더, 타임아웃, 응답 형식 등과 같은 기본 설정을 지정할 수 있다. 이를 통해 매번 요청할 때마다 이러한 설정을 반복적으로 입력할 필요가 없다.
+- 인터셉터: 인스턴스에 인터셉터를 추가하여 요청 또는 응답을 가로채어 수정하거나 오류를 처리할 수 있다.
+- 설정 커스터마이징: 인스턴스를 통해 기본 설정을 변경하지 않고도 특정 요청에 대한 설정을 커스터마이즈할 수 있다.
+
+<br>
+
+## 5.2 instance 사용하기
+
+> Axios 인스턴스 생성
+
+instance를 통해 HTTP 요청을 보내면, 설정한 baseURL과 기타 옵션들이 자동으로 적용된다.
 
 ```js
 // src/axios/api.js
-
 import axios from "axios";
 
 // axios.create의 입력값으로 들어가는 객체는 configuration 객체이다.
 // https://axios-http.com/docs/req_config 참조
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
-  timeout: 1000, // 모든 요청에 대해 1000ms 후 타임아웃
+  baseURL: process.env.REACT_APP_SERVER_URL, // 기본 URL 설정
+  timeout: 1000, // 요청 타임아웃 설정(모든 요청에 대해 1000ms 후 타임아웃)
+  headers: { Authorization: "Bearer your-token" }, // 요청에 추가할 헤더를 설정
 });
 
 export default instance;
 ```
 
 <br>
+
+> 인스턴스를 사용한 요청
 
 api.js에 가공한 axios를 만들었으니, 가공한 axios를 import해주면 된다.
 
@@ -759,9 +761,11 @@ const fetchTodos = async () => {
 - get 요청하는 부분이 간결해진 것을 확인할 수 있다.
 - 이제부턴, 서버가 변경되어도 api.js 파일만 수정해주면 된다!
 
-## 5.2 실패 시켜보기
+<br>
 
-instance의 설정을 변경시켜서 요청을 실패시켜보자.
+## 5.3 실패 시켜보기
+
+> instance의 설정을 변경시켜서 요청을 실패시켜보자.
 
 ```js
 import axios from "axios";
@@ -802,11 +806,12 @@ export default instance;
 ```js
 import axios from "axios";
 
-const instance = axios.create({
+// 인스턴스 생성
+const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
-instance.interceptors.request.use(
+api.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
   function () {},
 
@@ -814,14 +819,14 @@ instance.interceptors.request.use(
   function () {}
 );
 
-instance.interceptors.response.use(
+api.interceptors.response.use(
   // 응답을 내보내기 전 수행되는 함수
   function () {},
 
   // 오류 응답을 내보내기 전 수행되는 함수
   function () {}
 );
-export default instance;
+export default api;
 ```
 
 <br>
@@ -832,41 +837,41 @@ export default instance;
 
 ```js
 // src/axios/api.js
-
 import axios from "axios";
 
-const instance = axios.create({
+const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
-instance.interceptors.request.use(
+api.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
-  function (config) {
-    console.log(`인터셉터 요청 성공`);
+  (config) => {
+    console.log("인터셉터 요청 성공");
     return config;
   },
 
   // 오류 요청을 보내기 전 수행되는 함수
-  function (error) {
-    console.log(`인터셉터 요청 오류`);
+  (error) => {
+    console.log("인터셉터 요청 오류");
     return Promise.reject(error);
   }
 );
 
-instance.interceptors.response.use(
+api.interceptors.response.use(
   // 응답을 내보내기 전 수행되는 함수
-  function (response) {
-    console.log(`인터셉터 응답 받음`);
+  (response) => {
+    console.log("인터셉터 응답 받음");
     return response;
   },
 
   // 오류 응답을 내보내기 전 수행되는 함수
-  function (error) {
-    console.log(`인터셉터 응답 오류 발생`);
+  (error) => {
+    console.log("인터셉터 응답 오류 발생");
     return Promise.reject(error);
   }
 );
-export default instance;
+
+export default api;
 ```
 
 ![](/assets/images/2024/2024-02-19-02-24-21.png)
@@ -875,82 +880,80 @@ export default instance;
 
 <br>
 
-## 6.2 axios interceptor 사용 예제
+## 6.3 인증 및 인가 인터셉터 사용하기
 
-> ① Axios 인스턴스와 인터셉터 설정
+### 6.3.1 인증 토큰을 모든 요청에 자동으로 추가하기
 
-```js
-// src/api/api.js
+> 요청 인터셉터
 
+- 요청 인터셉터는 HTTP 요청이 서버에 도달하기 전에 요청을 수정할 수 있는 기능을 제공한다.
+- 일반적으로 인증 토큰을 요청 헤더에 추가하는 데 사용된다.
+
+```jsx
 import axios from "axios";
 
 // Axios 인스턴스 생성
-const api = axios.create({
-  baseURL: "http://localhost:3001",
-  timeout: 10000, // 요청 타임아웃 설정
+const apiClient = axios.create({
+  baseURL: "https://api.example.com",
+  timeout: 1000,
 });
 
 // 요청 인터셉터 추가
-api.interceptors.request.use(
+apiClient.interceptors.request.use(
   (config) => {
-    // 요청을 보내기 전에 수행할 작업
-    console.log("요청 보내기 전:", config);
-    // 예를 들어, 요청 헤더에 인증 토큰 추가
-    config.headers.Authorization = "Bearer YOUR_TOKEN_HERE";
+    // 인증 토큰을 헤더에 추가
+    const token = localStorage.getItem("authToken"); // 예: 로컬 스토리지에서 토큰을 가져옴
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
-    // 요청 에러 처리
-    console.error("요청 에러:", error);
     return Promise.reject(error);
   }
 );
-
-// 응답 인터셉터 추가
-api.interceptors.response.use(
-  (response) => {
-    // 응답 데이터를 가공하거나 로그를 남길 수 있음
-    console.log("응답 데이터:", response.data);
-    return response;
-  },
-  (error) => {
-    // 응답 에러 처리
-    console.error("응답 에러:", error);
-    return Promise.reject(error);
-  }
-);
-
-export default api;
 ```
 
 <br>
 
-> ② 컴포넌트에서 Axios 인스턴스 사용
+### 6.3.2 응답에서 인증 오류를 처리하고 새 토큰 요청하기
+
+- 응답 인터셉터는 서버로부터 응답을 받은 후 응답 데이터를 수정하거나 에러를 처리할 수 있는 기능을 제공한다.
+- 인증 오류가 발생했을 때, 예를 들어 토큰이 만료된 경우 새 토큰을 요청하는 등의 작업을 처리할 수 있다.
 
 ```jsx
-import React, { useEffect, useState } from "react";
-import api from "./api"; // 방금 만든 Axios 인스턴스 임포트
+// 응답 인터셉터 추가
+apiClient.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response.status === 401) {
+      // 401 Unauthorized 오류 처리
+      try {
+        // 토큰 리프레시 요청
+        const refreshToken = localStorage.getItem("refreshToken");
+        const response = await axios.post(
+          "https://api.example.com/refresh-token",
+          { token: refreshToken }
+        );
+        const newToken = response.data.token;
 
-const AxiosComponent = () => {
-  const [todos, setTodos] = useState([]);
+        // 새 토큰 저장
+        localStorage.setItem("authToken", newToken);
 
-  useEffect(() => {
-    api
-      .get("/todos") // 인터셉터가 설정된 Axios 인스턴스를 사용
-      .then((res) => setTodos(res.data))
-      .catch((error) => console.error("데이터 가져오기 에러:", error));
-  }, []);
-
-  return (
-    <div>
-      {todos.map((todo) => (
-        <div key={todo.id}>{todo.title}</div>
-      ))}
-    </div>
-  );
-};
-
-export default AxiosComponent;
+        // 원래의 요청 재시도
+        error.config.headers.Authorization = `Bearer ${newToken}`;
+        return axios(error.config);
+      } catch (refreshError) {
+        // 리프레시 토큰 요청 실패 시 처리
+        console.error("Token refresh failed", refreshError);
+        // 로그아웃 또는 다른 처리
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 ```
 
 <br><br>

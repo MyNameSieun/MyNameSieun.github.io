@@ -12,20 +12,23 @@ sidebar:
 
 <br>
 
-[[프로미스 객체와 메서드]](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4-%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%A9%94%EC%84%9C%EB%93%9C/) 에 이어 작성하는 글입니다.
+[[프로미스 객체와 메서드↗️]](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4-%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%A9%94%EC%84%9C%EB%93%9C/) 에 이어 작성하는 글입니다.
 {: .notice--danger}
 
 # 1. fetch 개요
 
 ## 1.1 fetch 개념
 
-JavaScript에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 해주는 메서드이다.
+> JavaScript에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 해주는 <span style="color:indianred">프로미스 기반</span> 메서드이다.
 
-fetch는 비동기 처리에 해당하는 함수이다. fetch를 동기적 처리로 만들기 위해 .then()을 사용한다.
+- 주로 [[HTTP↗️]](https://mynamesieun.github.io/network/HTTP,-HTTPS/) 요청을 통해 서버와 데이터를 주고받을 때 사용한다.
+- 다양한 HTTP 메서드(GET, POST, PUT, DELETE 등)를 지원한다.
 
 <br>
 
 ## 1.2 fetch 사용 방법
+
+> fetch 자체는 비동기 방식으로 작동하지만, `.then()`을 통해 마치 동기적으로 처리하는 것처럼 코드를 작성할 수 있다.
 
 ```js
 fetch(url, options)
