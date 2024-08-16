@@ -663,28 +663,83 @@ axios.interceptors.response.use((response) => {
 
 <br><br>
 
-# 4 .env를 활용한 리팩토링
+# 4. .env로 환경 변수 관리하기
 
-> root 경로에 `.env` 파일을 생성하여 서버 주소를 환경 변수로 관리하자.
+> `.env` 파일을 사용하여 axios의 기본 URL 또는 기타 설정을 환경 변수로 관리할 수 있다.
 
-```env
-REACT_APP_SERVER_URL=http://localhost:3001
+<br>
+
+① `.env` 파일에 환경 변수를 정의하기
+
+```
+REACT_APP_API_URL=https://api.example.com
 ```
 
 <br>
 
-> 이제 프로젝트 어디에서든 process.env 객체를 통해 환경 변수에 접근할 수 있다.
+② 이제 프로젝트 어디에서든 process.env 객체를 통해 환경 변수에 접근할 수 있다.
 
-변경 전
-
-```js
-await axios.get("http://localhost:3001/todos");
+```jsx
+await axios.get("http://localhost:3001/todos"); // 변경 전
+await axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`); // 변경 후
 ```
 
-변경 후
+<br>
 
-```js
-await axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`);
+> 만약 axios 인스턴스를 설정했다면, axios 인스턴스를 import하여 API 요청을 보내면 된다.
+
+① 환경 변수로부터 기본 URL을 가져와서 axios.create를 사용하여 인스턴스를 설정하기
+
+```jsx
+import axios from "axios";
+
+// 환경 변수에서 기본 URL을 가져오기!
+const apiUrl = process.env.REACT_APP_API_URL;
+
+// axios 인스턴스 생성
+const instance = axios.create({
+  baseURL: apiUrl, // 기본 URL 설정
+  // 추가 설정 가능 (예: headers, timeout 등)
+});
+
+export default instance;
+```
+
+<br>
+
+② 설정한 axios 인스턴스를 import하여 API 요청을 보내면 된다.
+
+```jsx
+import { useEffect, useState } from "react";
+import api from "./axios/api"; // 설정한 axios 인스턴스 import
+
+function MyComponent() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    api
+      .get("/endpoint") // 기본 URL과 결합되어 요청이 된다.
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  }, []);
+
+  if (error) return <div>Error: {error.message}</div>;
+  if (!data) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h1>Data:</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+
+export default MyComponent;
 ```
 
 <br><br>
