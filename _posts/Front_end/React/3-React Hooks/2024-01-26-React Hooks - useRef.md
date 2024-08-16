@@ -19,13 +19,15 @@ sidebar:
 
 # 1. useRef 개요
 
+- ref는 "reference(참조)"라는 뜻을 갖고 있다. 즉, 어떤 것을 참조해야만(엮어야만) 의미가 있는 것이다.
+- 그렇다면 어떤 것을 참조할까 알아보자!
+
 ## 1.1 useRef 개념
 
 > useRef는 렌더링에 필요하지 않은 값을 참조할 수 있는 React Hook이다.
 
 - 저장공간으로서의 역할 수행, DOM요소를 선택하기 위한 기능을 수행한다.
 - JS에서 `getElementById`, `querySelector`를 이용하여 특정 DOM을 선택한 것 처럼 리액트에서도 useRef hook을 사용해 DOM을 제어할 수 있다.<br><br>
-- reference는 참조라는 뜻을 갖고 있다. 즉, 어떤 것을 참조해야만(엮어야만) 의미가 있는 것이다.<br><br>
 
 > 사용 예시
 
@@ -149,9 +151,42 @@ export default UseRef;
 
 ![](/assets/images/2024/2024-08-13-00-58-26.png)
 
+<br><br>
+
+# 2. ref로 DOM 조작하기
+
+## 2.1 DOM 접근 방법
+
+① 먼저 초기값이 null인 ref 객체를 선언하자
+
+```jsx
+import { useRef } from 'react';
+
+function MyComponent() {
+  const inputRef = useRef(null);
+  // ...
+```
+
 <br>
 
-## 1.5 useRef로 변경하기[연습]
+② 그 후, ref 객체를 ref 속성으로 조작하려는 DOM 노드의 JSX에 전달하자
+
+```jsx
+// ...
+return <input ref={inputRef} />;
+```
+
+<br>
+
+③ React가 DOM 노드를 생성하고 화면에 그린 후, ref 객체의 current프로퍼티를 DOM 요소로 연결한다.
+
+- 이제 그 current를 통해 `<input>` 요소에 접근할 수 있으며, `focus()` 같은 메서드를 호출하여 해당 요소에 포커스를 줄 수 있다.
+- 여기서 주목할 것은, useRef는 DOM 요소에 숨겨져있었던 ref 속성을 참조하여 바로 값이 접근한 반면, useState는 state를 ‘연결’해놓고 그 변화를 계속해서 추적하는것이다.
+  - state는 렌더링이 계속 일어나서 변경되는 것임을 잊지 말자!
+
+<br>
+
+## 2.2 [연습] useRef로 변경하기
 
 > 아래 useState 코드를 useRef로 변경해보자
 
@@ -224,42 +259,9 @@ export default App;
 
 {% endraw %}
 
-<br><br>
-
-# 2. ref로 DOM 조작하기
-
-## 2.1 DOM 접근 방법
-
-① 먼저 초기값이 null인 ref 객체를 선언하자
-
-```jsx
-import { useRef } from 'react';
-
-function MyComponent() {
-  const inputRef = useRef(null);
-  // ...
-```
-
 <br>
 
-② 그 후, ref 객체를 ref 속성으로 조작하려는 DOM 노드의 JSX에 전달하자
-
-```jsx
-// ...
-return <input ref={inputRef} />;
-```
-
-<br>
-
-③ React가 DOM 노드를 생성하고 화면에 그린 후, ref 객체의 current프로퍼티를 DOM 요소로 연결한다.
-
-- 이제 그 current를 통해 `<input>` 요소에 접근할 수 있으며, `focus()` 같은 메서드를 호출하여 해당 요소에 포커스를 줄 수 있다.
-- 여기서 주목할 것은, useRef는 DOM 요소에 숨겨져있었던 ref 속성을 참조하여 바로 값이 접근한 반면, useState는 state를 ‘연결’해놓고 그 변화를 계속해서 추적하는것이다.
-  - state는 렌더링이 계속 일어나서 변경되는 것임을 잊지 말자!
-
-<br>
-
-## 2.1 예시: id input에 초점 맞추기
+## 2.3 [예시] id input에 초점 맞추기
 
 ```jsx
 import { useEffect, useRef } from "react";

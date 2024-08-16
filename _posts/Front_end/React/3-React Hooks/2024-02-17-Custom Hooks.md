@@ -70,7 +70,7 @@ const useFetch = (url) => {
       .then((data) => setData(data));
   }, [url]);
 
-  return <div>useFetch</div>;
+  return data;
 };
 
 export default data;
@@ -96,14 +96,11 @@ const Day = () => {
 
 <br>
 
-# 2.2 예시2 - 입력 관리
+## 2.2 예시2 - 입력 관리
 
 아래 코드를 보면 input 갯수만큼 useState, event handler이 증가하는 것을 확인할 수 있다.
 
 ```js
-// src/App.jsx
-
-import React from "react";
 import { useState } from "react";
 
 const App = () => {
