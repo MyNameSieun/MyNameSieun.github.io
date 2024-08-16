@@ -12,7 +12,7 @@ sidebar:
 
 <br>
 
-[[프로미스]](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4/) 에 이어 작성하는 글입니다.
+[[프로미스 객체와 메서드]](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4-%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%A9%94%EC%84%9C%EB%93%9C/) 에 이어 작성하는 글입니다.
 {: .notice--danger}
 
 # 1. fetch 개요

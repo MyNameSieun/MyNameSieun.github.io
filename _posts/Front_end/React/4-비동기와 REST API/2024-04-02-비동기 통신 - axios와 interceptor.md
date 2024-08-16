@@ -23,7 +23,7 @@ axios 란 node.js와 브라우저를 위한 Promise 기반 http 클라이언트�
 
 ## 1.2 Axios 설치
 
-```
+```shell
 yarn add axios
 ```
 
@@ -46,11 +46,11 @@ yarn add axios
 
 다음으로 json-server 설치 후, 3001번 포트로 서버를 가동시켜 사용하자.
 
-```
+```shell
 yarn global add json-server
 ```
 
-```js
+```shell
 yarn json-server --watch db.json --port 3001
 ```
 
@@ -89,32 +89,67 @@ API 명세서를 확인하면 GET 요청을 하고자할 때는 query로 보내�
 
 json-server에 있는 todos를 axios를 이용해서 fetching하고 useState를 통해서 관리해보자.
 
-```
+```shell
 yarn add axios
 ```
 
-```js
+```jsx
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/todos")
+      .then((res) => setTodos(res.data))
+      .catch((error) => console.log(error, "에러가 발생하였습니다."));
+  }, []);
+
+  return (
+    <div>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.title}</li>
+      ))}
+    </div>
+  );
+};
+
+export default App;
+```
+
+<br>
+
+> 위 코드를 문법적 설탕인 [[async와 await↗️]](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)를 사용하여 프로미스를 간결하게 처리할 수 있다.
+
+async와 await는 try ~ catch를 통해 예외를 처리할 수 있다.
+
+```js
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+const App = () => {
+  const [todos, setTodos] = useState([]);
+
+  // get
   useEffect(() => {
     const getTodos = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/todos");
+        const res = await axios.get("http://localhost:3001/todos");
         setTodos(res.data);
       } catch (error) {
-        console.error("에러가 발생하였습니다.");
+        console.log(error, "에러가 발생하였습니다.");
       }
     };
     getTodos();
   }, []);
+
   return (
     <div>
-      {todos.map((todo) => {
-        return <div key={todo.id}>{todo.title}</div>;
-      })}
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.title}</li>
+      ))}
     </div>
   );
 };
@@ -145,53 +180,62 @@ input에 어떤 값을 넣고 버튼을 클릭했을 때 todo를 body에 담아 
 
 ```js
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
+  // get
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/todos");
+        const res = await axios.get("http://localhost:3001/todos");
         setTodos(res.data);
-      } catch (err) {
-        console.err("에러가 발생하였습니다.");
+      } catch (error) {
+        console.log(error, "에러가 발생하였습니다.");
       }
     };
     fetchTodos();
   }, []);
 
+  // post
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const postTodo = await axios.post("http://localhost:3001/todos", {
+        title: inputValue,
+      });
+      setTodos((prev) => [...prev, postTodo.data]);
+      setInputValue("");
+    } catch (error) {
+      console.error(error, "에러가 발생하였습니다.");
+    }
+  };
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleSubmitButton = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:4000/todos", {
-        title: inputValue,
-      });
-      setTodos([...todos, res.data]);
-      setInputValue("");
-    } catch (error) {
-      console.error("에러가 발생하였습니다.");
-    }
-  };
   return (
     <div>
-      <form onSubmit={handleSubmitButton}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-        ></input>
-        <button>추가하기</button>
+          placeholder="제목을 입력하세요."
+        />
+        <button type="submit">추가</button>
       </form>
-      {todos.map((todo) => (
-        <div key={todo.id}>{todo.title}</div>
-      ))}
+
+      <h1>할 일</h1>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -203,7 +247,7 @@ export default App;
 
 ## 2.3 delete
 
-DELETE는 저장되어 있는 데이터를 삭제하고자 요청을 보낼 때 사용한다.
+> DELETE는 저장되어 있는 데이터를 삭제하고자 요청을 보낼 때 사용한다.
 
 ```js
 axios.delete(url[, config])  // DELETE
@@ -211,74 +255,78 @@ axios.delete(url[, config])  // DELETE
 
 ```js
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  // 조회 함수
+  // get
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/todos");
+        const res = await axios.get("http://localhost:3001/todos");
         setTodos(res.data);
-      } catch (err) {
-        console.err("에러가 발생하였습니다.");
+      } catch (error) {
+        console.log(error, "에러가 발생하였습니다.");
       }
     };
     fetchTodos();
   }, []);
 
-  // 추가 함수
-  const onhandleSubmitButton = async (e) => {
+  // post
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post("http://localhost:4000/todos", {
+      const postTodo = await axios.post("http://localhost:3001/todos", {
         title: inputValue,
       });
-      setTodos([...todos, res.data]);
+      setTodos((prev) => [...prev, postTodo.data]);
       setInputValue("");
     } catch (error) {
-      console.error("에러가 발생하였습니다.");
+      console.error(error, "에러가 발생하였습니다.");
     }
   };
 
-  // 삭제 함수
-  const onDeleteHandleButton = async (id) => {
-    try {
-      await axios.delete(`http://localhost:4000/todos/${id}`);
-      setTodos(
-        todos.filter((item) => {
-          return item.id !== id;
-        })
-      );
-    } catch (error) {
-      console.error("삭제 중 에러 발생", error);
+  // delete
+  const handleDeleteButton = async (id) => {
+    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:3001/todos/${id}`);
+        setTodos((prev) => prev.filter((todo) => todo.id !== id));
+      } catch (error) {
+        console.error("에러가 발생하였습니다.", error);
+      }
     }
   };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
+
   return (
     <div>
-      <form onSubmit={onhandleSubmitButton}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-        ></input>
-        <button>추가하기</button>
+          placeholder="제목을 입력하세요."
+        />
+        <button type="submit">추가</button>
       </form>
-      {todos.map((todo) => (
-        <div key={todo.id}>
-          <span>{todo.title}</span>
-          <button onClick={() => onDeleteHandleButton(todo.id)}>
-            삭제하기
-          </button>
-        </div>
-      ))}
+
+      <h1>할 일</h1>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <p>{todo.title}</p>
+            <button onClick={() => handleDeleteButton(todo.id)}>삭제</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -290,7 +338,7 @@ export default App;
 
 ## 2.4 patch
 
-patch는 보통 어떤 데이터를 수정하고자 서버에 요청을 보낼 때 사용하는 메서드이다.
+> patch는 보통 어떤 데이터를 수정하고자 서버에 요청을 보낼 때 사용하는 메서드이다.
 
 ```js
 axios.patch(url[, data[, config]])  // PATCH
@@ -298,116 +346,131 @@ axios.patch(url[, data[, config]])  // PATCH
 
 ```js
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [editId, setEditId] = useState(null); // 수정 중인 항목의 ID
-  const [editValue, setEditValue] = useState(""); // 수정 입력 값
+  const [editTodoId, setEditTodoId] = useState(null);
+  const [editInputValue, setEditInputValue] = useState("");
 
-  // 조회 함수
+  // get
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/todos");
+        const res = await axios.get("http://localhost:3001/todos");
         setTodos(res.data);
-      } catch (err) {
-        console.err("에러가 발생하였습니다.");
+      } catch (error) {
+        console.log("에러가 발생하였습니다.", error);
       }
     };
     fetchTodos();
   }, []);
 
-  // 추가 함수
-  const onhandleSubmitButton = async (e) => {
+  // post
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post("http://localhost:4000/todos", {
+      const postTodo = await axios.post("http://localhost:3001/todos", {
         title: inputValue,
       });
-      setTodos([...todos, res.data]);
+      setTodos((prev) => [...prev, postTodo.data]);
       setInputValue("");
     } catch (error) {
-      console.error("에러가 발생하였습니다.");
+      console.error("에러가 발생하였습니다.", error);
     }
   };
 
-  // 삭제 함수
-  const onDeleteHandleButton = async (id) => {
-    try {
-      await axios.delete(`http://localhost:4000/todos/${id}`);
-      setTodos(
-        todos.filter((item) => {
-          return item.id !== id;
-        })
-      );
-    } catch (error) {
-      console.error("삭제 중 에러 발생", error);
+  // delete
+  const handleDeleteButton = async (id) => {
+    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:3001/todos/${id}`);
+        setTodos((prev) => prev.filter((todo) => todo.id !== id));
+      } catch (error) {
+        console.error("에러가 발생하였습니다.", error);
+      }
     }
   };
 
-  // 수정 함수
-  const onEditHandleButton = async (id) => {
+  // patch
+  const handleEditChange = (e) => {
+    setEditInputValue(e.target.value);
+  };
+
+  const handleEditButton = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:4000/todos/${id}`, {
-        title: editValue,
+      await axios.patch(`http://localhost:3001/todos/${id}`, {
+        title: editInputValue,
       });
-      setTodos(
-        todos.map((item) =>
-          item.id === id ? { ...item, title: res.data.title } : item
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, title: editInputValue } : todo
         )
       );
-      setEditId(null); // 수정 모드 종료
-      setEditValue("");
+      setEditTodoId(null);
+      setEditInputValue("");
     } catch (error) {
-      console.error("수정 중 에러 발생", error);
+      console.error("에러가 발생하였습니다.", error);
     }
+  };
+
+  const handleStartEdit = (id, title) => {
+    setEditTodoId(id);
+    setEditInputValue(title);
+  };
+
+  const handleCancelEdit = () => {
+    setEditTodoId(null);
+    setEditInputValue("");
   };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleEditInputChange = (e) => {
-    setEditValue(e.target.value);
-  };
   return (
     <div>
-      <form onSubmit={onhandleSubmitButton}>
-        <input type="text" value={inputValue} onChange={handleInputChange} />
-        <button type="submit">추가하기</button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="제목을 입력하세요."
+        />
+        <button type="submit">추가</button>
       </form>
-      {todos.map((todo) => (
-        <div key={todo.id}>
-          {editId === todo.id ? (
-            <input
-              type="text"
-              value={editValue}
-              onChange={handleEditInputChange}
-            />
-          ) : (
-            <span>{todo.title}</span>
-          )}
-          <button onClick={() => onDeleteHandleButton(todo.id)}>
-            삭제하기
-          </button>
-          {editId === todo.id ? (
-            <button onClick={() => onEditHandleButton(todo.id)}>
-              저장하기
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                setEditId(todo.id);
-                setEditValue(todo.title);
-              }}
-            >
-              수정하기
-            </button>
-          )}
-        </div>
-      ))}
+
+      <h1>할 일</h1>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {editTodoId === todo.id ? (
+              <>
+                <input
+                  type="text"
+                  value={editInputValue}
+                  onChange={handleEditChange}
+                />
+                <button onClick={() => handleEditButton(todo.id)}>저장</button>
+                <button onClick={handleCancelEdit}>취소</button>
+              </>
+            ) : (
+              <>
+                <p>{todo.title}</p>
+                <button onClick={() => handleStartEdit(todo.id, todo.title)}>
+                  수정
+                </button>
+                <button onClick={() => handleDeleteButton(todo.id)}>
+                  삭제
+                </button>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -419,7 +482,7 @@ export default App;
 
 # 3. Fetch vs axios
 
-Fetch는 자바스크립트 내장 브라우저이기 때문에 별도의 설치 및 import를 필요로 하지 않는다.
+- Fetch는 자바스크립트 내장 브라우저이기 때문에 별도의 설치 및 import를 필요로 하지 않는다.
 
 <br>
 
@@ -437,8 +500,8 @@ fetch(url)
   .then(console.log);
 ```
 
-- fetch().then을 한 상태여도 여전히 JSON 포맷의 응답이 아니기 때문에 response.json()을 한번 더 해주는 과정이 필요하다.
-- 따라서, fetch로 데이터를 요청하는 경우 두 개의 .then()이 필요한 것이다.
+- `fetch().then`을 한 상태여도 여전히 JSON 포맷의 응답이 아니기 때문에 `response.json()`을 한번 더 해주는 과정이 필요하다.
+- 따라서, fetch로 데이터를 요청하는 경우 두 개의 `.then()`이 필요한 것이다.
 
 <br>
 
@@ -450,13 +513,13 @@ const url = "https://jsonplaceholder.typicode.com/todos";
 axios.get(url).then((response) => console.log(response.data));
 ```
 
-axios는 응답(response)을 기본적으로 JSON 포맷으로 제공하기 때문에, 단순히 response.data로만 사용하면 된다.
+axios는 응답(response)을 기본적으로 JSON 포맷으로 제공하기 때문에, 단순히 `response.data`로만 사용하면 된다.
 
 <br>
 
 ## 3.2 에러 처리
 
-axios는 네트워크 오류가 발생했거나 서버가 2xx 범위가 아닌 상태 코드를 반환했을 때 에러를 발생시키지만,<br>fetch는 네트워크 오류 시에만 예외를 발생시키고, HTTP 오류 상태에 대해서는 예외를 발생시키지 않는다.
+axios는 네트워크 오류가 발생했거나 서버가 2xx 범위가 아닌 상태 코드를 반환했을 때 에러를 발생시키지만,<br><span style="color:indianred">⭐fetch는 네트워크 오류 시에만 예외를 발생</span>시키고, HTTP 오류 상태에 대해서는 예외를 발생시키지 않는다.
 
 > fetch
 
@@ -583,11 +646,9 @@ axios
 
 <br>
 
-## 3.5 인터셉터
+## 3.5 interceptor
 
-axios는 요청과 응답을 인터셉트할 수 있는 기능을 제공하여, 전역적으로 요청 또는 응답을 처리하거나 수정할 수 있도록 한다.
-
-> axios
+> axios는 요청과 응답을 인터셉트할 수 있는 기능을 제공하여, 전역적으로 요청 또는 응답을 처리하거나 수정할 수 있도록 한다.
 
 ```js
 // 요청 인터셉터 추가
@@ -603,15 +664,16 @@ axios.interceptors.response.use((response) => {
 });
 ```
 
-<br>
+자세한 설명은 [목차6]을 참고하자
+
+<br><br>
 
 # 4 .env를 활용한 리팩토링
 
-.env파일을 생성하여 서버 주소를 환경 변수로 관리하자.
+> root 경로에 `.env` 파일을 생성하여 서버 주소를 환경 변수로 관리하자.
 
-```
+```env
 // .env
-
 REACT_APP_SERVER_URL=http://localhost:3001
 ```
 
@@ -635,80 +697,11 @@ REACT_APP_SERVER_URL=http://localhost:3001
 
 <br><br>
 
-# 5. axios interceptor 개요
+# 5. axios instance
 
-## 5.1 axios interceptor 개념
+## 5.1 instance 만들기, baseURL 설정하기
 
-Axios 라이브러리에서 제공하는 기능 중 하나로, Axios 요청 및 응답을 가로채어 변형하는 역할을 한다.
-
-요청 헤더 수정, 인증 토큰 추가, 로그 관련 로직 삽입, 에러 핸들링 등 요청 및 응답시에 필요한 작업들을 한꺼번에 처리를 할 수 있다.
-
-(1) 요청(request)이 처리되기 전( = http request가 서버에 전달되기 전)<br>
-(2) 응답(response)의 then(=성공) 또는 catch(=실패)가 처리되기 전
-
-![](/assets/images/2024/2024-02-18-23-06-01.png)
-
-[출처 : https://javascript.plainenglish.io/how-to-implement-a-request-interceptor-like-axios-896a1431304a]
-
-<br>
-
-## 5.2 axios interceptor 사용 예제
-
-```js
-import axios from "axios";
-
-// Axios 인스턴스 생성
-const api = axios.create({
-  baseURL: "https://api.example.com",
-});
-
-// 요청 인터셉터 추가
-api.interceptors.request.use(
-  (config) => {
-    // 요청을 보내기 전에 수행할 작업
-    console.log("Request sent at:", new Date().toISOString());
-    // 예: 인증 토큰이 필요한 경우 헤더에 추가
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    // 요청 오류 처리
-    console.log("Request error:", error);
-    return Promise.reject(error);
-  }
-);
-
-// 응답 인터셉터 추가
-api.interceptors.response.use(
-  (response) => {
-    // 응답 데이터를 가공
-    console.log("Response received at:", new Date().toISOString());
-    return response;
-  },
-  (error) => {
-    // 응답 오류 처리
-    if (error.response && error.response.status === 401) {
-      console.log("Unauthorized access:", error);
-      // 예: 로그인 페이지로 리디렉트
-    }
-    return Promise.reject(error);
-  }
-);
-
-export default api;
-```
-
-<br><br>
-
-# 6. axios instance 사용 예제
-
-## 6.1 instance 만들기, baseURL 설정하기
-
-지금까지 custom 설정이 전혀 되어있지 않은 axios를 통해 데이터 통신을 했다.<br>
-이 axios를 인스턴스(instance)라고 한다.
+> 지금까지 custom 설정이 전혀 되어있지 않은 axios를 통해 데이터 통신을 했다. 이 axios를 인스턴스(instance)라고 한다.
 
 axios instance는 단순히 import해서 가져온 객체일 뿐이다.
 
@@ -723,7 +716,7 @@ const data = axios.get("http://localhost:4000/");
 json-server 설정을 먼저 한 후, instance를 만들어 가공해보자.
 
 ```js
-// src > axios > api.js
+// src/axios/api.js
 
 import axios from "axios";
 
@@ -763,79 +756,48 @@ const fetchTodos = async () => {
 };
 ```
 
-<br>
+- get 요청하는 부분이 간결해진 것을 확인할 수 있다.
+- 이제부턴, 서버가 변경되어도 api.js 파일만 수정해주면 된다!
 
-나머지 부분도 변경해주도록하자.
+## 5.2 실패 시켜보기
+
+instance의 설정을 변경시켜서 요청을 실패시켜보자.
 
 ```js
-import React, { useEffect, useState } from "react";
-import api from "./axios/api"; // import
+import axios from "axios";
 
-const App = () => {
-  const [todos, setTodos] = useState(null);
-  const [inputValue, setInputValue] = useState({ title: "" });
-  const [targetId, setTargetId] = useState("");
-  const [contents, setContents] = useState("");
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_SERVER_URL,
+  timeout: 1,
+});
 
-  const fetchTodos = async () => {
-    const { data } = await api.get(`todos`);
-    // console.log("data ", data);
-    setTodos(data);
-  };
-
-  // 추가 함수
-  const onSubmitHandle = async () => {
-    api.post("/todos", inputValue);
-    fetchTodos();
-  };
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  // 삭제 함수
-  const onDeleteBtnHandle = async (id) => {
-    api.delete(`/todos/${id}`);
-    setTodos(
-      todos.filter((item) => {
-        return item.id !== id;
-      })
-    );
-  };
-
-  // 수정 함수
-  const onUpdateBtnClickHandle = async () => {
-    await api.patch(`/todos/${targetId}`, {
-      title: contents,
-    });
-
-    setTodos(
-      todos.map((item) => {
-        if (item.id === targetId) {
-          return { ...item, title: contents };
-        } else {
-          return item;
-        }
-      })
-    );
-  };
-
-  return (
-    ...
-  )
-  };
-export default App;
-
+export default instance;
 ```
 
-get 요청하는 부분이 간결해진 것을 확인할 수 있다.
+이렇게 변경해주게 되면, 요청 타임아웃이 1ms(1 밀리세컨)으로 매우 짧은 시간이기 때문에 서버에서 응답을 받기 전에 오류가 발생하게 된다.
 
-이제부턴, 서버가 변경되어도 api.js 파일만 수정해주면 된다!
+![](/assets/images/2024/2024-02-19-02-25-54.png)
+
+<br><br>
+
+# 6. axios interceptor 개요
+
+## 6.1 axios interceptor 개념
+
+> Axios 라이브러리에서 제공하는 기능 중 하나로, Axios 요청 및 응답을 가로채어 변형하는 역할을 한다.
+
+요청 헤더 수정, 인증 토큰 추가, 로그 관련 로직 삽입, 에러 핸들링 등 요청 및 응답시에 필요한 작업들을 한꺼번에 처리를 할 수 있다.
+
+(1) 요청(request)이 처리되기 전( = http request가 서버에 전달되기 전)<br>
+(2) 응답(response)의 then(=성공) 또는 catch(=실패)가 처리되기 전
+
+![](/assets/images/2024/2024-02-18-23-06-01.png)
+
+[출처 : https://javascript.plainenglish.io/how-to-implement-a-request-interceptor-like-axios-896a1431304a]
 
 <br>
 
-## 6.2 request, response에 적용하기
-
-요청을 보낼 때, 그리고 서버로부터 응답을 받을 때(실패할 때) 특정한 일을 수행해야 한다면 아래와 같이 처리하면 된다.
+> 요청을 보낼 때, 그리고 서버로부터 응답을 받을 때(실패할 때) 특정한 일을 수행해야 한다면 아래와 같이 처리하면 된다.
 
 ```js
 import axios from "axios";
@@ -864,10 +826,12 @@ export default instance;
 
 <br>
 
+## 6.2 axios interceptor 연습
+
 위 코드를 채워보자.
 
 ```js
-// src > axios > api.js
+// src/axios/api.js
 
 import axios from "axios";
 
@@ -911,24 +875,83 @@ export default instance;
 
 <br>
 
-## 6.3 실패 시켜보기
+## 6.2 axios interceptor 사용 예제
 
-instance의 설정을 변경시켜서 요청을 실패시켜보자.
+> ① Axios 인스턴스와 인터셉터 설정
 
 ```js
+// src/api/api.js
+
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
-  timeout: 1,
+// Axios 인스턴스 생성
+const api = axios.create({
+  baseURL: "http://localhost:3001",
+  timeout: 10000, // 요청 타임아웃 설정
 });
 
-export default instance;
+// 요청 인터셉터 추가
+api.interceptors.request.use(
+  (config) => {
+    // 요청을 보내기 전에 수행할 작업
+    console.log("요청 보내기 전:", config);
+    // 예를 들어, 요청 헤더에 인증 토큰 추가
+    config.headers.Authorization = "Bearer YOUR_TOKEN_HERE";
+    return config;
+  },
+  (error) => {
+    // 요청 에러 처리
+    console.error("요청 에러:", error);
+    return Promise.reject(error);
+  }
+);
+
+// 응답 인터셉터 추가
+api.interceptors.response.use(
+  (response) => {
+    // 응답 데이터를 가공하거나 로그를 남길 수 있음
+    console.log("응답 데이터:", response.data);
+    return response;
+  },
+  (error) => {
+    // 응답 에러 처리
+    console.error("응답 에러:", error);
+    return Promise.reject(error);
+  }
+);
+
+export default api;
 ```
 
-이렇게 변경해주게 되면, 요청 타임아웃이 1ms(1 밀리세컨)으로 매우 짧은 시간이기 때문에 서버에서 응답을 받기 전에 오류가 발생하게 된다.
+<br>
 
-![](/assets/images/2024/2024-02-19-02-25-54.png)
+> ② 컴포넌트에서 Axios 인스턴스 사용
+
+```jsx
+import React, { useEffect, useState } from "react";
+import api from "./api"; // 방금 만든 Axios 인스턴스 임포트
+
+const AxiosComponent = () => {
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("/todos") // 인터셉터가 설정된 Axios 인스턴스를 사용
+      .then((res) => setTodos(res.data))
+      .catch((error) => console.error("데이터 가져오기 에러:", error));
+  }, []);
+
+  return (
+    <div>
+      {todos.map((todo) => (
+        <div key={todo.id}>{todo.title}</div>
+      ))}
+    </div>
+  );
+};
+
+export default AxiosComponent;
+```
 
 <br><br>
 
@@ -938,7 +961,7 @@ export default instance;
 
 먼저 json-server와 axios를 설치하자
 
-```
+```shell
 yarn add axios
 yarn global add json-server
 ```
@@ -988,7 +1011,7 @@ yarn global add json-server
 
 json-server을 실행하면 된다.
 
-```
+```shell
 npx json-server db.json --port [원하는 포트]
 ```
 
