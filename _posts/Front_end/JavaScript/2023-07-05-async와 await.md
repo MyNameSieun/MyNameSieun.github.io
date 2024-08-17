@@ -73,21 +73,19 @@ fetch('https://jsonplaceholder.typicode.com/posts/1')
 
 ## 2.1 async/await 개념
 
-> 프로미스를 더 쉽게 사용할 수 있도록 하는 "문법적 설탕(syntactic sugar)"이다.
+- Promise를 더 쉽게 사용할 수 있도록 하는 <span style="color:CornflowerBlue">문법적 설탕(syntactic sugar)</span>이다.
+- 콜백지옥과 프로미스 체이닝 단점을 해결해준다.
 
-- async와 await는 프로미스를 조금 더 간결하게 만들어주고 콜백 함수와 프로미스 체인의 단점을 보완해준다.
-- 비동기 코드를 동기 코드처럼 보이게 한다. (동기적으로 코드를 작성하듯(평소와 같이 코드를 작성하듯) 쓸 수 있음)
-- try ~ catch를 사용해 예외처리를 더 쉽게 할 수 있다.
+  1. 프로미스를 간결하게 만들어 줌
+  2. 에러 핸들링에 유리(try...catch 구문을 사용)
+  3. 에러 위치를 찾기 쉬움
 
 <br>
 
 ## 2.2 async 사용하기
 
-> async 함수는 항상 프로미스를 반환한다.
-
-- async 함수는 await 키워드를 사용하여 프로미스의 결과를 기다릴 수 있게 해준다.
-- await는 async 함수 내부에서만 사용할 수 있으며, 프로미스가 해결될 때까지 함수의 실행을 일시 중지한다. 프로미스가 해결된 후, 프로미스의 결과값을 반환한다.
-- 함수 앞에 async를 키워드를 붙여주면 번거롭게 프로미스를 쓰지 않아도 자동적으로 함수 안에 있는 코드 블록들이 프로미스로 변환된다.
+- async 함수 내에서 await 키워드를 사용하면, Promise의 결과를 기다린 후 다음 코드를 실행할 수 있어 <span style="color:CornflowerBlue">비동기 코드를 동기 코드처럼</span> 보이게 만들어 가독성을 높일 수 있다.
+- async 함수의 리턴 값은 무조건 Promise이며, `awite` 키워드를 사용하여 프로미스의 결과를 기다릴 수 있게 해준다.
 
 ```js
 // 정말 동기적으로 작성한 것처럼 보인다!
@@ -147,29 +145,24 @@ fetchPosts();
 Promise ~ then과 동일한 효과를 얻을 수 있다.
 
 ```jsx
-// addCoffee 함수에서 호출할 함수, "addCoffee"를 선언
-// Promise를 반환
-var addCoffee = function (name) {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
+// addCoffee 함수: 이름을 받아 500ms 후에 반환하는 Promise를 생성
+const addCoffee = (name) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
       resolve(name);
     }, 500);
   });
-};
 
-/// ⭐
-var coffeeMaker = async function () {
-  // var coffeeMaker = async () = {
-  var coffeeList = "";
-  var _addCoffee = async function (name) {
+// coffeeMaker 함수: 비동기 함수
+const coffeeMaker = async () => {
+  let coffeeList = "";
+  // _addCoffee: 이름을 받아 coffeeList에 추가하는 비동기 함수
+  const _addCoffee = async (name) => {
     coffeeList += (coffeeList ? ", " : "") + (await addCoffee(name));
   };
 
-  // Promise를 반환하는 함수인 경우, awite를 만나면 무조건 끝날 때 까지 기다린다.
-  // _addCoffee("에소프레소")이 로직이 실행되는데 100초가 걸리면
+  // 커피 이름을 순차적으로 추가하고 출력
   await _addCoffee("에스프레소");
-
-  // console.log는 100초 뒤 실행
   console.log(coffeeList);
   await _addCoffee("아메리카노");
   console.log(coffeeList);
@@ -178,20 +171,9 @@ var coffeeMaker = async function () {
   await _addCoffee("카페라떼");
   console.log(coffeeList);
 };
-coffeeMaker();
-```
 
-```js
-const getWeather = async () => {
-  try {
-    const response = awite.axios.get("http://api.naver.com/weather/today");
-    // await라는 키워드를 이용해서 수행중인 작업이 끝나야지만(API 받아오기) 아래 작업이 실행되게 한다.
-    // 즉, API를 통해 날씨 정보를 받아와야만 화면에 출력되게 하는 것이다.
-    console.log("정상처리 되었습니다 : " + response);
-  } catch (error) {
-    console.log("오류가 발생하였습니다 : " + error);
-  }
-};
+// coffeeMaker 함수 호출
+coffeeMaker();
 ```
 
 <br><br>

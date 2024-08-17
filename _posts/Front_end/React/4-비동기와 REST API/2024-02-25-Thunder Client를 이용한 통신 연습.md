@@ -14,7 +14,7 @@ sidebar:
 
 # 0. 개요
 
-> 회원가입, 로그인, 회원정보 확인, 프로필 이미지 변경 API를 지원하는 JWT 인증 서버를 활용하여 서버통신을 연습하였다.
+> 회원가입, 로그인, 회원정보 확인, 프로필 이미지 변경 API를 지원하는 JWT 인증 서버를 활용하여 서버통신을 연습해보자
 
 서버 API_URL : [https://moneyfulpublicpolicy.co.kr](https://moneyfulpublicpolicy.co.kr/)
 

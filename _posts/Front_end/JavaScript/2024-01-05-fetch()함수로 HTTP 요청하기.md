@@ -19,10 +19,9 @@ sidebar:
 
 ## 1.1 fetch 개념
 
-> JavaScript에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 해주는 <span style="color:indianred">프로미스 기반</span> 메서드이다.
+> fetch는 HTTP 요청을 보내기 위해 사용하는 내장 API로 별도의 라이브러리 설치 없이 사용할 수 있다.
 
-- 주로 [[HTTP↗️]](https://mynamesieun.github.io/network/HTTP,-HTTPS/) 요청을 통해 서버와 데이터를 주고받을 때 사용한다.
-- 다양한 HTTP 메서드(GET, POST, PUT, DELETE 등)를 지원한다.
+<span style="color:CornflowerBlue">프로미스(Promise)를 기반</span>으로 설계되어 있어, 비동기 작업을 쉽게 처리할 수 있다. 또한 항상 **프로미스 객체**(resolve, reject)를 반환한다.
 
 <br>
 
@@ -44,6 +43,19 @@ fetch(url, options)
 
 ④ API 호출이 성공했을 때는 response(응답) 객체를 resolve하고, 실패했을 때는 error(예외) 객체를 reject 한다.
 
+<br>
+
+## 1.3 fetch 단점
+
+> fetch는 아래와 같은 문제가 있다.
+
+1. ⭐예외 처리의 문제: <span style="color:indianred">네트워크 오류 시에만 예외 발생</span>시키고 HTTP 오류에 대해선 예외 발생시키지 않는다.
+2. 프로미스 체이닝의 가독성 문제: `.then()`과 `.catch()`로 구성된 프로미스 체이닝이 길어지면 코드의 가독성이 떨어짐
+3. 어떤 HTTP 메서드를 사용하는지 불명확
+4. 자동 JSON 변환 없음
+
+➡️ [[aixos↗️]](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)를 사용하면 fetch의 단점을 해결할 수 있다.
+
 <br><br>
 
 # 2. HTTP 요청하기
@@ -60,28 +72,28 @@ fetch(url, options)
 
 > 존재하는 자원을 요청하며, 단순히 원격 API에 있는 데이터를 가져올 때 사용한다.
 
-1. `fetch()` 함수는 디폴트로 GET 방식으로 작동하고, GET 방식은 요청 전문을 받지 않기 때문에 옵션 인자가 필요가 없다.
+① `fetch()` 함수는 디폴트로 GET 방식으로 작동하고, GET 방식은 요청 전문을 받지 않기 때문에 옵션 인자가 필요가 없다.
 
-   ```js
-   // posts의 id 1인 엘리먼트를 가져온다.
-   fetch("https://jsonplaceholder.typicode.com/posts/1").then((response) =>
-     console.log(response)
-   );
-   ```
+```js
+// posts의 id 1인 엘리먼트를 가져온다.
+fetch("https://jsonplaceholder.typicode.com/posts/1").then((response) =>
+  console.log(response)
+);
+```
 
-   ![](/assets/images/2024/2024-01-05-20-02-52.png)
+![](/assets/images/2024/2024-01-05-20-02-52.png)
 
-   <br> <br>
+<br>
 
-2. 응답(response) 객체는 `json()` 메서드를 제공하고, 이 메서드를 호출하면 응답(response) 객체로부터 JSON 형태의 데이터를 자바스크립트 객체로 변환하여 얻을 수 있다. [[참고자료]](https://www.daleseo.com/js-window-fetch/)
+② 응답(response) 객체는 `json()` 메서드를 제공하고, 이 메서드를 호출하면 응답(response) 객체로부터 JSON 형태의 데이터를 자바스크립트 객체로 변환하여 얻을 수 있다. [[참고자료↗️]](https://www.daleseo.com/js-window-fetch/)
 
-   ```js
-   fetch("https://jsonplaceholder.typicode.com/posts/1")
-     .then((response) => response.json())
-     .then((data) => console.log(data));
-   ```
+```js
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+```
 
-   ![](/assets/images/2024/2024-01-05-19-49-25.png)
+![](/assets/images/2024/2024-01-05-19-49-25.png)
 
 → 단순히 특정 API에 저장된 데이터를 보여줄때는 GET 방식의 HTTP 통신으로 충분할 것이다.
 
