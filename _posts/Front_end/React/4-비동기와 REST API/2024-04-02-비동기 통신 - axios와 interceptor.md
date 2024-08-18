@@ -18,7 +18,7 @@ sidebar:
 > axios는 HTTP 요청을 보내기 위해 사용하는 외부 라이브러리로, npm 또는 yarn을 통해 설치해야 한다.
 
 - Axios는 <span style="color:indianred">프로미스 기반</span> HTTP 클라이언트 라이브러리이다.
-- 프로미스(Promise)를 기반</span>으로 설계되어 있어, 비동기 작업을 쉽게 처리할 수 있다. 또한 항상 **프로미스 객체**(resolve, reject)를 반환한다.
+- 항상 **프로미스 객체**(resolve, reject)를 반환한다.
 - [[fetch↗️]](https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/)보다 간편하게 사용할 수 있으며, <span style="color:CornflowerBlue">다양한 기능</span>을 제공한다.
 
 <br>
@@ -96,38 +96,6 @@ yarn add axios
 ```
 
 ```jsx
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-const App = () => {
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/todos")
-      .then((res) => setTodos(res.data))
-      .catch((error) => console.log(error, "에러가 발생하였습니다."));
-  }, []);
-
-  return (
-    <div>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-    </div>
-  );
-};
-
-export default App;
-```
-
-<br>
-
-> 위 코드를 문법적 설탕인 [[async와 await↗️]](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)를 사용하여 프로미스를 간결하게 처리할 수 있다.
-
-async와 await는 try ~ catch를 통해 예외를 처리할 수 있다.
-
-```js
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -490,7 +458,7 @@ Fetch는 자바스크립트 내장 브라우저이기 때문에 별도의 설치
 
 ## 3.1 자동 JSON 변환
 
-axios는 응답을 자동으로 JSON으로 변환하지만, fetch를 사용할 때는 응답을 JSON으로 수동 변환해야한다.
+axios는 응답 객체를 자동으로 JSON으로 변환하지만, fetch를 사용할 때는 응답을 JSON으로 수동 변환해야한다.
 
 > fetch
 
@@ -673,12 +641,14 @@ axios.interceptors.response.use((response) => {
 ① `.env` 파일에 환경 변수를 정의하기
 
 ```
-REACT_APP_API_URL=https://api.example.com
+REACT_APP_SERVER_URL=http://localhost:3001
 ```
 
 <br>
 
 ② 이제 프로젝트 어디에서든 process.env 객체를 통해 환경 변수에 접근할 수 있다.
+
+⚠️ 환경 변수를 변경한 후에는 개발 서버를 재시작해야 변경 사항이 적용된다.
 
 ```jsx
 await axios.get("http://localhost:3001/todos"); // 변경 전
@@ -849,7 +819,7 @@ export default instance;
 - 요청 헤더 수정, 인증 토큰 추가, 로그 관련 로직 삽입, 에러 핸들링 등 요청 및 응답시에 필요한 작업들을 한꺼번에 처리를 할 수 있다.
 
 (1) 요청(request)이 처리되기 전( = http request가 서버에 전달되기 전)<br>
-(2) 응답(response)의 then(=성공) 또는 catch(=실패)가 처리되기 전
+(2) 응답(response)객체의 then(=성공) 또는 catch(=실패)가 처리되기 전
 
 ![](/assets/images/2024/2024-02-18-23-06-01.png)
 
