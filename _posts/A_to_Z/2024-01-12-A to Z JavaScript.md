@@ -96,6 +96,7 @@ sidebar:
 2. [e.target, e.target.value, e.currentTarget의 역할과 차이점](https://mynamesieun.github.io/javascript/e.target,-e.target.value,-e.currentTarget%EC%9D%98-%EC%97%AD%ED%95%A0%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
 3. [Date 생성자와 날짜 포맷팅](https://mynamesieun.github.io/javascript/Date-%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80-%EB%82%A0%EC%A7%9C-%ED%8F%AC%EB%A7%B7%ED%8C%85/)
 4. [Intl API로 Date 객체 쉽게 다루기](https://mynamesieun.github.io/javascript/Intl-API%EB%A1%9C-Date-%EA%B0%9D%EC%B2%B4-%EC%89%BD%EA%B2%8C-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
+5. Date 라이브러리 Day.js
 
 <br>
   
