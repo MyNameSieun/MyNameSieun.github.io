@@ -81,6 +81,9 @@ sidebar:
 5. [event 처리하기](https://mynamesieun.github.io/javascript/event-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0/)
 6. [DOM 활용해 노드 추가/삭제하기](https://mynamesieun.github.io/javascript/DOM-%ED%99%9C%EC%9A%A9%ED%95%B4-%EB%85%B8%EB%93%9C-%EC%B6%94%EA%B0%80,%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/)
 7. [Data 객체 활용하기](https://mynamesieun.github.io/javascript/Data-%EA%B0%9D%EC%B2%B4-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0/)
+8. [Date 생성자와 날짜 포맷팅](https://mynamesieun.github.io/javascript/Date-%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80-%EB%82%A0%EC%A7%9C-%ED%8F%AC%EB%A7%B7%ED%8C%85/)
+9. [Intl API로 Date 객체 쉽게 다루기](https://mynamesieun.github.io/javascript/Intl-API%EB%A1%9C-Date-%EA%B0%9D%EC%B2%B4-%EC%89%BD%EA%B2%8C-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
+10. [Date 라이브러리 Day.js](https://mynamesieun.github.io/javascript/Date-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-Day.js/)
 
 <br>
 
@@ -94,9 +97,6 @@ sidebar:
 
 1. [API 호출 방식과 데이터 처리 방식에 따른 비교](https://mynamesieun.github.io/javascript/API-%ED%98%B8%EC%B6%9C-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%B9%84%EA%B5%90/)
 2. [e.target, e.target.value, e.currentTarget의 역할과 차이점](https://mynamesieun.github.io/javascript/e.target,-e.target.value,-e.currentTarget%EC%9D%98-%EC%97%AD%ED%95%A0%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
-3. [Date 생성자와 날짜 포맷팅](https://mynamesieun.github.io/javascript/Date-%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80-%EB%82%A0%EC%A7%9C-%ED%8F%AC%EB%A7%B7%ED%8C%85/)
-4. [Intl API로 Date 객체 쉽게 다루기](https://mynamesieun.github.io/javascript/Intl-API%EB%A1%9C-Date-%EA%B0%9D%EC%B2%B4-%EC%89%BD%EA%B2%8C-%EB%8B%A4%EB%A3%A8%EA%B8%B0/)
-5. Date 라이브러리 Day.js
 
 <br>
   
