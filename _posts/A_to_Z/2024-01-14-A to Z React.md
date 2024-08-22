@@ -87,8 +87,7 @@ sidebar:
 3. [json-server](https://mynamesieun.github.io/react/json-server/)
 4. [비동기 통신 - axios와 interceptor](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%86%B5%EC%8B%A0-axios%EC%99%80-interceptor/)
 5. [Thunder Client를 이용한 통신 연습](https://mynamesieun.github.io/react/Thunder-Client%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%86%B5%EC%8B%A0-%EC%97%B0%EC%8A%B5/)
-6. [비동기 프로그래밍과 REST API 호출 연습](https://mynamesieun.github.io/react/%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC-REST-API-%ED%98%B8%EC%B6%9C-%EC%97%B0%EC%8A%B5/)
-7. [React 비동기 데이터 처리 최적화: 로딩, 에러, 재시도 로직](https://mynamesieun.github.io/react/React-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EC%B5%9C%EC%A0%81%ED%99%94_%EB%A1%9C%EB%94%A9,-%EC%97%90%EB%9F%AC,-%EC%9E%AC%EC%8B%9C%EB%8F%84-%EB%A1%9C%EC%A7%81/)
+6. [React 비동기 데이터 처리 최적화: 로딩, 에러, 재시도 로직](https://mynamesieun.github.io/react/React-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EC%B5%9C%EC%A0%81%ED%99%94_%EB%A1%9C%EB%94%A9,-%EC%97%90%EB%9F%AC,-%EC%9E%AC%EC%8B%9C%EB%8F%84-%EB%A1%9C%EC%A7%81/)
 
 ---
 
@@ -141,5 +140,6 @@ sidebar:
 3. [카카오 맵 API 트러블 슈팅: 검색결과 제한 문제](https://mynamesieun.github.io/project/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A7%B5-API-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EA%B2%80%EC%83%89%EA%B2%B0%EA%B3%BC-%EC%A0%9C%ED%95%9C-%EB%AC%B8%EC%A0%9C/)
 4. [JS 배열 메서드 find vs filter 구조분해할당 트러블슈팅](https://mynamesieun.github.io/react/JS-%EB%B0%B0%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C-find-vs-filter-%EA%B5%AC%EC%A1%B0%EB%B6%84%ED%95%B4%ED%95%A0%EB%8B%B9-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/)
 5. [React 트러블슈팅: 삭제 버튼 클릭 시 'Cannot destructure property' 에러 해결](https://mynamesieun.github.io/react/React-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85_%EC%82%AD%EC%A0%9C-%EB%B2%84%ED%8A%BC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-'Cannot-destructure-property'-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0/)
+6. Styled Components Navbar와 Layout의 공통 여백 스타일링 트러블슈팅
 
 <br>
