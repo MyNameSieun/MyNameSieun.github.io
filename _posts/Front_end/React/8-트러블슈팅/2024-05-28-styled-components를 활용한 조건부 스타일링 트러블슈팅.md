@@ -1,7 +1,6 @@
 ---
-title: "[React] styled-components를 활용한 조건부 스타일링 트러블슈팅"
+title: "[React] styled-components를 활용한 조건부 스타일링 트러블슈팅💫"
 categories: [React]
-tag: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -12,9 +11,7 @@ sidebar:
 
 <br>
 
-## 트러블 슈팅💫
-
-### 발생한 문제 🤦‍♀️
+# 발생한 문제 🤦‍♀️
 
 ```js
 <QuestionItem>
@@ -28,13 +25,13 @@ sidebar:
 
 <br>
 
-### 문제 원인 🤷‍♀️
+# 문제 원인 🤷‍♀️
 
 styled-components를 사용하여 조건부 스타일링을 구현해야 하는 상황에서는 nth-child와 같은 CSS 선택자를 직접 사용할 수 없다.
 
 <br>
 
-### 해결 방안 💁‍♀️
+# 해결 방안 💁‍♀️
 
 조건부 렌더링을 통해 각각의 요소에 별도의 컴포넌트로 스타일을 적용하는 방법을 활용했다.
 
@@ -51,7 +48,7 @@ const QuestionBlue = styled.div`
 
 <br>
 
-### 주의 ⚠️
+# 주의 ⚠️
 
 > React 컴포넌트에만 props를 전달할 수 있다.
 
