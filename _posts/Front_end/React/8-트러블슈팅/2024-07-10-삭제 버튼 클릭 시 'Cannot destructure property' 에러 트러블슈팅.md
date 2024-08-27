@@ -1,5 +1,5 @@
 ---
-title: "[React] React 트러블슈팅: 삭제 버튼 클릭 시 'Cannot destructure property' 에러 해결💫"
+title: "[React] 삭제 버튼 클릭 시 'Cannot destructure property' 에러 트러블슈팅💫"
 categories: [React]
 toc_label: Contents
 toc: true

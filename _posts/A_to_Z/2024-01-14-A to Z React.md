@@ -137,9 +137,10 @@ sidebar:
 
 1. [토글 상태 관리 트러블슈팅](https://mynamesieun.github.io/react/%ED%86%A0%EA%B8%80-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/)
 2. [styled-components를 활용한 조건부 스타일링 트러블슈팅](https://mynamesieun.github.io/react/styled-components%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%A1%B0%EA%B1%B4%EB%B6%80-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/)
-3. [카카오 맵 API 트러블 슈팅: 검색결과 제한 문제](https://mynamesieun.github.io/project/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A7%B5-API-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EA%B2%80%EC%83%89%EA%B2%B0%EA%B3%BC-%EC%A0%9C%ED%95%9C-%EB%AC%B8%EC%A0%9C/)
+3. 카카오 맵 API 검색결과 제한 문제 트러블 슈팅
 4. [JS 배열 메서드 find vs filter 구조분해할당 트러블슈팅](https://mynamesieun.github.io/react/JS-%EB%B0%B0%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C-find-vs-filter-%EA%B5%AC%EC%A1%B0%EB%B6%84%ED%95%B4%ED%95%A0%EB%8B%B9-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/)
-5. [React 트러블슈팅: 삭제 버튼 클릭 시 'Cannot destructure property' 에러 해결](https://mynamesieun.github.io/react/React-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85_%EC%82%AD%EC%A0%9C-%EB%B2%84%ED%8A%BC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-'Cannot-destructure-property'-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0/)
-6. Styled Components Navbar와 Layout의 공통 여백 스타일링 트러블슈팅
+5. 삭제 버튼 클릭 시 'Cannot destructure property' 에러 트러블슈팅
+6. [Styled Components Navbar와 Layout의 공통 여백 스타일링 트러블슈팅](https://mynamesieun.github.io/react/Styled-Components-Navbar%EC%99%80-Layout%EC%9D%98-%EA%B3%B5%ED%86%B5-%EC%97%AC%EB%B0%B1-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/)
+7. [서버와 클라이언트 데이터 불일치 트러블슈팅](https://mynamesieun.github.io/react/%EC%84%9C%EB%B2%84%EC%99%80-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%88%EC%9D%BC%EC%B9%98-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/)
 
 <br>
