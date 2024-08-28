@@ -199,64 +199,71 @@ Content-Type: type/subtype; charset=UTF-8
 서버에 JSON 형식의 데이터를 전송할 때 Content-Type을 application/json으로 설정한다.
 
 ```jsx
-import axios from "axios";
+const axios = require("axios");
 
-const fetchData = async () => {
+async function postJsonData() {
   try {
     const response = await axios.post(
-      "/api/data",
-      { key: "value" },
+      "https://example.com/api/data",
       {
-        headers: { "Content-Type": "application/json" },
+        key1: "value1",
+        key2: "value2",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
-    console.log(response.data); // 응답 데이터 처리
-  } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    ); // 오류 처리
-  }
-};
 
-fetchData();
+    console.log("Response Data:", response.data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+postJsonData();
 ```
 
 <br>
 
 ## 3.2 폼 데이터 전송
 
-- 폼 데이터를 전송할 때는 Content-Type을 application/x-www-form-urlencoded로 설정한다.
-- qs 라이브러리와 같은 URL 인코딩 도구를 사용할 수 있다.
+폼 데이터를 전송할 때는 FormData 객체를 추가하고, Content-Type을 multipart/form-data로 설정한다.
 
 ```jsx
 import axios from "axios";
-import qs from "qs";
 
-const submitForm = async () => {
+async function postFormData() {
   try {
-    const response = await axios.post(
-      "/api/submit",
-      qs.stringify({ key1: "value1", key2: "value2" }),
-      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-    );
-    console.log(response.data);
-  } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
-  }
-};
+    const formData = new FormData();
+    formData.append("field1", "value1");
+    formData.append("field2", "value2");
 
-submitForm();
+    const response = await axios.post(
+      "https://example.com/api/form",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    console.log("Response Data:", response.data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+postFormData();
 ```
 
 <br>
 
 ## 3.3 파일 업로드
 
-파일 업로드를 위한 요청에서는 Content-Type을 multipart/form-data로 설정한다.
+파일을 업로드할 때는 FormData 객체에 파일을 추가하고, Content-Type을 multipart/form-data로 설정한다.
 
 ```jsx
 import axios from "axios";
