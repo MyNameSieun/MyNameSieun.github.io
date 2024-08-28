@@ -9,6 +9,8 @@ sidebar:
   nav: "counts"
 ---
 
+<br>
+
 # 1. CORS (Cross-Origin Resource Sharing)
 
 > CORS는 웹 브라우저가 다른 출처의 리소스에 접근할 수 있도록 허용하는 메커니즘이다.
@@ -19,7 +21,7 @@ sidebar:
 ➡️ 즉, 클라이언트가 서버의 리소스에 접근하려면 CORS를 통해 접근 권한을 허용해야한다.<br>
 ➡️ CORS를 사용하면 서버가 특정 출처의 요청을 허용할 수 있도록 설정할 수 있다.
 
-<br>
+<br><br>
 
 # 2. Credentialed Request
 
@@ -43,18 +45,18 @@ app.use(
 
 > Axios에서 자격 증명 포함 설정(택 1)
 
-① Axios 전역 설정
-
-Axios 인스턴스의 기본 설정을 통해 모든 요청에 대해 자격 증명을 포함시키는 방법이다.
+① Axios 전역 설정<br>
+: Axios 인스턴스의 기본 설정을 통해 모든 요청에 대해 자격 증명을 포함시키는 방법이다.
 
 ```jsx
 // 1. axios 전역 설정
 axios.defaults.withCredentials = true; // withCredentials 전역 설정
 ```
 
-② Axios 요청 메소드의 옵션 객체로 설정
+<br>
 
-특정 요청에서만 자격 증명을 포함시키는 방법이다.
+② Axios 요청 메소드의 옵션 객체로 설정<br>
+: 특정 요청에서만 자격 증명을 포함시키는 방법이다.
 
 ```jsx
 // 2. axios 옵션 객체로 넣기

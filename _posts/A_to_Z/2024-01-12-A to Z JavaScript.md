@@ -59,9 +59,10 @@ sidebar:
 4. [프로미스 객체와 메서드](https://mynamesieun.github.io/javascript/%ED%94%84%EB%A1%9C%EB%AF%B8%EC%8A%A4-%EA%B0%9D%EC%B2%B4%EC%99%80-%EB%A9%94%EC%84%9C%EB%93%9C/)
 5. [fetch()함수로 HTTP 요청하기](<https://mynamesieun.github.io/javascript/fetch()%ED%95%A8%EC%88%98%EB%A1%9C-HTTP-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0/>)
 6. [async와 await](https://mynamesieun.github.io/javascript/async%EC%99%80-await/)
-7. CORS와 Credentialed Request
-8. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
-9. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
+7. HTTP Content-Type
+8. CORS와 Credentialed Request
+9. [이터러블과 이터레이터](https://mynamesieun.github.io/javascript/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94%EA%B3%BC-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/)
+10. [제너레이터](https://mynamesieun.github.io/javascript/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/)
 
 ### 4주차
 
