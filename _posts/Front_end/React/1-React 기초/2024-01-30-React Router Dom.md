@@ -44,12 +44,11 @@ src/pages에 `Home`, `About`, `Contact`, `Works` 총 4개의 컴포넌트를 만
 
 > ② Router.jsx 생성 및 route 설정 코드 작성⭐
 
-- BrowserRouter를 Router로 감싸는 이유는, SPA의 장점인 브라우저가 깜빡이지 않고 다른 페이지로 이동할 수 있게 만들어준다.
+- BrowserRouter를 Router로 감싸는 이유는, SPA의 장점인 브라우저 리로딩 없이 페이지 간 이동이 가능하도록 하기 위함이다.
 - path에다가 사용하고싶은 주소를 넣어주고, element에는 해당 주소로 이동했을 때 보여주고자 하는 컴포넌트를 넣어준다.
 
 ```jsx
 // src > shared > Router.jsx
-
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
@@ -704,5 +703,500 @@ export default HomePage;
 ```
 
 ![](/assets/images/2024/2024-07-10-21-27-00.png)
+
+<br><br>
+
+# 8. React Router v6.4+
+
+## 8.1 RouterProvider
+
+> 라우터의 컨텍스트를 React 애플리케이션에 제공하는 컴포넌트이다.
+
+RouterProvider는 createBrowserRouter로 생성한 라우터 객체를 router prop으로 받아서 라우팅을 설정한다.
+
+<br>
+
+> 방법 1: 최상단에 browserRouter로 감싸기
+
+```jsx
+// src/App.js
+import { RouterProvider } from "react-router-dom";
+import router from "./router"; // 라우터 설정 import
+
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+```
+
+<br>
+
+> 방법 2(추천):RouterProvider를 import해서 router를 제공하기
+
+```jsx
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import PostListPage from "pages/public/PostListPage";
+import SignupPage from "pages/public/SignupPage";
+import MyPage from "pages/protected/MyPage";
+import SigninPage from "pages/public/SigninPage";
+import PostDetailPage from "pages/public/PostDetailPage";
+import PostFormPage from "pages/public/PostFormPage";
+import { useAuth } from "context/AuthContext";
+import Layout from "components/layouts/Layout";
+import UserProfilePage from "pages/public/UserProfilePage";
+import PublicHomePage from "pages/public/PublicHomePage";
+import ProtectedRoute from "./ProtectedRoute";
+
+const Router = () => {
+  const { isSignIn } = useAuth();
+
+  // 공통 라우트 설정
+  const commonRoutes = [
+    { path: "/", element: <PublicHomePage /> }, // 모든 사용자에게 기본 페이지로 제공
+    { path: "/post-list", element: <PostListPage /> },
+    { path: "/posts/:id", element: <PostDetailPage /> },
+    { path: "/user-profile", element: <UserProfilePage /> },
+  ];
+
+  // 라우터 설정
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />, // 모든 라우트의 상위 컴포넌트로 Layout 설정
+      children: [
+        ...commonRoutes, // 공통 라우트 추가
+      ],
+    },
+    notFound,
+  ]);
+
+  return <RouterProvider router={router} />;
+};
+
+export default Router;
+```
+
+<br>
+
+## 8.2 createBrowserRouter
+
+> React 애플리케이션에서 브라우저 기반의 라우팅을 설정하기 위한 함수이다. 라우트 설정을 기반으로 라우터 객체를 반환한다.
+
+일반적으로 createBrowserRouter는 라우터를 구성하고 RouterProvider에 전달하기 위해 사용된다.
+
+```jsx
+import { createBrowserRouter } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+]);
+
+export default router;
+```
+
+<br>
+
+## 8.3 routes
+
+routes는 Route 객체를 요소로 가지는 배열이다. 이 배열은 여러 개의 Route 객체를 포함할 수 있으며, 이러한 객체들은 children 속성을 통해 연결된다.
+
+```jsx
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import MainPage from "./MainPage";
+import Products from "./Products";
+import ProductDetail from "./ProductDetail";
+import Contact from "./Contact";
+
+// 라우터 설정
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <div>
+        <p>메인 페이지</p>
+        <Outlet />
+      </div>
+    ),
+    children: [
+      {
+        // 제품 목록 페이지
+        path: "products",
+        element: <Products />,
+        children: [
+          {
+            // 특정 제품 상세 페이지
+            path: ":products/:productsId",
+            element: <ProductDetail />,
+          },
+        ],
+      },
+      {
+        // 연락처 페이지
+        path: "contact",
+        element: <Contact />,
+      },
+    ],
+  },
+]);
+
+export default router;
+```
+
+<br>
+
+## 8.4 Route Object
+
+Route Object는 각 라우트를 정의하는 객체이다. 이 객체는 라우팅을 설정하는 데 필요한 다양한 속성을 포함하고 있다.
+
+```json
+interface RouteObject {
+  path?: string;
+  index?: boolean;
+  children?: React.ReactNode;
+  caseSensitive?: boolean;
+  id?: string;
+  loader?: LoaderFunction;
+  action?: ActionFunction;
+  element?: React.ReactNode | null;
+  Component?: React.ComponentType | null;
+  errorElement?: React.ReactNode | null;
+  ErrorBoundary?: React.ComponentType | null;
+  handle?: RouteObject["handle"];
+  shouldRevalidate?: ShouldRevalidateFunction;
+  lazy?: LazyRouteFunction<RouteObject>;
+}
+```
+
+| 속성                         | 설명                                                                                                   |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------ |
+| path                         | 라우트가 매칭될 URL 경로를 정의한다.                                                                   |
+| index                        | 부모 라우트의 기본 자식 라우트를 정의한다. `true`로 설정하면 자식 라우트가 기본 경로로 간주된다.       |
+| children                     | 중첩된 자식 라우트를 정의할 수 있는 배열이다. 부모 라우트 아래에 자식 라우트를 설정할 때 사용된다.     |
+| caseSensitive                | 경로 매칭에서 대소문자를 구분할지 여부를 설정한다.                                                     |
+| id                           | 라우트의 고유 식별자를 설정한다.                                                                       |
+| loader (선택 사항)           | 해당 라우트에 필요한 데이터를 로드하기 위한 비동기 함수이다. 데이터가 로드된 후 컴포넌트가 렌더링된다. |
+| action (선택 사항)           | 해당 라우트에서 발생하는 POST 요청 등을 처리하기 위한 함수이다.                                        |
+| element                      | 해당 경로에 렌더링할 React 컴포넌트를 지정한다.                                                        |
+| Component (선택 사항)        | `element`와 유사하게, 해당 경로에 렌더링할 React 컴포넌트를 지정한다. (구버전 React Router에서 사용됨) |
+| errorElement (선택 사항)     | 해당 경로에서 에러가 발생했을 때 렌더링할 컴포넌트를 지정한다.                                         |
+| ErrorBoundary (선택 사항)    | 에러 경계 컴포넌트를 지정한다. 이 컴포넌트는 자식 라우트에서 에러가 발생했을 때 사용된다.              |
+| handle (선택 사항)           | 라우트에 관련된 메타데이터를 설정할 수 있는 객체이다.                                                  |
+| shouldRevalidate (선택 사항) | 해당 라우트의 데이터가 재검증되어야 하는지 여부를 결정하는 함수이다.                                   |
+| lazy (선택 사항)             | 라우트의 컴포넌트를 지연 로딩하기 위한 함수이다.                                                       |
+|                              |
+
+```jsx
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+import Profile from "./Profile";
+import ErrorPage from "./ErrorPage";
+import ErrorBoundaryComponent from "./ErrorBoundaryComponent";
+import { fetchData } from "./api";
+
+// 라우터 설정
+const router = createBrowserRouter([
+  {
+    // 루트 경로
+    path: "/",
+    element: (
+      <div>
+        <header>메인 페이지</header>
+        <Outlet />
+      </div>
+    ),
+    // 기본 자식 라우트
+    index: true,
+    // 중첩된 자식 라우트
+    children: [
+      {
+        path: "home",
+        element: <Home />,
+        // 비동기 데이터 로딩
+        loader: async () => {
+          const data = await fetchData("/home");
+          return { data };
+        },
+        // POST 요청 처리
+        action: async ({ request }) => {
+          const formData = new FormData(request.body);
+          // 처리 로직
+        },
+        // 경로 매칭 대소문자 구분
+        caseSensitive: true,
+        // 에러가 발생했을 때 렌더링할 컴포넌트
+        errorElement: <ErrorPage />,
+        // 에러 경계 컴포넌트
+        ErrorBoundary: ErrorBoundaryComponent,
+        // 메타데이터 설정
+        handle: { title: "Home Page" },
+        // 데이터 재검증 여부 결정 함수
+        shouldRevalidate: () => true,
+        // 컴포넌트 지연 로딩
+        lazy: () => import("./Home"),
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "profile/:userId",
+        element: <Profile />,
+      },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
+}
+```
+
+<br>
+
+## 8.5 Layout Route
+
+> Layout Route은 애플리케이션의 기본 레이아웃을 정의하는 데 사용된다. path를 생략하게 된다면 이는 단지 UI layout를 위한 route가 되는 것이다.
+
+```jsx
+// 라우터 설정
+const router = createBrowserRouter([
+  {
+    // 메인 레이아웃 라우트
+    element: <MainLayout />,
+    children: [
+      {
+        // 홈 페이지
+        path: "home",
+        // 기본 경로, 기본적으로 렌더링될 컴포넌트
+        index: true,
+        element: <Home />,
+      },
+      {
+        // 어바웃 페이지
+        path: "about",
+        element: <About />,
+      },
+      {
+        // 사용자 프로필 페이지
+        path: "profile/:userId",
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    // 관리자 레이아웃 라우트
+    element: <AdminLayout />,
+    children: [
+      {
+        // 대시보드 페이지
+        path: "dashboard",
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        // 설정 페이지
+        path: "settings",
+        element: <Settings />,
+      },
+    ],
+  },
+  {
+    // 모든 에러를 처리할 에러 페이지
+    path: "*",
+    element: <ErrorPage />,
+  },
+]);
+```
+
+<br>
+
+## 8.6 인증 기반 라우팅 구현
+
+> ProtectedRouter.jsx
+
+인증된 사용자만 특정 라우트에 접근할 수 있도록 보호하는 역할d을 한다.
+
+```jsx
+// src/shared/ProtectedRoute.jsx
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
+// 인증된 사용자만 접근할 수 있는 보호된 라우트를 관리하는 컴포넌트
+const ProtectedRoute = () => {
+  const { isSignIn } = useAuth(); // 현재 로그인 상태를 확인
+  const location = useLocation(); // 현재 페이지의 경로 정보를 가져옴
+
+  if (!isSignIn) {
+    // 인증되지 않은 사용자는 로그인 페이지로 리다이렉트
+    // 로그인 후 돌아올 경로를 state로 전달
+    return <Navigate to="/sign-in" state={{ from: location }} replace />;
+  }
+
+  return <Outlet />; // 인증된 사용자는 자식 컴포넌트를 렌더링
+};
+
+export default ProtectedRoute;
+```
+
+<br>
+
+> Router.jsx
+
+는 React Router를 설정하고 애플리케이션의 라우트를 정의한다.
+
+```jsx
+// src/shared/Router.jsx
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import PostListPage from "pages/public/PostListPage";
+import SignupPage from "pages/public/SignupPage";
+import MyPage from "pages/protected/MyPage";
+import SigninPage from "pages/public/SigninPage";
+import PostDetailPage from "pages/public/PostDetailPage";
+import PostFormPage from "pages/public/PostFormPage";
+import Layout from "components/layouts/Layout";
+import UserProfilePage from "pages/public/UserProfilePage";
+import PublicHomePage from "pages/public/PublicHomePage";
+import ProtectedRoute from "./ProtectedRoute";
+
+const Router = () => {
+  // 공통 라우트 설정
+  const commonRoutes = [
+    { path: "/", element: <PublicHomePage /> }, // 모든 사용자에게 기본 페이지로 제공
+    { path: "/post-list", element: <PostListPage /> },
+    { path: "/posts/:id", element: <PostDetailPage /> },
+    { path: "/user-profile", element: <UserProfilePage /> },
+  ];
+
+  // 비인증 사용자 전용 라우트 설정
+  const notAuthenticatedRoutes = [
+    { path: "/sign-in", element: <SigninPage /> },
+    { path: "/sign-up", element: <SignupPage /> },
+  ];
+
+  // 인증 사용자 전용 라우트 설정
+  const authenticatedRoutes = [
+    {
+      element: <ProtectedRoute />, // 보호된 라우트 적용
+      children: [
+        { path: "/my-page", element: <MyPage /> },
+        { path: "/post-form", element: <PostFormPage /> },
+      ],
+    },
+  ];
+
+  // 404 페이지 라우트 설정
+  const notFound = {
+    path: "*",
+    element: <Navigate to="/" />,
+  };
+
+  // 라우터 설정
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />, // 모든 라우트의 상위 컴포넌트로 Layout 설정
+      children: [
+        ...commonRoutes, // 공통 라우트 추가
+        ...notAuthenticatedRoutes, // 비인증 사용자 전용 라우트 추가
+        ...authenticatedRoutes, // 인증된 사용자는 보호된 라우트 사용
+      ],
+    },
+    notFound,
+  ]);
+
+  return <RouterProvider router={router} />;
+};
+
+export default Router;
+```
+
+<br>
+
+> AuthContext.jsx
+
+```jsx
+import { createContext, useState, useEffect, useContext } from "react";
+import {
+  login as apiLogin,
+  logout as apiLogout,
+  getProfile,
+} from "../api/auth";
+
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const isSignIn = !!user; // 로그인 상태 확인
+
+  // 페이지 새로고침 시 유저 정보 가져오기
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await getProfile(); // 서버에서 사용자 정보 가져오기
+        setUser(response.data.member); // 사용자 정보 업데이트
+      } catch (error) {
+        setUser(null); // 인증 실패 시 사용자 정보 초기화
+      } finally {
+        setLoading(false); // 로딩 완료
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시할 UI
+  }
+
+  const login = async (email, password) => {
+    try {
+      const response = await apiLogin({ email, password1: password });
+      // 서버가 쿠키를 설정하므로, 클라이언트에서 로컬스토리지에 저장할 필요 없음
+      setUser(response.data); // 상태 업데이트
+    } catch (error) {
+      console.error("Login failed", error);
+      throw new Error(
+        "로그인에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요."
+      );
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await apiLogout();
+      setUser(null);
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, setUser, isSignIn, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);
+```
 
 <br>
