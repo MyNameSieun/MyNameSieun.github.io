@@ -38,7 +38,8 @@ sidebar:
 
 > Content-Type을 설정하지 않았을 경우, `application/x-www-form-urlencoded; charset=UTF-8` 타입으로 지정된다.
 
-따라서 Content-Type 헤더를 명시하여 데이터의 해석을 명확히 해야한다.
+- 따라서 Content-Type 헤더를 명시하여 데이터의 해석을 명확히 해야한다.
+- ⚠️ axios는 기본적으로 JSON 데이터를 전송할 때 Content-Type: application/json을 자동으로 설정한다. 따라서 별도로 Content-Type을 설정할 필요가 없다! (그래서 지금껏 오류가 안 났던거군...)
 
 <br>
 
@@ -77,71 +78,69 @@ Content-Type: type/subtype; charset=UTF-8
 <details>
   <summary>더 많은 MINE 타입 확인하기</summary>
 
-```
-1. Multipart Related MIME 타입
+    1. Multipart Related MIME 타입
 
-- Content-Type: Multipart/related <-- 기본형태
-- Content-Type: Application/X-FixedRecord
+    - Content-Type: Multipart/related <-- 기본형태
+    - Content-Type: Application/X-FixedRecord
 
-2. XML Media의 타입
+    1. XML Media의 타입
 
-- Content-Type: text/xml
-- Content-Type: Application/xml
-- Content-Type: Application/xml-external-parsed-entity
-- Content-Type: Application/xml-dtd
-- Content-Type: Application/mathtml+xml
-- Content-Type: Application/xslt+xml
+    - Content-Type: text/xml
+    - Content-Type: Application/xml
+    - Content-Type: Application/xml-external-parsed-entity
+    - Content-Type: Application/xml-dtd
+    - Content-Type: Application/mathtml+xml
+    - Content-Type: Application/xslt+xml
 
-3. Application의 타입
+    1. Application의 타입
 
-- Content-Type: Application/EDI-X12 <-- Defined in RFC 1767
-- Content-Type: Application/EDIFACT <-- Defined in RFC 1767
-- Content-Type: Application/javascript <-- Defined in RFC 4329
-- Content-Type: Application/octet-stream : <-- 디폴트 미디어 타입은 운영체제 종종 실행파일, 다운로드를 의미
-- Content-Type: Application/ogg <-- Defined in RFC 3534
-- Content-Type: Application/x-shockwave-flash <-- Adobe Flash files
-- Content-Type: Application/json <-- JavaScript Object Notation JSON; Defined in RFC 4627
-- Content-Type: Application/x-www-form-urlencode <-- HTML Form 형태
+    - Content-Type: Application/EDI-X12 <-- Defined in RFC 1767
+    - Content-Type: Application/EDIFACT <-- Defined in RFC 1767
+    - Content-Type: Application/javascript <-- Defined in RFC 4329
+    - Content-Type: Application/octet-stream : <-- 디폴트 미디어 타입은 운영체제 종종 실행파일, 다운로드를 의미
+    - Content-Type: Application/ogg <-- Defined in RFC 3534
+    - Content-Type: Application/x-shockwave-flash <-- Adobe Flash files
+    - Content-Type: Application/json <-- JavaScript Object Notation JSON; Defined in RFC 4627
+    - Content-Type: Application/x-www-form-urlencode <-- HTML Form 형태
 
-* x-www-form-urlencode와 multipart/form-data은 둘다 폼 형태이지만
-  x-www-form-urlencode은 대용량 바이너리 테이터를 전송하기에 비능률적이기 때문에
-  대부분 첨부파일은 multipart/form-data를 사용하게 된다.
+    * x-www-form-urlencode와 multipart/form-data은 둘다 폼 형태이지만
+      x-www-form-urlencode은 대용량 바이너리 테이터를 전송하기에 비능률적이기 때문에
+      대부분 첨부파일은 multipart/form-data를 사용하게 된다.
 
-4. 오디오 타입
+    1. 오디오 타입
 
-- Content-Type: audio/mpeg <-- MP3 or other MPEG audio
-- Content-Type: audio/x-ms-wma <-- Windows Media Audio;
-- Content-Type: audio/vnd.rn-realaudio <-- RealAudio; 등등
+    - Content-Type: audio/mpeg <-- MP3 or other MPEG audio
+    - Content-Type: audio/x-ms-wma <-- Windows Media Audio;
+    - Content-Type: audio/vnd.rn-realaudio <-- RealAudio; 등등
 
-5. Multipart 타입
+    1. Multipart 타입
 
-- Content-Type: multipart/mixed: MIME E-mail;
-- Content-Type: multipart/alternative: MIME E-mail;
-- Content-Type: multipart/related: MIME E-mail <-- Defined in RFC 2387 and used by MHTML(HTML mail)
-- Content-Type: multipart/form-data <-- 파일 첨부
+    - Content-Type: multipart/mixed: MIME E-mail;
+    - Content-Type: multipart/alternative: MIME E-mail;
+    - Content-Type: multipart/related: MIME E-mail <-- Defined in RFC 2387 and used by MHTML(HTML mail)
+    - Content-Type: multipart/form-data <-- 파일 첨부
 
-6. TEXT 타입
+    1. TEXT 타입
 
-- Content-Type: text/css
-- Content-Type: text/html
-- Content-Type: text/javascript
-- Content-Type: text/plain
-- Content-Type: text/xml
+    - Content-Type: text/css
+    - Content-Type: text/html
+    - Content-Type: text/javascript
+    - Content-Type: text/plain
+    - Content-Type: text/xml
 
-7. file 타입
+    1. file 타입
 
-- Content-Type: application/msword <-- doc
-- Content-Type: application/pdf <-- pdf
-- Content-Type: application/vnd.ms-excel <-- xls
-- Content-Type: application/x-javascript <-- js
-- Content-Type: application/zip <-- zip
-- Content-Type: image/jpeg <-- jpeg, jpg, jpe
-- Content-Type: text/css <-- css
-- Content-Type: text/html <-- html, htm
-- Content-Type: text/plain <-- txt
-- Content-Type: text/xml <-- xml
-- Content-Type: text/xsl <-- xsl
-```
+    - Content-Type: application/msword <-- doc
+    - Content-Type: application/pdf <-- pdf
+    - Content-Type: application/vnd.ms-excel <-- xls
+    - Content-Type: application/x-javascript <-- js
+    - Content-Type: application/zip <-- zip
+    - Content-Type: image/jpeg <-- jpeg, jpg, jpe
+    - Content-Type: text/css <-- css
+    - Content-Type: text/html <-- html, htm
+    - Content-Type: text/plain <-- txt
+    - Content-Type: text/xml <-- xml
+    - Content-Type: text/xsl <-- xsl
 
 </details>
 
@@ -196,7 +195,7 @@ Content-Type: type/subtype; charset=UTF-8
 
 ## 3.1 JSON 데이터 전송
 
-서버에 JSON 형식의 데이터를 전송할 때 Content-Type을 application/json으로 설정한다.
+> 서버에 JSON 형식의 데이터를 전송할 때 Content-Type을 `application/json`으로 설정한다.
 
 ```jsx
 const axios = require("axios");
@@ -229,41 +228,75 @@ postJsonData();
 
 ## 3.2 폼 데이터 전송
 
-폼 데이터를 전송할 때는 FormData 객체를 추가하고, Content-Type을 multipart/form-data로 설정한다.
+> 폼 데이터를 전송할 때는 FormData 객체를 추가하고, Content-Type을 `multipart/form-data`로 설정한다.
 
 ```jsx
 import axios from "axios";
 
-async function postFormData() {
-  try {
-    const formData = new FormData();
-    formData.append("field1", "value1");
-    formData.append("field2", "value2");
+const qs = require("qs"); // 쿼리 문자열을 쉽게 만들기 위해 사용
 
+const formData = {
+  name: "홍길동",
+  email: "hong@example.com",
+};
+
+const submitData = async () => {
+  try {
     const response = await axios.post(
-      "https://example.com/api/form",
-      formData,
+      "https://api.example.com/submit",
+      qs.stringify(formData),
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       }
     );
-
-    console.log("Response Data:", response.data);
+    console.log(response.data);
   } catch (error) {
     console.error("Error:", error);
   }
-}
+};
 
-postFormData();
+submitData();
 ```
+
+> qs.stringify?
+
+- qs.stringify는 자바스크립트 객체를 쿼리 문자열 형식으로 변환하는 함수이다.
+- 쿼리 문자열은 URL에서 사용되는 형식으로, 일반적으로 key=value 쌍으로 구성된다.
+
+<br>
+
+객체를 `qs.stringify`를 사용하여 쿼리 문자열로 변환해보자
+
+```js
+const qs = require("qs");
+
+// 객체
+const params = {
+  name: "Alice",
+  age: 25,
+  city: "Wonderland",
+};
+
+// 객체를 쿼리 문자열로 변환
+const queryString = qs.stringify(params);
+
+console.log(queryString);
+// 출력: name=Alice&age=25&city=Wonderland ->  URL 쿼리 파라미터에서 사용하는 형식과 동일
+```
+
+- qs.stringify를 사용하여 객체를 쿼리 문자열 형식으로 변환하고, Content-Type을 `application/x-www-form-urlencoded`로 설정하여 폼 데이터를 전송한다.
+- 객체를 쿼리 문자열로 변환하는 이유는,
+  - 1. 서버가 데이터를 쉽게 파싱할 수 있기 때문이다.
+  - 2. 쿼리 문자열은 데이터 구조가 단순할 때(예: 키-값 쌍) 간결하게 표현할 수 있어, 전송할 데이터의 크기를 줄일 수 있기 때문이다.
+  - 즉, 웹에서 데이터 전송을 간편하게 처리하기 위함이다.
 
 <br>
 
 ## 3.3 파일 업로드
 
-파일을 업로드할 때는 FormData 객체에 파일을 추가하고, Content-Type을 multipart/form-data로 설정한다.
+> 파일을 업로드할 때는 FormData 객체에 파일을 추가하고, Content-Type을 `multipart/form-data`로 설정한다.
 
 ```jsx
 import axios from "axios";
@@ -294,12 +327,27 @@ fileInput.addEventListener("change", () => {
 });
 ```
 
+```jsx
+// 게시글 작성
+export const createPost = async (data) => {
+  const formData = new FormData();
+  formData.append("title", data.title);
+  formData.append("content", data.content);
+
+  const response = await postsAxios.post("/posts/new", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+```
+
 <br>
 
 # 참조
 
 - [http content-type 관한 정리](https://yunzema.tistory.com/186)
 - [https://jake-seo-dev.tistory.com/478 [제이크서 위키 블로그:티스토리]](https://jake-seo-dev.tistory.com/478)
-  RESTful API와 같은 서버와의 상호작용에서는 Content-Type을 명시하는 것이 필수적입니다. API는 요청 본문의 데이터 형식을 정확히 알고 있어야 하며, 적절히 처리할 수 있습니다.
 
 <br>
