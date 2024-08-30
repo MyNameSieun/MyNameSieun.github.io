@@ -64,85 +64,16 @@ Content-Type: type/subtype; charset=UTF-8
 
 ## 2.1 MIME 타입
 
-> HTTP Content-Type 헤더의 값에는 MIME type(또는 media type) 이 들어간다.
+> HTTP Content-Type 헤더의 값에는 MIME type(media type) 이 들어간다.
 
 - MIME 타입은 파일의 형식과 콘텐츠 유형을 정의하는데, 타입과 서브타입으로 나뉜다.
 - 타입은 데이터의 주요 카테고리를, 서브타입은 그 카테고리 내의 구체적인 형식을 나타낸다.
   - 타입: 데이터의 주요 카테고리 (예: text, image, audio)
   - 서브타입: 카테고리 내의 구체적인 형식 (예: plain, jpeg, mp3)
   - 예시: text/html, image/png, application/json
-- HTML 폼을 통해 데이터를 제출할 때 Content-Type을 명시하지 않으면, 기본적으로 application/x-www-form-urlencoded로 처리된다.
+- HTML 폼을 통해 데이터를 제출할 때 Content-Type을 명시하지 않으면, 기본적으로 `application/x-www-form-urlencoded`로 처리된다.
 
 ## 2.2 주요 MIME 타입
-
-<details>
-  <summary>더 많은 MINE 타입 확인하기</summary>
-
-    1. Multipart Related MIME 타입
-
-    - Content-Type: Multipart/related <-- 기본형태
-    - Content-Type: Application/X-FixedRecord
-
-    1. XML Media의 타입
-
-    - Content-Type: text/xml
-    - Content-Type: Application/xml
-    - Content-Type: Application/xml-external-parsed-entity
-    - Content-Type: Application/xml-dtd
-    - Content-Type: Application/mathtml+xml
-    - Content-Type: Application/xslt+xml
-
-    1. Application의 타입
-
-    - Content-Type: Application/EDI-X12 <-- Defined in RFC 1767
-    - Content-Type: Application/EDIFACT <-- Defined in RFC 1767
-    - Content-Type: Application/javascript <-- Defined in RFC 4329
-    - Content-Type: Application/octet-stream : <-- 디폴트 미디어 타입은 운영체제 종종 실행파일, 다운로드를 의미
-    - Content-Type: Application/ogg <-- Defined in RFC 3534
-    - Content-Type: Application/x-shockwave-flash <-- Adobe Flash files
-    - Content-Type: Application/json <-- JavaScript Object Notation JSON; Defined in RFC 4627
-    - Content-Type: Application/x-www-form-urlencode <-- HTML Form 형태
-
-    * x-www-form-urlencode와 multipart/form-data은 둘다 폼 형태이지만
-      x-www-form-urlencode은 대용량 바이너리 테이터를 전송하기에 비능률적이기 때문에
-      대부분 첨부파일은 multipart/form-data를 사용하게 된다.
-
-    1. 오디오 타입
-
-    - Content-Type: audio/mpeg <-- MP3 or other MPEG audio
-    - Content-Type: audio/x-ms-wma <-- Windows Media Audio;
-    - Content-Type: audio/vnd.rn-realaudio <-- RealAudio; 등등
-
-    1. Multipart 타입
-
-    - Content-Type: multipart/mixed: MIME E-mail;
-    - Content-Type: multipart/alternative: MIME E-mail;
-    - Content-Type: multipart/related: MIME E-mail <-- Defined in RFC 2387 and used by MHTML(HTML mail)
-    - Content-Type: multipart/form-data <-- 파일 첨부
-
-    1. TEXT 타입
-
-    - Content-Type: text/css
-    - Content-Type: text/html
-    - Content-Type: text/javascript
-    - Content-Type: text/plain
-    - Content-Type: text/xml
-
-    1. file 타입
-
-    - Content-Type: application/msword <-- doc
-    - Content-Type: application/pdf <-- pdf
-    - Content-Type: application/vnd.ms-excel <-- xls
-    - Content-Type: application/x-javascript <-- js
-    - Content-Type: application/zip <-- zip
-    - Content-Type: image/jpeg <-- jpeg, jpg, jpe
-    - Content-Type: text/css <-- css
-    - Content-Type: text/html <-- html, htm
-    - Content-Type: text/plain <-- txt
-    - Content-Type: text/xml <-- xml
-    - Content-Type: text/xsl <-- xsl
-
-</details>
 
 > 텍스트 (text)
 
@@ -228,11 +159,19 @@ postJsonData();
 
 ## 3.2 폼 데이터 전송
 
-> 폼 데이터를 전송할 때는 FormData 객체를 추가하고, Content-Type을 `multipart/form-data`로 설정한다.
+> 폼 데이터를 전송할 때는 두 가지 주요 방식이 있다.
+
+1. `application/x-www-form-urlencoded`: 전통적인 HTML 폼 제출 방식, qs.stringify를 사용하여 데이터를 쿼리 문자열 형식으로 변환하여 전송
+2. `multipart/form-data`: 파일 업로드와 같은 복합 데이터 전송에 사용
+
+➡️ 먼저 `application/x-www-form-urlencoded`을 사용하여 폼 데이터 전송하는 방법에 대해 알아보자
+
+<br>
+
+> 폼 데이터를 전송할 때는 FormData 객체를 추가하고, Content-Type을 `application/x-www-form-urlencoded`로 설정한다.
 
 ```jsx
 import axios from "axios";
-
 const qs = require("qs"); // 쿼리 문자열을 쉽게 만들기 위해 사용
 
 const formData = {
@@ -288,8 +227,8 @@ console.log(queryString);
 
 - qs.stringify를 사용하여 객체를 쿼리 문자열 형식으로 변환하고, Content-Type을 `application/x-www-form-urlencoded`로 설정하여 폼 데이터를 전송한다.
 - 객체를 쿼리 문자열로 변환하는 이유는,
-  - 1. 서버가 데이터를 쉽게 파싱할 수 있기 때문이다.
-  - 2. 쿼리 문자열은 데이터 구조가 단순할 때(예: 키-값 쌍) 간결하게 표현할 수 있어, 전송할 데이터의 크기를 줄일 수 있기 때문이다.
+  - ① 서버가 데이터를 쉽게 파싱할 수 있기 때문이다.
+  - ② 쿼리 문자열은 데이터 구조가 단순할 때(예: 키-값 쌍) 간결하게 표현할 수 있어, 전송할 데이터의 크기를 줄일 수 있기 때문이다.
   - 즉, 웹에서 데이터 전송을 간편하게 처리하기 위함이다.
 
 <br>
@@ -342,6 +281,27 @@ export const createPost = async (data) => {
   return response.data;
 };
 ```
+
+<br>
+
+# 4. 부록(스프링 코드만 보고 헤더 타입 확인하기)
+
+API 명세서에 파일 업로드나 특정 요청 형식이 명시되어 있지 않을 경우, 다음과 같은 방법을 통해 요청 형식을 확인할 수 있다.
+
+> ① Spring Controller에서 @RequestParam 검색
+
+`@RequestParam`은 주로 폼 데이터와 파일 업로드를 처리하는 데 사용된다. 이를 통해 요청의 형식을 추측할 수 있다.
+
+> ② 요청의 Content-Type 설정
+
+`@RequestParam`이 사용된 경우, 클라이언트는 반드시 요청의 `Content-Type`을 `multipart/form-data`로 설정해야 한다.
+
+> ③ 백엔드 코드가 없을 경우
+
+- 백엔드 개발자에게 요청 시 어떤 형식의 데이터를 보내야 하는지 확인해야한다.
+- 파일 업로드가 필요한지, JSON 형식이 필요한지 등을 물어보고, 이에 맞는 요청 형식을 설정하면 된다.
+
+<img src="../../../assets/images/2024/요청형식확인.png" alt="요청형식확인" />
 
 <br>
 
