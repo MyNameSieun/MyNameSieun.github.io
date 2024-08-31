@@ -364,6 +364,11 @@ const PostFormPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!title || !content) {
+      alert("제목과 내용을 모두 입력해 주세요.");
+      return;
+    }
+
     try {
       await createPost({ title, content });
       alert("게시물 작성이 완료되었습니다!");
@@ -539,5 +544,106 @@ const StPostItem = styled.li`
 {% endraw %}
 
 ![](/assets/images/2024/2024-08-31-14-39-15.png)
+
+<br><br>
+
+## 6.3 부록: HTML 태그 제거 및 엔터티 변환
+
+> PostListPage에서는 react-quill 스타일을 불러오지 않기하기 위해 `dangerouslySetInnerHTML`와 `import 'react-quill/dist/quill.snow.css';`를 제거했음에도 아래와 같이 HTML 태그가 보이는 것을 확인할 수 있다.
+
+![](/assets/images/2024/2024-08-31-15-25-09.png)
+
+<br>
+
+따라서 `DOMParser`를 사용하여 HTML을 파싱한 뒤 텍스트 콘텐츠를 추출하여 HTML 엔터티를 텍스트로 변환하면 된다.
+
+{% raw %}
+
+```jsx
+import { fetchPosts } from "api/posts";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import DOMPurify from "dompurify";
+
+const PostListPage = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  // HTML 태그 제거 및 엔터티 변환 함수
+  const convertHtmlEntities = (htmlString) => {
+    // HTML 엔터티를 텍스트로 변환
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    return doc.body.textContent || "";
+  };
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const response = await fetchPosts();
+        setPosts(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPosts();
+  }, []);
+
+  if (loading) {
+    return <p>로딩 중...</p>;
+  }
+
+  return (
+    <div>
+      {posts.length > 0 ? (
+        <ul>
+          {posts.map((post) => {
+            const textContent = convertHtmlEntities(post.content); // HTML 엔터티 변환
+            return (
+              <StPostItem
+                key={post.id}
+                onClick={() => navigate(`/posts/${post.id}`)}
+              >
+                <h3>제목: {post.title}</h3>
+                <p>내용: {textContent}</p> {/* HTML 엔터티가 변환된 내용 표시 */}
+                <p>작성일: {post.createdAt}</p>
+              </StPostItem>
+            );
+          })}
+        </ul>
+      ) : (
+        <p>등록된 글이 없습니다.</p>
+      )}
+    </div>
+  );
+};
+
+export default PostListPage;
+
+const StPostItem = styled.li`
+  padding: 1rem;
+  border: 1px solid black;
+  cursor: pointer;
+`;
+```
+
+{% endraw %}
+
+<br>
+
+> 이렇게 하면 HTML 태그를 제거하고, 엔터티를 변환하여 게시물 리스트에 순수 텍스트만 표시하게 된다.
+
+![](/assets/images/2024/2024-08-31-15-29-39.png)
+
+<br><br>
+
+# 참조
+
+- [React Quill 에디터 사용하기](https://velog.io/@hskwon517/React-Quill-%EC%97%90%EB%94%94%ED%84%B0-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+- [웹 에디터 React-Quill 사용하기 (1)](https://rlawo32.tistory.com/entry/React-%EC%9B%B9-%EC%97%90%EB%94%94%ED%84%B0-React-Quill-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-1)
 
 <br>
