@@ -161,12 +161,25 @@ postJsonData();
 
 > 폼 데이터를 전송할 때는 두 가지 주요 방식이 있다.
 
-1. `application/x-www-form-urlencoded`: 전통적인 HTML 폼 제출 방식, qs.stringify를 사용하여 데이터를 쿼리 문자열 형식으로 변환하여 전송
-2. `multipart/form-data`: 파일 업로드와 같은 복합 데이터 전송에 사용
+1. `application/x-www-form-urlencoded`:
+   1. 전통적인 HTML 폼 제출 방식, 주로 텍스트 필드만 있는 간단한 폼 데이터를 전송할 때 사용
+   2. qs.stringify를 사용하여 데이터를 쿼리 문자열 형식으로 변환하여 전송
+   3. 데이터가 쿼리 문자열로 인코딩되므로 오버헤드가 적음
+   4. 파일과 같은 바이너리 데이터를 전송할 수 없음<br><br>
+2. `multipart/form-data
+   1. 파일 업로드와 같은 복합 데이터 전송에 사용
+   2. 각 파일이 독립적인 파트로 전송되며, 파일의 메타데이터(파일 이름, MIME 타입 등)도 함께 전송
+
+<br>
 
 ➡️ 먼저 `application/x-www-form-urlencoded`을 사용하여 폼 데이터 전송하는 방법에 대해 알아보자
 
 <br>
+
+### 3.2.1 application/x-www-form-urlencoded 사용(잘 사용 안함)
+
+- 현재 `application/x-www-form-urlencoded`는 form에서 default로 사용되는 것 이외에는 잘 사용하지 않는다.
+- RestFul API를 사용하며 json을 많이 사용하게 됨에 따라 최근 request의 Content-Type은 대부분 `application/json`을 주로 사용한다.
 
 > 폼 데이터를 전송할 때는 FormData 객체를 추가하고, Content-Type을 `application/x-www-form-urlencoded`로 설정한다.
 
@@ -230,6 +243,45 @@ console.log(queryString);
   - ① 서버가 데이터를 쉽게 파싱할 수 있기 때문이다.
   - ② 쿼리 문자열은 데이터 구조가 단순할 때(예: 키-값 쌍) 간결하게 표현할 수 있어, 전송할 데이터의 크기를 줄일 수 있기 때문이다.
   - 즉, 웹에서 데이터 전송을 간편하게 처리하기 위함이다.
+
+<br>
+
+### 3.2.2 multipart/form-data 사용
+
+1. FormData 객체를 생성
+2. FormData 객체에 append 메서드를 사용하여 필드와 그 값을 추가(파일 등 다양한 타입의 데이터 포함 가능)
+3. Content-Type 헤더를 `multipart/form-data`로 설정
+
+💡 이렇게 클라이언트가 요청을 보내면, 서버는 요청을 받아서 데이터를 처리한다. `multipart/form-data` 형식은 파일과 데이터를 각각의 파트로 나누어 처리할 수 있게 해준다.
+
+```jsx
+import axios from "axios";
+
+const submitData = async () => {
+  try {
+    // FormData 객체 생성
+    const formData = new FormData();
+    formData.append("name", "홍길동");
+    formData.append("email", "hong@example.com");
+
+    // POST 요청
+    const response = await axios.post(
+      "https://api.example.com/submit",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+submitData();
+```
 
 <br>
 
