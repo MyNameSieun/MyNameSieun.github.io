@@ -57,7 +57,10 @@ export default TextEditor;
 
 # 3. React-Quill 커스터마이징
 
-퀼은 다양한 커스터마이징 옵션을 제공한다. 툴바 설정, 에디터 테마, 모듈 등을 설정할 수 있다
+- 퀼은 다양한 커스터마이징 옵션을 제공한다. 툴바 설정, 에디터 테마, 모듈 등을 설정할 수 있다.
+- <span style="color:indianred">⚠️</span> createGlobalStyle을 사용하여 전역 스타일을 설정할 때, Quill의 기본 스타일이 덮어쓰일 수 있다. 이로 인해 Quill의 기본 스타일이나 툴바가 예상대로 작동하지 않을 수 있으므로, 덮어 쓸만한 코드를 주석처리 하거나 삭제해 주도록 하자.
+
+<br>
 
 ## 3.1 테마 설정
 
@@ -78,6 +81,8 @@ import "react-quill/dist/quill.bubble.css"; // 버블 테마
 에디터의 툴바에서 사용할 항목을 설정할 수 있다. 예를 들어, 굵게, 기울임, 리스트, 링크 등을 포함한 툴바를 설정할 수 있다.
 
 > 방법 1: ReactQuill의 modules 프로퍼티를 사용하여 툴바를 직접 설정
+
+{% raw %}
 
 ```jsx
 // 툴바 설정
@@ -102,9 +107,13 @@ const modules = {
 />;
 ```
 
+{% endraw %}
+
 <br>
 
 > 방법 2: 커스텀 툴바 컴포넌트 사용
+
+{% raw %}
 
 ```jsx
 // styles/CustomToolbar
@@ -117,7 +126,8 @@ export const CustomToolbar = () => (
         <option value="large">Large</option>
         <option value="huge">Huge</option>
       </select>
-      <select className="ql-header">
+      <select className="ql-header" defaultValue="">
+        <option value="">Normal</option>
         <option value="1">Header 1</option>
         <option value="2">Header 2</option>
         <option value="3">Header 3</option>
@@ -147,6 +157,10 @@ export const CustomToolbar = () => (
   </div>
 );
 ```
+
+{% endraw %}
+
+{% raw %}
 
 ```jsx
 ...
@@ -178,11 +192,15 @@ const TextEditor = ({ value, onChange }) => {
 export default TextEditor;
 ```
 
+{% endraw %}
+
 <br>
 
 ## 3.3 포맷 설정
 
-포맷 설정을 사용하여 퀼 에디터에서 사용자가 어떤 텍스트 포맷팅을 사용할 수 있을지를 결정할 수 있다.
+> 포맷 설정을 사용하여 퀼 에디터에서 사용자가 어떤 텍스트 포맷팅을 사용할 수 있을지를 결정할 수 있다.
+
+{% raw %}
 
 ```jsx
 // 포맷 설정
@@ -202,7 +220,7 @@ const formats = [
   "image",
   "video",
   "color",
-  "background ",
+  "background",
 ];
 
 <ReactQuill
@@ -214,183 +232,13 @@ const formats = [
 />;
 ```
 
-<br><br>
-
-# 4. bold, underline 미적용 오류
-
-> 아래와 같이 스타일 컴포넌트를 정의하여 해결!
-
-```jsx
-const TextEditor = () => {
-  ...
-
-  return (
-    <StReactQuill
-    ...
-    />
-  );
-};
-
-export default TextEditor;
-
-const StReactQuill = styled(ReactQuill)`
-  /* 폰트 */
-  & .ql-editor {
-    font-family: inherit;
-    font-size: inherit;
-  }
-
-  /* 텍스트 굵기 */
-  & .ql-editor strong {
-    font-weight: bold;
-  }
-
-  /* 기울임 */
-  & .ql-editor em {
-    font-style: italic;
-  }
-
-  /* 밑줄 */
-  & .ql-editor u {
-    text-decoration: underline;
-  }
-`;
-```
+{% endraw %}
 
 <br><br>
 
-# 5. 전체 코드
+# 4. 게시글 작성하기
 
-## 5.1 TextEditor.jsx
-
-```jsx
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import styled from "styled-components";
-import { CustomToolbar } from "styles/CustomToolbar";
-
-const TextEditor = () => {
-  const [value, setValue] = useState("");
-
-  // 툴바 설정
-  const modules = {
-    toolbar: {
-      container: "#toolbar", // CustomToolbar의 id
-    },
-  };
-
-  // 포맷 설정
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "video",
-    "color",
-    "background ",
-  ];
-
-  return (
-    <div>
-      <CustomToolbar />
-      <StReactQuill
-        theme="snow"
-        modules={modules}
-        formats={formats}
-        value={value}
-        onChange={setValue}
-      />
-    </div>
-  );
-};
-
-export default TextEditor;
-
-const StReactQuill = styled(ReactQuill)`
-  /* 폰트 */
-  & .ql-editor {
-    font-family: inherit;
-    font-size: inherit;
-  }
-
-  /* 텍스트 굵기 */
-  & .ql-editor strong {
-    font-weight: bold;
-  }
-
-  /* 기울임 */
-  & .ql-editor em {
-    font-style: italic;
-  }
-
-  /* 밑줄 */
-  & .ql-editor u {
-    text-decoration: underline;
-  }
-`;
-```
-
-<br>
-
-## 5.2 CustomToolbar.jsx
-
-```jsx
-// src/styles/CustomToolbar.js
-export const CustomToolbar = () => (
-  <div id="toolbar">
-    <span className="ql-formats">
-      <select className="ql-size" defaultValue="medium">
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
-        <option value="huge">Huge</option>
-      </select>
-      <select className="ql-header">
-        <option value="1">Header 1</option>
-        <option value="2">Header 2</option>
-        <option value="3">Header 3</option>
-        <option value="4">Header 4</option>
-        <option value="5">Header 5</option>
-        <option value="6">Header 6</option>
-      </select>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-bold" />
-      <button className="ql-italic" />
-      <button className="ql-underline" />
-      <button className="ql-strike" />
-      <button className="ql-blockquote" />
-    </span>
-    <span className="ql-formats">
-      <select className="ql-color" />
-      <select className="ql-background" />
-    </span>
-    <span className="ql-formats">
-      <button className="ql-image" />
-      <button className="ql-video" />
-    </span>
-    <span className="ql-formats">
-      <button className="ql-clean" />
-    </span>
-  </div>
-);
-```
-
-<br><br>
-
-# 5. 게시글 작성하기
-
-## 5.1 CustomToolbar.jsx
+## 4.1 CustomToolbar.jsx
 
 ```jsx
 export const CustomToolbar = () => (
@@ -402,7 +250,8 @@ export const CustomToolbar = () => (
         <option value="large">Large</option>
         <option value="huge">Huge</option>
       </select>
-      <select className="ql-header">
+      <select className="ql-header" defaultValue="">
+        <option value="">Normal</option>
         <option value="1">Header 1</option>
         <option value="2">Header 2</option>
         <option value="3">Header 3</option>
@@ -437,17 +286,15 @@ export const CustomToolbar = () => (
 
 ## 5.2 TextEditor.jsx
 
+{% raw %}
+
 ```jsx
 // src/components/TextEditor
-import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import styled from "styled-components";
 import { CustomToolbar } from "styles/CustomToolbar";
 
-const TextEditor = () => {
-  const [value, setValue] = useState("");
-
+const TextEditor = ({ value, onChange }) => {
   // 툴바 설정
   const modules = {
     toolbar: {
@@ -472,18 +319,18 @@ const TextEditor = () => {
     "image",
     "video",
     "color",
-    "background ",
+    "background",
   ];
 
   return (
     <div>
       <CustomToolbar />
-      <StReactQuill
+      <ReactQuill
         theme="snow"
         modules={modules}
         formats={formats}
         value={value}
-        onChange={setValue}
+        onChange={onChange}
         style={{ height: "70vh" }}
       />
     </div>
@@ -491,34 +338,15 @@ const TextEditor = () => {
 };
 
 export default TextEditor;
-
-const StReactQuill = styled(ReactQuill)`
-  /* 폰트 */
-  & .ql-editor {
-    font-family: inherit;
-    font-size: inherit;
-  }
-
-  /* 텍스트 굵기 */
-  & .ql-editor strong {
-    font-weight: bold;
-  }
-
-  /* 기울임 */
-  & .ql-editor em {
-    font-style: italic;
-  }
-
-  /* 밑줄 */
-  & .ql-editor u {
-    text-decoration: underline;
-  }
-`;
 ```
+
+{% endraw %}
 
 <br>
 
-## 5.2 PostFormPage.jsx
+## 5.3 PostFormPage.jsx
+
+{% raw %}
 
 ```jsx
 // src/pages/public/PostFormPage.jsx
@@ -568,6 +396,8 @@ const PostFormPage = () => {
 export default PostFormPage;
 ```
 
+{% endraw %}
+
 <br><br>
 
 # 6. 게시글 출력하기
@@ -614,6 +444,8 @@ yarn add dompurify @types/dompurify
 
 ② 그리고 아래처럼 post.content를 `DOMPurify.sanitize`로 감싸서 정화(sanitize)된 HTML만 출력하도록 하면 된다.
 
+{% raw %}
+
 ```jsx
 <div
   dangerouslySetInnerHTML={{
@@ -622,17 +454,23 @@ yarn add dompurify @types/dompurify
 />
 ```
 
+{% endraw %}
+
 ➡️ 이렇게 하면 post.content에 악성 스크립트가 포함되어 있더라도, DOMPurify가 이를 제거하므로, 최종적으로 렌더링되는 HTML은 안전하게 사용할 수 있다.
 
 <br>
 
 > 실제 코드에 적용해보자!
 
+{% raw %}
+
 ```jsx
+// src/pages/public/PostListPage.jsx
 import { fetchPosts } from "api/posts";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import "react-quill/dist/quill.snow.css";
 import DOMPurify from "dompurify"; // dompurify import
 
 const PostListPage = () => {
@@ -667,10 +505,15 @@ const PostListPage = () => {
               key={post.id}
               onClick={() => navigate(`/posts/${post.id}`)}
             >
-              <p>제목: {post.title}</p>
+              <h3>제목: {post.title}</h3>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(post.content), // 콘텐츠를 dompurify로 sanitize
+                  __html: DOMPurify.sanitize(post.content),
+                }}
+                style={{
+                  marginTop: "30px",
+                  overflow: "hidden",
+                  whiteSpace: "pre-wrap",
                 }}
               />
               <p>작성일: {post.createdAt}</p>
@@ -693,6 +536,8 @@ const StPostItem = styled.li`
 `;
 ```
 
-![](/assets/images/2024/2024-08-31-12-44-54.png)
+{% endraw %}
+
+![](/assets/images/2024/2024-08-31-14-39-15.png)
 
 <br>
