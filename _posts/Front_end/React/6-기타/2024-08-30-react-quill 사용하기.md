@@ -284,7 +284,7 @@ export const CustomToolbar = () => (
 
 <br>
 
-## 5.2 TextEditor.jsx
+## 4.2 TextEditor.jsx
 
 {% raw %}
 
@@ -344,7 +344,7 @@ export default TextEditor;
 
 <br>
 
-## 5.3 PostFormPage.jsx
+## 4.3 PostFormPage.jsx
 
 {% raw %}
 
@@ -405,9 +405,9 @@ export default PostFormPage;
 
 <br><br>
 
-# 6. 게시글 출력하기
+# 5. 게시글 출력하기
 
-## 6.1 dangerouslySetInnerHTML와 XSS 위험
+## 5.1 dangerouslySetInnerHTML와 XSS 위험
 
 > 아래처럼 에디터를 통해 작성한 글은 html 태그 형태로 생성이 되기 때문에, 서버나 사용자로부터 받은 HTML 문자열을 직접 렌더링해야 해야한다. 이때, `dangerouselySetInnerHTML`을 사용한다.
 
@@ -429,7 +429,7 @@ dangerouslySetInnerHTML는 JSX에서 HTML을 직접 삽입할 수 있는 유일�
 
 <br>
 
-## 6.2 dompurify의 사용
+## 5.2 dompurify의 사용
 
 > 이러한 XSS 위험을 방지하기 위해 DOMPurify를 사용한다.
 
@@ -547,7 +547,7 @@ const StPostItem = styled.li`
 
 <br><br>
 
-## 6.3 부록: HTML 태그 제거 및 엔터티 변환
+## 5.3 부록: HTML 태그 제거 및 엔터티 변환
 
 > PostListPage에서는 react-quill 스타일을 불러오지 않기하기 위해 `dangerouslySetInnerHTML`와 `import 'react-quill/dist/quill.snow.css';`를 제거했음에도 아래와 같이 HTML 태그가 보이는 것을 확인할 수 있다.
 
@@ -564,7 +564,6 @@ import { fetchPosts } from "api/posts";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import DOMPurify from "dompurify";
 
 const PostListPage = () => {
   const [posts, setPosts] = useState([]);
@@ -609,7 +608,7 @@ const PostListPage = () => {
                 onClick={() => navigate(`/posts/${post.id}`)}
               >
                 <h3>제목: {post.title}</h3>
-                <p>내용: {textContent}</p> {/* HTML 엔터티가 변환된 내용 표시 */}
+                <p>{textContent}</p> {/* HTML 엔터티가 변환된 내용 표시 */}
                 <p>작성일: {post.createdAt}</p>
               </StPostItem>
             );
@@ -628,6 +627,14 @@ const StPostItem = styled.li`
   padding: 1rem;
   border: 1px solid black;
   cursor: pointer;
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 `;
 ```
 

@@ -1,7 +1,6 @@
 ---
 title: "[CSS] Media Query"
 categories: [CSS]
-tag: [CSS]
 toc_label: Contents
 toc: true
 toc_sticky: true
