@@ -55,14 +55,14 @@ export default TextEditor;
 
 <br><br>
 
-# 3. React-Quill 커스터마이징
+# 2. React-Quill 커스터마이징
 
 - 퀼은 다양한 커스터마이징 옵션을 제공한다. 툴바 설정, 에디터 테마, 모듈 등을 설정할 수 있다.
 - <span style="color:indianred">⚠️</span> createGlobalStyle을 사용하여 전역 스타일을 설정할 때, Quill의 기본 스타일이 덮어쓰일 수 있다. 이로 인해 Quill의 기본 스타일이나 툴바가 예상대로 작동하지 않을 수 있으므로, 덮어 쓸만한 코드를 주석처리 하거나 삭제해 주도록 하자.
 
 <br>
 
-## 3.1 테마 설정
+## 2.1 테마 설정
 
 > 퀼 에디터는 `snow`, `bubble` 테마를 제공한다.
 
@@ -76,7 +76,7 @@ import "react-quill/dist/quill.bubble.css"; // 버블 테마
 
 <br>
 
-## 3.2 툴바 설정
+## 2.2 툴바 설정
 
 에디터의 툴바에서 사용할 항목을 설정할 수 있다. 예를 들어, 굵게, 기울임, 리스트, 링크 등을 포함한 툴바를 설정할 수 있다.
 
@@ -196,7 +196,7 @@ export default TextEditor;
 
 <br>
 
-## 3.3 포맷 설정
+## 2.3 포맷 설정
 
 > 포맷 설정을 사용하여 퀼 에디터에서 사용자가 어떤 텍스트 포맷팅을 사용할 수 있을지를 결정할 수 있다.
 
@@ -236,9 +236,9 @@ const formats = [
 
 <br><br>
 
-# 4. 게시글 작성하기
+# 3. 게시글 작성하기
 
-## 4.1 CustomToolbar.jsx
+## 3.1 CustomToolbar.jsx
 
 ```jsx
 export const CustomToolbar = () => (
@@ -284,7 +284,7 @@ export const CustomToolbar = () => (
 
 <br>
 
-## 4.2 TextEditor.jsx
+## 3.2 TextEditor.jsx
 
 {% raw %}
 
@@ -344,7 +344,7 @@ export default TextEditor;
 
 <br>
 
-## 4.3 PostFormPage.jsx
+## 3.3 PostFormPage.jsx
 
 {% raw %}
 
@@ -405,9 +405,9 @@ export default PostFormPage;
 
 <br><br>
 
-# 5. 게시글 출력하기
+# 4. 게시글 출력하기
 
-## 5.1 dangerouslySetInnerHTML와 XSS 위험
+## 4.1 dangerouslySetInnerHTML와 XSS 위험
 
 > 아래처럼 에디터를 통해 작성한 글은 html 태그 형태로 생성이 되기 때문에, 서버나 사용자로부터 받은 HTML 문자열을 직접 렌더링해야 해야한다. 이때, `dangerouselySetInnerHTML`을 사용한다.
 
@@ -429,7 +429,7 @@ dangerouslySetInnerHTML는 JSX에서 HTML을 직접 삽입할 수 있는 유일�
 
 <br>
 
-## 5.2 dompurify의 사용
+## 4.2 dompurify의 사용
 
 > 이러한 XSS 위험을 방지하기 위해 DOMPurify를 사용한다.
 
@@ -547,7 +547,7 @@ const StPostItem = styled.li`
 
 <br><br>
 
-## 5.3 부록: HTML 태그 제거 및 엔터티 변환
+## 4.3 부록: HTML 태그 제거 및 엔터티 변환
 
 > PostListPage에서는 react-quill 스타일을 불러오지 않기하기 위해 `dangerouslySetInnerHTML`와 `import 'react-quill/dist/quill.snow.css';`를 제거했음에도 아래와 같이 HTML 태그가 보이는 것을 확인할 수 있다.
 

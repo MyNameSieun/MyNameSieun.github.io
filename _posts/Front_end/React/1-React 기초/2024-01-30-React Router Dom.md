@@ -234,7 +234,7 @@ export default InfoPage;
 
 # 4. Link 이동하기
 
-## 4.1 useNavigate 사용하기
+## 4.1 useNavigate 사용하기(replace 옵션)
 
 > `useNavigate` 훅을 사용하면 코드 로직을 통해 페이지 이동을 제어할 수 있다.
 
@@ -258,12 +258,20 @@ const Home = () => {
 export default Home;
 ```
 
-> 사용 사례
+<br>
 
-- 게시글을 삭제하고 홈 화면으로 넘어가기
-- 게시글 작성시 로그인이 되어있지 않으면 로그인 화면으로 이동하기
-- 폼 제출 후 유효성 검사한 뒤 홈으로 넘어가기
-- 앞으로 가기, 뒤로 가기
+> `replace` 옵션을 사용하여 특정 페이지로 이동할 때, 현재 페이지를 히스토리 스택에서 제거하고 새 페이지로 이동할 수 있다.
+
+- 사용자가 브라우저의 "뒤로 가기" 버튼을 눌렀을 때,
+- `replace` 옵션을 사용하면, 뒤로가기를 눌렀을 때 페이지 이동 기록이 초기화되어 삭제된 게시글의 상세 페이지로 돌아가는 것을 방지할 수 있다.
+- 즉, 스택을 초기화하므로 이전 페이지로 돌아가지 않게 한다.
+
+```jsx
+<button onClick={() => navigate("/post-list", { replace: true })}>
+```
+
+- 위 코드는 현재 페이지(게시글 상세 페이지)를 브라우저의 히스토리 스택에서 제거하고, `/post-list` 페이지를 히스토리 스택에 추가한다.
+- 이로 인해 사용자가 뒤로가기를 눌렀을 때 삭제된 게시글의 상세 페이지로 돌아가는 것을 방지할 수 있다.
 
 <br>
 
@@ -287,14 +295,6 @@ const Home = () => {
 
 export default Home;
 ```
-
-> 사용 사례
-
-- Navbar
-- 게시글 리스트의 아이템
-- 바로가기 링크
-- 사용자가 직접 클릭하여 페이지를 이동할 수 있는 명시적인 경로가 필요할 때
-- 시맨틱 웹 구조가 필요할 때
 
 <br>
 
@@ -1021,182 +1021,6 @@ const router = createBrowserRouter([
     element: <ErrorPage />,
   },
 ]);
-```
-
-<br>
-
-## 8.6 인증 기반 라우팅 구현
-
-> ProtectedRouter.jsx
-
-인증된 사용자만 특정 라우트에 접근할 수 있도록 보호하는 역할d을 한다.
-
-```jsx
-// src/shared/ProtectedRoute.jsx
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-
-// 인증된 사용자만 접근할 수 있는 보호된 라우트를 관리하는 컴포넌트
-const ProtectedRoute = () => {
-  const { isSignIn } = useAuth(); // 현재 로그인 상태를 확인
-  const location = useLocation(); // 현재 페이지의 경로 정보를 가져옴
-
-  if (!isSignIn) {
-    // 인증되지 않은 사용자는 로그인 페이지로 리다이렉트
-    // 로그인 후 돌아올 경로를 state로 전달
-    return <Navigate to="/sign-in" state={{ from: location }} replace />;
-  }
-
-  return <Outlet />; // 인증된 사용자는 자식 컴포넌트를 렌더링
-};
-
-export default ProtectedRoute;
-```
-
-<br>
-
-> Router.jsx
-
-는 React Router를 설정하고 애플리케이션의 라우트를 정의한다.
-
-```jsx
-// src/shared/Router.jsx
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
-import PostListPage from "pages/public/PostListPage";
-import SignupPage from "pages/public/SignupPage";
-import MyPage from "pages/protected/MyPage";
-import SigninPage from "pages/public/SigninPage";
-import PostDetailPage from "pages/public/PostDetailPage";
-import PostFormPage from "pages/public/PostFormPage";
-import Layout from "components/layouts/Layout";
-import UserProfilePage from "pages/public/UserProfilePage";
-import PublicHomePage from "pages/public/PublicHomePage";
-import ProtectedRoute from "./ProtectedRoute";
-
-const Router = () => {
-  // 공통 라우트 설정
-  const commonRoutes = [
-    { path: "/", element: <PublicHomePage /> }, // 모든 사용자에게 기본 페이지로 제공
-    { path: "/post-list", element: <PostListPage /> },
-    { path: "/posts/:id", element: <PostDetailPage /> },
-    { path: "/user-profile", element: <UserProfilePage /> },
-  ];
-
-  // 비인증 사용자 전용 라우트 설정
-  const notAuthenticatedRoutes = [
-    { path: "/sign-in", element: <SigninPage /> },
-    { path: "/sign-up", element: <SignupPage /> },
-  ];
-
-  // 인증 사용자 전용 라우트 설정
-  const authenticatedRoutes = [
-    {
-      element: <ProtectedRoute />, // 보호된 라우트 적용
-      children: [
-        { path: "/my-page", element: <MyPage /> },
-        { path: "/post-form", element: <PostFormPage /> },
-      ],
-    },
-  ];
-
-  // 404 페이지 라우트 설정
-  const notFound = {
-    path: "*",
-    element: <Navigate to="/" />,
-  };
-
-  // 라우터 설정
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />, // 모든 라우트의 상위 컴포넌트로 Layout 설정
-      children: [
-        ...commonRoutes, // 공통 라우트 추가
-        ...notAuthenticatedRoutes, // 비인증 사용자 전용 라우트 추가
-        ...authenticatedRoutes, // 인증된 사용자는 보호된 라우트 사용
-      ],
-    },
-    notFound,
-  ]);
-
-  return <RouterProvider router={router} />;
-};
-
-export default Router;
-```
-
-<br>
-
-> AuthContext.jsx
-
-```jsx
-import { createContext, useState, useEffect, useContext } from "react";
-import {
-  login as apiLogin,
-  logout as apiLogout,
-  getProfile,
-} from "../api/auth";
-
-const AuthContext = createContext();
-
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const isSignIn = !!user; // 로그인 상태 확인
-
-  // 페이지 새로고침 시 유저 정보 가져오기
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await getProfile(); // 서버에서 사용자 정보 가져오기
-        setUser(response.data.member); // 사용자 정보 업데이트
-      } catch (error) {
-        setUser(null); // 인증 실패 시 사용자 정보 초기화
-      } finally {
-        setLoading(false); // 로딩 완료
-      }
-    };
-    fetchUser();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>; // 로딩 중일 때 표시할 UI
-  }
-
-  const login = async (email, password) => {
-    try {
-      const response = await apiLogin({ email, password1: password });
-      // 서버가 쿠키를 설정하므로, 클라이언트에서 로컬스토리지에 저장할 필요 없음
-      setUser(response.data); // 상태 업데이트
-    } catch (error) {
-      console.error("Login failed", error);
-      throw new Error(
-        "로그인에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요."
-      );
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await apiLogout();
-      setUser(null);
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, setUser, isSignIn, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => useContext(AuthContext);
 ```
 
 <br>

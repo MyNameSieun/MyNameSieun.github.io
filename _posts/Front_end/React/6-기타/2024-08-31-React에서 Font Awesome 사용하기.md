@@ -23,7 +23,7 @@ yarn add @fortawesome/react-fontawesome
 
 # 2. FontAwesomeIcon import
 
-> 리액트 컴포넌트에서 Font Awesome 아이콘을 사용하기 위해 FontAwesomeIcon 컴포넌트를 임포트
+> 리액트 컴포넌트에서 Font Awesome 아이콘을 사용하기 위해 `FontAwesomeIcon` 컴포넌트를 임포트
 
 ```jsx
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +33,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 # 3. 아이콘 사용하기
 
-> 아이콘 변수명을 카멜 표기법으로 변경
+[[폰트어썸 아이콘 검색하기↗️]](https://fontawesome.com/search)
+
+> ① 아이콘 변수명을 카멜 표기법으로 변경
 
 Font Awesome의 아이콘 변수명을 스네이크 표기법에서 카멜 표기법으로 변경해주자
 
@@ -42,7 +44,9 @@ Font Awesome의 아이콘 변수명을 스네이크 표기법에서 카멜 표�
 <FontAwesomeIcon icon={faHouse} /> // 변경 후
 ```
 
-> 아이콘을 import
+<br>
+
+> ② 아이콘을 import
 
 - 변경된 변수명을 사용하기 위해, 해당 아이콘을 사용하고자 하는 컴포넌트에 import 해주면 된다.
 - `solid` 부분만 사용하고자 하는 내용으로 변경하면 된다.
@@ -106,6 +110,43 @@ export default App;
 ```
 
 ![](/assets/images/2024/2024-08-31-16-47-36.png)
+
+<br>
+
+# 5. style 적용
+
+## 5.1 인라인 스타일 적용
+
+> style 속성을 사용하여 CSS 스타일을 객체 형태로 직접 적용할 수 있다.
+
+{% raw %}
+
+```jsx
+<FontAwesomeIcon icon={faAngleLeft} style={{ color: "#f34a4a" }} />
+```
+
+{% endraw %}
+
+![](/assets/images/2024/2024-08-31-17-06-52.png)
+
+<br>
+
+## 5.2 styled-components 사용
+
+> styled-components를 사용하여 아이콘의 스타일을 정의할 수 있다.
+
+{% raw %}
+
+```jsx
+<StFontAwesomeIcon icon={faAngleLeft} />;
+
+const StFontAwesomeIcon = styled(FontAwesomeIcon)`
+  color: #f34a4a;
+  font-size: 55px;
+`;
+```
+
+{% endraw %}
 
 <br>
 
