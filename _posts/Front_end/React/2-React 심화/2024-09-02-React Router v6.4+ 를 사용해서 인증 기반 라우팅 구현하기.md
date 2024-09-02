@@ -11,7 +11,32 @@ sidebar:
 
 <br>
 
-# 0. 폴더 구조
+먼저 [[쿠키, 세션, 토큰, JWT↗️]](https://mynamesieun.github.io/network/%EC%BF%A0%ED%82%A4,-%EC%84%B8%EC%85%98,-%ED%86%A0%ED%81%B0,-JWT/)에 대해 바삭하게 이해하고 오자!
+{: .notice--danger}
+
+<br>
+
+# 1. 인증 기반 라우팅 구현 개요
+
+## 1.1 인증(Authentication)
+
+> 개념
+
+- 사용자가 누구인지 확인하는 과정 (누구인지<span style="color:indianred">"인"</span> 증하는 것)
+- ex) 사용자가 이름과 비밀번호를 입력하여 자신을 식별
+
+<br>
+
+## 1.2 인가(Authorization)
+
+> 개념
+
+- 인증된 사용자가 특정 자원이나 기능에 접근할 수 있는 권한을 부여하는 과정 (권한을 허 <span style="color:indianred">"가"</span> 하는 것)
+- ex) 특정 문서에 대한 읽기 권한 부여
+
+<br>
+
+## 1.3 폴더 구조
 
 > 폴더 구조는 다음과 같다.
 
@@ -84,9 +109,9 @@ my-app:.
 └── 📄 data.js
 ```
 
-<br>
+<br><br>
 
-# 1. Axios 설정
+# 2. Axios 설정
 
 > 인증이 필요한 API 요청을 위해 Axios 인스턴스를 생성한 후, 회원가입, 로그인, 로그아웃 등 인증과 관련된 API 함수를 정의하자.
 
@@ -147,9 +172,11 @@ export const getMembersProfile = async (memberId) => {
 
 <br><br>
 
-# 2. AuthContext 생성
+# 3. 인증 제공자 (AuthProvider.jsx)
 
 > 인증 상태를 관리하기 위해 AuthContext를 생성하자.
+
+Axios를 사용하여 API 요청을 처리하며, 인증 상태를 관리한다.
 
 {% raw %}
 
@@ -199,9 +226,11 @@ export const useAuth = () => useContext(AuthContext); // AuthContext를 쉽게 �
 
 <br><br>
 
-# 3. ProtectedRoute.jsx 설정
+# 4. 보호된 라우트 (ProtectedRouter.jsx)
 
-> 인증이 필요한 페이지에 접근하기 위해 ProtectedRoute 컴포넌트를 설정하자.
+> 보호된 라우트는 인증된 사용자만 접근할 수 있도록 제한한다.
+
+인증되지 않은 사용자는 로그인 페이지로 리다이렉트된다.
 
 {% raw %}
 
@@ -228,9 +257,11 @@ export default ProtectedRoute;
 
 <br><br>
 
-# 4. 라우터 설정
+# 5. 라우터 설정 (Router.jsx)
 
-> 라우트를 정의하고, 인증 여부에 따라 접근 가능한 경로를 설정하자.
+> 라우터 설정에서는 인증 여부에 따라 접근 가능한 페이지를 다르게 설정한다.
+
+ProtectedRouter 컴포넌트를 사용하여 인증된 사용자만 접근할 수 있는 라우트를 설정한다.
 
 {% raw %}
 
@@ -306,7 +337,7 @@ export default Router;
 
 <br><br>
 
-# 5. App.jsx
+# 6. App.jsx
 
 > App 컴포넌트를 아래와 같이 설정해 주도록 하자.
 
@@ -332,7 +363,7 @@ export default App;
 
 <br><br>
 
-# 6. Navbar 설정
+# 7. Navbar 설정
 
 > 사용자의 인증 상태에 따라 다르게 표시되게 아래와 같이 설정해주자.
 
@@ -407,5 +438,177 @@ const StLogout = styled.div`
   cursor: pointer;
 `;
 ```
+
+<br><br>
+
+# 8. 로그인 (Signin.jsx)
+
+{% raw %}
+
+```jsx
+import { login } from "api/auth";
+import { useAuth } from "context/AuthContext";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const SigninPage = () => {
+  const [email, setEmail] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await login({ email, password1 });
+      alert("로그인이 완료되었습니다.");
+      setUser(response.data); // 로그인 성공 후 사용자 정보 업데이트
+      navigate("/");
+    } catch (error) {
+      const massage = error.response.data;
+      console.log(massage); // 개발자 확인
+      setError(massage); // 사용자 확인
+    }
+  };
+
+  return (
+    <div>
+      <h2>로그인</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">이메일</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password1">비밀번호</label>
+          <input
+            type="password1"
+            id="password1"
+            value={password1}
+            onChange={(e) => setPassword1(e.target.value)}
+          />
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button type="submit">로그인</button>
+      </form>
+    </div>
+  );
+};
+
+export default SigninPage;
+```
+
+{% endraw %}
+
+<br><br>
+
+# 9. 회원가입 (Signup.jsx)
+
+{% raw %}
+
+```jsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../api/auth";
+
+const SignupPage = () => {
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password1 !== password2) {
+      setError("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    try {
+      await register({ name, nickname, email, password1, password2 });
+      alert("회원 가입이 완료되었습니다.");
+      navigate("/sign-in"); // 회원 가입 성공 후 로그인 페이지로 리다이렉트
+    } catch (error) {
+      const message = error.response.data;
+      setError(message || "회원가입 중 문제가 발생했습니다."); // 사용자 확인
+      console.log(message); // 개발자 확인
+    }
+  };
+
+  return (
+    <div>
+      <h2>회원 가입</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">이름</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="nickname">닉네임</label>
+          <input
+            type="text"
+            id="nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">이메일</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password1">비밀번호</label>
+          <input
+            type="password"
+            id="password1"
+            value={password1}
+            onChange={(e) => setPassword1(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password2">비밀번호 확인</label>
+          <input
+            type="password"
+            id="password2"
+            value={password2}
+            onChange={(e) => setPassword2(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button type="submit">회원 가입</button>
+      </form>
+    </div>
+  );
+};
+
+export default SignupPage;
+```
+
+{% endraw %}
 
 <br>
