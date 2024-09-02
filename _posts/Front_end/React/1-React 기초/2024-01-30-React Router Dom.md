@@ -275,7 +275,50 @@ export default Home;
 
 <br>
 
-## 4.2 Link 사용하기
+## 4.2 Navigate vs useNavigate
+
+> `Navigate`는 컴포넌트 형태로 페이지를 이동할 때 사용된다. 렌더링 시 특정 경로로 즉시 리다이렉트 시킬 수 있다.
+
+- 보통 사용자가 특정 조건을 충족하지 않을 때 자동으로 다른 페이지로 리다이렉트하려는 경우 사용된다.
+- EX: 로그인 상태가 아닐 때 로그인 페이지로 리다이렉트
+
+```jsx
+import { Navigate } from "react-router-dom";
+
+function MyComponent() {
+  const isLoggedIn = false;
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
+
+  return <div>Welcome to the dashboard!</div>;
+}
+```
+
+<br>
+
+> `useNavigate`는 훅(hook) 형태로 페이지를 프로그래밍 방식으로 이동시킬 수 있도록 해준다.
+
+보통 버튼 클릭이나 폼 제출 등 이벤트 핸들러 내에서 호출된다.
+
+```jsx
+import { useNavigate } from "react-router-dom";
+
+function MyComponent() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/dashboard");
+  };
+
+  return <button onClick={handleClick}>Dashboard로 이동하기!</button>;
+}
+```
+
+<br>
+
+## 4.3 Link 사용하기
 
 > `Link` 는 html 태그중에 `<a>` 태그의 기능을 대체하는 API이다.
 
@@ -298,7 +341,7 @@ export default Home;
 
 <br>
 
-## 4.3 NavLink
+## 4.4 NavLink
 
 - NavLink는 react-router-dom 라이브러리에서 제공하는 컴포넌트로, Link와 유사하게 사용되지만, 추가적으로 현재 경로와 매칭되었을 때 특정 스타일이나 클래스를 적용할 수 있는 기능을 제공한다.
 - 내비게이션 바나 메뉴에서 현재 활성화된 링크를 시각적으로 구분할 때 유용하다.
