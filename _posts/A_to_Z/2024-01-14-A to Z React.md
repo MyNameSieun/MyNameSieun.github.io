@@ -53,7 +53,7 @@ sidebar:
 3. [로컬 스토리지와 세션 스토리지 사용하기](https://mynamesieun.github.io/react/%EB%A1%9C%EC%BB%AC-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80%EC%99%80-%EC%84%B8%EC%85%98-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 4. [사용자 권한에 따른 렌더링](https://mynamesieun.github.io/react/%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%A0%8C%EB%8D%94%EB%A7%81/)
 5. [React Router v6.4+ 를 사용해서 인증 기반 라우팅 구현하기](https://mynamesieun.github.io/react/React-Router-v6.4+-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EC%84%9C-%EC%9D%B8%EC%A6%9D-%EA%B8%B0%EB%B0%98-%EB%9D%BC%EC%9A%B0%ED%8C%85-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
-6. 세션 기반 인증과 토큰 기반 인증 구현하기
+6. [세션 기반 인증과 토큰 기반 인증 구현하기](https://mynamesieun.github.io/react/%EC%84%B8%EC%85%98-%EA%B8%B0%EB%B0%98-%EC%9D%B8%EC%A6%9D%EA%B3%BC-%ED%86%A0%ED%81%B0-%EA%B8%B0%EB%B0%98-%EC%9D%B8%EC%A6%9D-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 7. [공용 컴포넌트로 만들어 재사용하기](https://mynamesieun.github.io/react/%EA%B3%B5%EC%9A%A9-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%96%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 8. [상태 직접 업데이트 vs 콜백 함수 사용 비교](https://mynamesieun.github.io/react/%EC%83%81%ED%83%9C-%EC%A7%81%EC%A0%91-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-vs-%EC%BD%9C%EB%B0%B1-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EB%B9%84%EA%B5%90/)
 9. [select와 option](https://mynamesieun.github.io/react/select%EC%99%80-option/)

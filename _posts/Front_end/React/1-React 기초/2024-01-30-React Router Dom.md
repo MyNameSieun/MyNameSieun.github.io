@@ -318,7 +318,51 @@ function MyComponent() {
 
 <br>
 
-## 4.3 Link 사용하기
+## 4.3 Navigate에서 state 사용하기
+
+> Navigate에서 state를 사용하면, 리다이렉트할 때 현재 경로와 같은 정보를 다음 페이지로 전달할 수 있다.
+
+- 특정 페이지로 이동할 때, 현재 위치나 기타 데이터를 전달하고 싶은 경우 state 속성을 사용할 수 있다.
+- 주로 사용자가 로그인 후 이전에 보려던 페이지로 리다이렉트시키고자 할 때 유용하다.
+
+{% raw %}
+
+```jsx
+import { Navigate, useLocation } from "react-router-dom";
+
+function ProtectedRoute() {
+  const { isSignIn } = useAuth();
+  const location = useLocation(); // 현재 페이지의 경로 정보를 가져옴
+
+  if (!isSignIn) {
+    return <Navigate to="/sign-in" state={{ from: location }} replace />;
+  }
+
+  return <Outlet />;
+}
+```
+
+{% endraw %}
+
+<br>
+
+> state={{ from: location }}
+
+- state는 React Router에서 페이지를 이동할 때, 특정 상태나 데이터를 함께 전달하기 위해 사용된다.
+- `state={{ from: location }}`는 현재 페이지(location)의 경로 정보를 state 객체의 from이라는 속성에 저장하여, 리다이렉트되는 페이지(/sign-in)로 전달한다.
+- 로그인 페이지에서 사용자가 로그인에 성공한 후 이전에 보려고 했던 페이지로 다시 리디렉션하는 경우에 유용하다.
+
+<br>
+
+> replace
+
+- replace가 true로 설정되면, 현재 페이지를 히스토리 스택에서 대체하게 된다.
+- 즉, 브라우저의 뒤로 가기 버튼을 눌렀을 때, 리다이렉트 이전 페이지로 돌아가는 것이 아니라, 그 이전 페이지로 바로 돌아가게 된다.
+- 사용자가 특정 페이지로 리다이렉트되었을 때, 뒤로 가기 버튼을 눌러 리다이렉트 이전의 페이지로 돌아가지 않도록 하고 싶을 때 유용하다.
+
+<br>
+
+## 4.4 Link 사용하기
 
 > `Link` 는 html 태그중에 `<a>` 태그의 기능을 대체하는 API이다.
 
@@ -341,10 +385,12 @@ export default Home;
 
 <br>
 
-## 4.4 NavLink
+## 4.5 NavLink
 
 - NavLink는 react-router-dom 라이브러리에서 제공하는 컴포넌트로, Link와 유사하게 사용되지만, 추가적으로 현재 경로와 매칭되었을 때 특정 스타일이나 클래스를 적용할 수 있는 기능을 제공한다.
 - 내비게이션 바나 메뉴에서 현재 활성화된 링크를 시각적으로 구분할 때 유용하다.
+
+{% raw %}
 
 ```jsx
 import { NavLink } from "react-router-dom";
@@ -368,6 +414,8 @@ const Navigation = () => {
   );
 };
 ```
+
+{% endraw %}
 
 <br>
 

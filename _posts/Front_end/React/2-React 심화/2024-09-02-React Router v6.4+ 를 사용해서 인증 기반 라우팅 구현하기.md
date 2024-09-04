@@ -172,7 +172,7 @@ export const getMembersProfile = async (memberId) => {
 
 <br><br>
 
-# 3. 인증 제공자 (AuthProvider.jsx)
+# 3. 인증 제공자 (AuthContext.jsx)
 
 > 인증 상태를 관리하기 위해 AuthContext를 생성하자.
 
