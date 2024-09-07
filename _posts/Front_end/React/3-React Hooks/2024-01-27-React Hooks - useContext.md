@@ -158,6 +158,94 @@ const MainLayout = styled.main`
 
 ![](/assets/images/2024/2024-07-09-02-44-54.png)
 
+<br>
+
+# 3. 커스텀 훅으로 Context 사용하기
+
+## 3.1 커스텀 훅 만들기
+
+> 여러 컴포넌트에서 Context 값을 사용하려면 매번 useContext를 호출해야한다. 커스텀 훅을 만들면 Context를 좀 더 간편하게 사용할 수 있다.
+
+아래는 AuthContext를 사용하여 인증 상태를 관리하는 커스텀 훅 useAuth를 만드는 예시이다.
+
+{% raw %}
+
+```jsx
+// src/context/AuthContext.jsx
+import { getProfile } from "api/auth";
+import { createContext, useContext, useEffect, useState } from "react";
+
+// 1. AuthContext 생성
+const AuthContext = createContext();
+
+// 2. AuthContext Provider
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const isSignIn = !!user; // 로그인 상태 확인
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await getProfile();
+        setUser(response.data.member);
+      } catch (error) {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, setUser, isSignIn }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+// 3. useAuth 커스텀 훅 생성
+
+export const useAuth = () => useContext(AuthContext);
+```
+
+{% endraw %}
+
+<br>
+
+## 3.2 커스텀 훅 사용하기
+
+> 생성한 useAuth 훅을 호출하여 생성한 `user`, `setUser`, `isSignIn` 을 사용할 수 있다.
+
+`const { user, login, logout, isSignIn } = useAuth();` 와 같이 사용할 수 있다.
+
+{% raw %}
+
+```jsx
+import { useAuth } from "context/AuthContext";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+
+const ProtectedRoute = () => {
+  const { isSignIn } = useAuth(); // 커스텀 훅 사용하기
+  const location = useLocation();
+
+  if (!isSignIn) {
+    return <Navigate to="/sign-in" state={{ from: location }} replace />;
+  }
+
+  return <Outlet />;
+};
+
+export default ProtectedRoute;
+```
+
+{% endraw %}
+
 <br><br>
 
 # 3. 주의사항
