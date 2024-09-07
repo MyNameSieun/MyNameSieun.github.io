@@ -117,6 +117,8 @@ const StBox = styled.div`
 
 > Props를 사용하는 Button 컴포넌트
 
+{% raw %}
+
 ```js
 function App() {
   return (
@@ -135,6 +137,51 @@ const Button = styled.button`
   }
 `;
 ```
+
+{% endraw %}
+
+<br>
+
+## 2.3 조건부 스타일링 실습 - NavLink
+
+> NavLink를 사용하여 현재 활성화된 링크에 대해 스타일을 다르게 적용할 수 있다. styled-components와 함께 사용하면, 네비게이션 링크의 활성 상태를 쉽게 스타일링할 수 있다.
+
+아래처럼 `$margin prop`을 사용하여 선택적으로 마진을 추가할 수 있다.
+
+{% raw %}
+
+```jsx
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+
+const App = () => {
+  return (
+    <nav>
+      <StNavItem to="/home" $margin>
+        Home
+      </StNavItem>
+      <StNavItem to="/about">About</StNavItem>
+      <StNavItem to="/contact">Contact</StNavItem>
+    </nav>
+  );
+};
+
+const StNavItem = styled(NavLink)`
+  &.active {
+    font-weight: bold;
+    color: blue;
+  }
+  ${({ $margin }) =>
+    $margin &&
+    `
+    margin-right: 12px; 
+  `}
+`;
+
+export default App;
+```
+
+{% endraw %}
 
 <br><br>
 
