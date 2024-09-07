@@ -138,4 +138,135 @@ const StModalBox = styled.div`
 - 위 코드에서 모달의 Overlay가 클릭되면 모달이 닫히도록 설정한 경우, 모달 박스(StModalBox)를 클릭할 때도 Overlay가 클릭된 것으로 간주되어 모달이 닫히게 된다.
 - stopPropagation을 사용하면, 모달 박스 내에서의 클릭 이벤트는 Overlay로 전파되지 않아 모달이 닫히지 않게 된다.
 
+<br><br>
+
+# 3. 여러 모달 관리하기
+
+## 3.1 ModalContext.jsx
+
+> 각 모달의 ID를 사용하여 상태를 관리할 수 있도록 `ModalContext`를 수정한다. 이를 통해 특정 모달만 열거나 닫을 수 있다.
+
+{% raw %}
+
+```jsx
+// src/context/ModalContext.jsx
+import { createContext, useContext, useState } from "react";
+
+const ModalContext = createContext();
+
+export const ModalProvider = ({ children }) => {
+  const [openModalId, setOpenModalId] = useState(null);
+
+  // 모달 열기
+  const openModal = (id) => {
+    setOpenModalId(id);
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    setOpenModalId(null);
+  };
+
+  // 특정 모달이 열려 있는지 확인
+  const isOpen = (id) => openModalId === id;
+
+  return (
+    <ModalContext.Provider value={{ openModal, closeModal, isOpen }}>
+      {children}
+    </ModalContext.Provider>
+  );
+};
+
+export const useModal = () => useContext(ModalContext);
+```
+
+{% endraw %}
+
+<br>
+
+## 3.2 LetterCradList.jsx
+
+> 버튼 클릭 시 모달 ID를 전달하도록 한다.
+
+{% raw %}
+
+```jsx
+// src/Modal.jsx
+const LetterCradList = ({ id }) => {
+  const { isOpen, setIsOpen, openModal, closeModal } = useModal();
+
+  return (
+    <StLetterCradListContainer>
+      <div>
+        <ul>
+          {letters.map((letter) => (
+            <li key={letter.id}>
+              <p>{letter.title}</p>
+              <button onClick={() => openModal(letter.id)}>자세히보기</button>
+              {isOpen(letter.id) && <LetterCardModal letter={letter} />}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </StLetterCradListContainer>
+  );
+};
+
+export default LetterCradList;
+```
+
+{% endraw %}
+
+<br>
+
+## 3.3 LetterCardModal.jsx
+
+> 각 모달의 고유 ID를 기반으로 열고 닫는 기능을 구현한다.
+
+{% raw %}
+
+```jsx
+export const LetterCardModal = ({ letter }) => {
+  const { isOpen, setIsOpen, openModal, closeModal } = useModal();
+  const [editMode, setEditMode] = useState(null);
+
+  return (
+    <div>
+      <StOverlay onClick={closeModal}>
+        <StModalBox onClick={(e) => e.stopPropagation()}>
+          <button onClick={closeModal}>x</button>
+          {editMode ? (
+            <>
+              <input
+                value={editMode.title}
+                onChange={(e) =>
+                  setEditMode({ ...editMode, title: e.target.value })
+                }
+              />
+              <textarea
+                value={editMode.content}
+                onChange={(e) =>
+                  setEditMode({ ...editMode, content: e.target.value })
+                }
+              />
+              <button onClick={() => setEditMode(null)}>취소</button>
+              <button onClick={() => handleEditButton(letter.id)}>
+                수정 완료
+              </button>
+            </>
+          ) : (
+            <>
+              <p>{letter.title}</p>
+              <p>{letter.content}</p>
+              <button onClick={handleDeleteButton}>삭제</button>
+              <button onClick={() => handleEditMode(letter)}>수정</button>
+            </>
+          )}
+        </StModalBox>
+      </StOverlay>
+    </div>
+  );
+};
+```
+
 <br>

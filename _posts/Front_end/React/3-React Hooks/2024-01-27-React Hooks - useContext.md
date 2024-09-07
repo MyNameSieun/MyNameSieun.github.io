@@ -210,7 +210,6 @@ export const AuthProvider = ({ children }) => {
 };
 
 // 3. useAuth 커스텀 훅 생성
-
 export const useAuth = () => useContext(AuthContext);
 ```
 
