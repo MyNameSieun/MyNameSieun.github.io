@@ -121,11 +121,10 @@ sidebar:
 4. [Dummy Data를 이용한 리스트 UI 구현](https://mynamesieun.github.io/react/Dummy-Data%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A6%AC%EC%8A%A4%ED%8A%B8-UI-%EA%B5%AC%ED%98%84/)
 5. [uuid 사용하기](https://mynamesieun.github.io/react/uuid-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 6. [리액트 이미지 경로 지정방법 2가지](https://mynamesieun.github.io/react/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EA%B2%BD%EB%A1%9C-%EC%A7%80%EC%A0%95%EB%B0%A9%EB%B2%95-2%EA%B0%80%EC%A7%80/)
-7. [로그인, 회원가입 UI 구현 및 API 연결](https://mynamesieun.github.io/react/%EB%A1%9C%EA%B7%B8%EC%9D%B8,-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-UI-%EA%B5%AC%ED%98%84-%EB%B0%8F-API-%EC%97%B0%EA%B2%B0/)
-8. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
-9. [react-quill 사용하기](https://mynamesieun.github.io/react/react-quill-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-10. [React에서 Font Awesome 사용하기](https://mynamesieun.github.io/react/React%EC%97%90%EC%84%9C-Font-Awesome-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-11. 이미지 스타일링 및 기본 이미지 설정 방법
+7. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
+8. [react-quill 사용하기](https://mynamesieun.github.io/react/react-quill-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+9. [React에서 Font Awesome 사용하기](https://mynamesieun.github.io/react/React%EC%97%90%EC%84%9C-Font-Awesome-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+10. 이미지 스타일링 및 프로필 변경 기능 구현하기
 
 ---
 
