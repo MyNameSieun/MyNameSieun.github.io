@@ -125,6 +125,7 @@ sidebar:
 8. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
 9. [react-quill 사용하기](https://mynamesieun.github.io/react/react-quill-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 10. [React에서 Font Awesome 사용하기](https://mynamesieun.github.io/react/React%EC%97%90%EC%84%9C-Font-Awesome-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+11. 이미지 스타일링 및 기본 이미지 설정 방법
 
 ---
 

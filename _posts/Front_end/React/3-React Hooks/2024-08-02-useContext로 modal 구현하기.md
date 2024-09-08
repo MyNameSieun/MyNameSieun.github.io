@@ -193,7 +193,7 @@ export const useModal = () => useContext(ModalContext);
 ```jsx
 // src/Modal.jsx
 const LetterCradList = ({ id }) => {
-  const { isOpen, setIsOpen, openModal, closeModal } = useModal();
+  const { isOpen, openModal } = useModal();
 
   return (
     <StLetterCradListContainer>
@@ -227,7 +227,7 @@ export default LetterCradList;
 
 ```jsx
 export const LetterCardModal = ({ letter }) => {
-  const { isOpen, setIsOpen, openModal, closeModal } = useModal();
+  const { closeModal } = useModal();
   const [editMode, setEditMode] = useState(null);
 
   return (
