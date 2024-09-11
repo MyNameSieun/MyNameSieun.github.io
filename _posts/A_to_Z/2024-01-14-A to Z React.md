@@ -18,7 +18,6 @@ sidebar:
 
 ### 0 - Todolist 📍
 
-- [state, useRef, axios를 활용한 Todolist 만들기](https://mynamesieun.github.io/react/state,-useRef,-axios%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
 - [Context API, Redux, Zustand, Jotai로 Todolist 전역상태 관리하기](https://mynamesieun.github.io/react/Context-API,-Redux,-Zustand,-Jotai%EB%A1%9C-Todolist-%EC%A0%84%EC%97%AD%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0/)
 - [React Query + Zustand로 Todolist 상태 관리하기](https://mynamesieun.github.io/react/React-Query-+-Zustand%EB%A1%9C-Todolist-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0/)
 - [Firebase로 todolist 만들기](https://mynamesieun.github.io/firebase/Firebase%EB%A1%9C-todolist-%EB%A7%8C%EB%93%A4%EA%B8%B0/)
@@ -124,7 +123,7 @@ sidebar:
 7. [조건부 렌더링](https://mynamesieun.github.io/react/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81/)
 8. [react-quill 사용하기](https://mynamesieun.github.io/react/react-quill-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 9. [React에서 Font Awesome 사용하기](https://mynamesieun.github.io/react/React%EC%97%90%EC%84%9C-Font-Awesome-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-10. 이미지 스타일링 및 프로필 변경 기능 구현하기
+10. [이미지 스타일링 및 프로필 변경 기능 구현하기](https://mynamesieun.github.io/react/%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81-%EB%B0%8F-%ED%94%84%EB%A1%9C%ED%95%84-%EB%B3%80%EA%B2%BD-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 
 ---
 
