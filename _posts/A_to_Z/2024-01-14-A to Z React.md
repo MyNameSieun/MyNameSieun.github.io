@@ -109,7 +109,7 @@ sidebar:
 
 - 서버 상태 관리
   1.  [React Query⭐](https://mynamesieun.github.io/react/React-Query/)
-  2.  Axios 기반 todolist를 React Query로 리팩토링하기
+  2.  React Query로 TodoList 리팩토링하기
 
 ---
 

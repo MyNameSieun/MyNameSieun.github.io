@@ -13,7 +13,7 @@ sidebar:
 
 # 1. React Query 개요
 
-## 1.1 React Query 도입 이전
+## 1.1 기존 미들웨어의 한계
 
 > 서버와의 API 통신과 비동기 데이터 관리에 Redux, Redux-thunk, Redux-Saga 등 사용했지만, 아래와 같은 문제가 있었다.
 
@@ -25,11 +25,12 @@ sidebar:
 
 - Redux를 사용하여 비동기 데이터를 관리하기 위해서는 관련된 코드를 하나부터 열까지 개발자가 결정하고 구현해야 한다.
 - EX: API의 로딩 여부를 `Boolean`을 사용해서 관리하는 경우, `IDLE | LOADING | SUCCESS | ERROR` 등 상태를 세분화하여 관리하는 경우
-- 따라서 API 상태를 관리하기 위한 규격화된 방식 필요성 증가
+
+➡️ 따라서 위 문제를 해결할 React Query가 등장하게 됐다.
 
 <br>
 
-## 1.2 React Query란?
+## 1.2 React Query의 등장
 
 > 리액트 쿼리는 <span style="color:indianred">서버 상태 관리</span>를 쉽게 하도록 도와주는 라이브러리이다. React Query의 v4 부터 라이브러리명이 Tanstack Query로 변경되었다!
 
@@ -100,7 +101,9 @@ sidebar:
 - 전역 상태: QueryClient를 통해 캐시 데이터가 전역적으로 관리되므로, 페이지 컴포넌트 외부에서도 데이터가 일관되게 유지된다.
 
 ```jsx
-//  React Query에서 모든 쿼리와 캐시된 데이터는 QueryClient의 메모리 내에 보관
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// React Query에서 모든 쿼리와 캐시된 데이터는 QueryClient의 메모리 내에 보관
+// QueryClient는 React Query의 핵심 객체로, 쿼리와 캐시의 상태를 관리
 const queryClient = new QueryClinet();
 
 const App = () => {
@@ -119,67 +122,6 @@ const App = () => {
 > "헌거 먼저, 리렌더링되면서 새거로 교체" 한다는 것을 기억하자!
 
 ![](/assets/images/2024/2024-07-21-15-03-50.png)
-
-<br>
-
-## 3.4 React Query 사용 방법
-
-① QueryClient 생성
-
-```jsx
-const queryClient = new QueryClient();
-```
-
-- QueryClient는 React Query의 핵심 객체로, 쿼리와 캐시의 상태를 관리한다.
-- QueryClient를 생성함으로써 서버 상태를 중앙에서 관리할 수 있다.
-
-<br>
-
-② QueryClientProvider 제공
-
-```jsx
-<QueryClientProvider client={queryClient}>
-  <App />
-</QueryClientProvider>
-```
-
-- QueryClientProvider는 React의 Context API를 사용하여 QueryClient를 애플리케이션의 모든 하위 컴포넌트에 제공한다.
-- 이렇게 하면, 하위 컴포넌트에서 React Query 훅(useQuery, useMutation 등)을 사용할 수 있게 된다.
-
-<br>
-
-③ 쿼리 훅을 통해 데이터 패칭
-
-```jsx
-const { data, error, isLoading } = useQuery("todos", fetchTodos);
-```
-
-- useQuery는 데이터를 서버에서 가져오는 역할을 한다.
-- 첫 번째 인자는 쿼리 키(쿼리를 식별하는 문자열 또는 배열)이며, 두 번째 인자는 데이터 패칭 함수이다.
-
-<br>
-
-④ 컴포넌트에서 데이터 사용 및 업데이트
-
-```jsx
-function TodoList() {
-  const { data, error, isLoading } = useQuery("todos", fetchTodos);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  return (
-    <ul>
-      {data.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-- useQuery를 통해 데이터를 패칭하고, QueryClient의 캐시에 저장한다.
-- 데이터는 useMutation 훅을 사용하여 업데이트할 수 있다.
 
 <br>
 
@@ -287,7 +229,7 @@ const data = useQuery(["abc"], () => {});
 
 <br><br>
 
-# 4. useQuery 사용하기
+# 4. useQuery 사용하여 데이터 조회하기
 
 ## 4.1 기본 기능
 
@@ -304,6 +246,8 @@ const data = useQuery(["abc"], () => {});
 <br>
 
 ## 4.2 사용 예시
+
+React Query의 useQuery 훅은 데이터 로딩, 오류 처리, 리패칭 등 많은 기능이 내장되어 있으므로, 데이터를 패칭하기 위해 별도의 useEffect를 사용할 필요가 없다.
 
 ```jsx
 const data = useQuery(["abc"], () => {});
@@ -793,7 +737,7 @@ const {
 
 <br><br>
 
-# 5. useMutation 사용하기
+# 5. useMutation 사용하여 데이터 변경하기
 
 ## 5.1 기본 기능
 
@@ -946,102 +890,7 @@ queryClient.removeQueries("todos"); // 'todos' 쿼리를 캐시에서 제거
 queryClient.cancelQueries("todos"); // 'todos' 쿼리의 진행 중인 요청을 취소
 ```
 
-<br><br>
-
-# 7. React Qurey 연습
-
-## 7.1 설치
-
-```
-yarn add @tanstack/react-query-devtools
-```
-
 <br>
-
-## 7.2 QueryClient 생성
-
-> QueryClient를 생성하고, 기본 옵션을 설정할 수 있다.
-
-```jsx
-import { QueryClient } from "react-query";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60000, // 1분 동안 데이터를 신선하게 유지
-      cacheTime: 300000, // 5분 동안 데이터 캐시 유지
-      refetchOnWindowFocus: false, // 창 포커스 시 자동 리패칭 비활성화
-    },
-  },
-});
-```
-
-<br>
-
-## 7.3 QueryClientProvider로 제공
-
-> QueryClientProvider를 사용하여 QueryClient 인스턴스를 React 컴포넌트 트리에 제공한다.
-
-```jsx
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; // 가져오기
-
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      {/* The rest of your application */}
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  );
-}
-```
-
-> options
-
-- initialIsOpen (Boolean)
-  - true이면 개발 도구가 기본적으로 열려 있도록 설정할 수 있다.
-- buttonPosition?: ("top-left" | "top-right" | "bottom-left" | "bottom-right" | "relative")
-  - 기본값: bottom-right
-  - devtools 패널을 여닫기 위한 로고 위치
-  - relative일 때 버튼은 devtools를 렌더링하는 위치에 배치된다.
-- 일반적으로 initialIsOpen, buttonPosition을 자주 사용하며 그 외에 position, client와 같은 옵션들도 존재한다.
-
-<br>
-
-브라우저 하단에 아래와 같은 아이콘이 생기면 성공!
-
-![](/assets/images/2024/2024-07-21-14-15-11.png)
-
-<br>
-
-## 7.4 쿼리 및 뮤테이션 사용
-
-useQuery, useMutation 훅을 사용하여 쿼리와 뮤테이션을 수행한다. QueryClient를 통해 상태와 캐시가 관리된다.
-
-```jsx
-import { useQuery } from "react-query";
-
-const fetchTodos = async () => {
-  const response = await fetch("/api/todos");
-  return response.json();
-};
-
-const Todos = () => {
-  const { data, error, isLoading } = useQuery("todos", fetchTodos);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  return (
-    <ul>
-      {data.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-    </ul>
-  );
-};
-```
-
-<br><br>
 
 # 참조
 
