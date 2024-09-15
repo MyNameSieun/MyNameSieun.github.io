@@ -109,7 +109,7 @@ sidebar:
 
 - 서버 상태 관리
   1.  [React Query⭐](https://mynamesieun.github.io/react/React-Query/)
-  2.  React Query로 TodoList 리팩토링하기
+  2.  [React Query로 TodoList 리팩토링하기](https://mynamesieun.github.io/react/React-Query%EB%A1%9C-TodoList-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81%ED%95%98%EA%B8%B0/)
 
 ---
 

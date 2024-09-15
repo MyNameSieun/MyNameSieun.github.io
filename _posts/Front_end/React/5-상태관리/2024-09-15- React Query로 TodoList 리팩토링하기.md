@@ -23,7 +23,7 @@ yarn add @tanstack/react-query
 
 ## 1.2 설정
 
-> App root에 `QueryClient`와 `QueryClientProvider`를 설정하여 앱 전체에서 eact Query를 사용할 수 있도록 해주자.
+> App root에 `QueryClient`와 `QueryClientProvider`를 설정하여 앱 전체에서 React Query를 사용할 수 있도록 해주자.
 
 ```jsx
 // index.jsx or App.jsx
@@ -51,7 +51,49 @@ root.render(
 
 # 2. API 요청
 
-> 서버와의 통신을 위한 API 요청 로직을 별도로 관리하는 것이 좋다. 따라서 src/api/todos.js 파일에서 Axios 인스턴스를 생성하고 API 요청 함수를 정의하였다.
+## 2.2 기존 코드
+
+> 서버와의 통신을 위한 API 요청 로직을 별도로 관리하기 위해, `src/api/todos.js` 파일에서 Axios 인스턴스를 생성하고 API 요청 함수를 정의하였다.
+
+```jsx
+// src/api/todos.js
+import axios from "axios";
+
+const todosAxios = axios.create({
+  baseURL: process.env.REACT_APP_SERVER_URL,
+});
+
+// todos 조회
+export const fetchTodos = async () => {
+  return await todosAxios.get("/todos");
+};
+
+// todos 작성
+export const addTodos = async (data) => {
+  return await todosAxios.post("/todos", data);
+};
+
+// todos 삭제
+export const deleteTodos = async (id) => {
+  return await todosAxios.delete(`/todos/${id}`);
+};
+
+// todos 수정
+export const editTodos = async (id, data) => {
+  return await todosAxios.patch(`/todos/${id}`, data);
+};
+
+// todos toggle
+export const toggleTodos = async (id, isDone) => {
+  return await todosAxios.patch(`/todos/${id}`, { isDone: !isDone });
+};
+```
+
+<br>
+
+## 2.2 React Query 사용
+
+> 각 함수가 Axios의 응답 객체에서 `response.data`를 직접 반환하도록 변경하여, React Query가 data 속성에 직접 접근할 수 있도록 하였다.
 
 ```jsx
 // src/api/todos.js
@@ -101,6 +143,7 @@ export const toggleTodos = async (id, isDone) => {
 > 기존의 Todos 컴포넌트는 `useEffect`와 `useState`를 사용하여 데이터를 로드하고 업데이트했다.
 
 ```jsx
+// src/components/Todos/Todos.jsx
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
@@ -143,6 +186,8 @@ const Todos = () => {
 export default Todos;
 ```
 
+<br>
+
 ## 3.2 React Query 사용
 
 > React Query의 `useQuery` 훅을 사용하여 데이터를 가져오고, `useMutation` 훅을 사용하여 데이터를 업데이트한다.
@@ -150,7 +195,6 @@ export default Todos;
 GET 에는 useQuery를, PUT, UPDATE, DELETE에는 useMutation을 사용한다.
 
 ```jsx
-// src/components/Todos/Todos.jsx
 // src/components/Todos/Todos.jsx
 import { useQuery } from "@tanstack/react-query";
 import TodoForm from "./TodoForm";
@@ -254,6 +298,8 @@ const TodoForm = ({ setTodos }) => {
 
 export default TodoForm;
 ```
+
+<br>
 
 ## 4.2 React Query 사용
 
