@@ -13,22 +13,25 @@ sidebar:
 
 # 1. React Query 개요
 
-## 1.1 기존 미들웨어의 한계
+## 1.1 React Query 도입 이전
 
-> 다른 서버와의 API 통신과 비동기 데이터 관리를 위해 Redux-thunk, Redux-Saga 등 미들웨어를 채택할 수 있지만 다음과 같은 문제가 있다.
+> 서버와의 API 통신과 비동기 데이터 관리에 Redux, Redux-thunk, Redux-Saga 등 사용했지만, 아래와 같은 문제가 있었다.
 
-1. 보일러 플레이트: 코드량이 너무 많다.
-2. 규격화 문제: Redux가 비동기 데이터 관리를 위한 전문 라이브러리가 아니다.
-3. 복잡성: 비동기 데이터 패칭과 데이터 캐싱하는 로직이 복잡하다.
+**① Boilerplate 코드**: 코드량이 너무 많다.
 
-따라서 위 문제를 해결할 React Query가 등장하게 됐다.
+**② 복잡성**: 비동기 데이터 패칭과 데이터 캐싱하는 로직이 복잡하다.
+
+**③ Redux는 API 통신 및 비동기 상태 관리 라이브러리가 아님!**
+
+- Redux를 사용하여 비동기 데이터를 관리하기 위해서는 관련된 코드를 하나부터 열까지 개발자가 결정하고 구현해야 한다.
+- EX: API의 로딩 여부를 `Boolean`을 사용해서 관리하는 경우, `IDLE | LOADING | SUCCESS | ERROR` 등 상태를 세분화하여 관리하는 경우
+- 따라서 API 상태를 관리하기 위한 규격화된 방식 필요성 증가
 
 <br>
 
-## 1.2 React Query 개념
+## 1.2 React Query란?
 
-> - 리액트 쿼리는 <span style="color:indianred">서버 상태 관리</span>를 쉽게 하도록 도와주는 라이브러리이다.
-> - React Query의 v4 부터 라이브러리명이 Tanstack Query로 변경되었다!
+> 리액트 쿼리는 <span style="color:indianred">서버 상태 관리</span>를 쉽게 하도록 도와주는 라이브러리이다. React Query의 v4 부터 라이브러리명이 Tanstack Query로 변경되었다!
 
 서버 상태 관리를 쉽게 한다는 게 무슨 뜻일까?
 
@@ -42,27 +45,6 @@ sidebar:
 ➡️ 즉, 리액트 쿼리는 쿼리데이터 패칭, 캐싱, 동기화를 쉽게 관리할 수 있게 해주며, 이를 통해 UI를 자동으로 업데이트할 수 있다. 이로써 서버 상태와 클라이언트 상태의 동기화를 용이하게 해준다.
 
 ➡️ 또한, 쿼리 상태(로딩, 에러, 데이터)를 쉽게 관리할 수 있게 해주며, 이를 통해 UI를 자동으로 업데이트할 수 있다. (=> 데이터 일관성 유지)
-
-```jsx
-// React Query 미사용 시
-const [todos, setTodos] = useState([]);
-const [isLoading, setIsLoading] = useState(false);
-
-const getTodos = async () => {
-  setIsLoading(true);
-  const data = await axios.get(`${API_URL}/todos`).then((res) => res.data);
-  setTodos(data);
-  setIsLoading(false);
-};
-useEffect(() => {
-  getTodos();
-}, []);
-
-// React Query 사용 시
-const getTodos = () => axios.get(`${API_URL}/todos`).then((res) => res.data);
-
-const { data: todos, isLoading } = useQuery(["todos"], getTodos);
-```
 
 <br>
 
