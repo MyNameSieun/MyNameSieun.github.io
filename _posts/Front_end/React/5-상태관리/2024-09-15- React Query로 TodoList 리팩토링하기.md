@@ -308,7 +308,7 @@ export default TodoForm;
 ```jsx
 // src/components/Todos/TodoForm.jsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addTodos } from "api/todos";
+import { addTodos, fetchTodos } from "api/todos";
 import { useState } from "react";
 
 const TodoForm = () => {
@@ -317,20 +317,33 @@ const TodoForm = () => {
 
   const queryClient = useQueryClient(); // queryClient를 사용하여 쿼리 무효화
 
+  // 추가
   const addTodoMutation = useMutation({
     mutationFn: addTodos,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] }); // 'todos' 쿼리를 무효화하여 목록을 새로고침
-      setTitle(""); // 입력 필드 초기화
-      setContent(""); // 입력 필드 초기화
+      setTitle("");
+      setContent("");
+      alert("추가 완료!");
+    },
+    onError: (error) => {
+      console.error("추가 실패:", error);
+      alert("추가 실패. 다시 시도해 주세요.");
     },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // 할 일 추가
-    addTodoMutation.mutate({ title, content, isDone: false }); // addTodos 호출
-    alert("작성 완료!");
+
+    // 유효성 검사
+    if (!title.trim()) {
+      return alert("제목을 입력해 주세요.");
+    }
+    if (!content.trim()) {
+      return alert("내용을 입력해 주세요.");
+    }
+
+    addTodoMutation.mutate({ title, content, isDone: false });
   };
 
   return (
@@ -468,49 +481,72 @@ export default TodoList;
 ```jsx
 // src/components/Todos/TodosList.jsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTodos, editTodos, toggleTodos } from "api/todos";
+import { deleteTodos, editTodos, fetchTodos, toggleTodos } from "api/todos";
 import { useState } from "react";
 
 const TodoList = ({ todos, isDone }) => {
   const [editTodo, setEditTodo] = useState(null);
-  const queryClient = useQueryClient(); // 캐시 업데이트를 위한 queryClient 사용
 
-  // 삭제 확인 처리
-  const handleDelete = (id) => {
-    const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
-    if (isConfirmed) {
-      deleteTodoMutation.mutate(id);
-    }
-  };
+  const filteredTodos = todos.filter((todo) => todo.isDone === isDone);
+  const queryClient = useQueryClient();
+
   // 삭제
-  const deleteTodoMutation = useMutation({
+  const deleteMutation = useMutation({
     mutationFn: deleteTodos,
     onSuccess: () => {
-      queryClient.invalidateQueries(["todos"]); // 'todos' 쿼리를 무효화하여 목록을 새로고침
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       alert("삭제 완료!");
     },
+    onError: (error) => {
+      console.error("삭제 실패:", error);
+      alert("삭제 실패. 다시 시도해 주세요.");
+    },
   });
+
+  const handleDeleteButton = (id) => {
+    const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+    if (isConfirmed) {
+      deleteMutation.mutate(id);
+    }
+  };
 
   // 수정
   const editTodoMutation = useMutation({
+    // mutate 메서드 호출 시 전달
     mutationFn: ({ id, updatedTodo }) => editTodos(id, updatedTodo),
     onSuccess: () => {
-      queryClient.invalidateQueries(["todos"]); // 'todos' 쿼리 무효화
-      setEditTodo(null); // 수정 완료 후 수정 상태 초기화
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      setEditTodo(null);
       alert("수정 완료!");
     },
-  });
-
-  // 토글 기능 (완료/미완료 상태 변경)
-  const toggleTodoMutation = useMutation({
-    mutationFn: ({ id, isDone }) => toggleTodos(id, isDone),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["todos"]); // 'todos' 쿼리를 무효화하여 데이터를 새로고침
+    onError: (error) => {
+      console.error("수정 실패:", error);
+      alert("수정 실패. 다시 시도해 주세요.");
     },
   });
 
-  // isDone 상태에 따라 필터링
-  const filteredTodos = todos.filter((todo) => todo.isDone === isDone);
+  const handleEditTodos = () => {
+    editTodoMutation.mutate({
+      id: editTodo.id,
+      updatedTodo: { title: editTodo.title, content: editTodo.content },
+    });
+  };
+
+  // 토글
+  const toggleMutation = useMutation({
+    mutationFn: ({ id, isDone }) => toggleTodos(id, isDone),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+    onError: (error) => {
+      console.error("할 일 상태 변경 실패:", error);
+      alert("상태 변경 실패. 다시 시도해 주세요.");
+    },
+  });
+
+  const handleToggleTodos = (id, currentIsDone) => {
+    toggleMutation.mutate({ id, isDone: currentIsDone });
+  };
 
   return (
     <ul>
@@ -533,31 +569,15 @@ const TodoList = ({ todos, isDone }) => {
                 placeholder="수정할 내용을 입력하세요"
               />
               <button onClick={() => setEditTodo(null)}>수정 취소</button>
-              <button
-                onClick={() =>
-                  editTodoMutation.mutate({
-                    id: todo.id,
-                    updatedTodo: editTodo,
-                  })
-                }
-              >
-                수정 완료
-              </button>
+              <button onClick={handleEditTodos}>수정 완료</button>
             </>
           ) : (
             <>
               <p>제목: {todo.title}</p>
               <p>내용: {todo.content}</p>
-              <button onClick={() => handleDelete(todo.id)}>삭제</button>
+              <button onClick={() => handleDeleteButton(todo.id)}>삭제</button>
               <button onClick={() => setEditTodo(todo)}>수정</button>
-              <button
-                onClick={() =>
-                  toggleTodoMutation.mutate({
-                    id: todo.id,
-                    isDone: todo.isDone, // 현재 isDone 상태를 전달
-                  })
-                }
-              >
+              <button onClick={() => handleToggleTodos(todo.id, todo.isDone)}>
                 {isDone ? "할 일 취소" : "할 일 완료"}
               </button>
             </>
