@@ -11,7 +11,7 @@ sidebar:
 
 <br>
 
-# 1. React Query로 todolist 만들기
+# 1. 설치 및 설정
 
 ## 1.1 설치
 
@@ -47,11 +47,79 @@ root.render(
 );
 ```
 
+<br><br>
+
+# 2. 쿼리 키 상수화 및 커스텀 훅 사용하기
+
+## 2.1 쿼리 키 상수로 관리하기
+
+> 쿼리 키 상수 파일을 생성하여 쿼리 키 오타로 인한 오류를 방지하자!
+
+```jsx
+// src/components/hooks/query/keys.constant.js
+export const QUERY_KEYS = {
+  TODOS: "todos",
+  // 다른 쿼리 키도 여기에 추가
+};
+```
+
 <br>
 
-# 2. API 요청
+## 2.2 커스텀 훅으로 useQuery 관리하기
 
-## 2.2 기존 코드
+> 데이터 패칭 로직을 커스텀 훅으로 캡슐화하여 이를 컴포넌트에서 활용하여 데이터를 가져오자.
+
+아래와 같이 데이터 패칭 로직을 커스텀 훅으로 분리하면 여러 컴포넌트에서 재사용할 수 있어 재사용성 및 코드의 가독성이 향상된다.
+
+```jsx
+// src/components/hooks/query/useQuery.js
+import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "./keys.constant";
+import { fetchTodos } from "api/todos";
+
+export const useTodosQuery = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.TODOS], // 쿼리 키 사용
+    queryFn: fetchTodos,
+  });
+};
+```
+
+아래와 같이 사용하면 된다.
+
+```jsx
+// src/components/Todos/Todos.jsx
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
+import { useTodosQuery } from "components/hooks/query/useQuery";
+
+const Todos = () => {
+  const { data: todos = [], isLoading, error } = useTodosQuery(); // 커스텀 훅 사용
+
+  // 로딩 중 처리
+  if (isLoading) {
+    return <p>로딩중...</p>;
+  }
+
+  // 에러 중 처리
+  if (error) {
+    return <p>에러 발생: {error.message}</p>;
+  }
+
+
+  return (
+  ...
+  );
+};
+
+export default Todos;
+```
+
+<br><br>
+
+# 3. API 요청
+
+## 3.1 기존 코드
 
 > 서버와의 통신을 위한 API 요청 로직을 별도로 관리하기 위해, `src/api/todos.js` 파일에서 Axios 인스턴스를 생성하고 API 요청 함수를 정의하였다.
 
@@ -91,7 +159,7 @@ export const toggleTodos = async (id, isDone) => {
 
 <br>
 
-## 2.2 React Query 사용
+## 3.2 React Query 사용
 
 > 각 함수가 Axios의 응답 객체에서 `response.data`를 직접 반환하도록 변경하여, React Query가 data 속성에 직접 접근할 수 있도록 하였다.
 
@@ -136,9 +204,9 @@ export const toggleTodos = async (id, isDone) => {
 
 <br><br>
 
-# 3. Todos.jsx
+# 4. Todos.jsx
 
-## 3.1 기존 코드
+## 4.1 기존 코드
 
 > 기존의 Todos 컴포넌트는 `useEffect`와 `useState`를 사용하여 데이터를 로드하고 업데이트했다.
 
@@ -188,7 +256,7 @@ export default Todos;
 
 <br>
 
-## 3.2 React Query 사용
+## 4.2 React Query 사용
 
 > React Query의 `useQuery` 훅을 사용하여 데이터를 가져오고, `useMutation` 훅을 사용하여 데이터를 업데이트한다.
 
@@ -196,21 +264,12 @@ GET 에는 useQuery를, PUT, UPDATE, DELETE에는 useMutation을 사용한다.
 
 ```jsx
 // src/components/Todos/Todos.jsx
-import { useQuery } from "@tanstack/react-query";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
-import { fetchTodos } from "api/todos";
+import { useTodosQuery } from "components/hooks/query/useQuery";
 
 const Todos = () => {
-  // todos 데이터 fetch
-  const {
-    data: todos = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["todos"],
-    queryFn: fetchTodos,
-  });
+  const { data: todos = [], isLoading, error } = useTodosQuery();
 
   // 로딩 중 처리
   if (isLoading) {
@@ -225,11 +284,10 @@ const Todos = () => {
   // 완료되지 않은 항목과 완료된 항목을 필터링
   const todosNotDone = todos.filter((todo) => !todo.isDone); // 할 일 남음
   const todosDone = todos.filter((todo) => todo.isDone); // 할 일 완료
-
   return (
     <>
       <TodoForm />
-      <h1>할 일 남음</h1>
+      <h1>할 일 남음ㅜㅜ</h1>
       <TodoList todos={todosNotDone} isDone={false} />
       <h1>할 일 완료!</h1>
       <TodoList todos={todosDone} isDone={true} />
@@ -242,9 +300,9 @@ export default Todos;
 
 <br>
 
-# 4. TodoForm.jsx
+# 5. TodoForm.jsx
 
-## 4.1 기존 코드
+## 5.1 기존 코드
 
 > 기존의 TodoForm 컴포넌트는 폼 제출 시 데이터를 API에 전송하고 setTodos를 사용하여 상태를 업데이트했다.
 
@@ -301,14 +359,15 @@ export default TodoForm;
 
 <br>
 
-## 4.2 React Query 사용
+## 5.2 React Query 사용
 
 > `useMutation`을 사용하여 Todo 항목을 추가하고 쿼리 무효화를 통해 데이터를 새로고침한다.
 
 ```jsx
 // src/components/Todos/TodoForm.jsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addTodos, fetchTodos } from "api/todos";
+import { addTodos } from "api/todos";
+import { QUERY_KEYS } from "components/hooks/query/keys";
 import { useState } from "react";
 
 const TodoForm = () => {
@@ -321,7 +380,7 @@ const TodoForm = () => {
   const addTodoMutation = useMutation({
     mutationFn: addTodos,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] }); // 'todos' 쿼리를 무효화하여 목록을 새로고침
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TODOS] }); // 'todos' 쿼리를 무효화하여 목록을 새로고침
       setTitle("");
       setContent("");
       alert("추가 완료!");
@@ -376,9 +435,9 @@ export default TodoForm;
 
 <br>
 
-# 5. TodoList.jsx
+# 6. TodoList.jsx
 
-## 5.1 기존 코드
+## 6.1 기존 코드
 
 > 기존의 TodoList 컴포넌트는 각 Todo 항목을 렌더링하고 상태를 업데이트했다.
 
@@ -474,14 +533,15 @@ export default TodoList;
 
 <br>
 
-## 5.2 React Query 사용
+## 6.2 React Query 사용
 
 > `useMutation`을 사용하여 Todo 항목을 삭제, 수정 및 토글한다.
 
 ```jsx
 // src/components/Todos/TodosList.jsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTodos, editTodos, fetchTodos, toggleTodos } from "api/todos";
+import { deleteTodos, editTodos, toggleTodos } from "api/todos";
+import { QUERY_KEYS } from "components/hooks/query/keys";
 import { useState } from "react";
 
 const TodoList = ({ todos, isDone }) => {
@@ -494,7 +554,7 @@ const TodoList = ({ todos, isDone }) => {
   const deleteMutation = useMutation({
     mutationFn: deleteTodos,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TODOS] });
       alert("삭제 완료!");
     },
     onError: (error) => {

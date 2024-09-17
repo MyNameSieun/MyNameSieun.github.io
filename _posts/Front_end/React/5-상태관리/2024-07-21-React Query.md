@@ -59,9 +59,9 @@ sidebar:
 
 <br><br>
 
-# 2. server state vs client state
+# 2. Server-Side State vs Client-Side State
 
-## 2.1 서버 상태(Server State)
+## 2.1 서버 사이드 상태(Server-Side State)
 
 > 서버에 저장되고 관리되는 데이터를 말한다. 데이터베이스, 파일 시스템, 또는 서버의 메모리 등에 저장될 수 있다.
 
@@ -71,7 +71,7 @@ sidebar:
 
 <br>
 
-## 2.2 클라이언트 상태(Client State)
+## 2.2 클라이언트 사이드 상태(Client-Side State)
 
 > 사용자의 브라우저 내에서 저장되고 관리되는 상태를 말한다. 리액트 컴포넌트의 `useState` 또는 상태 관리 라이브러리(ex) Redux, Recoil)를 통해 관리된다.
 
