@@ -110,7 +110,8 @@ sidebar:
 - 서버 상태 관리
   1.  [React Query⭐](https://mynamesieun.github.io/react/React-Query/)
   2.  [React Query로 TodoList 리팩토링하기](https://mynamesieun.github.io/react/React-Query%EB%A1%9C-TodoList-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81%ED%95%98%EA%B8%B0/)
-  3.  React Query에서 useMutation 사용 시 데이터 처리 방식 선택 기준
+  3.  [React Query에서 useMutation 사용 시 데이터 처리 방식 선택 기준](https://mynamesieun.github.io/react/React-Query%EC%97%90%EC%84%9C-useMutation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D-%EC%84%A0%ED%83%9D-%EA%B8%B0%EC%A4%80/)
+  4.  React Query 효율적 구조 설계에 대한 고찰
 
 ---
 
