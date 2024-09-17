@@ -495,7 +495,7 @@ const {
 
 <br>
 
-### 4.5.4 select
+### 4.5.4 select📌
 
 - 기본값: undefined
 - 설명: 쿼리 데이터를 반환하기 전에 변형하는 함수이다. 데이터의 형식을 변경하거나 필요한 정보만 추출할 때 사용한다.
@@ -507,6 +507,38 @@ const { data } = useQuery(
   fetchTodos,
   { select: (data) => data.filter((todo) => todo.completed) } // 완료된 todo만 반환
 );
+```
+
+<br>
+
+> 나는 프로젝트에서 "응답 데이터에서 필요한 부분만 추출"할 때 select를 사용하였다.
+
+데이터 구조가 `{ data: { member: { ... } } }`인 경우, select를 사용하여 `{ member: { ... } }`로 변형할 수 있다.
+
+```json
+{
+  "data": {
+    "member": {
+      "id": 1,
+      "name": "John Doe",
+      "nickname": "johndoe",
+      "email": "john.doe@example.com"
+    }
+  }
+}
+```
+
+```jsx
+export const useProfileQuery = () => {
+  return useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+    select: (data) => data.data.member, // 응답 데이터에서 member만 추출
+    onError: (error) => {
+      console.error("Error fetching profile:", error);
+    },
+  });
+};
 ```
 
 <br>
@@ -825,6 +857,8 @@ const mutationCache = queryClient.getMutationCache();
 - 설명: 쿼리와 뮤테이션에 대한 기본 옵션을 설정할 수 있다.
 - 사용법: QueryClient를 생성할 때 defaultOptions를 설정하여 기본 옵션을 지정한다.
 
+{% raw %}
+
 ```jsx
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -837,6 +871,8 @@ const queryClient = new QueryClient({
   },
 });
 ```
+
+{% endraw %}
 
 <br>
 
