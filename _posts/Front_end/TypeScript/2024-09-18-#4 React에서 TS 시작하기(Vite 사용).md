@@ -11,7 +11,7 @@ sidebar:
 
 <br>
 
-# 1. npx으로 만들기
+# 1. npx 사용
 
 ## 1.1 새로운 폴더에 프로젝트 생성
 
@@ -39,8 +39,6 @@ npx create-react-app ./ --template typescript
 
 [[Vite 문서↗️]](https://ko.vitejs.dev/)
 {: .notice--danger}
-
-<br>
 
 ## 2.1 Vite의 특징
 
@@ -99,7 +97,7 @@ yarn install
 
 <br>
 
-# 2.5 프로젝트 실행
+## 2.5 프로젝트 실행
 
 > 터미널에서 아래 명령어를 입력하여 개발 서버를 시작하면 된다.
 
