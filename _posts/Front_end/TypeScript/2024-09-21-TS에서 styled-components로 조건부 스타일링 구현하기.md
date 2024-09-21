@@ -73,8 +73,8 @@ const TodoItem = ({ todo, deleteTodo, toggleTodoDone }: TodoItemProps) => {
   return (
     <StTodoCardItem $isDone={isDone}>
       <article>
-        <p>제목: {content}</p>
-        <p>내용: {title}</p>
+        <p>제목: {title}</p>
+        <p>내용: {content}</p>
         <p>등록일: {deadline}</p>
       </article>
     </StTodoCardItem>
@@ -83,5 +83,7 @@ const TodoItem = ({ todo, deleteTodo, toggleTodoDone }: TodoItemProps) => {
 
 export default TodoItem;
 ```
+
+![](/assets/images/2024/2024-09-21-15-09-01.png)
 
 <br>
