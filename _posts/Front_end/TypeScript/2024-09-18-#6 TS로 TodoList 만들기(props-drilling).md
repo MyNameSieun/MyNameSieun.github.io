@@ -1,5 +1,5 @@
 ---
-title: "[TS] #6 TS로 TodoList 만들기/작성중(props-drillings)"
+title: "[TS] #6 TS로 TodoList 만들기/작성중(props-drilling)"
 categories: [TypeScript]
 toc_label: Contents
 toc: true
