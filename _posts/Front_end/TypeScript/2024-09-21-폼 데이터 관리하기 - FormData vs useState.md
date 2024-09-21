@@ -47,6 +47,9 @@ const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   const content = formData.get("content") as string;
 
   // 처리 로직 구현 (예: 서버로 전송)
+
+  // 폼을 초기화
+  e.currentTarget.reset();
 };
 ```
 
