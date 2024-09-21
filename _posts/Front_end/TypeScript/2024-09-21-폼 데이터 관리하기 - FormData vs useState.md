@@ -91,41 +91,6 @@ const TodoForm = ({ addTodo }: TodoFormProps) => {
 export default TodoForm;
 ```
 
-```tsx
-const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  // FormData 객체를 생성하여 form 데이터를 가져옴
-  const formData = new FormData(e.currentTarget);
-
-  // formData 객체에서 입력 필드 값 가져오기
-  const title = formData.get("title") as string;
-  const content = formData.get("content") as string;
-
-  // 처리 로직 구현 (예: 서버로 전송)
-
-  // 폼을 초기화
-  e.currentTarget.reset();
-};
-
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">제목: </label>
-        <input id="title" name="title" />
-      </div>
-      <div>
-        <label htmlFor="content">내용: </label>
-        <input id="content" name="content" />
-      </div>
-      <button type="submit">제출</button>
-    </form>
-  );
-};
-
-```
-
 <br>
 
 # 1.3 FormData 메서드

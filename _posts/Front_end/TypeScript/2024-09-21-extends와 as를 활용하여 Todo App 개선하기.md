@@ -69,8 +69,6 @@ const doneTodos = todos.filter((todo) => todo.isDone);
 예를 들어, `todos` 배열을 필터링하여 진행 중인 할 일(inProgressTodos)과 완료된 할 일(doneTodos)을 구분할 때 사용한다.
 
 ```tsx
-// src/hooks/useTodos.tsx
-
 const inProgressTodos = todos.filter(
   (todo) => !todo.isDone
 ) as InProgressTodo[];
