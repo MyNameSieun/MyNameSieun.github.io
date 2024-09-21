@@ -56,8 +56,8 @@ export interface InProgressTodo extends Todo {
 > `as`를 활용하기 전 코드 예시
 
 ```tsx
-const inProgressTodos = todos.filter((todo) => todo.isDone === false);
-const doneTodos = todos.filter((todo) => todo.isDone === true);
+const inProgressTodos = todos.filter((todo) => !todo.isDone);
+const doneTodos = todos.filter((todo) => todo.isDone);
 ```
 
 <br>

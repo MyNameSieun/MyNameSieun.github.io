@@ -25,6 +25,8 @@ sidebar:
 
 ## 1.2 FormData 사용 예시
 
+> `axios`를 사용해 `FormData`로 서버에 요청을 보내 데이터를 처리하고 싶을 때 [[HTTP Content Type - form data 사용↗️] ](https://mynamesieun.github.io/javascript/HTTP-Content-Type/#322-multipartform-data-%EC%82%AC%EC%9A%A9)포스팅을 참고하자-!
+
 - FormData 생성
   - `new FormData(e.currentTarget)`는 폼 데이터 객체를 만든다.
   - 여기서 `e.currentTarget`은 `<form>` 요소를 가리키므로, `<form>` 내부의 모든 필드를 자동으로 처리할 수 있다.<br><br>
@@ -34,6 +36,60 @@ sidebar:
 - 타입 단언
   - `as string`을 사용해 `formData.get("title")`의 결과가 반드시 `string`임을 컴파일러에게 알려준다.
   - 이게 없다면 타입스크립트는 반환값이 `FormDataEntryValue` 타입(string 또는 File)일 수도 있다고 경고한다.
+
+```tsx
+// src/components/todo/TodoForm.tsx
+
+import { Todo } from "../../types/todo.type";
+
+interface TodoFormProps {
+  addTodo: (todo: Todo) => void;
+}
+
+const TodoForm = ({ addTodo }: TodoFormProps) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // FormData 객체를 생성하여 form 데이터를 가져옴
+    const formData = new FormData(e.currentTarget);
+
+    // formData 객체에서 입력 필드 값 가져오기
+    const title = formData.get("title") as string;
+    const content = formData.get("content") as string;
+
+    // 처리 로직 구현
+       id: crypto.randomUUID(),
+      title,
+      content,
+      isDone: false,
+      deadline: new Date().toLocaleDateString(),
+    };
+    addTodo(nextTodo);
+
+
+    // 폼을 초기화
+    e.currentTarget.reset();
+
+    alert("추가 완료!");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="title">제목: </label>
+        <input id="title" name="title" />
+      </div>
+      <div>
+        <label htmlFor="content">내용: </label>
+        <input id="content" name="content" />
+      </div>
+      <button type="submit">제출</button>
+    </form>
+  );
+};
+
+export default TodoForm;
+```
 
 ```tsx
 const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -51,7 +107,42 @@ const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   // 폼을 초기화
   e.currentTarget.reset();
 };
+
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="title">제목: </label>
+        <input id="title" name="title" />
+      </div>
+      <div>
+        <label htmlFor="content">내용: </label>
+        <input id="content" name="content" />
+      </div>
+      <button type="submit">제출</button>
+    </form>
+  );
+};
+
 ```
+
+<br>
+
+# 1.3 FormData 메서드
+
+> set이 append 메서드와 다른 점은 set은 name과 동일한 이름을 가진 필드를 모두 제거하고 새로운 필드 하나를 추가한다는 데 있다.
+
+따라서 set 메서드를 쓰면 name을 가진 필드가 단 한 개만 있게끔 보장할 수 있다.
+
+| 메서드                                  | 설명                                                                                   |
+| --------------------------------------- | -------------------------------------------------------------------------------------- |
+| `formData.append(name, value)`          | `name`과 `value`를 가진 폼 필드를 추가                                                 |
+| `formData.append(name, blob, fileName)` | `<input type="file">` 형태의 필드를 추가. 세 번째 인수 `fileName`은 파일의 이름을 설정 |
+| `formData.delete(name)`                 | `name`에 해당하는 필드를 삭제                                                          |
+| `formData.get(name)`                    | `name`에 해당하는 필드의 값을 가져옴                                                   |
+| `formData.has(name)`                    | `name`에 해당하는 필드가 존재하면 `true`, 없으면 `false`를 반환                        |
+| `formData.set(name, value)`             | `name`을 가진 필드를 모두 제거하고 새로운 필드 하나를 추가                             |
+| `formData.set(name, blob, fileName)`    | 동일한 `name` 필드를 모두 제거하고, 새로운 파일 필드를 추가                            |
 
 <br><br>
 
@@ -83,13 +174,11 @@ return (
       type="text"
       value={title}
       onChange={(e) => setTitle(e.target.value)}
-      placeholder="제목"
     />
     <input
       type="text"
       value={content}
       onChange={(e) => setContent(e.target.value)}
-      placeholder="내용"
     />
     <button type="submit">제출</button>
   </form>
@@ -141,5 +230,11 @@ const file = formData.get("file") as File;
 formData.append("file", selectedFile); // Blob이나 File 객체를 추가
 formData.append("name", userName); // string 값만 허용
 ```
+
+<br><br>
+
+# 참조
+
+- [https://ko.javascript.info/formdata](https://ko.javascript.info/formdata)
 
 <br>
