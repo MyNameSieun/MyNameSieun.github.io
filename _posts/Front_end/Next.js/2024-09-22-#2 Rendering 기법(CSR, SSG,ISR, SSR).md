@@ -11,44 +11,11 @@ sidebar:
 
 <br>
 
-# 1. Next.js v12와 v13의 주요 차이점
-
-> Next.js에서 가장 중요한 개념이 바로 렌더링 방식이다.⭐(CSR, SSR, ISR, SSG)
-
-- Next.js 버전 12까지는 렌더링 방식을 "페이지 단위"로 규정하였다.
-  - about 페이지는 SSG로 동작
-  - todolist 페이지는 SSR로 동작
-  - sample 페이지는 CSR로 동작
-
-<br>
-
-하지만 Next.js 13 버전에서는 React 18 버전에서 제시한
-
-- 서버컴포넌트(서버상에서만 동작 → node.js 환경)
-- 클라이언트컴포넌트(브라우저에서만 동작 → 브라우저 환경)
-
-을 토대로 렌더링 방식이 기존 "페이지 단위"가 아닌 "컴포넌트 단위"로 변경되었다. 컴포넌트 하나 하나가 각각의 렌더링 방식을 가질 수 있게 되었다!!
-
-<br>
-
-> 정리
-
-- Next.js 버전 12는 `페이지 단위`가 렌더링 기준
-- Next.js 버전 13은 `컴포넌트 단위`가 렌더링 기준⭐
-
-![](/assets/images/2024/2024-03-12-00-02-01.png)
-
-![](/assets/images/2024/2024-03-12-00-02-11.png)
-
-위 그림과 같이 서버컴포넌트와 클라이언트컴포넌트가 공존이 가능하다.
-
-<br>
-
-# 2. 기존 렌더링 방식
+# 1. 기존 렌더링 방식
 
 ![렌더링 역사](</assets/images/2024/렌더링 역사.png>)
 
-## 2.1 MPA(Multi page application)
+## 1.1 MPA(Multi page application)
 
 - 원시적인 서버 사이드 렌더링 방식인 MPA로부터 프론트엔드 웹 개발은 시작되었다.
 - 페이지 이동시 및 렌더링 시 깜빡거리는 현상이 있으므로 UX가 저하된다.
@@ -61,7 +28,7 @@ sidebar:
 
 <br>
 
-## 2.2 SAR(Single page application)
+## 1.2 SAR(Single page application)
 
 > 브라우저에서 Javascript를 이용해 동적으로 페이지를 렌더링 하는 방식이다.
 
@@ -75,9 +42,9 @@ sidebar:
 
 <br><br>
 
-# 3. 서버 렌더링과 fetch와 Rendering Type
+# 2. 서버 렌더링과 fetch와 Rendering Type
 
-## 3.1 서버 렌더링
+## 2.1 서버 렌더링
 
 > 서버에서 컴포넌트를 렌더링하여 HTML을 생성하고, 이를 클라이언트에 전달하는 방식을 말한다.
 
@@ -104,7 +71,7 @@ sidebar:
 
 <br>
 
-## 3.2 fetch와 Rendering Type
+## 2.2 fetch와 Rendering Type
 
 > 컴포넌트의 변화는 fetch한 데이터를 기준으로 변경이 되기 때문에 fetch 데이터의 변경은 컴포넌트 렌더링 방식을 규정한다고 볼 수 있다.
 
@@ -120,9 +87,9 @@ sidebar:
 
 <br>
 
-# 4. Next.js의 주요 렌더링 기법
+# 3. Next.js의 주요 렌더링 기법
 
-## 4.1 CSR(Client Side Rendering)
+## 3.1 CSR(Client Side Rendering)
 
 > 특징
 
@@ -157,7 +124,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 <br>
 
-## 4.2 SSR(Server Side Rendering)
+## 3.2 SSR(Server Side Rendering)
 
 > 특징
 
@@ -200,7 +167,7 @@ export default HomePage;
 
 <br>
 
-## 4.3 SSG(Static Site Generation)
+## 3.3 SSG(Static Site Generation)
 
 > 특징
 
@@ -243,7 +210,7 @@ export default HomePage;
 
 <br>
 
-## 4.4 ISR(Incremental Static Regeneration)
+## 3.4 ISR(Incremental Static Regeneration)
 
 > 특징
 
@@ -310,9 +277,9 @@ SSG -> ISR -> SST 순으로 빈도가 많다.
 
 <br><br>
 
-# 5. 렌더링 패턴 4가지 구현하기(with fetch)⭐
+# 4. 렌더링 패턴 4가지 구현하기(with fetch)⭐
 
-## 5.1 실습 전 세팅
+## 4.1 실습 전 세팅
 
 > 먼저 실습을 위한 세팅을 하자
 
@@ -422,7 +389,7 @@ yarn start
 
 <br>
 
-## 5.2 SSG
+## 4.2 SSG
 
 > fetch시, 아무리 새로고침을 하여도 동일한 페이지만 출력되면 SSG(브라우저 갱신x)
 
@@ -509,7 +476,7 @@ const response = await fetch(`https://randomuser.me/api`, {
 
 <br>
 
-## 5.3 ISR
+## 4.3 ISR
 
 > fetch시, 주어진 시간에 한 번씩 갱신해주면 ISR
 
@@ -690,7 +657,7 @@ export default RenderingTestPage;
 
 <br>
 
-## 5.4 SSR
+## 4.4 SSR
 
 > fetch시, 요청이 있을 때 마다 지속해서 갱신해주면 SSR(캐시된 데이터 취급x) -> 서버 사이드 렌더링
 
@@ -773,7 +740,7 @@ export default SSR;
 
 <br>
 
-## 5.5 CSR
+## 4.5 CSR
 
 > fetch시, 요청이 있을 때 마다 지속해서 갱신해주면 CSR<br>
 > "use client" 들어가면 CSR이다.
@@ -868,7 +835,7 @@ export default CSR;
 
 <br><br>
 
-# 6. Hydration
+# 5. Hydration
 
 > Hydration을 이해하기 위해 TTV, TTI를 알아야한다.
 
