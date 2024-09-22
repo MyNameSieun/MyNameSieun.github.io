@@ -40,41 +40,41 @@ sidebar:
 ```tsx
 // src/components/todo/TodoForm.tsx
 
-import { Todo } from "../../types/todo.type";
+import { useTodoStore } from "../../store/todoStore";
 
-interface TodoFormProps {
-  addTodo: (todo: Todo) => void;
-}
+const TodoForm = () => {
+  const { addTodo } = useTodoStore();
 
-const TodoForm = ({ addTodo }: TodoFormProps) => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // FormData 객체를 생성하여 form 데이터를 가져옴
     const formData = new FormData(e.currentTarget);
+
+    const form = e.currentTarget;
 
     // formData 객체에서 입력 필드 값 가져오기
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
 
     // 처리 로직 구현
-       id: crypto.randomUUID(),
+    const nextTodo = {
+      id: crypto.randomUUID(),
       title,
       content,
       isDone: false,
       deadline: new Date().toLocaleDateString(),
     };
-    addTodo(nextTodo);
 
+    addTodo(nextTodo);
+    alert("추가 완료!");
 
     // 폼을 초기화
-    e.currentTarget.reset();
-
-    alert("추가 완료!");
+    form.reset();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleOnSubmit}>
       <div>
         <label htmlFor="title">제목: </label>
         <input id="title" name="title" />
