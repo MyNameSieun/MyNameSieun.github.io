@@ -460,15 +460,18 @@ export default TopPage;
 
 > Hydration을 이해하기 위해 TTV, TTI를 알아야한다.
 
-- TTV (Time To View): 사용자가 웹 페이지를 볼 수 있을 때까지의 시간
-- TTI (Time To Interaction): 인터렉션(웹 페이지 간의 상호 작용: 클릭, 드래그 등)이 얼마나 빠르게 될 수 있는지
+- TTV (Time To View):
+  - 사용자가 최초로 웹 페이지를 보게 되는 데에까지 걸리는 시간
+- TTI (Time To Interaction):
+  - 유저가 최초로 페이지와 상호작용 할 때 까지 걸리는 시간
+  - 즉, 인터렉션(웹 페이지 간의 상호 작용: 클릭, 드래그 등)이 얼마나 빠르게 될 수 있는지
 
 <br>
 
 - 최초 SSR에 의해 화면이 그려짐 -> 아직 JS 파일을 다운받지 못해 인터렉션을 못하는 상태 (TTV이지만 TTI는 아닌 상태)
 - 정적 페이지에 JS 소스 코드로 물(비유)을 마구 붙는 상태(Hydration) -> 인터렉션(클릭, 드래그 등)이 활성화(TTI 상태)
 
-➡️ 즉, TTV와 TTI의 간격을 줄인 것이 Hydration이다.
+➡️ 즉, TTV와 TTI의 간격을 줄인 것이 <span style="color:indianred">Hydration</span>이다.
 
 <br>
 
@@ -478,7 +481,7 @@ export default TopPage;
   - 서버에서는 사용자의 요청이 있을 때마다 페이지를 새로 그려서 사용자에게 제공한다.
   - 두 과정으로 나눠서 제공한다.
     1.  pre-rendering : 사용자와 상호작용하는 부분을 제외한 껍데기만을 먼저 브라우저에게 제공한다. (TTV가 엄청나게 빠름)
-    2.  hydration : 이 과정이 일어나기 전까지는 껍데기만 있는 html 파일이기 때문에 사용자가 아무리 버튼을 click 해도 아무 동작이 일어나지 않는다. 인터렉션에 필요한 모든 파일을 다운로드 받는 과정 즉, hydration 과정이 끝나야 그제서야 인터렉션이 가능하다.
+    2.  hydration : 이 과정이 일어나기 전까지는 껍데기만 있는 html 파일이기 때문에 사용자가 아무리 버튼을 click 해도 아무 동작이 일어나지 않는다. <span style="color:indianred">인터렉션에 필요한 모든 파일을 다운로드 받는 과정</span> 즉, hydration 과정이 끝나야 그제서야 인터렉션이 가능하다.
     3.  이 간극, TTI를 줄이는 것이 관건인 것이다.
 
 ➡️ SSG, ISR도 SSR과 마찬가지로 hydration 과정이 존재한다.
