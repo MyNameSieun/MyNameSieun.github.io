@@ -1,7 +1,6 @@
 ---
-title: "[Java] 사용자 입력(BufferedReader와 Scanner)"
+title: "[Java] #5 사용자 입력(BufferedReader와 Scanner)"
 categories: [Java]
-tag: [Java]
 toc_label: Contents
 toc: true
 toc_sticky: true
