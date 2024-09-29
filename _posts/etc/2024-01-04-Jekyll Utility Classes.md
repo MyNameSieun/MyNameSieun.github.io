@@ -1,7 +1,6 @@
 ---
 title: "[etc] Jekyll Utility Classes"
 categories: [etc]
-tag: [etc, jekyll]
 toc_label: Contents
 toc: true
 toc_sticky: true

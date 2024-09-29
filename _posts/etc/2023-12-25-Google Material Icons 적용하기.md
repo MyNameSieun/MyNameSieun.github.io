@@ -1,7 +1,6 @@
 ---
 title: "[etc] Google Material Icons 적용하기"
 categories: [etc]
-tag: [etc, Icons]
 toc_label: Contents
 toc: true
 toc_sticky: true
