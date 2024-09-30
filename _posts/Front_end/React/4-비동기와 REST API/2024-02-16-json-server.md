@@ -56,17 +56,17 @@ yarn global add json-server
 
 `json-server`가 간단한 패키지이긴 하나, 서버이다. 따라서 리액트와는 별개로 따로 실행을 해줘야 리액트와 json-server가 서로 통신 할 수 있다.
 
-아래 명령을 통해 json-sever를 실행할 수 있다. http://localhost:3001/ 을 통해 접근이 가능하다.
+아래 명령을 통해 json-sever를 실행할 수 있다. `http://localhost:4000/` 을 통해 접근이 가능하다.
 
 ```
-yarn json-server --watch db.json --port 3001
+json-server --watch db.json --port 4000
 ```
 
 <br>
 
 json 파일에 있는 posts, comments, profile 라는 기본적인 값을 통해 아래와 같이 접근할 수 있다. (posts의 2번 id로 접근)
 
-![](/assets/images/2024/2024-02-16-23-14-28.png)
+![](/assets/images/2024/2024-09-30-17-00-11.png)
 
 <br><br>
 
