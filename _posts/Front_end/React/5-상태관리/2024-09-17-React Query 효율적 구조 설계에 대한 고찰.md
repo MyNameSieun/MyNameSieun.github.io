@@ -150,7 +150,7 @@ export const useDeleteTodoMutation = () => {
 
 <br>
 
-## 3.2 useMutation 커스텀 훅 사용
+## 4.2 useMutation 커스텀 훅 사용
 
 > 이제 컴포넌트에서 간단하게 `useMutation` 커스텀 훅을 호출하여 데이터를 변경할 수 있다.
 
