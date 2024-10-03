@@ -60,6 +60,11 @@ sidebar:
   └── 📄 page.tsx
 ```
 
+<br>
+
+- `loading.tsx`는 Next.js에서 제공하는 기능 중 하나로 페이지 단위의 스트리밍을 지원한다.
+- 아래서 설명할 `Suspense`의 `fallback` 역할을 해줘 페이지 이동 시에 생기는 로딩을 보여준다.
+
 ```tsx
 // app/loading.tsx
 
@@ -231,12 +236,12 @@ export default function MainPage() {
 
 <br>
 
-> Suspense 단점
+> Suspense의 `fallback`을 사용하면 Network Preview 탭 가면 로딩 중만 떠서 SEO가 안 되는 것 처럼 보이지만, Response를 자세히 보시면 hidden 상태로 원하는 값이 들어와 있다.
 
-- Suspense를 사용하면 로딩 중인 컴포넌트가 `fallback` 함수를 사용하여 대체되지만, SEO 측면에서는 불리할 수 있다.
-- 초기 HTML이 미리 완성되지 않기 때문이다.
+SEO 정보는 metadata를 통해 추가로 전하면 된다.
 
 ![](/assets/images/2024/2024-10-02-18-28-21.png)
+![](/assets/images/2024/2024-10-03-15-39-00.png)
 
 <br><br>
 
@@ -257,7 +262,7 @@ export default function MainPage() {
 > React Query에서 서버컴포넌트에서 데이터 패칭을 할 수 있는 두 가지 방법이 존재한다.
 
 1. 서버컴포넌트에서 데이터를 `prefetch`하는 방법
-2. `ReactQueryStreamedHydration`을 사용하여 prefetch 없이 스트리밍을 할 수 있는 방법
+2. `ReactQueryStreamedHydration`을 사용하여 prefetch 없이 스트리밍을 할 수 있는 방법📌
 
 먼저 prefetch를 사용한 방법을 살펴보자.
 
@@ -405,13 +410,7 @@ const HomePage = async () => {
 export default HomePage;
 ```
 
-![](/assets/images/2024/2024-10-03-13-47-11.png)
-
-<br>
-
-역시 `Suspense`의 `fallback`를 사용했더니 SEO가 적용되지 않은 모습이다.
-
-![](/assets/images/2024/2024-10-03-13-48-24.png)
+![](/assets/images/2024/2024-10-03-15-40-20.png)![](/assets/images/2024/2024-10-03-15-39-00.png)
 
 <br>
 
@@ -420,7 +419,7 @@ export default HomePage;
 > Client Stream Hydration은 **서버 사이드 렌더링(SSR)**과 React의 Hydration을 결합한 최적화된 데이터 로딩 기법이다.
 
 - 서버에서 데이터를 스트리밍하고, 클라이언트에서 이를 점진적으로 재활성화(hydrate)하여 더 빠르고 효율적인 페이지 로딩을 제공한다.
-- 이 방법은 `useSuspenseQuery`를 사용하여 prefetch 없이 데이터를 서버에서 스트리밍하는 방식으로, Next.js의 useServerInsertedHTML API와 결합된다.
+- 이 방법은 `useSuspenseQuery`를 사용하여 `prefetch` 없이 데이터를 서버에서 스트리밍하는 방식으로, Next.js의 useServerInsertedHTML API와 결합된다.
 - 현재 정식 출시되지 않았고, 실험적 기능으로 제공되고 있다.
 
 <br>
@@ -437,7 +436,7 @@ yarn add @tanstack/react-query-next-experimental
 
 <br>
 
-②React Query Client 및 Provider 설정
+② React Query Client 및 Provider 설정
 
 - Next.js의 **app directory**에서는 기본적으로 모든 컴포넌트가 서버 컴포넌트로 동작
 - 따라서, 클라이언트에서 React Query와 Streamed Hydration을 설정하려면, 클라이언트 컴포넌트로 지정된 별도의 컴포넌트를 만들어야 한다.
@@ -465,7 +464,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 export default Providers;
 ```
 
-ReactQueryStreamedHydration: 서버에서 데이터를 스트리밍하여 클라이언트에서 해당 데이터를 점진적으로 **재활성화(hydrate)**하는 데 사용된다. 이를 통해 빠른 초기 렌더링과 동적 데이터 로딩을 구현할 수 있다.
+- ReactQueryStreamedHydration:
+  - 서버에서 데이터를 스트리밍하여 클라이언트에서 해당 데이터를 점진적으로 **재활성화(hydrate)**하는 데 사용된다. 이를 통해 빠른 초기 렌더링과 동적 데이터 로딩을 구현할 수 있다.
+  - 이 태그로 감싸주면 `prefetch` 하지 않아도 된다.
 
 <br>
 
@@ -473,6 +474,7 @@ ReactQueryStreamedHydration: 서버에서 데이터를 스트리밍하여 클라
 
 - `useQuery` 대신 `useSuspenseQuery`를 사용해야 한다.
 - 이 훅은 `Suspense`를 활용하여 데이터가 로딩되는 동안 스트리밍된 데이터를 처리할 수 있게 한다.
+- 즉, 서버 사이드 렌더링 동안 화면 이동을 막지 않고 바로 로딩 화면을 보여준다.
 
 ```tsx
 "use client";
