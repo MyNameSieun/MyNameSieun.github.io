@@ -462,6 +462,9 @@ export default TopPage;
 
 > 하이드레이션(Hydration)은 서버에서 렌더링된 HTML을 클라이언트에서 React 상태와 연결해 동작 가능하게 만드는 과정을 말한다.
 
+- 서버 컴포넌트(Server Components)는 서버에서 렌더링된 정적인 HTML을 클라이언트에 전달한다. 이 정적인 HTML은 기본적으로 상태나 이벤트가 없는, 단순히 표시할 내용만 포함된 HTML이다.
+- **하이드레이션(Hydration)**은 이 정적인 HTML에 **React의 상태(state)**와 이벤트 핸들러 등을 추가하여 인터랙티브하게 만드는 과정이다. 즉, 서버에서 미리 렌더링된 HTML을 클라이언트에서 "활성화"하여 사용자와 상호작용할 수 있게 만드는 것이 하이드레이션인 것이다.
+
 아래 코드를 보자(Hydration 구현 방법은 [[여기↗️]](https://mynamesieun.github.io/next.js/React-Query%EC%97%90%EC%84%9C-SSR-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0(with-Streaming,-Hydration)/) 포스팅을 확인하자)
 
 ```tsx
