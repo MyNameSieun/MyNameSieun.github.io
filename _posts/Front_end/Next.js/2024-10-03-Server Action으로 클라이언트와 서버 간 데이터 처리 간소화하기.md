@@ -99,7 +99,7 @@ sidebar:
 > `"use server"`라는 지시어를 함수 최상단에 추가하면 해당 함수가 서버에서 실행되도록 할 수 있다.
 
 ```tsx
-// app/action/todo-actions.ts
+// app/actions/todo-actions.ts
 "use server";
 
 import { Todo } from "../types/todo-types";
@@ -204,25 +204,13 @@ const TodoForm = () => {
 export default TodoForm;
 ```
 
-> 서버 액션에서 삭제 작업을 실행한 후, 다음과 같은 데이터가 반환되었다!
+> 서버액션 사용 전
 
-- 그리고 `DELETE`, `PATCH`와 같은 상태 코드를 반환하지 않았다. (`GET`, `POST` 만 반환)
+![](/assets/images/2024/2024-10-03-23-40-00.png)
 
-![](/assets/images/2024/2024-10-03-20-44-59.png)
+> 서버 액션 사용 후
 
-<br>
-
-- ❓ 서버 액션에서 Request Method에 `GET`, `POST`만 반환되고 `DELETE`, `PATCH`의 는 반환되지 않는 이유를 찾아봤더니,
-  - 주로 서버 구성, 클라이언트의 요청 방식, 또는 프레임워크의 제한에 의해 발생한다고 한다.
-  - (GPT한테 물어본 것이므로 확실하지 않다.. 다른 분들한테 물어봐야겠다. 진짜 왜 그런거지?)
-
-<br>
-
-> 반면, 서버 액션을 사용하지 않았을 경우 `GET`, `DELETE`, `PATCH`와 같은 상태 코드만 반환이 되었다.
-
-삭제된 항목의 정보는 **응답(response)**에 포함되지 않았다.
-
-![](/assets/images/2024/2024-10-03-22-14-35.png)![](/assets/images/2024/2024-10-03-22-14-46.png)
+![](/assets/images/2024/2024-10-03-23-41-06.png)
 
 <br><br>
 
