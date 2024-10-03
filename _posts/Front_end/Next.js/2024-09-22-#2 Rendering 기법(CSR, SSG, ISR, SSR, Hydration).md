@@ -458,7 +458,44 @@ export default TopPage;
 
 # 5. Hydration
 
-> Hydration을 이해하기 위해 TTV, TTI를 알아야한다.
+## 5.1 Hydration 개요
+
+> 하이드레이션(Hydration)은 서버에서 렌더링된 HTML을 클라이언트에서 React 상태와 연결해 동작 가능하게 만드는 과정을 말한다.
+
+아래 코드를 보자(Hydration 구현 방법은 [[여기↗️]](https://mynamesieun.github.io/next.js/React-Query%EC%97%90%EC%84%9C-SSR-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0(with-Streaming,-Hydration)/) 포스팅을 확인하자)
+
+```tsx
+// 서버 컴포넌트로 정의
+const HomePage = async () => {
+  const queryClient = new QueryClient();
+
+  // 서버에서 데이터 프리패칭
+  await queryClient.prefetchQuery({
+    queryKey: [QUERY_KEYS.TODOS],
+    queryFn: fetchTodos,
+  });
+
+  return (
+    <main>
+      {/* 미리 프리패칭된 데이터를 클라이언트로 전달 */}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <TodoList />
+      </HydrationBoundary>
+    </main>
+  );
+};
+
+export default HomePage;
+```
+
+- 💡 위 코드는 서버 컴포넌트이므로 서버에서 디하이드레이션된 상태(물을 채우지 않은 상태)로 데이터를 보내고, 클라이언트에서 그 데이터를 "하이드레이트"(컴포넌트에 물을 채움)하면서 상태를 활성화하는 것이다.
+- 즉, 서버에서는 데이터를 준비만 하고, 클라이언트가 그것을 받아서 실제로 렌더링을 완성하는 작업을 하게 된다.
+
+<br>
+
+## 5.2 TTV와 TTI 그리고 Hydration의 관계
+
+> Hydration을 자세히 이해하기 위해 TTV, TTI를 알아야한다.
 
 - TTV (Time To View):
   - 사용자가 최초로 웹 페이지를 보게 되는 데에까지 걸리는 시간
@@ -468,22 +505,42 @@ export default TopPage;
 
 <br>
 
-- 최초 SSR에 의해 화면이 그려짐 -> 아직 JS 파일을 다운받지 못해 인터렉션을 못하는 상태 (TTV이지만 TTI는 아닌 상태)
-- 정적 페이지에 JS 소스 코드로 물(비유)을 마구 붙는 상태(Hydration) -> 인터렉션(클릭, 드래그 등)이 활성화(TTI 상태)
+> TTV이지만 TTI는 아닌 상태
 
-➡️ 즉, TTV와 TTI의 간격을 줄인 것이 <span style="color:indianred">Hydration</span>이다.
+최초 SSR에 의해 화면이 그려짐 -> 아직 JS 파일을 다운받지 못해 인터렉션을 못하는 상태
+
+> TTI 상태
+
+정적 페이지에 JS 소스 코드로 물(비유)을 마구 붙는 상태(Hydration) -> 인터렉션(클릭, 드래그 등)이 활성화
 
 <br>
 
-- CSR
-  - React에서 CSR로만 컴포넌트 렌더링을 할 때는 모든 React 소스파일을 바탕으로 한 자바스크립트 파일이 모두 다운로드 돼야만(즉, Hydration이 돼야만) 다운로드 받아야만 화면을 볼 수 있기 때문에 TTV가 오래 걸렸다.
-- SSR
-  - 서버에서는 사용자의 요청이 있을 때마다 페이지를 새로 그려서 사용자에게 제공한다.
-  - 두 과정으로 나눠서 제공한다.
-    1.  pre-rendering : 사용자와 상호작용하는 부분을 제외한 껍데기만을 먼저 브라우저에게 제공한다. (TTV가 엄청나게 빠름)
-    2.  hydration : 이 과정이 일어나기 전까지는 껍데기만 있는 html 파일이기 때문에 사용자가 아무리 버튼을 click 해도 아무 동작이 일어나지 않는다. <span style="color:indianred">인터렉션에 필요한 모든 파일을 다운로드 받는 과정</span> 즉, hydration 과정이 끝나야 그제서야 인터렉션이 가능하다.
-    3.  이 간극, TTI를 줄이는 것이 관건인 것이다.
+➡️ 즉, TTV와 TTI의 간격을 줄인 것이 <span style="color:indianred">Hydration</span>이다.<br>
 
-➡️ SSG, ISR도 SSR과 마찬가지로 hydration 과정이 존재한다.
+<br>
+
+## 5.3 CSR과 SSR의 Hydration
+
+> CSR
+
+- React에서 CSR로만 컴포넌트 렌더링을 할 때는 모든 React 소스파일을 바탕으로 한 자바스크립트 파일이 모두 다운로드 돼야만(즉, Hydration이 돼야만) 다운로드 받아야만 화면을 볼 수 있기 때문에 TTV가 오래 걸렸다.
+
+> SSR
+
+SSR 환경에서는 사용자의 요청이 있을 때마다 서버에서 페이지를 새로 렌더링하여 사용자에게 제공한다. 이때 데이터 패칭 과정은 두 단계로 나뉜다.
+
+- Pre-rendering
+  - 서버에서 미리 HTML을 생성하여 클라이언트에 전달하는 방식(사용자와 상호작용하는 부분을 제외한 껍데기만을 먼저 브라우저에게 제공)
+  - 그 HTML이 생성되기 위해 데이터가 필요할 때 prefetch를 사용한다.
+  - TTV가 엄청나게 빠르다.
+- hydration
+  - 클라이언트에서 서버로부터 받은 HTML을 받아 React 컴포넌트와 상태를 연결(하이드레이션)하여, 페이지가 인터랙티브하게 작동할 수 있도록 만드는 과정
+  - 이때 서버에서 미리 패칭된 데이터가 클라이언트에서 다시 "활성화" 된다.
+  - 이 과정이 일어나기 전까지는 껍데기만 있는 html 파일이기 때문에 사용자가 아무리 버튼을 click 해도 아무 동작이 일어나지 않는다.
+
+💡 prefetch는 서버에서 데이터를 미리 가져오는 작업이고, hydration은 그 데이터를 클라이언트에서 활성화하는 작업이다.<br>
+💡 즉, hydration 과정이 끝나야 그제서야 인터렉션이 가능한데, 이 간극, TTI를 줄이는 것이 관건이다!
+
+SSG, ISR도 SSR과 마찬가지로 hydration 과정이 존재한다.
 
 <br>
