@@ -547,5 +547,6 @@ export default function HomePage() {
 - [React Query 환경에서 Next.js와 streaming 이용하기](https://velog.io/@stakbucks/React-Query%EC%99%80-streaming-%ED%95%98%EA%B8%B0)
 - [Next.js 14에서 React-query 사용하기](https://velog.io/@gygy/Next.js-14%EC%97%90%EC%84%9C-React-query-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
 - [서버에서 React Query prefetching 한 데이터 사용하기](https://soobing.github.io/react/server-rendering-and-react-query/)
+- [Next와 React-query의 prefetch에 대해](https://www.inflearn.com/community/questions/1230948/next%EC%99%80-react-query%EC%9D%98-prefetch%EC%97%90-%EB%8C%80%ED%95%B4)
 
 <br>
