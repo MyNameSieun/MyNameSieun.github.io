@@ -1,5 +1,5 @@
 ---
-title: "[Next.js] React Query의 데이터 Fetching 및 Streaming으로 TTI 개선하기"
+title: "[Next.js] React Query에서 SSR 구현하기(with Streaming, Hydration)"
 categories: [Next.js]
 toc_label: Contents
 toc: true
@@ -301,12 +301,12 @@ const HomePage = async () => {
   });
 
   return (
-    <section>
+    <main>
       {/* 미리 프리패칭된 데이터를 클라이언트로 전달 */}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <TodoList />
       </HydrationBoundary>
-    </section>
+    </main>
   );
 };
 
@@ -363,18 +363,59 @@ export default TodoList;
 
 <br>
 
-③ 위 코드를 Suspense를 사용해서 스트리밍을 적용해보자!
+③ Todo APP에 Suspense를 사용해서 스트리밍을 적용해보자!
 
 - 위 예시에서 스트리밍을 적용하려면 `Suspense`를 활용하여 비동기적으로 데이터를 가져오는 컴포넌트들을 각각 렌더링할 수 있게 해야한다.
 - 각각의 데이터 요청을 Suspense로 감싸자.
 
 ```tsx
+import TodoList from "@/app/components/TodoList";
+import { QUERY_KEYS } from "@/app/hooks/query/keys.constant";
+import { fetchTodos } from "@/app/services/todos";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
+// 서버 컴포넌트로 정의
+const HomePage = async () => {
+  const queryClient = new QueryClient();
+
+  // 서버에서 데이터 프리패칭
+  await queryClient.prefetchQuery({
+    queryKey: [QUERY_KEYS.TODOS],
+    queryFn: fetchTodos,
+  });
+
+  return (
+    <main>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Suspense fallback={<div>로딩...</div>}>
+          <TodoList title="inProgress" />
+        </Suspense>
+        <Suspense fallback={<div>로딩...</div>}>
+          <TodoList title="isDone" />
+        </Suspense>
+      </HydrationBoundary>
+    </main>
+  );
+};
+
+export default HomePage;
 ```
+
+![](/assets/images/2024/2024-10-03-13-47-11.png)
 
 <br>
 
-## 3.2 Client Stream Hydration(권장)📌
+역시 `Suspense`의 `fallback`를 사용했더니 SEO가 적용되지 않은 모습이다.
+
+![](/assets/images/2024/2024-10-03-13-48-24.png)
+
+<br>
+
+## 2.3 Client Stream Hydration(권장)📌
 
 > Client Stream Hydration은 **서버 사이드 렌더링(SSR)**과 React의 Hydration을 결합한 최적화된 데이터 로딩 기법이다.
 
@@ -430,7 +471,7 @@ ReactQueryStreamedHydration: 서버에서 데이터를 스트리밍하여 클라
 
 ③ useSuspenseQuery 사용
 
-- `useQuery`가 대신 `useSuspenseQuery`를 사용해야 한다.
+- `useQuery` 대신 `useSuspenseQuery`를 사용해야 한다.
 - 이 훅은 `Suspense`를 활용하여 데이터가 로딩되는 동안 스트리밍된 데이터를 처리할 수 있게 한다.
 
 ```tsx
