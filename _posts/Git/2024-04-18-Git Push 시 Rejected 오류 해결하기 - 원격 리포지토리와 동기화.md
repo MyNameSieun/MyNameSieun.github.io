@@ -1,5 +1,5 @@
 ---
-title: "[Git] git push 오류 해결(git allow-unrelated-histories)"
+title: "[Git] Git Push 시 Rejected 오류 해결하기: 원격 리포지토리와 동기화"
 categories: [Git]
 toc_label: Contents
 toc: true
@@ -19,6 +19,7 @@ sidebar:
 
 - `non-fast-forward`
   - 로컬 브랜치와 원격 저장소의 변경 이력이 충돌하여 Git이 이를 해결할 수 없다는 것을 의미
+  - 즉, 원격 리포지토리와 로컬 리포지토리 차이로 인한 문제이다.
 
 <br>
 
