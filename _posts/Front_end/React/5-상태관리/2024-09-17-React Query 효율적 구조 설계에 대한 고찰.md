@@ -195,3 +195,83 @@ export default HomePage;
 ```
 
 <br>
+
+## 4.3 하나의 훅으로 여러 Mutation 관리하기
+
+> useAddTodoMutation 훅에서는 삭제(delete), 수정(edit) Mutation을 모두 다룰 수 있도록 리팩터링 하였다.
+
+이를 통해 여러 `Mutation` 로직을 한 번에 관리할 수 있다.
+
+```tsx
+export const useAddTodoMutation = () => {
+  const queryClient = useQueryClient();
+
+  // Delete Todo Mutation
+  const { mutate: deleteTodoMutate } = useMutation({
+    mutationFn: deleteTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TODOS] });
+      alert("삭제 완료!");
+    },
+    onError: (error) => {
+      console.error("삭제 실패:", error);
+      alert("삭제 실패. 다시 시도해 주세요.");
+    },
+  });
+
+  // Edit Todo Mutation
+  const { mutate: editTodoMutate } = useMutation({
+    mutationFn: ({ id, title, content }: EditTodo & { id: string }) =>
+      editTodo(id, { title, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TODOS] });
+      alert("수정 완료!");
+    },
+    onError: (error) => {
+      console.error("수정 실패:", error);
+      alert("수정 실패. 다시 시도해 주세요.");
+    },
+  });
+
+  return { deleteTodoMutate, editTodoMutate };
+};
+```
+
+<br>
+
+> useAddTodoMutation 훅을 사용한 예시이다! (로직을 보여주기 위해 많이 생략된 코드이다.)
+
+```tsx
+// components/todo/TodoItem.tsx
+"use cilent";
+
+const { deleteTodoMutate, editTodoMutate, toggleTodoMutate } =
+  useAddTodoMutation();
+
+// 삭제
+const handleDeleteTodo = () => {
+  const deleteConfirm = window.confirm("정말 삭제하시겠습니까?");
+  if (deleteConfirm) {
+    deleteTodoMutate(id);
+  }
+};
+
+// 수정
+const handleEditTodo = () => {
+  if (editMode?.title && editMode?.content) {
+    editTodoMutate({ id, title: editMode.title, content: editMode.content });
+    setEditMode(null);
+  } else {
+    alert("수정할 제목과 내용을 입력하세요.");
+  }
+};
+
+return (
+  <>
+    <button onClick={handleDeleteTodo}>삭제하기</button>
+    <button onClick={() => setEditMode({ title, content })}>수정</button>
+  </>
+);
+```
+
+<br>
