@@ -199,7 +199,7 @@ print(a.div())
 
 <br>
 
-# 1.7 다른 위치의 모듈 불러오기
+## 1.7 다른 위치의 모듈 불러오기
 
 > 모듈이 하위 디렉터리에 있을 때는, 상대경로를 사용하여 해당 모듈을 불러올 수 있다.
 
@@ -268,18 +268,39 @@ car_1.drive()
 
 ## 2.1 패키지 정의
 
-> 패키지는 관련 있는 모듈들의 집합을 의미한다.
+> 패키지는 관련 있는 모듈들의 집합을 의미한다. (파이썬에서 모듈은 하나의 .py 파일이다.)
 
-- 파이썬에서는 여러 모듈을 계층적으로 관리하고, 디렉토리로 패키지를 만들 수 있다.
+- 패키지는 파이썬 모듈을 계층적(디렉터리 구조)으로 관리할 수 있게 해 준다.
 - 각 패키지는 `init.py` 파일을 포함하여 해당 디렉토리가 패키지임을 나타낸다.
+
+아래는 가상의 game 패키지 예시이다.
+
+```shell
+game/
+    __init__.py
+    sound/
+        __init__.py
+        echo.py
+        wav.py
+    graphic/
+        __init__.py
+        screen.py
+        render.py
+    play/
+        __init__.py
+        run.py
+        test.py
+```
 
 <br>
 
 ## 2.2 패키지 만들기
 
+위 예와 비슷한 game 패키지를 직접 만들어보자.
+
 > ① 디렉토리 생성
 
-```cmd
+```shell
 C:\tmp> mkdir "game/sound"
 C:\tmp> mkdir "game/graphic"
 ```
@@ -288,10 +309,17 @@ C:\tmp> mkdir "game/graphic"
 
 > ② 파일 생성
 
-각 디렉토리 내에 파이썬 파일을 만들어 모듈을 정의하자
+각 디렉토리 내에 파이썬 파일 및 `init__.py`을 만들어 모듈을 정의하자
 
-- `game/sound/echo.py`
-- `game/graphic/render.py`
+```shell
+C:/doit/game/__init__.py
+
+C:/doit/game/sound/__init__.py
+C:/doit/game/sound/echo.py
+
+C:/doit/game/graphic/__init__.py
+C:/doit/game/graphic/render.py
+```
 
 ```python
 # echo.py
@@ -336,9 +364,11 @@ echo_test()
 
 ## 2.3 **init**.py 파일
 
-> **init**.py 파일은 디렉토리가 패키지의 일부임을 파이썬에게 알려주는 역할을 한다.
+> `init.py` 파일은 디렉토리가 패키지의 일부임을 파이썬에게 알려주는 역할을 한다.
 
-또한 패키지와 관련된 설정이나 초기화 코드를 포함할 수 있다.
+- python 3.3 버전부터는 `__init__.py` 파일이 없어도 패키지로 인식하지만, 하위 버전 호환을 위해 `__init__.py` 파일을 생성하는 것이 안전한 방법이라고 한다.
+- 또한, `init.py` 파일은 패키지와 관련된 설정이나 초기화 코드를 포함할 수 있다.
+- `init.py` 파일을 수정한 후 반드시 파이썬 인터프리터를 종료하고 다시 실행해야 한다.
 
 ```python
 # game/__init__.py
@@ -359,29 +389,33 @@ game.print_version_info()  # print_version_info() 실행
 
 <br>
 
-## 2.4 상대경로(Relative Import)
+## 2.4 relative 패키지
 
-> 패키지 내에서 다른 모듈을 참조할 때 상대경로를 사용할 수 있다.
+> 패키지 내에서 다른 모듈을 참조할 때 상대경로(relative import)를 사용할 수 있다.
 
 예를 들어 `game.graphic.render` 모듈에서 `game.sound.echo` 모듈을 사용하고자 할 때 상대경로로 불러올 수 있다.
 
+![](/assets/images/2024/2024-11-27-20-07-46.png)
+
+<br>
+
 - 파일 수정
 
-```python
-# game/graphic/render.py
-from ..sound.echo import echo_test # 상대경로로 모듈을 임포트
-def render_test():
-print("render")
-echo_test()
-from ..sound import echo
-```
+  ```python
+  # game/graphic/render.py
+  from ..sound.echo import echo_test # 상대경로로 모듈을 임포트
+  def render_test():
+  print("render")
+  echo_test()
+  from ..sound import echo
+  ```
 
 - 파이썬 실행
 
-```python
-# Class-12.py
-import game.graphic.render as rend
-rend.render_test()  # "render" 출력
-```
+  ```python
+  # Class-12.py
+  import game.graphic.render as rend
+  rend.render_test()  # "render" 출력
+  ```
 
 <br>
