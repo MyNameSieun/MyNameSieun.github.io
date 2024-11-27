@@ -1,5 +1,5 @@
 ---
-title: "[Python] Python Class"
+title: "[Python] Python Module, Package"
 categories: [Python]
 toc_label: Contents
 toc: true
@@ -22,7 +22,7 @@ sidebar:
 
 <br>
 
-# 1. 모듈
+# 1. Module
 
 ## 1.1 모듈의 정의
 
@@ -261,5 +261,127 @@ car_1.drive()
 > 출력 결과
 
 ![](/assets/images/2024/2024-11-27-19-33-43.png)
+
+<br><br>
+
+# 2. Package
+
+## 2.1 패키지 정의
+
+> 패키지는 관련 있는 모듈들의 집합을 의미한다.
+
+- 파이썬에서는 여러 모듈을 계층적으로 관리하고, 디렉토리로 패키지를 만들 수 있다.
+- 각 패키지는 `init.py` 파일을 포함하여 해당 디렉토리가 패키지임을 나타낸다.
+
+<br>
+
+## 2.2 패키지 만들기
+
+> ① 디렉토리 생성
+
+```cmd
+C:\tmp> mkdir "game/sound"
+C:\tmp> mkdir "game/graphic"
+```
+
+<br>
+
+> ② 파일 생성
+
+각 디렉토리 내에 파이썬 파일을 만들어 모듈을 정의하자
+
+- `game/sound/echo.py`
+- `game/graphic/render.py`
+
+```python
+# echo.py
+def echo_test():
+    print("echo")
+```
+
+```python
+# render.py
+def render_test():
+    print("render")
+```
+
+<br>
+
+> ③ 파이썬 실행
+
+위와 같이 만든 패키지와 모듈을 다른 파이썬 파일에서 사용할 수 있다.
+
+```python
+# Class-12.py
+
+# 1. 직접적인 모듈 호출
+import game.sound.echo
+game.sound.echo.echo_test()
+
+# 2. 별칭을 사용한 호출
+import game.sound.echo as ec
+ec.echo_test()
+
+# 3. 모듈을 패키지에서 불러오기
+from game.sound import echo
+echo.echo_test()
+
+# 4. 특정 함수만 불러오기
+from game.sound.echo import echo_test
+echo_test()
+
+```
+
+<br>
+
+## 2.3 **init**.py 파일
+
+> **init**.py 파일은 디렉토리가 패키지의 일부임을 파이썬에게 알려주는 역할을 한다.
+
+또한 패키지와 관련된 설정이나 초기화 코드를 포함할 수 있다.
+
+```python
+# game/__init__.py
+VERSION = 3.5  # 버전 설정
+
+def print_version_info():
+    print(f"The version of this game is {VERSION}.")
+```
+
+> 패키지 사용 예시
+
+```python
+# Class-12.py
+import game  # game 패키지 불러오기
+print(game.VERSION)  # VERSION 출력
+game.print_version_info()  # print_version_info() 실행
+```
+
+<br>
+
+## 2.4 상대경로(Relative Import)
+
+> 패키지 내에서 다른 모듈을 참조할 때 상대경로를 사용할 수 있다.
+
+예를 들어 `game.graphic.render` 모듈에서 `game.sound.echo` 모듈을 사용하고자 할 때 상대경로로 불러올 수 있다.
+
+- 파일 수정
+
+```python
+# game/graphic/render.py
+from ..sound.echo import echo_test # 상대경로로 모듈을 임포트
+def render_test():
+print("render")
+echo_test()
+from ..sound import echo
+```
+
+- 파이썬 실행
+
+```python
+# Class-12.py
+import game.graphic.render as rend
+rend.render_test()  # "render" 출력
+```
 
 <br>
