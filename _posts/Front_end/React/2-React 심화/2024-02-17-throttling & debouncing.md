@@ -59,6 +59,8 @@ setTimeout 함수는 타이머 ID를 반환한다.<br>
 
 <br>
 
+{% raw %}
+
 ```js
 // src > pages > Home.jsx
 export default function Home() {
@@ -99,6 +101,8 @@ export default function Home() {
   );
 }
 ```
+
+{% endraw %}
 
 <br>
 

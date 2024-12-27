@@ -114,6 +114,8 @@ export default Search;
 
 먼저, 검색 상태를 관리하기 위한 Context를 생성하자
 
+{% raw %}
+
 ```jsx
 // src/context/SearchContext.jsx
 import { createContext, useEffect, useState } from "react";
@@ -161,6 +163,8 @@ export const SearchContextProvider = ({ children }) => {
   );
 };
 ```
+
+{% endraw %}
 
 <br>
 

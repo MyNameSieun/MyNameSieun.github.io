@@ -346,10 +346,10 @@ function ProtectedRoute() {
 
 <br>
 
-> state={{ from: location }}
+> {% raw %} state={{ from: location }} {% endraw %}
 
 - state는 React Router에서 페이지를 이동할 때, 특정 상태나 데이터를 함께 전달하기 위해 사용된다.
-- `state={{ from: location }}`는 현재 페이지(location)의 경로 정보를 state 객체의 from이라는 속성에 저장하여, 리다이렉트되는 페이지(/sign-in)로 전달한다.
+- {% raw %} `state={{ from: location }}` {% endraw %} 는 현재 페이지(location)의 경로 정보를 state 객체의 from이라는 속성에 저장하여, 리다이렉트되는 페이지(/sign-in)로 전달한다.
 - 로그인 페이지에서 사용자가 로그인에 성공한 후 이전에 보려고 했던 페이지로 다시 리디렉션하는 경우에 유용하다.
 
 <br>
