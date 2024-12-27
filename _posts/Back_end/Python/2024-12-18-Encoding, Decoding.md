@@ -1,5 +1,5 @@
 ---
-title: "[Python] 인코딩(Encoding)과 디코딩(Decoding)"
+title: "[Python] Encoding, Decoding"
 categories: [Python]
 toc_label: Contents
 toc: true
@@ -11,7 +11,7 @@ sidebar:
 
 <br>
 
-# 1. 인코딩(Encoding)
+# 1. 인코딩 (Encoding)
 
 > 문자를 컴퓨터가 이해할 수 있는 바이트(byte) 형태로 변환하는 과정이다.
 
@@ -41,7 +41,7 @@ for a in list:
 
 <br><br>
 
-# 2. Decoding
+# 2. 디코딩 (Decoding)
 
 > 바이트 데이터를 사람이 읽을 수 있는 문자열로 변환하는 과정이다.
 

@@ -1,5 +1,5 @@
 ---
-title: "[Python] 파이썬 타입 어노테이션"
+title: "[Python] Python type Annotation"
 categories: [Python]
 toc_label: Contents
 toc: true
@@ -21,7 +21,7 @@ sidebar:
 
 <br>
 
-## 1.2 함수 어노테이션션
+## 1.2 함수 어노테이션
 
 > 기본 문법
 
