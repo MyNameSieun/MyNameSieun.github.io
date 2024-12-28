@@ -40,7 +40,7 @@ def add(a: int, b: int) -> int:
 ```
 
 - `a: int`와 `b: int`는 매개변수의 타입을 나타낸다.
-- `-> int`는 반환값의 타입을 나타냅니다.
+- `-> int`는 반환값의 타입을 나타낸다.
 
 ```python
 num: int = 1
