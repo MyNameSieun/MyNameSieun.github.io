@@ -1,5 +1,5 @@
 ---
-title: "[TS] #4 React에서 TS 시작하기(Vite 사용)"
+title: "[TS] #4 React에서 TS 시작하기 (Vite 사용)"
 categories: [TypeScript]
 toc_label: Contents
 toc: true

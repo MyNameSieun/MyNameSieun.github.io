@@ -9,6 +9,8 @@ sidebar:
   nav: "counts"
 ---
 
+<br>
+
 [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/)의 Utility Classes를 정리한 내용입니다.
 {: .notice--danger}
 
@@ -80,3 +82,5 @@ Success
 
 Danger
 {: .notice--danger}
+
+<br>

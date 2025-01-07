@@ -1,5 +1,5 @@
 ---
-title: "[Git] git push 오류 해결(git allow-unrelated-histories)"
+title: "[Git] git push 오류 해결 (git allow-unrelated-histories)"
 categories: [Git]
 toc_label: Contents
 toc: true

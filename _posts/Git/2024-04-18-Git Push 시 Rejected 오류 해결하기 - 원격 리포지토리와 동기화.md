@@ -27,19 +27,23 @@ sidebar:
 
 이를 해결하기 위해서는 먼저 로컬 브랜치를 최신 상태로 업데이트하고, 그 후에 push를 하면 된다.
 
-1. git pull 시에 `–allow-unrelated-histories` 옵션을 추가하여 관련 없었던 두 저장소를 병합하도록 허용하면 된다.
+① `git pull` 시에 `–allow-unrelated-histories` 옵션을 추가하여 관련 없었던 두 저장소를 병합하도록 허용하면 된다.
 
 ```shell
 git pull origin main --allow-unrelated-histories
 ```
 
-2. 그 후, commit 메시지 작성 후 push 하여 변경 사항을 원격 저장소에 업데이트 하면 된다.
+<br>
 
-➡️ 이렇게 하면 "non-fast-forward" 오류를 해결하고, 로컬 브랜치와 원격 저장소의 변경 이력을 통합할 수 있다.
+② 그 후, commit 메시지 작성 후 push 하여 변경 사항을 원격 저장소에 업데이트 하면 된다.
+
+이렇게 하면 "non-fast-forward" 오류를 해결하고, 로컬 브랜치와 원격 저장소의 변경 이력을 통합할 수 있다.
 
 <br>
 
-# 참조
+# 📎 참조
 
 - [Git push가 안되는 경우](https://gdtbgl93.tistory.com/63)
 - [깃허브 non-fast-forward 에러 해결하기](https://velog.io/@rain98/%EA%B9%83%ED%97%88%EB%B8%8C-non-fast-forward-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0)
+
+<br>

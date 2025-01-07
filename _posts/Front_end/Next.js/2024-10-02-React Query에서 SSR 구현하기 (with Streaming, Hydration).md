@@ -1,5 +1,5 @@
 ---
-title: "[Next.js] React Query에서 SSR 구현하기(with Streaming, Hydration)"
+title: "[Next.js] React Query에서 SSR 구현하기 (with Streaming, Hydration)"
 categories: [Next.js]
 toc_label: Contents
 toc: true

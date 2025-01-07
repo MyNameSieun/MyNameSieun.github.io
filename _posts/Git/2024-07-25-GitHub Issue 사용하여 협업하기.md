@@ -270,7 +270,7 @@ git push -u origin feat/1-login
 
 <br><br>
 
-# 참조
+# 📎 참조
 
 - [[Github] Issue & PR Template 설정하기](https://amaran-th.github.io/Github/[Github]%20Issue%20&%20PR%20Template%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/)
 - [왜 나만 몰라? - 협업을 위한 깃허브 이슈 작성하기](https://velog.io/@junh0328/%ED%98%91%EC%97%85%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B9%83%ED%97%88%EB%B8%8C-%EC%9D%B4%EC%8A%88-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0)
