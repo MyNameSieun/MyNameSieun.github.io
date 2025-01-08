@@ -1,7 +1,6 @@
 ---
-title: "[Git] Git 권한 거부 오류(publickey)"
+title: "[Git] Git 권한 거부 오류 (publickey)"
 categories: [Git]
-tag: [Git]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -20,6 +19,6 @@ git push -u origin main git@github.com: permission denied (publickey). fatal: co
 
 > 아래 링크를 통해 해결
 
-https://maliceit.tistory.com/51
+[https://maliceit.tistory.com/51](https://maliceit.tistory.com/51)
 
 <br>

@@ -11,7 +11,7 @@ sidebar:
 
 <br>
 
-# 0. Github PR(pull request)이란?
+# 0. Github PR (pull request)이란?
 
 - PR(Pull Request)은 개발자가 자신의 브랜치에서 작업한 내용을 다른 브랜치에 병합(merge)하고자 할 때 먼저 검토할 수 있는 기능이다.
 - PR을 통해 코드 변경 내용을 다른 팀원들에게 알리고, 코드 리뷰와 피드백을 받을 수 있다.
@@ -98,7 +98,7 @@ PR이 다음 요구 사항을 충족하는지 확인하세요.
 
 <br><br>
 
-# 4. PR과 이슈 연결하기(이슈 TODO가 끝난 후 CLOSE)
+# 4. PR과 이슈 연결하기 (이슈 TODO가 끝난 후 CLOSE)
 
 > PR (Pull Request) 할 때 PR 본문에 `키워드 #이슈번호` 입력하자
 
@@ -112,13 +112,15 @@ PR이 다음 요구 사항을 충족하는지 확인하세요.
 
 > 커밋과 함께 이슈를 Close 할 수 있는 Keyword는 다음과 같다.
 
-- `close` / `closes` / `closed`
-  `fix` / `fixes` / `fixed`
-  `resolve` / `resolves` / `resolved`
+```
+close / closes / close
+fix / fixes / fixed
+resolve / resolves / resolved
+```
 
 <br><br>
 
-# 참조
+# 🔗 참조
 
 - [Github - Pull request template 작성과 설정](https://green-bin.tistory.com/16#pull_request_template.md%20%ED%8C%8C%EC%9D%BC%20%EC%83%9D%EC%84%B1-1)
 - [[Github] Issue & PR Template 설정하기](https://amaran-th.github.io/Github/[Github]%20Issue%20&%20PR%20Template%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/)
