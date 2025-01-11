@@ -1,6 +1,6 @@
 ---
-title: "[Next.js] Next.js에서 Swiper Library 사용하기"
-categories: [Next.js]
+title: "[React] Swiper Library 사용하기"
+categories: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true

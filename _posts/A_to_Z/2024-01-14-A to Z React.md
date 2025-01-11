@@ -128,6 +128,7 @@ sidebar:
 9. [React에서 Font Awesome 사용하기](https://mynamesieun.github.io/react/React%EC%97%90%EC%84%9C-Font-Awesome-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 10. [이미지 스타일링 및 프로필 변경 기능 구현하기](https://mynamesieun.github.io/react/%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81-%EB%B0%8F-%ED%94%84%EB%A1%9C%ED%95%84-%EB%B3%80%EA%B2%BD-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 11. [Chart.js 사용하기](https://mynamesieun.github.io/react/Chart.js-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
+12. Swiper Library 사용하기
 
 ---
 
