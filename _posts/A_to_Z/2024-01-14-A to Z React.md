@@ -112,6 +112,7 @@ sidebar:
   2.  [React Query로 TodoList 리팩토링하기](https://mynamesieun.github.io/react/React-Query%EB%A1%9C-TodoList-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81%ED%95%98%EA%B8%B0/)
   3.  [React Query에서 useMutation 사용 시 데이터 처리 방식 선택 기준](https://mynamesieun.github.io/react/React-Query%EC%97%90%EC%84%9C-useMutation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D-%EC%84%A0%ED%83%9D-%EA%B8%B0%EC%A4%80/)
   4.  [React Query 효율적 구조 설계에 대한 고찰](https://mynamesieun.github.io/react/React-Query-%ED%9A%A8%EC%9C%A8%EC%A0%81-%EA%B5%AC%EC%A1%B0-%EC%84%A4%EA%B3%84%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0/)
+  5.  React Query로 서버 필터링 데이터 가져오기
 
 ---
 
@@ -128,7 +129,7 @@ sidebar:
 9. [React에서 Font Awesome 사용하기](https://mynamesieun.github.io/react/React%EC%97%90%EC%84%9C-Font-Awesome-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 10. [이미지 스타일링 및 프로필 변경 기능 구현하기](https://mynamesieun.github.io/react/%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81-%EB%B0%8F-%ED%94%84%EB%A1%9C%ED%95%84-%EB%B3%80%EA%B2%BD-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
 11. [Chart.js 사용하기](https://mynamesieun.github.io/react/Chart.js-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
-12. Swiper Library 사용하기
+12. [Swiper Library 사용하기](https://mynamesieun.github.io/react/Swiper-Library-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/)
 
 ---
 
