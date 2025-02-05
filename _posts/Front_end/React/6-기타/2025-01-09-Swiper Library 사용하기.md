@@ -1,6 +1,6 @@
 ---
-title: "[Next.js] Next.js에서 Swiper Library 사용하기"
-categories: [Next.js]
+title: "[React] Swiper Library 사용하기"
+categories: [React]
 toc_label: Contents
 toc: true
 toc_sticky: true
@@ -13,7 +13,8 @@ sidebar:
 
 ---
 
-[Swiper.js 공식문서 ↗️](https://swiperjs.com/)
+- [Swiper.js 공식문서](https://swiperjs.com/)
+- [Swiper.js 번역본](https://yeon22.github.io/Chartjs-kr/docs/latest/)
 
 ---
 
