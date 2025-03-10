@@ -1,5 +1,5 @@
 ---
-title: "[Spring] Model vs ModelAndView"
+title: "[Spring-MVC] Model vs ModelAndView"
 categories: [Spring]
 toc_label: Contents
 toc: true
@@ -25,16 +25,23 @@ sidebar:
 
 > 스프링 MVC(Spring Model-View-Controller)에서는 컨트롤러가 클라이언트의 요청을 처리하고, 결과를 뷰(View)로 전달하는 역할을 한다.
 
-초기 Servlet 기반의 MVC에서는 뷰 이름과 모델 데이터를 각각 따로 반환해야 했는데, 이는 다음과 같은 문제를 야기했다.
+초기 Servlet 기반의 MVC에서는 뷰 이름과 모델 데이터를 각각 따로 설정해야 했으며, `forward()` 메서드를 통해 뷰와 데이터를 함께 전달하였다. 이는 아래와 같은 문제를 야기하였다.
 
 1. 서블릿(Servlet)에서는 HttpServletRequest와 HttpServletResponse를 통해 데이터를 전달하고, 뷰를 포워딩해야 했다.
 2. 만약 JSP 뷰의 이름이 변경되면("`/exampleView.jsp`" → "`/newView.jsp`"), 모델 데이터를 설정하는 코드도 수정해야 할 수 있다.
 3. 모델 데이터가 특정 뷰에 종속적이 되어, 만약 뷰를 교체하거나 변경할 때 코드의 많은 부분을 수정해야 하는 문제가 생긴다.
 
+\*\* 포워딩? 서블릿에서 JSP(뷰)로 제어를 넘기는 과정
+
 ```java
-RequestDispatcher dispatcher = request.getRequestDispatcher("/exampleView.jsp");  // 뷰 이름 설정
-request.setAttribute("key", "value"); // 모델 데이터 설정
-dispatcher.forward(request, response);
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // 모델 데이터 설정
+    request.setAttribute("message", "안녕!");
+
+    // 뷰 포워딩
+    RequestDispatcher dispatcher = request.getRequestDispatcher("/exampleView.jsp");  // 뷰 이름 설정
+    dispatcher.forward(request, response);
+}
 ```
 
 <br>
@@ -53,9 +60,11 @@ dispatcher.forward(request, response);
 ```java
 @RequestMapping("/example")
 public ModelAndView example() {
+    // 뷰 이름과 모델 데이터를 한 번에 설정
     ModelAndView mav = new ModelAndView("exampleView");  // 뷰 이름 설정
     mav.addObject("message", "안녕!");  // 모델에 데이터 추가
 
+    // ModelAndView를 반환
     return mav;
 }
 ```
@@ -75,16 +84,23 @@ public ModelAndView example() {
 </html>
 ```
 
+<br>
+
+> 하지만, 이 역시 아래와 같은 문제가 있었다.
+
+1.  모델과 뷰가 같은 객체에 묶여 있음
+2.  뷰 변경 시 `ModelAndView` 객체 전체를 수정해야 할 가능성이 있음
+3.  완벽한 분리가 아니어서 결합도가 존재
+
 <br><br>
 
-# 3. Model
+# 3. 현대 스프링: Model + String 방식
 
 > 현대 스프링에서는 ModelAndView 대신 `Model`과 `String`을 사용하여 뷰와 모델을 명확히 분리할 수 있다.
 
-- Model은 데이터를 뷰(View)에 전달하기 위해 사용되는 컨테이너 역할을 한다.
-- Model은 스프링이 자동으로 주입해주며, 뷰 이름은 단순히 **문자열(String)**로 반환한다.
-- Model을 이용해 데이터를 추가하고, 뷰 이름은 문자열로 반환한다.
-- 뷰 이름과 모델 데이터를 명확하게 분리할 수 있다는 점이 큰 장점이다.
+- `Model`을 사용해 모델 데이터를 추가하고, **뷰 이름은 문자열(String)** 으로 반환한다.
+- `Model`은 스프링이 자동으로 주입해 준다.
+- 뷰 이름은 단순히 논리적 이름으로 반환하며, 물리적 경로는 `ViewResolver`가 처리한다.
 
 ```java
 @GetMapping("/hello")
@@ -94,7 +110,9 @@ public String hello(Model model) {
 }
 ```
 
-데이터를 Model에, 뷰 이름은 String으로 따로 반환하여 역할을 명확히 분리하여, 유지보수성이 높아진다.
+- 뷰 이름과 모델 데이터를 명확하게 분리할 수 있다는 점이 큰 장점이다.
+- 데이터를 Model에, 뷰 이름은 String으로 따로 반환하여 역할을 명확히 분리하여, 유지보수성이 높아진다.
+- 뷰 이름을 바꿀 때 `return "newView";` 만 수정하면 된다.
 
 <br>
 
@@ -104,7 +122,7 @@ Model + String 방식에서도 Model에 데이터를 추가하고, 뷰 이름을
 ```
 
 - `ModelAndView`는 하나의 객체에 모델과 뷰 정보를 동시에 담아 반환
-- 반면, Model + String 방식에서는 Model 객체와 **뷰 이름(String)**을 따로 반환
+- 반면, Model + String 방식에서는 Model 객체와 **뷰 이름(String)** 을 따로 반환
 
 ```java
 // ModelAndView 방식
