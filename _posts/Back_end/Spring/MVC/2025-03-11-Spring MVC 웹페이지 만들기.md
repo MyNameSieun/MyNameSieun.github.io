@@ -46,6 +46,8 @@ sidebar:
 
 > 그 후 `build.gradle` 열어주기
 
+`build.gradle`은 Gradle 빌드 도구에서 사용하는 설정 파일로, 주로 프로젝트의 의존성 관리와 빌드 설정을 정의하는 데 사용된다.
+
 ![](/assets/images/2025/2025-03-11-09-11-54.png)
 
 <br>
@@ -65,6 +67,8 @@ sidebar:
 <br>
 
 ## 1.2 Welcome 페이지 추가
+
+> 스프링부트는 `src/resource/static/index.html` 에 있는 페이지를 첫 화면으로 렌더링한다.
 
 `/resources/static/index.html`
 
@@ -553,6 +557,8 @@ public class ItemRepository {
 }
 ```
 
+<br>
+
 ## 4.3 ItemRepositoryTest - 상품 저장소 테스트
 
 > test 폴더 아래에 `hello.itemservice.domain.item` 에 `ItemRepositoryTest` 를 생성하여 테스트를 진행하자.
@@ -620,6 +626,14 @@ class ItemRepositoryTest {
     }
 }
 ```
+
+> @AfterEach:
+
+- 한번에 여러 테스트를 실행하면 메모리 DB에 직전 테스트의 결과가 남을 수 있다.
+- 이렇게 되면 다음 이전 테스트 때문에 다음 테스트가 실패할 가능성이 있다. `@AfterEach`를 사용하면 각 테스트가 종료될 때 마다 이 기능을 실행한다.
+- 여기서는 메모리 DB에 저장된 데이터를 삭제한다.
+
+테스트는 각각 독립적으로 실행되어야 한다. 테스트 순서에 의존관계가 있는 것은 좋은 테스트가 아니다.
 
 <br><br>
 
@@ -712,14 +726,16 @@ public class BasicItemController {
 
 > Spring에서의 DI 방법
 
-다양한 방법이 있지만, 생성자 주입이 가장 권장됨
+다양한 방법이 있지만, 생성자 주입이 가장 권장된다.
 
 ```java
-@RequiredArgsConstructor
-public class BasicItemController {
-    private final ItemRepository itemRepository;
+public BasicItemController(ItemRepository itemRepository) {
+  this.itemRepository = itemRepository;
 }
 ```
+
+- 위 코드처럼 생성자가 딱 1개만 있으면 스프링이 해당 생성자에 `@Autowired` 로 의존관계를 주입해준다.
+- `@RequiredArgsConstructor`를 사용하면 Lombok이 자동으로 위 생성자를 만들어준다.
 
 <br>
 
@@ -728,14 +744,28 @@ public class BasicItemController {
 > `final` 이 붙은 멤버변수만 사용해서 생성자를 자동으로 만들어준다.
 
 ```java
-public BasicItemController(ItemRepository itemRepository) {
-this.itemRepository = itemRepository;
+@RequiredArgsConstructor
+public class BasicItemController {
+    private final ItemRepository itemRepository;
 }
 ```
 
-- 이렇게 생성자가 딱 1개만 있으면 스프링이 해당 생성자에 `@Autowired` 로 의존관계를 주입해준다.
-- 따라서 final 키워드를 빼면 안된다!, 그러면 `ItemRepository` 의존관계 주입이 안된다.
+- 따라서 final 키워드를 빼면 안된다! 그러면 `ItemRepository` 의존관계 주입이 안된다.
 - 스프링 핵심원리 - 기본편 강의 참고
+
+<br>
+
+> 만약 `final`이 없는 필드가 있다면?
+
+```java
+@RequiredArgsConstructor
+public class BasicItemController {
+    private final ItemRepository itemRepository;
+    private String name; // final이 없음
+}
+```
+
+이 경우 Lombok은 `name` 필드는 무시하고 `final`이 있는 필드만 포함한 생성자를 자동 생성
 
 <br>
 
@@ -747,6 +777,38 @@ this.itemRepository = itemRepository;
         this.itemRepository = itemRepository;
     }
 ```
+
+<br>
+
+### 5.1.3 @Autowired vs @RequiredArgsConstructor 차이점
+
+| 어노테이션               | 역할                                                     | 사용 방식                                              | 특징                                |
+| ------------------------ | -------------------------------------------------------- | ------------------------------------------------------ | ----------------------------------- |
+| @Autowired               | 생성자 기반 의존성 주입                                  | 생성자에 직접 붙이거나 생략 가능 (Spring 4.3 이상)     | 생성자가 하나만 있을 경우 생략 가능 |
+| @RequiredArgsConstructor | `final`이 붙은 필드들을 매개변수로 받는 생성자 자동 생성 | 클래스 위에 붙이면 롬복(Lombok)이 자동으로 생성자 생성 | 불변 객체 보장, 코드 간결           |
+
+<br>
+
+```
+@Autowired를 사용하면 생성자가 하나만 있을 경우 생략이 가능하다.
+생성자가 하나만 있으면 스프링이 자동으로 @Autowired를 적용해 주기 때문이다.
+
+그렇다면 다시 처음으로 돌아와서, 상품 목록 컨트롤러에
+@Autowired @RequiredArgsConstructor 둘 다 필요 없는 게 아닌가?
+```
+
+- 필요 없다! 상품 목록 컨트롤러에는 생성자가 하나이므로 스프링이 자동으로 `@Autowired`를 적용해준다.
+- 따라서 `@Autowired` `@RequiredArgsConstructor`가 없어도 동작한다.
+
+<br>
+
+```
+그러면 위 코드에서 @RequiredArgsConstructor를 사용한 이유가 무엇일까?
+```
+
+- 코드를 간결하게 만들기 위해서다.
+- 생성자가 하나만 있을 경우 `@Autowired`와 `@RequiredArgsConstructor`를 생략할 수 있지만, 생성자 자체는 반드시 있어야 한다. <- (이 부분이 헷갈렸다.)
+- Lombok을 쓰면 `@RequiredArgsConstructor`로 생성자를 자동 생성이 가능하다.
 
 <br><br>
 
