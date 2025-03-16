@@ -21,7 +21,9 @@ Thymeleaf(타임리프) 타임리프는 Spring Boot에서 HTML을 동적으로 �
 
 <br>
 
-# 1. 타임리프의 특징
+# 1. 타임리프 개요
+
+## 1.1 타임리프 특징
 
 > ① 순수 HTML을 유지하는 네츄럴 템플릿(Natural Templates)
 
@@ -58,6 +60,92 @@ JSP와 달리 서버가 없어도 HTML 파일이 깨지지 않는다.
 - JSP를 생각해보면, JSP 파일은 웹 브라우저에서 그냥 열면 JSP 소스코드와 HTML이 뒤죽박죽 되어서 정상적인 확인이 불가능하다.
 - 오직 서버를 통해서 JSP를 열어야 한다.
 - 이렇게 순수 HTML을 그대로 유지하면서 뷰 템플릿도 사용할 수 있는 타임리프의 특징을 네츄럴 템플릿(natural templates)이라 한다.
+
+<br>
+
+## 1.2 타임리프 템플릿 엔진 동작 원리
+
+[http://localhost:8080/hello](http://localhost:8080/hello) 을 요청했다고 가정
+
+![](/assets/images/2025/2025-03-14-19-46-02.png)
+
+> ① 브라우저에서 요청
+
+웹 브라우저가 [http://localhost:8080/hello](http://localhost:8080/hello)로 요청을 전송한다.
+
+<br>
+
+> ② 스프링 부트의 내장 톰캣(Web 서버)이 요청을 처리
+
+내장된 톰캣 서버가 요청을 받아 Spring MVC로 전달한다.
+
+<br>
+
+> ③ HelloController의 hello 메서드 실행
+
+`@GetMapping("hello")`에 매핑된 hello 메서드가 호출된다.
+
+메서드는 Model 객체에 데이터를 추가한다.
+
+```java
+@Controller
+public class HelloController {
+
+    // hello 메서드 호출
+    @GetMapping("hello")
+    public String hello(Model model){
+        model.addAttribute("data","hello!!!");
+        return "hello";
+    }
+}
+```
+
+<br>
+
+> ④ **뷰 리졸버(ViewResolver)** 가 HTML 템플릿 찾기
+
+`hello` 메서드는 `return "hello";`를 통해 뷰 이름을 반환한다.
+
+스프링의 뷰 리졸버(ViewResolver)가 템플릿 파일 경로를 구성한다.
+
+`resources/template/` + {ViewName} + `.html`
+
+```bash
+resources/templates/hello.html
+```
+
+위 경로의 HTML 파일이 렌더링 대상이다.
+
+<br>
+
+> ⑤ Thymeleaf가 템플릿 처리
+
+`hello.html` 파일을 로드하고, HTML 템플릿 내부의 Thymeleaf 문법(th:text)에 따라 서버에서 데이터를 동적으로 주입한다.
+
+```html
+<p th:text="|안녕하세요 ${data}|">안녕하세요. 손님</p>
+```
+
+`${data}`는 컨트롤러에서 전달한 `model.addAttribute`의 값을 참조한다.
+
+최종 결과는 다음과 같이 렌더링된다.
+
+```html
+<p>안녕하세요. hello!!!</p>
+```
+
+<br>
+
+> ⑥ 렌더링된 HTML 반환
+
+Thymeleaf가 데이터가 포함된 최종 HTML을 생성하여 클라이언트(브라우저)에 전달한다.
+
+<br>
+
+> 참고
+
+- spring-boot-devtools 라이브러리를 추가하면, html 파일을 컴파일만 해주면 서버 재시작없이 View 파일 변경이 가능하다.
+- IntelliJ 컴파일 방법: 메뉴 build -> Recompile
 
 <br><br>
 
