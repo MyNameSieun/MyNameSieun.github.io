@@ -17,9 +17,11 @@ sidebar:
 
 - 웬만한 코딩테스트에서는 Deque 하나만으로 Queue 역할을 완벽하게 대체할 수 있다.
 - 덱은 큐와 달리,
-  - 1. 양쪽 끝에서 삽입과 삭제가 모두 가능한 자료 구조
-  - 2. 두 개의 포인터를 사용하여, 앞(front)과 뒤(back) 양쪽 모두에서 원소를 추가하거나 제거 가능
-  - 3. 큐(FIFO)와 스택(LIFO)의 특징을 모두 가지고 있는 하이브리드 형태
+  - ① 양쪽 끝에서 삽입과 삭제가 모두 가능한 자료 구조
+  - ② 두 개의 포인터를 사용하여, 앞(front)과 뒤(back) 양쪽 모두에서 원소를 추가하거나 제거 가능
+  - ③ 큐(FIFO)와 스택(LIFO)의 특징을 모두 가지고 있는 하이브리드 형태
+
+<br>
 
 | 항목        | Stack                       | Queue                                 | Deque                                                                               |
 | ----------- | --------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -41,9 +43,11 @@ sidebar:
 | 앞 조회     | `peek()`          | `peekFirst()`  |
 | 뒤 조회     | 불가능            | `peekLast()`   |
 
-- `Deque`는 `Queue` 인터페이스를 **상속**받고 있으므로, `Deque`로 선언해도 `Queue` 메서드들 (`offer`, `poll`, `peek`)을 그대로 쓸 수 있음
-- 사실 `offer() == offerLast()` 라고 봐도 됨
-- 메서드 명이 다른이유는 `Deque`에서는 **명시적으로 방향을 드러낸 이름**으로 제공되기 때문
+`Deque`는 `Queue` 인터페이스를 **상속**받고 있으므로, `Deque`로 선언해도 `Queue` 메서드들 (`offer`, `poll`, `peek`)을 그대로 쓸 수 있음
+
+사실 `offer() == offerLast()` 라고 봐도 됨
+
+메서드 명이 다른이유는 `Deque`에서는 **명시적으로 방향을 드러낸 이름**으로 제공되기 때문
 
 ![](/assets/images/2025/2025-06-11-16-20-52.png)
 
@@ -55,7 +59,7 @@ sidebar:
 Stack<Integer> stack = new Stack<>();
 
 stack.push(1);       // 값 추가
-stack.pop();         // 마지막 값 제거 및 반환
+stack.pop();         // 마지막 값 제거 및 반환 (스택이 비어있으면 예외 발생)
 stack.peek();        // 마지막 값 확인
 stack.isEmpty();     // 비었는지 확인
 ```
@@ -67,7 +71,7 @@ stack.isEmpty();     // 비었는지 확인
 ```java
 Queue<Integer> q = new LinkedList<>();
 
-q.offer(1);          // 값 추가
+q.offer(1);          // 뒤에 값 추가
 q.poll();            // 앞의 값 제거 및 반환
 q.peek();            // 앞의 값 확인
 q.isEmpty();         // 비었는지 확인
@@ -80,13 +84,13 @@ q.isEmpty();         // 비었는지 확인
 ```java
 Deque<Integer> dq = new ArrayDeque<>();
 
-dq.addFirst(1);     // 앞에 추가
-dq.addLast(2);      // 뒤에 추가
-dq.pollFirst();     // 앞에서 제거 및 반환
-dq.pollLast();      // 뒤에서 제거 및 반환
-dq.peekFirst();     // 앞 값 확인
-dq.peekLast();      // 뒤 값 확인
-dq.isEmpty();       // 비었는지 확인
+dq.offerFirst(1);     // 앞에 추가
+dq.offerLast(2);      // 뒤에 추가
+dq.pollFirst();       // 앞에서 제거 및 반환
+dq.pollLast();        // 뒤에서 제거 및 반환
+dq.peekFirst();       // 앞 값 확인
+dq.peekLast();        // 뒤 값 확인
+dq.isEmpty();         // 비었는지 확인
 ```
 
 <br><br>
