@@ -66,8 +66,8 @@ class Student {
 
 ```java
 List<Student> list = new ArrayList<>();
-frame.add(new Student(2, 1, 0));
-frame.add(new Student(5, 3, 1));
+list.add(new Student(2, 1, 0));
+list.add(new Student(5, 3, 1));
 ```
 
 <br>
