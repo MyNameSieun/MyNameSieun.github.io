@@ -39,10 +39,6 @@ sidebar:
 
 <br>
 
-## Flowchart
-
-<br>
-
 ## 알고리즘 선택
 
 <br>
