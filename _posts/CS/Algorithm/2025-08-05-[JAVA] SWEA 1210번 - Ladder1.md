@@ -1,5 +1,5 @@
 ---
-title: "[Algorithm/Java] SWEA 1210번 - Ladder1 (작성중)"
+title: "[Algorithm/Java] SWEA 1210번 - Ladder1"
 categories: [Algorithm]
 toc_label: Contents
 toc: true
@@ -21,15 +21,13 @@ sidebar:
 
 # 🔍 문제 풀이
 
-## 문제 도식화
-
-1. 좌우에 `0` padding을 추가하면 범위 체크를 생략할 수 있어 탐색 코드가 간결해진다.
-2. 도착 지점(2)에서 **역방향으로 출발해 위로 올라가면** 경로 추적이 쉬워진다.
-3. **사다리는 좌/우로 이어진 경로가 있을 수 있으므로,** 이동할 수 있는 방향이 있을 때는 그 방향으로 끝까지 이동해야 한다.
-
-<br>
-
 ## 풀이 방법
+
+```
+💡 TIP
+1. 좌우에 `0` padding을 추가하면 범위 체크를 생략할 수 있어 탐색 코드가 간결해진다.
+2. 도착 지점(2)에서 역방향으로 출발해 위로 올라가면 경로 추적이 쉬워진다.
+```
 
 1. 도착 지점의 위치 (`si, sj`)를 찾는다.
 2. `while(ci > 0)` 반복:
@@ -128,7 +126,9 @@ public class Solution {
 
 <br>
 
-## [방법 2] while문으로 좌/우 끝까지 이동
+## [방법 2] while문으로 좌/우 끝까지 이동 📌
+
+이 방법이 좀 더 편한거 같다.
 
 ```java
 import java.io.*;
