@@ -23,7 +23,10 @@ sidebar:
 
 ## 문제 도식화
 
-![assets/images/2025/1211.png](../../../assets/images/2025/1211.png)
+- `while (x < 100)` -> 100행(없는 행) 까지 내려가려 함 -> 틀림
+- `while (x < 99)` -> 99행에서 정확히 멈춤 -> 정답
+
+![assets/images/2024/SWEA 1211.jpg](<../../../assets/images/2024/SWEA 1211.jpg>)
 
 <br><br>
 
@@ -35,6 +38,7 @@ import java.util.*;
 
 public class Solution {
     static int[][] arr;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -44,58 +48,53 @@ public class Solution {
 
             // 배열 입력 및 초기화
             arr = new int[100][100];
-            for (int i = 0; i < 100; i++) {
+            for(int i=0; i<100; i++){
                 StringTokenizer st = new StringTokenizer(br.readLine());
-                for (int j = 0; j < 100; j++) {
+                for(int j=0; j<100; j++){
                     arr[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
 
-            // 최단 거리 탐색
+            // 최단거리 탐색
             int min = Integer.MAX_VALUE;
-            int ansCol = 0;
-            for(int j=0; j<100; j++){
-                if(arr[0][j] == 1){
-                    int steps = move(0, j);
-                    if(steps < min){
-                        min = steps;
-                        ansCol = j;
-                    }
+            int ans = 0;
+            int sx = 0, sy = 0;
+            for (int j = 0; j < 100; j++) {
+                if (arr[0][j] == 1) {
+                    sy = j;
+                    int val = solve(sx, sy);
 
+                    if(val < min){
+                        min = val;
+                        ans = j;
+                    }
                 }
             }
-            System.out.println("#" + t + " " + ansCol);
 
+            System.out.print("#" + t + " ");
+            System.out.println(ans);
         }
     }
 
-    static int move(int x, int y){
+    static int solve(int x, int y){
         int cnt = 0;
-        while(x<99){ // 99행에서 루프 종료
-            if(y>0 && arr[x][y-1] == 1){
-                // 왼쪽
-                while(y>0 && arr[x][y-1] == 1){
-                    y--;
-                    cnt++;
+        while(x < 99){ // 99 행에서 루프 종료
+            // 오른쪽 쭉 이동
+            if(y + 1 < 100 && arr[x][y+1] == 1){
+                while(y + 1 < 100 && arr[x][y+1] == 1){
+                    y++; cnt ++;
                 }
-                x++; cnt++;
             }
-
-            // 오른쪽
-            else if(y<99 && arr[x][y+1] == 1){
-                while(y<99 && arr[x][y+1] == 1){
-                    y++;
-                    cnt++;
+            // 왼쪽 쭉 이동
+            else if(y - 1 >= 0 && arr[x][y-1] == 1){
+                while(y - 1 >= 0 && arr[x][y-1] == 1){
+                    y--; cnt ++;
                 }
-                x ++; cnt++;
             }
-
-            // 위
-            else{
-                x++;
-                cnt++;
-            }
+            // 아래로 쭉 이동
+            x++; cnt ++;
         }
+
         return cnt;
     }
 }

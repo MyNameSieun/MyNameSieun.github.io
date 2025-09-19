@@ -23,6 +23,8 @@ sidebar:
 
 ## 문제 도식화
 
+한 열에 교착상태가 2개 이상일 수도 있기 때문에 flag를 사용하는 것
+
 ![assets/images/2025/1220.png](../../../assets/images/2025/1220.png)
 
 <br><br>
